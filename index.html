@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  File: README
+  
+    &mdash; Documentation by YARD 0.9.38
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "README";
+  relpath = '';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="_index.html">Index</a> &raquo; 
+    <span class="title">File: README</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><div id='filecontents'>
+<h1 id="label-Docscribe">Docscribe</h1>
+
+<p><a href="https://rubygems.org/gems/docscribe"><img src="https://img.shields.io/gem/v/docscribe.svg" alt="Gem Version"></a> <a href="https://rubygems.org/gems/docscribe"><img src="https://img.shields.io/gem/dt/docscribe.svg" alt="RubyGems Downloads"></a> <a href="https://github.com/unurgunite/docscribe/actions/workflows/ci.yml"><img src="https://github.com/unurgunite/docscribe/actions/workflows/ci.yml/badge.svg?branch=master" alt="CI"></a> <a href="https://github.com/unurgunite/docscribe/blob/master/LICENSE.txt"><img src="https://img.shields.io/github/license/unurgunite/docscribe.svg" alt="License"></a> <a href="#installation"><img src="https://img.shields.io/badge/ruby-%3E%3D%202.7-blue.svg" alt="Ruby"></a></p>
+
+<p>Generate inline, YARD-style documentation comments for Ruby methods by analyzing your code’s AST.</p>
+
+<p>Docscribe inserts doc headers before method definitions, infers parameter and return types (including rescue-aware returns), and respects Ruby visibility semantics — without using YARD to parse.</p>
+<ul><li>
+<p>No AST reprinting. Your original code, formatting, and constructs (like <code>class &lt;&lt; self</code>, <code>heredocs</code>, <code>%i[]</code>) are preserved.</p>
+</li><li>
+<p>Inline-first. Comments are inserted at the start of each <code>def</code>/<code>defs</code> line.</p>
+</li><li>
+<p>Heuristic type inference for params and return values, including conditional returns in rescue branches.</p>
+</li><li>
+<p>Optional rewrite mode for regenerating existing method docs.</p>
+</li><li>
+<p>Ruby 3.4+ syntax supported using Prism translation (see “Parser backend” below).</p>
+</li></ul>
+
+<p>Why not YARD? We started with YARD’s parser, but switched to an AST-based in-place rewriter for maximum preservation of source structure and exact control over Ruby semantics.</p>
+<ul><li>
+<p><a href="#docscribe">Docscribe</a></p>
+<ul><li>
+<p><a href="#installation">Installation</a></p>
+</li><li>
+<p><a href="#quick-start">Quick start</a></p>
+</li><li>
+<p><a href="#cli">CLI</a></p>
+</li><li>
+<p><a href="#inline-behavior">Inline behavior</a></p>
+<ul><li>
+<p><a href="#rewrite-mode">Rewrite mode</a></p>
+</li></ul>
+</li><li>
+<p><a href="#type-inference">Type inference</a></p>
+</li><li>
+<p><a href="#rescue-aware-returns-and-raise">Rescue-aware returns and @raise</a></p>
+</li><li>
+<p><a href="#visibility-semantics">Visibility semantics</a></p>
+</li><li>
+<p><a href="#api-library-usage">API (library) usage</a></p>
+</li><li>
+<p><a href="#configuration">Configuration</a></p>
+<ul><li>
+<p><a href="#cli-1">CLI</a></p>
+</li></ul>
+</li><li>
+<p><a href="#ci-integration">CI integration</a></p>
+</li><li>
+<p><a href="#comparison-to-yards-parser">Comparison to YARD’s parser</a></p>
+</li><li>
+<p><a href="#limitations">Limitations</a></p>
+</li><li>
+<p><a href="#roadmap">Roadmap</a></p>
+</li><li>
+<p><a href="#contributing">Contributing</a></p>
+</li><li>
+<p><a href="#license">License</a></p>
+</li></ul>
+</li></ul>
+
+<h2 id="label-Installation">Installation</h2>
+
+<p>Add to your Gemfile:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_gem'>gem</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>docscribe</span><span class='tstring_end'>&#39;</span></span>
+</code></pre>
+
+<p>Then:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_bundle'>bundle</span> <span class='id identifier rubyid_install'>install</span>
+</code></pre>
+
+<p>Or install globally:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_gem'>gem</span> <span class='id identifier rubyid_install'>install</span> <span class='id identifier rubyid_docscribe'>docscribe</span>
+</code></pre>
+
+<p>Requires Ruby 2.7+.</p>
+
+<h2 id="label-Quick+start">Quick start</h2>
+
+<p>Given code:</p>
+
+<pre class="code ruby"><code class="ruby">
+<span class='kw'>class</span> <span class='const'>Demo</span>
+  <span class='kw'>def</span> <span class='id identifier rubyid_foo'>foo</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>options:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+    <span class='int'>42</span>
+  <span class='kw'>end</span>
+
+  <span class='kw'>def</span> <span class='id identifier rubyid_bar'>bar</span><span class='lparen'>(</span><span class='label'>verbose:</span> <span class='kw'>true</span><span class='rparen'>)</span>
+    <span class='int'>123</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_private'>private</span>
+
+  <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_bump'>bump</span>
+    <span class='symbol'>:ok</span>
+  <span class='kw'>end</span>
+
+  <span class='kw'>class</span> <span class='op'>&lt;&lt;</span> <span class='kw'>self</span>
+    <span class='id identifier rubyid_private'>private</span>
+
+    <span class='kw'>def</span> <span class='id identifier rubyid_internal'>internal</span><span class='semicolon'>;</span> <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<p>Run:</p>
+
+<pre class="code ruby"><code class="ruby">echo &quot;...code above...&quot; | docscribe --stdin
+</code></pre>
+
+<p>Output:</p>
+
+<pre class="code ruby"><code class="ruby">
+<span class='kw'>class</span> <span class='const'>Demo</span>
+  <span class='comment'># +Demo#foo+ -&gt; Integer
+</span>  <span class='comment'>#
+</span>  <span class='comment'># Method documentation.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param [Object] a Param documentation.
+</span>  <span class='comment'># @param [Hash] options Param documentation.
+</span>  <span class='comment'># @return [Integer]
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_foo'>foo</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>options:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+    <span class='int'>42</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># +Demo#bar+ -&gt; Integer
+</span>  <span class='comment'>#
+</span>  <span class='comment'># Method documentation.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param [Boolean] verbose Param documentation.
+</span>  <span class='comment'># @return [Integer]
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_bar'>bar</span><span class='lparen'>(</span><span class='label'>verbose:</span> <span class='kw'>true</span><span class='rparen'>)</span>
+    <span class='int'>123</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_private'>private</span>
+
+  <span class='comment'># +Demo.bump+ -&gt; Symbol
+</span>  <span class='comment'>#
+</span>  <span class='comment'># Method documentation.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @return [Symbol]
+</span>  <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_bump'>bump</span>
+    <span class='symbol'>:ok</span>
+  <span class='kw'>end</span>
+
+  <span class='kw'>class</span> <span class='op'>&lt;&lt;</span> <span class='kw'>self</span>
+    <span class='id identifier rubyid_private'>private</span>
+
+    <span class='comment'># +Demo.internal+ -&gt; Object
+</span>    <span class='comment'>#
+</span>    <span class='comment'># Method documentation.
+</span>    <span class='comment'>#
+</span>    <span class='comment'># @private
+</span>    <span class='comment'># @return [Object]
+</span>    <span class='kw'>def</span> <span class='id identifier rubyid_internal'>internal</span><span class='semicolon'>;</span> <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<p>Notes:</p>
+<ul><li>
+<p>The tool inserts doc headers at the start of def/defs lines and preserves everything else.</p>
+</li><li>
+<p>Class methods show with a dot (<code>Demo.bump</code>, <code>Demo.internal</code>).</p>
+</li><li>
+<p>Methods inside <code>class &lt;&lt; self</code> under private are marked <code>@private.</code></p>
+</li></ul>
+
+<h2 id="label-CLI">CLI</h2>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_docscribe'>docscribe</span> <span class='lbracket'>[</span><span class='id identifier rubyid_options'>options</span><span class='rbracket'>]</span> <span class='lbracket'>[</span><span class='id identifier rubyid_files'>files</span><span class='op'>...</span><span class='rbracket'>]</span>
+</code></pre>
+
+<p>Options:</p>
+<ul><li>
+<p><code>--stdin</code> Read source from STDIN and print with docs inserted.</p>
+</li><li>
+<p><code>--write</code> Rewrite files in place (inline mode).</p>
+</li><li>
+<p><code>--check</code> Dry-run: exit 1 if any file would change (useful in CI).</p>
+</li><li>
+<p><code>--rewrite</code> Replace any existing comment block above methods (see “Rewrite mode” below).</p>
+</li><li>
+<p><code>--version</code> Print version and exit.</p>
+</li><li>
+<p><code>-h</code>, <code>--help</code> Show help.</p>
+</li></ul>
+
+<p>Examples:</p>
+<ul><li>
+<p>Print to stdout for one file: <code>shell  docscribe path/to/file.rb </code></p>
+</li><li>
+<p>Rewrite files in place (ensure a clean working tree): <code>shell  docscribe --write lib/<strong>*/</strong>.rb </code></p>
+</li><li>
+<p>CI check (fail if docs are missing/stale): <code>shell  docscribe --check lib/<strong>*/</strong>.rb </code></p>
+</li><li>
+<p>Rewrite existing doc blocks above methods (regenerate headers/tags): <code>shell  docscribe --rewrite --write lib/<strong>*/</strong>.rb </code></p>
+</li><li>
+<p>Check a directory (Docscribe expands directories to <strong><code>*/</strong>.rb</code>): <code>bash  docscribe --check lib </code></p>
+</li></ul>
+
+<h2 id="label-Inline+behavior">Inline behavior</h2>
+<ul><li>
+<p>Inserts comment blocks immediately above def/defs nodes.</p>
+</li><li>
+<p>Skips methods that already have a comment directly above them (does not merge into existing comments) unless you pass <code>--rewrite</code>.</p>
+</li><li>
+<p>Maintains original formatting and constructs; only adds comments.</p>
+</li></ul>
+
+<h3 id="label-Rewrite+mode">Rewrite mode</h3>
+<ul><li>
+<p>With <code>--rewrite</code>, Docscribe will remove the contiguous comment block immediately above a method (plus intervening blank lines) and replace it with a fresh generated block.</p>
+</li><li>
+<p>This is useful to refresh docs across a codebase after improving inference or rules.</p>
+</li><li>
+<p>Use with caution (prefer a clean working tree and review diffs).</p>
+</li></ul>
+
+<h3 id="label-Output+markers+in+CI">Output markers in CI</h3>
+
+<p>When using <code>--check</code>, Docscribe prints one character per file:</p>
+<ul><li>
+<p><code>.</code> = file is up-to-date</p>
+</li><li>
+<p><code>F</code> = file would change (missing/stale docs)</p>
+</li></ul>
+
+<p>When using <code>--write</code>:</p>
+<ul><li>
+<p><code>.</code> = file already OK</p>
+</li><li>
+<p><code>C</code> = file was corrected and rewritten</p>
+</li></ul>
+
+<p>Docscribe prints a summary at the end and exits non-zero in <code>--check</code> mode if any file would change.</p>
+
+<h2 id="label-Parser+backend+-28Parser+gem+vs+Prism-29">Parser backend (Parser gem vs Prism)</h2>
+
+<p>Docscribe internally works with <code>parser</code>-gem-compatible AST nodes and <code>Parser::Source::*</code> objects (so it can use <code>Parser::Source::TreeRewriter</code> without changing your formatting).</p>
+<ul><li>
+<p>On Ruby <strong>&lt;= 3.3</strong>, Docscribe parses using the <code>parser</code> gem.</p>
+</li><li>
+<p>On Ruby <strong>&gt;= 3.4</strong>, Docscribe parses using <strong>Prism</strong> and translates the tree into the <code>parser</code> gem’s AST (so tooling stays compatible).</p>
+</li></ul>
+
+<p>You can force a backend with an environment variable:</p>
+
+<pre class="code ruby"><code class="ruby">DOCSCRIBE_PARSER_BACKEND=parser bundle exec docscribe --check lib
+DOCSCRIBE_PARSER_BACKEND=prism  bundle exec docscribe --check lib
+</code></pre>
+
+<h2 id="label-Type+inference">Type inference</h2>
+
+<p>Heuristics (best-effort):</p>
+
+<p>Parameters:</p>
+<ul><li>
+<p><code>*args</code> -&gt; <code>Array</code></p>
+</li><li>
+<p><code>**kwargs</code> -&gt; <code>Hash</code></p>
+</li><li>
+<p><code>&amp;block</code> -&gt; <code>Proc</code></p>
+</li><li>
+<p>keyword args:</p>
+<ul><li>
+<p>verbose: <code>true</code> -&gt; <code>Boolean</code></p>
+</li><li>
+<p>options: <code>{}</code> -&gt; <code>Hash</code></p>
+</li><li>
+<p>kw: (no default) -&gt; <code>Object</code></p>
+</li></ul>
+</li><li>
+<p>positional defaults:</p>
+<ul><li>
+<p><code>42</code> -&gt; <code>Integer</code>, <code>1.0</code> -&gt; <code>Float</code>, <code>&#39;x&#39;</code> -&gt; <code>String</code>, <code>:ok</code> -&gt; <code>Symbol</code></p>
+</li><li>
+<p><code>[]</code> -&gt; <code>Array</code>, <code>{}</code> -&gt; <code>Hash</code>, <code>/x/</code> -&gt; <code>Regexp</code>, <code>true</code>/<code>false</code> -&gt; <code>Boolean</code>, <code>nil</code> -&gt; <code>nil</code></p>
+</li></ul>
+</li></ul>
+
+<p>Return values:</p>
+<ul><li>
+<p>For simple bodies, Docscribe looks at the last expression or explicit return:</p>
+<ul><li>
+<p><code>42</code> -&gt; <code>Integer</code></p>
+</li><li>
+<p><code>:ok</code> -&gt; <code>Symbol</code></p>
+</li><li>
+<p>Unions with nil become optional types (e.g., <code>String</code> or <code>nil</code> -&gt; <code>String?</code>).</p>
+</li></ul>
+</li><li>
+<p>For control flow (<code>if</code>/<code>case</code>), it unifies branches conservatively.</p>
+</li></ul>
+
+<h2 id="label-Rescue-aware+returns+and+-40raise">Rescue-aware returns and @raise</h2>
+
+<p>Docscribe detects exceptions and rescue branches:</p>
+<ul><li>
+<p>Rescue exceptions become <code>@raise</code> tags:</p>
+<ul><li>
+<p><code>rescue Foo, Bar</code> -&gt; <code>@raise [Foo]</code> and <code>@raise [Bar]</code></p>
+</li><li>
+<p>bare rescue -&gt; <code>@raise [StandardError]</code></p>
+</li><li>
+<p>(optional) explicit raise/fail also adds a tag (<code>raise Foo</code> -&gt; <code>@raise [Foo]</code>, <code>raise</code> -&gt; <code>@raise [StandardError]</code>).</p>
+</li><li>
+<p><code>rescue Foo, Bar</code> -&gt; <code>@raise [Foo]</code> and <code>@raise [Bar]</code></p>
+</li><li>
+<p>bare rescue -&gt; <code>@raise [StandardError]</code></p>
+</li><li>
+<p>(optional) explicit raise/fail also adds a tag (<code>raise Foo</code> -&gt; <code>@raise [Foo]</code>, <code>raise</code> -&gt; <code>@raise [StandardError]</code>).</p>
+</li></ul>
+</li><li>
+<p>Conditional return types for rescue branches:</p>
+<ul><li>
+<p>Docscribe adds <code>@return [Type]</code> if <code>ExceptionA</code>, <code>ExceptionB</code> for each rescue clause.</p>
+</li></ul>
+</li></ul>
+
+<p>Example:</p>
+
+<pre class="code ruby"><code class="ruby">
+<span class='kw'>class</span> <span class='const'>X</span>
+  <span class='kw'>def</span> <span class='id identifier rubyid_a'>a</span>
+    <span class='int'>42</span>
+  <span class='kw'>rescue</span> <span class='const'>Foo</span><span class='comma'>,</span> <span class='const'>Bar</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>fallback</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+
+  <span class='kw'>def</span> <span class='id identifier rubyid_b'>b</span>
+    <span class='id identifier rubyid_risky'>risky</span>
+  <span class='kw'>rescue</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>n</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<p>Becomes:</p>
+
+<pre class="code ruby"><code class="ruby">
+<span class='kw'>class</span> <span class='const'>X</span>
+  <span class='comment'># +X#a+ -&gt; Integer
+</span>  <span class='comment'>#
+</span>  <span class='comment'># Method documentation.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @raise [Foo]
+</span>  <span class='comment'># @raise [Bar]
+</span>  <span class='comment'># @return [Integer]
+</span>  <span class='comment'># @return [String] if Foo, Bar
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_a'>a</span>
+    <span class='int'>42</span>
+  <span class='kw'>rescue</span> <span class='const'>Foo</span><span class='comma'>,</span> <span class='const'>Bar</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>fallback</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># +X#b+ -&gt; Object
+</span>  <span class='comment'>#
+</span>  <span class='comment'># Method documentation.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @raise [StandardError]
+</span>  <span class='comment'># @return [Object]
+</span>  <span class='comment'># @return [String] if StandardError
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_b'>b</span>
+    <span class='id identifier rubyid_risky'>risky</span>
+  <span class='kw'>rescue</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>n</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<h2 id="label-Visibility+semantics">Visibility semantics</h2>
+
+<p>We match Ruby’s behavior:</p>
+<ul><li>
+<p>A bare <code>private</code>/<code>protected</code>/<code>public</code> in a class/module body affects instance methods only.</p>
+</li><li>
+<p>Inside <code>class &lt;&lt; self</code>, a bare visibility keyword affects class methods only.</p>
+</li><li>
+<p><code>def self.x</code> in a class body remains <code>public</code> unless <code>private_class_method</code> is used, or it’s inside <code>class &lt;&lt; self</code> under <code>private</code>.</p>
+</li></ul>
+
+<p>Inline tags:</p>
+<ul><li>
+<p><code>@private</code> is added for methods that are private in context.</p>
+</li><li>
+<p><code>@protected</code> is added similarly for protected methods.</p>
+</li></ul>
+
+<h2 id="label-API+-28library-29+usage">API (library) usage</h2>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>docscribe/inline_rewriter</span><span class='tstring_end'>&#39;</span></span>
+
+<span class='id identifier rubyid_code'>code</span> <span class='op'>=</span> <span class='heredoc_beg'>&lt;&lt;~RUBY</span>
+<span class='tstring_content'>  class Demo
+</span><span class='tstring_content'>    def foo(a, options: {}); 42; end
+</span><span class='tstring_content'>    class &lt;&lt; self; private; def internal; end; end
+</span><span class='tstring_content'>  end
+</span><span class='heredoc_end'>RUBY
+</span>
+<span class='comment'># Insert docs (skip methods that already have a comment above)
+</span><span class='id identifier rubyid_out'>out</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Docscribe.html" title="Docscribe (module)">Docscribe</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Docscribe/InlineRewriter.html" title="Docscribe::InlineRewriter (module)">InlineRewriter</a></span></span><span class='period'>.</span><span class='id identifier rubyid_insert_comments'><span class='object_link'><a href="Docscribe/InlineRewriter.html#insert_comments-class_method" title="Docscribe::InlineRewriter.insert_comments (method)">insert_comments</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_code'>code</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_out'>out</span>
+
+<span class='comment'># Replace existing comment blocks above methods
+</span><span class='id identifier rubyid_out2'>out2</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Docscribe.html" title="Docscribe (module)">Docscribe</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Docscribe/InlineRewriter.html" title="Docscribe::InlineRewriter (module)">InlineRewriter</a></span></span><span class='period'>.</span><span class='id identifier rubyid_insert_comments'><span class='object_link'><a href="Docscribe/InlineRewriter.html#insert_comments-class_method" title="Docscribe::InlineRewriter.insert_comments (method)">insert_comments</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_code'>code</span><span class='comma'>,</span> <span class='label'>rewrite:</span> <span class='kw'>true</span><span class='rparen'>)</span>
+</code></pre>
+
+<h2 id="label-Configuration">Configuration</h2>
+
+<p>Docscribe can be configured via a YAML file (docscribe.yml by default, or pass –config PATH).</p>
+
+<p>Example:</p>
+
+<pre class="code ruby"><code class="ruby">emit:
+  header: true           # controls &quot;# +Class#method+ -&gt; Type&quot;
+  param_tags: true       # include @param lines
+  return_tag: true       # include normal @return
+  visibility_tags: true  # include @private/@protected
+  raise_tags: true       # include @raise [Error]
+  rescue_conditional_returns: true  # include &quot;@return [...] if Exception&quot;
+
+doc:
+  default_message: &quot;Method documentation.&quot;
+
+methods:
+  instance:
+    public:
+      return_tag: true
+      default_message: &quot;Public API. Please document purpose and params.&quot;
+  class:
+    private:
+      return_tag: false
+
+inference:
+  fallback_type: &quot;Object&quot;
+  nil_as_optional: true
+  treat_options_keyword_as_hash: true
+</code></pre>
+<ul><li>
+<p>emit.* toggles control which tags are emitted globally.</p>
+</li><li>
+<p>methods.&lt;scope&gt;.&lt;visibility&gt; allows per-method overrides:</p>
+<ul><li>
+<p>return_tag: true/false</p>
+</li><li>
+<p>default_message: override the message for that bucket</p>
+</li></ul>
+</li><li>
+<p>inference.* tunes type inference defaults.</p>
+</li></ul>
+
+<h3 id="label-CLI">CLI</h3>
+
+<pre class="code ruby"><code class="ruby">docscribe --config docscribe.yml --write lib/**/*.rb
+</code></pre>
+
+<h2 id="label-CI+integration">CI integration</h2>
+
+<p>Fail the build if files would change:</p>
+
+<pre class="code ruby"><code class="ruby">- name: Check inline docs
+  run: docscribe --check lib/**/*.rb
+</code></pre>
+
+<p>Auto-fix before test stage:</p>
+
+<pre class="code ruby"><code class="ruby">- name: Insert inline docs
+  run: docscribe --write lib/**/*.rb
+</code></pre>
+
+<p>Rewrite mode (regenerate existing method docs):</p>
+
+<pre class="code ruby"><code class="ruby">- name: Refresh inline docs
+  run: docscribe --rewrite --write lib/**/*.rb
+</code></pre>
+
+<h2 id="label-Comparison+to+YARD-27s+parser">Comparison to YARD’s parser</h2>
+
+<p>Docscribe and YARD solve different parts of the documentation problem:</p>
+<ul><li>
+<p>Parsing and insertion:</p>
+<ul><li>
+<p>Docscribe parses with Ruby's AST (parser gem) and inserts/updates doc comments inline. It does not reformat code or produce HTML by itself.</p>
+</li><li>
+<p>YARD parses Ruby into a registry and can generate documentation sites and perform advanced analysis (tags, transitive docs, macros).</p>
+</li><li>
+<p>Docscribe parses with Ruby's AST (parser gem) and inserts/updates doc comments inline. It does not reformat code or produce HTML by itself.</p>
+</li><li>
+<p>YARD parses Ruby into a registry and can generate documentation sites and perform advanced analysis (tags, transitive docs, macros).</p>
+</li></ul>
+</li><li>
+<p>Preservation vs generation:</p>
+<ul><li>
+<p>Docscribe preserves your original source exactly, only inserting comment blocks above methods.</p>
+</li><li>
+<p>YARD generates documentation output (HTML, JSON) based on its registry; it's not designed to write back to your source.</p>
+</li></ul>
+</li><li>
+<p>Semantics:</p>
+<ul><li>
+<p>Docscribe models Ruby visibility semantics precisely for inline usage (including <code>class &lt;&lt; self</code>).</p>
+</li><li>
+<p>YARD has rich semantics around tags and directives; it can leverage your inline comments (including those inserted by Docscribe).</p>
+</li></ul>
+</li><li>
+<p>Recommended workflow:</p>
+<ul><li>
+<p>Use Docscribe to seed and maintain inline docs with inferred tags/types.</p>
+</li><li>
+<p>Optionally use YARD (dev-only) to render HTML from those comments: <code>shell  yard doc -o docs </code></p>
+</li></ul>
+</li></ul>
+
+<h2 id="label-Limitations">Limitations</h2>
+<ul><li>
+<p>Does not merge into existing comments; in normal mode, a method with a comment directly above it is skipped. Use <code>--rewrite</code> to regenerate.</p>
+</li><li>
+<p>Type inference is heuristic. Complex flows and meta-programming will fall back to Object or best-effort types.</p>
+</li><li>
+<p>Ruby 2.7+ supported.</p>
+</li><li>
+<p>Inline rewrite is textual; ensure a clean working tree before using <code>--write</code> or <code>--rewrite</code>.</p>
+</li></ul>
+
+<h2 id="label-Roadmap">Roadmap</h2>
+<ul><li>
+<p>Merge tags into existing docstrings (opt-in).</p>
+</li><li>
+<p>Recognize common APIs for return inference (<code>Time.now</code>, <code>File.read</code>, <code>JSON.parse</code>).</p>
+</li><li>
+<p>Configurable rules and per-project exclusions.</p>
+</li><li>
+<p>Editor integration for on-save inline docs.</p>
+</li></ul>
+
+<h2 id="label-Contributing">Contributing</h2>
+
+<p>Issues and PRs welcome. Please run:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_bundle'>bundle</span> <span class='id identifier rubyid_exec'>exec</span> <span class='id identifier rubyid_rspec'>rspec</span>
+<span class='id identifier rubyid_bundle'>bundle</span> <span class='id identifier rubyid_exec'>exec</span> <span class='id identifier rubyid_rubocop'>rubocop</span>
+</code></pre>
+
+<p>See CODE_OF_CONDUCT.md.</p>
+
+<h2 id="label-License">License</h2>
+
+<p>MIT</p>
+</div></div>
+
+      <div id="footer">
+  Generated on Fri Jan 16 16:20:18 2026 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.38 (ruby-3.4.6).
+</div>
+
+    </div>
+  </body>
+</html>
