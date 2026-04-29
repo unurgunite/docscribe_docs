@@ -96,7 +96,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>lib/docscribe/inline_rewriter.rb</dd>
+    <dd>lib/docscribe/inline_rewriter/collector.rb</dd>
   </dl>
   
 </div>
@@ -104,7 +104,27 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
     
-<p>Walks nodes and records where to insert docstrings</p>
+<p>AST walker that collects documentation insertion targets.</p>
+
+<p>This is where Docscribe models Ruby scoping and visibility semantics so the doc generator can:</p>
+<ul><li>
+<p>know whether a method is an instance method or class/module method (‘#` vs `.`)</p>
+</li><li>
+<p>add ‘@private` / `@protected` tags when appropriate</p>
+</li><li>
+<p>know the container name (‘A::B`) to show in `+A::B#foo+`</p>
+</li></ul>
+
+<p>In addition to ‘private` / `protected` / `public` handling, Collector supports:</p>
+<ul><li>
+<p>‘module_function` inside modules</p>
+</li><li>
+<p>‘extend self` inside modules</p>
+</li><li>
+<p>receiver-based containers (‘def Foo.bar`, `class &lt;&lt; Foo`)</p>
+</li><li>
+<p>Sorbet-aware anchoring for methods with leading ‘sig` declarations</p>
+</li></ul>
 
 
   </div>
@@ -118,7 +138,7 @@
     
   
     
-      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Collector/Insertion.html" title="Docscribe::InlineRewriter::Collector::Insertion (class)">Insertion</a></span>
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Collector/AttrInsertion.html" title="Docscribe::InlineRewriter::Collector::AttrInsertion (class)">AttrInsertion</a></span>, <span class='object_link'><a href="Collector/Insertion.html" title="Docscribe::InlineRewriter::Collector::Insertion (class)">Insertion</a></span>, <span class='object_link'><a href="Collector/VisibilityCtx.html" title="Docscribe::InlineRewriter::Collector::VisibilityCtx (class)">VisibilityCtx</a></span>
     
   
 </p>
@@ -128,6 +148,35 @@
 
   <h2>Instance Attribute Summary <small><a href="#" class="summary_toggle">collapse</a></small></h2>
   <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#attr_insertions-instance_method" title="#attr_insertions (instance method)">#<strong>attr_insertions</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns the value of attribute attr_insertions.</p>
+</div></span>
+  
+</li>
+
     
       <li class="public ">
   <span class="summary_signature">
@@ -174,7 +223,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(buffer)  &#x21d2; Object </a>
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(buffer)  &#x21d2; Collector </a>
     
 
     
@@ -191,7 +240,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p><tt>Docscribe::InlineRewriter::Collector#initialize</tt> -&gt; Object.</p>
+<p>Create a collector for the given source buffer.</p>
 </div></span>
   
 </li>
@@ -200,7 +249,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#on_class-instance_method" title="#on_class (instance method)">#<strong>on_class</strong>(node)  &#x21d2; Object </a>
+      <a href="#on_casgn-instance_method" title="#on_casgn (instance method)">#<strong>on_casgn</strong>(node)  &#x21d2; Parser::AST::Node </a>
     
 
     
@@ -215,7 +264,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p><tt>Docscribe::InlineRewriter::Collector#on_class</tt> -&gt; Object.</p>
+<p>Process a constant assignment (e.g. ‘FOO = …` or `Foo::BAR = …`).</p>
 </div></span>
   
 </li>
@@ -224,7 +273,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#on_def-instance_method" title="#on_def (instance method)">#<strong>on_def</strong>(node)  &#x21d2; Object </a>
+      <a href="#on_class-instance_method" title="#on_class (instance method)">#<strong>on_class</strong>(node)  &#x21d2; Parser::AST::Node </a>
     
 
     
@@ -239,7 +288,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p><tt>Docscribe::InlineRewriter::Collector#on_def</tt> -&gt; Object.</p>
+<p>Enter a class body and collect documentation targets from its contents.</p>
 </div></span>
   
 </li>
@@ -248,7 +297,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#on_defs-instance_method" title="#on_defs (instance method)">#<strong>on_defs</strong>(node)  &#x21d2; Object </a>
+      <a href="#on_def-instance_method" title="#on_def (instance method)">#<strong>on_def</strong>(node)  &#x21d2; Parser::AST::Node </a>
     
 
     
@@ -263,7 +312,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p><tt>Docscribe::InlineRewriter::Collector#on_defs</tt> -&gt; Object.</p>
+<p>Enter a top-level method definition and collect it as a documentation target.</p>
 </div></span>
   
 </li>
@@ -272,7 +321,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#on_module-instance_method" title="#on_module (instance method)">#<strong>on_module</strong>(node)  &#x21d2; Object </a>
+      <a href="#on_defs-instance_method" title="#on_defs (instance method)">#<strong>on_defs</strong>(node)  &#x21d2; Parser::AST::Node </a>
     
 
     
@@ -287,7 +336,31 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p><tt>Docscribe::InlineRewriter::Collector#on_module</tt> -&gt; Object.</p>
+<p>Enter a top-level singleton method definition and collect it as a documentation target.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#on_module-instance_method" title="#on_module (instance method)">#<strong>on_module</strong>(node)  &#x21d2; Parser::AST::Node </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Enter a module body and collect documentation targets from its contents.</p>
 </div></span>
   
 </li>
@@ -303,7 +376,7 @@
     <div class="method_details first">
   <h3 class="signature first" id="initialize-instance_method">
   
-    #<strong>initialize</strong>(buffer)  &#x21d2; <tt>Object</tt> 
+    #<strong>initialize</strong>(buffer)  &#x21d2; <tt><span class='object_link'><a href="" title="Docscribe::InlineRewriter::Collector (class)">Collector</a></span></tt> 
   
 
   
@@ -312,9 +385,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p><tt>Docscribe::InlineRewriter::Collector#initialize</tt> -&gt; Object</p>
-
-<p>Method documentation.</p>
+<p>Create a collector for the given source buffer.</p>
 
 
   </div>
@@ -328,13 +399,13 @@
         <span class='name'>buffer</span>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>Parser::Source::Buffer</tt>)</span>
       
       
       
         &mdash;
         <div class='inline'>
-<p>Param documentation.</p>
+<p>source buffer for anchor location lookups</p>
 </div>
       
     </li>
@@ -348,21 +419,39 @@
       <pre class="lines">
 
 
-321
-322
-323
-324
-325
-326</pre>
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter.rb', line 321</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/collector.rb', line 165</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_buffer'>buffer</span><span class='rparen'>)</span>
   <span class='kw'>super</span><span class='lparen'>(</span><span class='rparen'>)</span>
   <span class='ivar'>@buffer</span> <span class='op'>=</span> <span class='id identifier rubyid_buffer'>buffer</span>
   <span class='ivar'>@insertions</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
-  <span class='ivar'>@name_stack</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='comment'># e.g., [&#39;Demo&#39;]
+  <span class='ivar'>@attr_insertions</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+  <span class='ivar'>@name_stack</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+
+  <span class='comment'># Track module-level state across reopened modules within the same file pass.
+</span>  <span class='comment'># Example:
+</span>  <span class='comment'>#   module M; extend self; end
+</span>  <span class='comment'>#   module M; def foo; end; end  # =&gt; should still document foo as M.foo
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @type [Hash{String=&gt;Hash}]
+</span>  <span class='ivar'>@module_states</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span> <span class='comment'># { &quot;M&quot; =&gt; { extend_self: true } }
 </span><span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -377,7 +466,50 @@
       
       <span id=""></span>
       <div class="method_details first">
-  <h3 class="signature first" id="insertions-instance_method">
+  <h3 class="signature first" id="attr_insertions-instance_method">
+  
+    #<strong>attr_insertions</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the value of attribute attr_insertions.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+159
+160
+161</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/collector.rb', line 159</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_attr_insertions'>attr_insertions</span>
+  <span class='ivar'>@attr_insertions</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <div class="method_details ">
+  <h3 class="signature " id="insertions-instance_method">
   
     #<strong>insertions</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(readonly)</span>
   
@@ -402,12 +534,12 @@
       <pre class="lines">
 
 
-313
-314
-315</pre>
+155
+156
+157</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter.rb', line 313</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/collector.rb', line 155</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_insertions'>insertions</span>
   <span class='ivar'>@insertions</span>
@@ -425,9 +557,9 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="on_class-instance_method">
+  <h3 class="signature first" id="on_casgn-instance_method">
   
-    #<strong>on_class</strong>(node)  &#x21d2; <tt>Object</tt> 
+    #<strong>on_casgn</strong>(node)  &#x21d2; <tt>Parser::AST::Node</tt> 
   
 
   
@@ -436,9 +568,9 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p><tt>Docscribe::InlineRewriter::Collector#on_class</tt> -&gt; Object</p>
+<p>Process a constant assignment (e.g. ‘FOO = …` or `Foo::BAR = …`).</p>
 
-<p>Method documentation.</p>
+<p>If the value is a ‘Struct.new` call, extracts attribute insertions first. Then continues processing child nodes.</p>
 
 
   </div>
@@ -452,13 +584,13 @@
         <span class='name'>node</span>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>Parser::AST::Node</tt>)</span>
       
       
       
         &mdash;
         <div class='inline'>
-<p>Param documentation.</p>
+<p>a ‘:casgn` node</p>
 </div>
       
     </li>
@@ -471,7 +603,93 @@
     <li>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>Parser::AST::Node</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the original node</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+236
+237
+238
+239
+240
+241
+242
+243
+244</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/collector.rb', line 236</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_on_casgn'>on_casgn</span><span class='lparen'>(</span><span class='id identifier rubyid_node'>node</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_node'>node</span> <span class='kw'>if</span> <span class='id identifier rubyid_process_struct_casgn'>process_struct_casgn</span><span class='lparen'>(</span><span class='id identifier rubyid_node'>node</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_node'>node</span><span class='period'>.</span><span class='id identifier rubyid_children'>children</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_child'>child</span><span class='op'>|</span>
+    <span class='id identifier rubyid_process'>process</span><span class='lparen'>(</span><span class='id identifier rubyid_child'>child</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_child'>child</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Parser</span><span class='op'>::</span><span class='const'>AST</span><span class='op'>::</span><span class='const'>Node</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_node'>node</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="on_class-instance_method">
+  
+    #<strong>on_class</strong>(node)  &#x21d2; <tt>Parser::AST::Node</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Enter a class body and collect documentation targets from its contents.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>node</span>
+      
+      
+        <span class='type'>(<tt>Parser::AST::Node</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Parser::AST::Node</tt>)</span>
       
       
       
@@ -485,23 +703,33 @@
       <pre class="lines">
 
 
-334
-335
-336
-337
-338
-339
-340
-341</pre>
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter.rb', line 334</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/collector.rb', line 185</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_on_class'>on_class</span><span class='lparen'>(</span><span class='id identifier rubyid_node'>node</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_cname_node'>cname_node</span><span class='comma'>,</span> <span class='id identifier rubyid__super_node'>_super_node</span><span class='comma'>,</span> <span class='id identifier rubyid_body'>body</span> <span class='op'>=</span> <span class='op'>*</span><span class='id identifier rubyid_node'>node</span>
+  <span class='id identifier rubyid_cname_node'>cname_node</span><span class='comma'>,</span> <span class='id identifier rubyid_super_node'>super_node</span><span class='comma'>,</span> <span class='id identifier rubyid_body'>body</span> <span class='op'>=</span> <span class='op'>*</span><span class='id identifier rubyid_node'>node</span>
   <span class='ivar'>@name_stack</span><span class='period'>.</span><span class='id identifier rubyid_push'>push</span><span class='lparen'>(</span><span class='id identifier rubyid_const_name'>const_name</span><span class='lparen'>(</span><span class='id identifier rubyid_cname_node'>cname_node</span><span class='rparen'>)</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_ctx'>ctx</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="VisibilityCtx.html" title="Docscribe::InlineRewriter::VisibilityCtx (class)">VisibilityCtx</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="VisibilityCtx.html#initialize-instance_method" title="Docscribe::InlineRewriter::VisibilityCtx#initialize (method)">new</a></span></span>
+
+  <span class='id identifier rubyid_ctx'>ctx</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Collector/VisibilityCtx.html" title="Docscribe::InlineRewriter::Collector::VisibilityCtx (class)">VisibilityCtx</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Collector/VisibilityCtx.html#initialize-instance_method" title="Docscribe::InlineRewriter::Collector::VisibilityCtx#initialize (method)">new</a></span></span>
+  <span class='id identifier rubyid_ctx'>ctx</span><span class='period'>.</span><span class='id identifier rubyid_container_is_module'>container_is_module</span> <span class='op'>=</span> <span class='kw'>false</span>
+
+  <span class='id identifier rubyid_process_struct_class'>process_struct_class</span><span class='lparen'>(</span><span class='id identifier rubyid_node'>node</span><span class='comma'>,</span> <span class='id identifier rubyid_super_node'>super_node</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_process_body'>process_body</span><span class='lparen'>(</span><span class='id identifier rubyid_body'>body</span><span class='comma'>,</span> <span class='id identifier rubyid_ctx'>ctx</span><span class='rparen'>)</span>
+
   <span class='ivar'>@name_stack</span><span class='period'>.</span><span class='id identifier rubyid_pop'>pop</span>
   <span class='id identifier rubyid_node'>node</span>
 <span class='kw'>end</span></pre>
@@ -513,7 +741,7 @@
       <div class="method_details ">
   <h3 class="signature " id="on_def-instance_method">
   
-    #<strong>on_def</strong>(node)  &#x21d2; <tt>Object</tt> 
+    #<strong>on_def</strong>(node)  &#x21d2; <tt>Parser::AST::Node</tt> 
   
 
   
@@ -522,9 +750,9 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p><tt>Docscribe::InlineRewriter::Collector#on_def</tt> -&gt; Object</p>
+<p>Enter a top-level method definition and collect it as a documentation target.</p>
 
-<p>Method documentation.</p>
+<p>Top-level methods implicitly belong to <code>Object</code>. This handler ensures that <tt>def foo</tt> declared outside of any class or module is still picked up by the collector.</p>
 
 
   </div>
@@ -538,14 +766,9 @@
         <span class='name'>node</span>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>Parser::AST::Node</tt>)</span>
       
       
-      
-        &mdash;
-        <div class='inline'>
-<p>Param documentation.</p>
-</div>
       
     </li>
   
@@ -557,7 +780,7 @@
     <li>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>Parser::AST::Node</tt>)</span>
       
       
       
@@ -571,16 +794,24 @@
       <pre class="lines">
 
 
-364
-365
-366
-367</pre>
+254
+255
+256
+257
+258
+259
+260
+261</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter.rb', line 364</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/collector.rb', line 254</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_on_def'>on_def</span><span class='lparen'>(</span><span class='id identifier rubyid_node'>node</span><span class='rparen'>)</span>
-  <span class='ivar'>@insertions</span> <span class='op'>&lt;&lt;</span> <span class='const'><span class='object_link'><a href="Collector/Insertion.html" title="Docscribe::InlineRewriter::Collector::Insertion (class)">Insertion</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="Docscribe::InlineRewriter::Collector#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_node'>node</span><span class='comma'>,</span> <span class='symbol'>:instance</span><span class='comma'>,</span> <span class='symbol'>:public</span><span class='comma'>,</span> <span class='id identifier rubyid_current_container'>current_container</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_node'>node</span> <span class='kw'>unless</span> <span class='ivar'>@name_stack</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+
+  <span class='id identifier rubyid_ctx'>ctx</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Collector/VisibilityCtx.html" title="Docscribe::InlineRewriter::Collector::VisibilityCtx (class)">VisibilityCtx</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Collector/VisibilityCtx.html#initialize-instance_method" title="Docscribe::InlineRewriter::Collector::VisibilityCtx#initialize (method)">new</a></span></span>
+  <span class='id identifier rubyid_ctx'>ctx</span><span class='period'>.</span><span class='id identifier rubyid_container_is_module'>container_is_module</span> <span class='op'>=</span> <span class='kw'>false</span>
+  <span class='id identifier rubyid_process_stmt'>process_stmt</span><span class='lparen'>(</span><span class='id identifier rubyid_node'>node</span><span class='comma'>,</span> <span class='id identifier rubyid_ctx'>ctx</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_node'>node</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -591,7 +822,7 @@
       <div class="method_details ">
   <h3 class="signature " id="on_defs-instance_method">
   
-    #<strong>on_defs</strong>(node)  &#x21d2; <tt>Object</tt> 
+    #<strong>on_defs</strong>(node)  &#x21d2; <tt>Parser::AST::Node</tt> 
   
 
   
@@ -600,9 +831,9 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p><tt>Docscribe::InlineRewriter::Collector#on_defs</tt> -&gt; Object</p>
+<p>Enter a top-level singleton method definition and collect it as a documentation target.</p>
 
-<p>Method documentation.</p>
+<p>Handles the case of <tt>def self.foo</tt> declared at the top level, outside of any class or module body.</p>
 
 
   </div>
@@ -616,14 +847,9 @@
         <span class='name'>node</span>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>Parser::AST::Node</tt>)</span>
       
       
-      
-        &mdash;
-        <div class='inline'>
-<p>Param documentation.</p>
-</div>
       
     </li>
   
@@ -635,7 +861,7 @@
     <li>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>Parser::AST::Node</tt>)</span>
       
       
       
@@ -649,16 +875,24 @@
       <pre class="lines">
 
 
-375
-376
-377
-378</pre>
+270
+271
+272
+273
+274
+275
+276
+277</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter.rb', line 375</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/collector.rb', line 270</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_on_defs'>on_defs</span><span class='lparen'>(</span><span class='id identifier rubyid_node'>node</span><span class='rparen'>)</span>
-  <span class='ivar'>@insertions</span> <span class='op'>&lt;&lt;</span> <span class='const'><span class='object_link'><a href="Collector/Insertion.html" title="Docscribe::InlineRewriter::Collector::Insertion (class)">Insertion</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="Docscribe::InlineRewriter::Collector#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_node'>node</span><span class='comma'>,</span> <span class='symbol'>:class</span><span class='comma'>,</span> <span class='symbol'>:public</span><span class='comma'>,</span> <span class='id identifier rubyid_current_container'>current_container</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_node'>node</span> <span class='kw'>unless</span> <span class='ivar'>@name_stack</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+
+  <span class='id identifier rubyid_ctx'>ctx</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Collector/VisibilityCtx.html" title="Docscribe::InlineRewriter::Collector::VisibilityCtx (class)">VisibilityCtx</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Collector/VisibilityCtx.html#initialize-instance_method" title="Docscribe::InlineRewriter::Collector::VisibilityCtx#initialize (method)">new</a></span></span>
+  <span class='id identifier rubyid_ctx'>ctx</span><span class='period'>.</span><span class='id identifier rubyid_container_is_module'>container_is_module</span> <span class='op'>=</span> <span class='kw'>false</span>
+  <span class='id identifier rubyid_process_stmt'>process_stmt</span><span class='lparen'>(</span><span class='id identifier rubyid_node'>node</span><span class='comma'>,</span> <span class='id identifier rubyid_ctx'>ctx</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_node'>node</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -669,7 +903,7 @@
       <div class="method_details ">
   <h3 class="signature " id="on_module-instance_method">
   
-    #<strong>on_module</strong>(node)  &#x21d2; <tt>Object</tt> 
+    #<strong>on_module</strong>(node)  &#x21d2; <tt>Parser::AST::Node</tt> 
   
 
   
@@ -678,9 +912,9 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p><tt>Docscribe::InlineRewriter::Collector#on_module</tt> -&gt; Object</p>
+<p>Enter a module body and collect documentation targets from its contents.</p>
 
-<p>Method documentation.</p>
+<p>This also carries ‘extend self` state across reopened modules in the same file.</p>
 
 
   </div>
@@ -694,14 +928,9 @@
         <span class='name'>node</span>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>Parser::AST::Node</tt>)</span>
       
       
-      
-        &mdash;
-        <div class='inline'>
-<p>Param documentation.</p>
-</div>
       
     </li>
   
@@ -713,7 +942,7 @@
     <li>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>Parser::AST::Node</tt>)</span>
       
       
       
@@ -727,23 +956,51 @@
       <pre class="lines">
 
 
-349
-350
-351
-352
-353
-354
-355
-356</pre>
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter.rb', line 349</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/collector.rb', line 206</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_on_module'>on_module</span><span class='lparen'>(</span><span class='id identifier rubyid_node'>node</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_cname_node'>cname_node</span><span class='comma'>,</span> <span class='id identifier rubyid_body'>body</span> <span class='op'>=</span> <span class='op'>*</span><span class='id identifier rubyid_node'>node</span>
   <span class='ivar'>@name_stack</span><span class='period'>.</span><span class='id identifier rubyid_push'>push</span><span class='lparen'>(</span><span class='id identifier rubyid_const_name'>const_name</span><span class='lparen'>(</span><span class='id identifier rubyid_cname_node'>cname_node</span><span class='rparen'>)</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_ctx'>ctx</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="VisibilityCtx.html" title="Docscribe::InlineRewriter::VisibilityCtx (class)">VisibilityCtx</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="VisibilityCtx.html#initialize-instance_method" title="Docscribe::InlineRewriter::VisibilityCtx#initialize (method)">new</a></span></span>
+
+  <span class='id identifier rubyid_container'>container</span> <span class='op'>=</span> <span class='id identifier rubyid_current_container'>current_container</span>
+
+  <span class='id identifier rubyid_ctx'>ctx</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Collector/VisibilityCtx.html" title="Docscribe::InlineRewriter::Collector::VisibilityCtx (class)">VisibilityCtx</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Collector/VisibilityCtx.html#initialize-instance_method" title="Docscribe::InlineRewriter::Collector::VisibilityCtx#initialize (method)">new</a></span></span>
+  <span class='id identifier rubyid_ctx'>ctx</span><span class='period'>.</span><span class='id identifier rubyid_container_is_module'>container_is_module</span> <span class='op'>=</span> <span class='kw'>true</span>
+  <span class='id identifier rubyid_ctx'>ctx</span><span class='period'>.</span><span class='id identifier rubyid_extend_self'>extend_self</span> <span class='op'>=</span> <span class='op'>!</span><span class='op'>!</span><span class='ivar'>@module_states</span><span class='period'>.</span><span class='id identifier rubyid_dig'>dig</span><span class='lparen'>(</span><span class='id identifier rubyid_container'>container</span><span class='comma'>,</span> <span class='symbol'>:extend_self</span><span class='rparen'>)</span>
+
   <span class='id identifier rubyid_process_body'>process_body</span><span class='lparen'>(</span><span class='id identifier rubyid_body'>body</span><span class='comma'>,</span> <span class='id identifier rubyid_ctx'>ctx</span><span class='rparen'>)</span>
+
+  <span class='comment'># If `extend self` is active for this module, document all instance defs as module methods (M.foo).
+</span>  <span class='kw'>if</span> <span class='id identifier rubyid_ctx'>ctx</span><span class='period'>.</span><span class='id identifier rubyid_extend_self'>extend_self</span>
+    <span class='id identifier rubyid_promote_extend_self_container'>promote_extend_self_container</span><span class='lparen'>(</span><span class='label'>container:</span> <span class='id identifier rubyid_container'>container</span><span class='rparen'>)</span>
+    <span class='ivar'>@module_states</span><span class='lbracket'>[</span><span class='id identifier rubyid_container'>container</span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+    <span class='ivar'>@module_states</span><span class='lbracket'>[</span><span class='id identifier rubyid_container'>container</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:extend_self</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='kw'>true</span>
+  <span class='kw'>end</span>
+
   <span class='ivar'>@name_stack</span><span class='period'>.</span><span class='id identifier rubyid_pop'>pop</span>
   <span class='id identifier rubyid_node'>node</span>
 <span class='kw'>end</span></pre>
@@ -757,9 +1014,9 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Jan 16 16:20:19 2026 by
+  Generated on Wed Apr 29 12:33:55 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.38 (ruby-3.4.6).
+  0.9.38 (ruby-3.4.5).
 </div>
 
     </div>

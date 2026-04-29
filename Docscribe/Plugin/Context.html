@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Class: Docscribe::Plugin::Context
+  
+    &mdash; Documentation by YARD 0.9.38
+  
+</title>
+
+  <link rel="stylesheet" href="../../css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="../../css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "Docscribe::Plugin::Context";
+  relpath = '../../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../../_index.html">Index (C)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../../Docscribe.html" title="Docscribe (module)">Docscribe</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Plugin.html" title="Docscribe::Plugin (module)">Plugin</a></span></span>
+     &raquo; 
+    <span class="title">Context</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Class: Docscribe::Plugin::Context
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
+      <span class="inheritName">Struct</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">Struct</li>
+          
+            <li class="next">Docscribe::Plugin::Context</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+    </dd>
+  </dl>
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/docscribe/plugin/context.rb</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>Snapshot of everything known about a method at doc-generation time.</p>
+
+<p>Passed to every registered TagPlugin. Read-only — plugins must not mutate the context.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+
+
+
+  <h2>Instance Attribute Summary <small><a href="#" class="summary_toggle">collapse</a></small></h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#container-instance_method" title="#container (instance method)">#<strong>container</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>E.g.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#inferred_params-instance_method" title="#inferred_params (instance method)">#<strong>inferred_params</strong>  &#x21d2; Hash{String =&gt; String} </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Name =&gt; inferred type.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#inferred_return-instance_method" title="#inferred_return (instance method)">#<strong>inferred_return</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Inferred return type.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#method_name-instance_method" title="#method_name (instance method)">#<strong>method_name</strong>  &#x21d2; Symbol </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#node-instance_method" title="#node (instance method)">#<strong>node</strong>  &#x21d2; Parser::AST::Node </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The :def or :defs AST node.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#scope-instance_method" title="#scope (instance method)">#<strong>scope</strong>  &#x21d2; Symbol </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>:instance or :class.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#source-instance_method" title="#source (instance method)">#<strong>source</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Raw method source text.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#visibility-instance_method" title="#visibility (instance method)">#<strong>visibility</strong>  &#x21d2; Symbol </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>:public, :protected, or :private.</p>
+</div></span>
+  
+</li>
+
+    
+  </ul>
+
+
+
+
+
+  
+  <div id="instance_attr_details" class="attr_details">
+    <h2>Instance Attribute Details</h2>
+    
+      
+      <span id="container=-instance_method"></span>
+      <div class="method_details first">
+  <h3 class="signature first" id="container-instance_method">
+  
+    #<strong>container</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns e.g. “MyModule::MyClass” or “Object” for top-level.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>e.g. “MyModule::MyClass” or “Object” for top-level</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/plugin/context.rb', line 26</span>
+
+<span class='const'><span class='object_link'><a href="" title="Docscribe::Plugin::Context (class)">Context</a></span></span> <span class='op'>=</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span>
+  <span class='symbol'>:node</span><span class='comma'>,</span>
+  <span class='symbol'>:container</span><span class='comma'>,</span>
+  <span class='symbol'>:scope</span><span class='comma'>,</span>
+  <span class='symbol'>:visibility</span><span class='comma'>,</span>
+  <span class='symbol'>:method_name</span><span class='comma'>,</span>
+  <span class='symbol'>:inferred_params</span><span class='comma'>,</span>
+  <span class='symbol'>:inferred_return</span><span class='comma'>,</span>
+  <span class='symbol'>:source</span><span class='comma'>,</span>
+  <span class='label'>keyword_init:</span> <span class='kw'>true</span>
+<span class='rparen'>)</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="inferred_params=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="inferred_params-instance_method">
+  
+    #<strong>inferred_params</strong>  &#x21d2; <tt>Hash{String =&gt; String}</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns name =&gt; inferred type.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Hash{String =&gt; String}</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>name =&gt; inferred type</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/plugin/context.rb', line 26</span>
+
+<span class='const'><span class='object_link'><a href="" title="Docscribe::Plugin::Context (class)">Context</a></span></span> <span class='op'>=</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span>
+  <span class='symbol'>:node</span><span class='comma'>,</span>
+  <span class='symbol'>:container</span><span class='comma'>,</span>
+  <span class='symbol'>:scope</span><span class='comma'>,</span>
+  <span class='symbol'>:visibility</span><span class='comma'>,</span>
+  <span class='symbol'>:method_name</span><span class='comma'>,</span>
+  <span class='symbol'>:inferred_params</span><span class='comma'>,</span>
+  <span class='symbol'>:inferred_return</span><span class='comma'>,</span>
+  <span class='symbol'>:source</span><span class='comma'>,</span>
+  <span class='label'>keyword_init:</span> <span class='kw'>true</span>
+<span class='rparen'>)</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="inferred_return=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="inferred_return-instance_method">
+  
+    #<strong>inferred_return</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns inferred return type.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>inferred return type</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/plugin/context.rb', line 26</span>
+
+<span class='const'><span class='object_link'><a href="" title="Docscribe::Plugin::Context (class)">Context</a></span></span> <span class='op'>=</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span>
+  <span class='symbol'>:node</span><span class='comma'>,</span>
+  <span class='symbol'>:container</span><span class='comma'>,</span>
+  <span class='symbol'>:scope</span><span class='comma'>,</span>
+  <span class='symbol'>:visibility</span><span class='comma'>,</span>
+  <span class='symbol'>:method_name</span><span class='comma'>,</span>
+  <span class='symbol'>:inferred_params</span><span class='comma'>,</span>
+  <span class='symbol'>:inferred_return</span><span class='comma'>,</span>
+  <span class='symbol'>:source</span><span class='comma'>,</span>
+  <span class='label'>keyword_init:</span> <span class='kw'>true</span>
+<span class='rparen'>)</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="method_name=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="method_name-instance_method">
+  
+    #<strong>method_name</strong>  &#x21d2; <tt>Symbol</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Symbol</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/plugin/context.rb', line 26</span>
+
+<span class='const'><span class='object_link'><a href="" title="Docscribe::Plugin::Context (class)">Context</a></span></span> <span class='op'>=</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span>
+  <span class='symbol'>:node</span><span class='comma'>,</span>
+  <span class='symbol'>:container</span><span class='comma'>,</span>
+  <span class='symbol'>:scope</span><span class='comma'>,</span>
+  <span class='symbol'>:visibility</span><span class='comma'>,</span>
+  <span class='symbol'>:method_name</span><span class='comma'>,</span>
+  <span class='symbol'>:inferred_params</span><span class='comma'>,</span>
+  <span class='symbol'>:inferred_return</span><span class='comma'>,</span>
+  <span class='symbol'>:source</span><span class='comma'>,</span>
+  <span class='label'>keyword_init:</span> <span class='kw'>true</span>
+<span class='rparen'>)</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="node=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="node-instance_method">
+  
+    #<strong>node</strong>  &#x21d2; <tt>Parser::AST::Node</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the :def or :defs AST node.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Parser::AST::Node</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the :def or :defs AST node</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/plugin/context.rb', line 26</span>
+
+<span class='const'><span class='object_link'><a href="" title="Docscribe::Plugin::Context (class)">Context</a></span></span> <span class='op'>=</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span>
+  <span class='symbol'>:node</span><span class='comma'>,</span>
+  <span class='symbol'>:container</span><span class='comma'>,</span>
+  <span class='symbol'>:scope</span><span class='comma'>,</span>
+  <span class='symbol'>:visibility</span><span class='comma'>,</span>
+  <span class='symbol'>:method_name</span><span class='comma'>,</span>
+  <span class='symbol'>:inferred_params</span><span class='comma'>,</span>
+  <span class='symbol'>:inferred_return</span><span class='comma'>,</span>
+  <span class='symbol'>:source</span><span class='comma'>,</span>
+  <span class='label'>keyword_init:</span> <span class='kw'>true</span>
+<span class='rparen'>)</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="scope=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="scope-instance_method">
+  
+    #<strong>scope</strong>  &#x21d2; <tt>Symbol</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns :instance or :class.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Symbol</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>:instance or :class</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/plugin/context.rb', line 26</span>
+
+<span class='const'><span class='object_link'><a href="" title="Docscribe::Plugin::Context (class)">Context</a></span></span> <span class='op'>=</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span>
+  <span class='symbol'>:node</span><span class='comma'>,</span>
+  <span class='symbol'>:container</span><span class='comma'>,</span>
+  <span class='symbol'>:scope</span><span class='comma'>,</span>
+  <span class='symbol'>:visibility</span><span class='comma'>,</span>
+  <span class='symbol'>:method_name</span><span class='comma'>,</span>
+  <span class='symbol'>:inferred_params</span><span class='comma'>,</span>
+  <span class='symbol'>:inferred_return</span><span class='comma'>,</span>
+  <span class='symbol'>:source</span><span class='comma'>,</span>
+  <span class='label'>keyword_init:</span> <span class='kw'>true</span>
+<span class='rparen'>)</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="source=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="source-instance_method">
+  
+    #<strong>source</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns raw method source text.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>raw method source text</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/plugin/context.rb', line 26</span>
+
+<span class='const'><span class='object_link'><a href="" title="Docscribe::Plugin::Context (class)">Context</a></span></span> <span class='op'>=</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span>
+  <span class='symbol'>:node</span><span class='comma'>,</span>
+  <span class='symbol'>:container</span><span class='comma'>,</span>
+  <span class='symbol'>:scope</span><span class='comma'>,</span>
+  <span class='symbol'>:visibility</span><span class='comma'>,</span>
+  <span class='symbol'>:method_name</span><span class='comma'>,</span>
+  <span class='symbol'>:inferred_params</span><span class='comma'>,</span>
+  <span class='symbol'>:inferred_return</span><span class='comma'>,</span>
+  <span class='symbol'>:source</span><span class='comma'>,</span>
+  <span class='label'>keyword_init:</span> <span class='kw'>true</span>
+<span class='rparen'>)</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="visibility=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="visibility-instance_method">
+  
+    #<strong>visibility</strong>  &#x21d2; <tt>Symbol</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns :public, :protected, or :private.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Symbol</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>:public, :protected, or :private</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/plugin/context.rb', line 26</span>
+
+<span class='const'><span class='object_link'><a href="" title="Docscribe::Plugin::Context (class)">Context</a></span></span> <span class='op'>=</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span>
+  <span class='symbol'>:node</span><span class='comma'>,</span>
+  <span class='symbol'>:container</span><span class='comma'>,</span>
+  <span class='symbol'>:scope</span><span class='comma'>,</span>
+  <span class='symbol'>:visibility</span><span class='comma'>,</span>
+  <span class='symbol'>:method_name</span><span class='comma'>,</span>
+  <span class='symbol'>:inferred_params</span><span class='comma'>,</span>
+  <span class='symbol'>:inferred_return</span><span class='comma'>,</span>
+  <span class='symbol'>:source</span><span class='comma'>,</span>
+  <span class='label'>keyword_init:</span> <span class='kw'>true</span>
+<span class='rparen'>)</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+
+</div>
+
+      <div id="footer">
+  Generated on Wed Apr 29 12:33:55 2026 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.38 (ruby-3.4.5).
+</div>
+
+    </div>
+  </body>
+</html>

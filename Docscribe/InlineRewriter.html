@@ -78,18 +78,59 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>lib/docscribe/inline_rewriter.rb</dd>
+    <dd>lib/docscribe/inline_rewriter.rb<span class="defines">,<br />
+  lib/docscribe/inline_rewriter/collector.rb,<br /> lib/docscribe/inline_rewriter/doc_block.rb,<br /> lib/docscribe/inline_rewriter/tag_sorter.rb,<br /> lib/docscribe/inline_rewriter/doc_builder.rb,<br /> lib/docscribe/inline_rewriter/source_helpers.rb</span>
+</dd>
   </dl>
   
 </div>
 
-<h2>Defined Under Namespace</h2>
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>Rewrite Ruby source to insert or update inline YARD-style documentation.</p>
+
+<p>Supported strategies:</p>
+<ul><li>
+<p>‘:safe`</p>
+<ul><li>
+<p>insert missing docs</p>
+</li><li>
+<p>merge into existing doc-like blocks</p>
+</li><li>
+<p>normalize configured sortable tags</p>
+</li><li>
+<p>preserve existing prose and directives where possible</p>
+</li></ul>
+</li><li>
+<p>‘:aggressive`</p>
+<ul><li>
+<p>replace existing doc blocks with freshly generated docs</p>
+</li></ul>
+</li></ul>
+
+<p>Compatibility note:</p>
+<ul><li>
+<p>‘merge: true` maps to `strategy: :safe`</p>
+</li><li>
+<p>‘rewrite: true` maps to `strategy: :aggressive`</p>
+</li></ul>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><h2>Defined Under Namespace</h2>
 <p class="children">
   
     
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="InlineRewriter/DocBlock.html" title="Docscribe::InlineRewriter::DocBlock (module)">DocBlock</a></span>, <span class='object_link'><a href="InlineRewriter/DocBuilder.html" title="Docscribe::InlineRewriter::DocBuilder (module)">DocBuilder</a></span>, <span class='object_link'><a href="InlineRewriter/SourceHelpers.html" title="Docscribe::InlineRewriter::SourceHelpers (module)">SourceHelpers</a></span>, <span class='object_link'><a href="InlineRewriter/TagSorter.html" title="Docscribe::InlineRewriter::TagSorter (module)">TagSorter</a></span>
+    
   
     
-      <strong class="classes">Classes:</strong> <span class='object_link'><a href="InlineRewriter/Collector.html" title="Docscribe::InlineRewriter::Collector (class)">Collector</a></span>, <span class='object_link'><a href="InlineRewriter/VisibilityCtx.html" title="Docscribe::InlineRewriter::VisibilityCtx (class)">VisibilityCtx</a></span>
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="InlineRewriter/Collector.html" title="Docscribe::InlineRewriter::Collector (class)">Collector</a></span>
     
   
 </p>
@@ -111,7 +152,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#already_has_doc_immediately_above%3F-class_method" title="already_has_doc_immediately_above? (class method)">.<strong>already_has_doc_immediately_above?</strong>(buffer, insert_pos)  &#x21d2; Object </a>
+      <a href="#insert_comments-class_method" title="insert_comments (class method)">.<strong>insert_comments</strong>(code, strategy: nil, rewrite: nil, merge: nil, config: nil, file: &#39;(inline)&#39;)  &#x21d2; String </a>
     
 
     
@@ -126,7 +167,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p><code>Docscribe::InlineRewriter.already_has_doc_immediately_above?</code> -&gt; Object.</p>
+<p>Rewrite source and return only the rewritten output string.</p>
 </div></span>
   
 </li>
@@ -135,7 +176,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#build_doc_for_node-class_method" title="build_doc_for_node (class method)">.<strong>build_doc_for_node</strong>(_buffer, insertion, config)  &#x21d2; Object<sup>?</sup> </a>
+      <a href="#rewrite_with_report-class_method" title="rewrite_with_report (class method)">.<strong>rewrite_with_report</strong>(code, strategy: nil, rewrite: nil, merge: nil, config: Docscribe::Config.new({}), core_rbs_provider: nil, file: &#39;(inline)&#39;)  &#x21d2; Hash </a>
     
 
     
@@ -150,127 +191,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p><code>Docscribe::InlineRewriter.build_doc_for_node</code> -&gt; Object.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#build_params_block-class_method" title="build_params_block (class method)">.<strong>build_params_block</strong>(node, indent)  &#x21d2; Object? </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p><code>Docscribe::InlineRewriter.build_params_block</code> -&gt; Object?.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#comment_block_removal_range-class_method" title="comment_block_removal_range (class method)">.<strong>comment_block_removal_range</strong>(buffer, def_bol_pos)  &#x21d2; Range </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p><code>Docscribe::InlineRewriter.comment_block_removal_range</code> -&gt; Range.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#insert_comments-class_method" title="insert_comments (class method)">.<strong>insert_comments</strong>(code, rewrite: false, config: nil)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p><code>Docscribe::InlineRewriter.insert_comments</code> -&gt; Object.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#line_start_range-class_method" title="line_start_range (class method)">.<strong>line_start_range</strong>(buffer, node)  &#x21d2; Range </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p><code>Docscribe::InlineRewriter.line_start_range</code> -&gt; Range.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#node_name-class_method" title="node_name (class method)">.<strong>node_name</strong>(node)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p><code>Docscribe::InlineRewriter.node_name</code> -&gt; Object.</p>
+<p>Rewrite source and return both output and structured change information.</p>
 </div></span>
   
 </li>
@@ -286,9 +207,9 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="already_has_doc_immediately_above?-class_method">
+  <h3 class="signature first" id="insert_comments-class_method">
   
-    .<strong>already_has_doc_immediately_above?</strong>(buffer, insert_pos)  &#x21d2; <tt>Object</tt> 
+    .<strong>insert_comments</strong>(code, strategy: nil, rewrite: nil, merge: nil, config: nil, file: &#39;(inline)&#39;)  &#x21d2; <tt>String</tt> 
   
 
   
@@ -297,9 +218,9 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p><code>Docscribe::InlineRewriter.already_has_doc_immediately_above?</code> -&gt; Object</p>
+<p>Rewrite source and return only the rewritten output string.</p>
 
-<p>Method documentation.</p>
+<p>This is the main convenience entry point for library usage.</p>
 
 
   </div>
@@ -310,32 +231,106 @@
   
     <li>
       
-        <span class='name'>buffer</span>
+        <span class='name'>code</span>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>String</tt>)</span>
       
       
       
         &mdash;
         <div class='inline'>
-<p>Param documentation.</p>
+<p>Ruby source</p>
 </div>
       
     </li>
   
     <li>
       
-        <span class='name'>insert_pos</span>
+        <span class='name'>strategy</span>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>Symbol</tt>, <tt>nil</tt>)</span>
       
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
       
       
         &mdash;
         <div class='inline'>
-<p>Param documentation.</p>
+<p>:safe or :aggressive</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>rewrite</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>, <tt>nil</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>compatibility alias for aggressive strategy</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>merge</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>, <tt>nil</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>compatibility alias for safe strategy</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>config</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Config.html" title="Docscribe::Config (class)">Docscribe::Config</a></span></tt>, <tt>nil</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>config object (defaults to loaded config)</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>file</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;(inline)&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>source name used for parser locations/debugging</p>
 </div>
       
     </li>
@@ -348,7 +343,7 @@
     <li>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>String</tt>)</span>
       
       
       
@@ -362,29 +357,29 @@
       <pre class="lines">
 
 
-134
-135
-136
-137
-138
-139
-140
-141
-142
-143</pre>
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter.rb', line 134</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter.rb', line 48</span>
 
-<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_already_has_doc_immediately_above?'>already_has_doc_immediately_above?</span><span class='lparen'>(</span><span class='id identifier rubyid_buffer'>buffer</span><span class='comma'>,</span> <span class='id identifier rubyid_insert_pos'>insert_pos</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_src'>src</span> <span class='op'>=</span> <span class='id identifier rubyid_buffer'>buffer</span><span class='period'>.</span><span class='id identifier rubyid_source'>source</span>
-  <span class='id identifier rubyid_lines'>lines</span> <span class='op'>=</span> <span class='id identifier rubyid_src'>src</span><span class='period'>.</span><span class='id identifier rubyid_lines'>lines</span>
-  <span class='id identifier rubyid_current_line_index'>current_line_index</span> <span class='op'>=</span> <span class='id identifier rubyid_src'>src</span><span class='lbracket'>[</span><span class='int'>0</span><span class='op'>...</span><span class='id identifier rubyid_insert_pos'>insert_pos</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_count'>count</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_i'>i</span> <span class='op'>=</span> <span class='id identifier rubyid_current_line_index'>current_line_index</span> <span class='op'>-</span> <span class='int'>1</span>
-  <span class='id identifier rubyid_i'>i</span> <span class='op'>-=</span> <span class='int'>1</span> <span class='kw'>while</span> <span class='id identifier rubyid_i'>i</span> <span class='op'>&gt;=</span> <span class='int'>0</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_lines'>lines</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_strip'>strip</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
-  <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>if</span> <span class='id identifier rubyid_i'>i</span><span class='period'>.</span><span class='id identifier rubyid_negative?'>negative?</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_insert_comments'>insert_comments</span><span class='lparen'>(</span><span class='id identifier rubyid_code'>code</span><span class='comma'>,</span> <span class='label'>strategy:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>rewrite:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>merge:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>config:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>file:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>(inline)</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_strategy'>strategy</span> <span class='op'>=</span> <span class='id identifier rubyid_normalize_strategy'>normalize_strategy</span><span class='lparen'>(</span><span class='label'>strategy:</span> <span class='id identifier rubyid_strategy'>strategy</span><span class='comma'>,</span> <span class='label'>rewrite:</span> <span class='id identifier rubyid_rewrite'>rewrite</span><span class='comma'>,</span> <span class='label'>merge:</span> <span class='id identifier rubyid_merge'>merge</span><span class='rparen'>)</span>
 
-  <span class='op'>!</span><span class='op'>!</span><span class='lparen'>(</span><span class='id identifier rubyid_lines'>lines</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span> <span class='op'>=~</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^\s*#</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_rewrite_with_report'>rewrite_with_report</span><span class='lparen'>(</span>
+    <span class='id identifier rubyid_code'>code</span><span class='comma'>,</span>
+    <span class='label'>strategy:</span> <span class='id identifier rubyid_strategy'>strategy</span><span class='comma'>,</span>
+    <span class='label'>config:</span> <span class='id identifier rubyid_config'>config</span><span class='comma'>,</span>
+    <span class='label'>file:</span> <span class='id identifier rubyid_file'>file</span>
+  <span class='rparen'>)</span><span class='lbracket'>[</span><span class='symbol'>:output</span><span class='rbracket'>]</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -392,9 +387,9 @@
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="build_doc_for_node-class_method">
+  <h3 class="signature " id="rewrite_with_report-class_method">
   
-    .<strong>build_doc_for_node</strong>(_buffer, insertion, config)  &#x21d2; <tt>Object</tt><sup>?</sup> 
+    .<strong>rewrite_with_report</strong>(code, strategy: nil, rewrite: nil, merge: nil, config: Docscribe::Config.new({}), core_rbs_provider: nil, file: &#39;(inline)&#39;)  &#x21d2; <tt>Hash</tt> 
   
 
   
@@ -403,9 +398,14 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p><code>Docscribe::InlineRewriter.build_doc_for_node</code> -&gt; Object</p>
+<p>Rewrite source and return both output and structured change information.</p>
 
-<p>Method documentation.</p>
+<p>The result hash includes:</p>
+<ul><li>
+<p>‘:output`  =&gt; rewritten source</p>
+</li><li>
+<p>‘:changes` =&gt; structured change records used by CLI explanation output</p>
+</li></ul>
 
 
   </div>
@@ -416,32 +416,70 @@
   
     <li>
       
-        <span class='name'>_buffer</span>
+        <span class='name'>code</span>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>String</tt>)</span>
       
       
       
         &mdash;
         <div class='inline'>
-<p>Param documentation.</p>
+<p>Ruby source</p>
 </div>
       
     </li>
   
     <li>
       
-        <span class='name'>insertion</span>
+        <span class='name'>strategy</span>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>Symbol</tt>, <tt>nil</tt>)</span>
       
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
       
       
         &mdash;
         <div class='inline'>
-<p>Param documentation.</p>
+<p>:safe or :aggressive</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>rewrite</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>, <tt>nil</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>compatibility alias for aggressive strategy</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>merge</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>, <tt>nil</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>compatibility alias for safe strategy</p>
 </div>
       
     </li>
@@ -451,8 +489,46 @@
         <span class='name'>config</span>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="Config.html" title="Docscribe::Config (class)">Docscribe::Config</a></span></tt>)</span>
       
+      
+        <em class="default">(defaults to: <tt>Docscribe::Config.new({})</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>config object (defaults to loaded config)</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>file</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;(inline)&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>source name used for parser locations/debugging</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>core_rbs_provider</span>
+      
+      
+        <span class='type'>(<tt>nil</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
       
       
         &mdash;
@@ -470,29 +546,24 @@
     <li>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>Hash</tt>)</span>
       
       
-      
-    </li>
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>nil</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>if StandardError</p>
-</div>
       
     </li>
   
 </ul>
 <p class="tag_title">Raises:</p>
 <ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="ParseError.html" title="Docscribe::ParseError (class)">Docscribe::ParseError</a></span></tt>)</span>
+      
+      
+      
+    </li>
   
     <li>
       
@@ -511,402 +582,29 @@
       <pre class="lines">
 
 
-155
-156
-157
-158
-159
-160
-161
-162
-163
-164
-165
-166
-167
-168
-169
-170
-171
-172
-173
-174
-175
-176
-177
-178
-179
-180
-181
-182
-183
-184
-185
-186
-187
-188
-189
-190
-191
-192
-193
-194
-195
-196
-197
-198
-199
-200
-201
-202
-203
-204
-205
-206
-207
-208
-209
-210
-211
-212
-213
-214
-215</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter.rb', line 155</span>
-
-<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_build_doc_for_node'>build_doc_for_node</span><span class='lparen'>(</span><span class='id identifier rubyid__buffer'>_buffer</span><span class='comma'>,</span> <span class='id identifier rubyid_insertion'>insertion</span><span class='comma'>,</span> <span class='id identifier rubyid_config'>config</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_node'>node</span> <span class='op'>=</span> <span class='id identifier rubyid_insertion'>insertion</span><span class='period'>.</span><span class='id identifier rubyid_node'>node</span>
-  <span class='id identifier rubyid_indent'>indent</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'> </span><span class='tstring_end'>&#39;</span></span> <span class='op'>*</span> <span class='id identifier rubyid_node'>node</span><span class='period'>.</span><span class='id identifier rubyid_loc'>loc</span><span class='period'>.</span><span class='id identifier rubyid_expression'>expression</span><span class='period'>.</span><span class='id identifier rubyid_column'>column</span>
-
-  <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span>
-    <span class='kw'>case</span> <span class='id identifier rubyid_node'>node</span><span class='period'>.</span><span class='id identifier rubyid_type'>type</span>
-    <span class='kw'>when</span> <span class='symbol'>:def</span> <span class='kw'>then</span> <span class='id identifier rubyid_node'>node</span><span class='period'>.</span><span class='id identifier rubyid_children'>children</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
-    <span class='kw'>when</span> <span class='symbol'>:defs</span> <span class='kw'>then</span> <span class='id identifier rubyid_node'>node</span><span class='period'>.</span><span class='id identifier rubyid_children'>children</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span>
-    <span class='kw'>end</span>
-
-  <span class='id identifier rubyid_scope'>scope</span> <span class='op'>=</span> <span class='id identifier rubyid_insertion'>insertion</span><span class='period'>.</span><span class='id identifier rubyid_scope'>scope</span>
-  <span class='id identifier rubyid_visibility'>visibility</span> <span class='op'>=</span> <span class='id identifier rubyid_insertion'>insertion</span><span class='period'>.</span><span class='id identifier rubyid_visibility'>visibility</span>
-
-  <span class='id identifier rubyid_method_symbol'>method_symbol</span> <span class='op'>=</span> <span class='id identifier rubyid_scope'>scope</span> <span class='op'>==</span> <span class='symbol'>:instance</span> <span class='op'>?</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>#</span><span class='tstring_end'>&#39;</span></span> <span class='op'>:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>.</span><span class='tstring_end'>&#39;</span></span>
-  <span class='id identifier rubyid_container'>container</span> <span class='op'>=</span> <span class='id identifier rubyid_insertion'>insertion</span><span class='period'>.</span><span class='id identifier rubyid_container'>container</span>
-
-  <span class='comment'># Params
-</span>  <span class='id identifier rubyid_params_block'>params_block</span> <span class='op'>=</span> <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_emit_param_tags?'>emit_param_tags?</span> <span class='op'>?</span> <span class='id identifier rubyid_build_params_block'>build_params_block</span><span class='lparen'>(</span><span class='id identifier rubyid_node'>node</span><span class='comma'>,</span> <span class='id identifier rubyid_indent'>indent</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='kw'>nil</span>
-
-  <span class='comment'># Raises (rescue and/or raise calls)
-</span>  <span class='id identifier rubyid_raise_types'>raise_types</span> <span class='op'>=</span> <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_emit_raise_tags?'>emit_raise_tags?</span> <span class='op'>?</span> <span class='const'><span class='object_link'><a href="../Docscribe.html" title="Docscribe (module)">Docscribe</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Infer.html" title="Docscribe::Infer (module)">Infer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_infer_raises_from_node'><span class='object_link'><a href="Infer.html#infer_raises_from_node-class_method" title="Docscribe::Infer.infer_raises_from_node (method)">infer_raises_from_node</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_node'>node</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
-
-  <span class='comment'># Returns: normal + conditional rescue returns
-</span>  <span class='id identifier rubyid_spec'>spec</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Docscribe.html" title="Docscribe (module)">Docscribe</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Infer.html" title="Docscribe::Infer (module)">Infer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_returns_spec_from_node'><span class='object_link'><a href="Infer.html#returns_spec_from_node-class_method" title="Docscribe::Infer.returns_spec_from_node (method)">returns_spec_from_node</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_node'>node</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_normal_type'>normal_type</span> <span class='op'>=</span> <span class='id identifier rubyid_spec'>spec</span><span class='lbracket'>[</span><span class='symbol'>:normal</span><span class='rbracket'>]</span>
-  <span class='id identifier rubyid_rescue_specs'>rescue_specs</span> <span class='op'>=</span> <span class='id identifier rubyid_spec'>spec</span><span class='lbracket'>[</span><span class='symbol'>:rescues</span><span class='rbracket'>]</span>
-
-  <span class='id identifier rubyid_lines'>lines</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_emit_header?'>emit_header?</span>
-    <span class='id identifier rubyid_lines'>lines</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_indent'>indent</span><span class='embexpr_end'>}</span><span class='tstring_content'># +</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_container'>container</span><span class='embexpr_end'>}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_method_symbol'>method_symbol</span><span class='embexpr_end'>}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'>+ -&gt; </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_normal_type'>normal_type</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
-    <span class='id identifier rubyid_lines'>lines</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_indent'>indent</span><span class='embexpr_end'>}</span><span class='tstring_content'>#</span><span class='tstring_end'>&quot;</span></span>
-  <span class='kw'>end</span>
-
-  <span class='comment'># Default doc text (configurable per scope/vis)
-</span>  <span class='id identifier rubyid_lines'>lines</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_indent'>indent</span><span class='embexpr_end'>}</span><span class='tstring_content'># </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_default_message'>default_message</span><span class='lparen'>(</span><span class='id identifier rubyid_scope'>scope</span><span class='comma'>,</span> <span class='id identifier rubyid_visibility'>visibility</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
-  <span class='id identifier rubyid_lines'>lines</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_indent'>indent</span><span class='embexpr_end'>}</span><span class='tstring_content'>#</span><span class='tstring_end'>&quot;</span></span>
-
-  <span class='kw'>if</span> <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_emit_visibility_tags?'>emit_visibility_tags?</span>
-    <span class='kw'>case</span> <span class='id identifier rubyid_visibility'>visibility</span>
-    <span class='kw'>when</span> <span class='symbol'>:private</span> <span class='kw'>then</span> <span class='id identifier rubyid_lines'>lines</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_indent'>indent</span><span class='embexpr_end'>}</span><span class='tstring_content'># @private</span><span class='tstring_end'>&quot;</span></span>
-    <span class='kw'>when</span> <span class='symbol'>:protected</span> <span class='kw'>then</span> <span class='id identifier rubyid_lines'>lines</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_indent'>indent</span><span class='embexpr_end'>}</span><span class='tstring_content'># @protected</span><span class='tstring_end'>&quot;</span></span>
-    <span class='kw'>end</span>
-  <span class='kw'>end</span>
-
-  <span class='id identifier rubyid_lines'>lines</span><span class='period'>.</span><span class='id identifier rubyid_concat'>concat</span><span class='lparen'>(</span><span class='id identifier rubyid_params_block'>params_block</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_params_block'>params_block</span>
-
-  <span class='id identifier rubyid_raise_types'>raise_types</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_rt'>rt</span><span class='op'>|</span> <span class='id identifier rubyid_lines'>lines</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_indent'>indent</span><span class='embexpr_end'>}</span><span class='tstring_content'># @raise [</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_rt'>rt</span><span class='embexpr_end'>}</span><span class='tstring_content'>]</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span> <span class='kw'>if</span> <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_emit_raise_tags?'>emit_raise_tags?</span>
-
-  <span class='id identifier rubyid_lines'>lines</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_indent'>indent</span><span class='embexpr_end'>}</span><span class='tstring_content'># @return [</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_normal_type'>normal_type</span><span class='embexpr_end'>}</span><span class='tstring_content'>]</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_emit_return_tag?'>emit_return_tag?</span><span class='lparen'>(</span><span class='id identifier rubyid_scope'>scope</span><span class='comma'>,</span> <span class='id identifier rubyid_visibility'>visibility</span><span class='rparen'>)</span>
-
-  <span class='kw'>if</span> <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_emit_rescue_conditional_returns?'>emit_rescue_conditional_returns?</span>
-    <span class='id identifier rubyid_rescue_specs'>rescue_specs</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='lparen'>(</span><span class='id identifier rubyid_exceptions'>exceptions</span><span class='comma'>,</span> <span class='id identifier rubyid_rtype'>rtype</span><span class='rparen'>)</span><span class='op'>|</span>
-      <span class='id identifier rubyid_ex_display'>ex_display</span> <span class='op'>=</span> <span class='id identifier rubyid_exceptions'>exceptions</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>, </span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
-      <span class='id identifier rubyid_lines'>lines</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_indent'>indent</span><span class='embexpr_end'>}</span><span class='tstring_content'># @return [</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_rtype'>rtype</span><span class='embexpr_end'>}</span><span class='tstring_content'>] if </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_ex_display'>ex_display</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
-    <span class='kw'>end</span>
-  <span class='kw'>end</span>
-
-  <span class='id identifier rubyid_lines'>lines</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_l'>l</span><span class='op'>|</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_l'>l</span><span class='embexpr_end'>}</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span>
-<span class='kw'>rescue</span> <span class='const'>StandardError</span>
-  <span class='kw'>nil</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="build_params_block-class_method">
-  
-    .<strong>build_params_block</strong>(node, indent)  &#x21d2; <tt>Object?</tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p><code>Docscribe::InlineRewriter.build_params_block</code> -&gt; Object?</p>
-
-<p>Method documentation.</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  <p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>node</span>
-      
-      
-        <span class='type'>(<tt>Object</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>Param documentation.</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>indent</span>
-      
-      
-        <span class='type'>(<tt>Object</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>Param documentation.</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>Object?</tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-224
-225
-226
-227
-228
-229
-230
-231
-232
-233
-234
-235
-236
-237
-238
-239
-240
-241
-242
-243
-244
-245
-246
-247
-248
-249
-250
-251
-252
-253
-254
-255
-256
-257
-258
-259
-260
-261
-262
-263
-264
-265
-266
-267
-268
-269
-270
-271
-272
-273
-274</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter.rb', line 224</span>
-
-<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_build_params_block'>build_params_block</span><span class='lparen'>(</span><span class='id identifier rubyid_node'>node</span><span class='comma'>,</span> <span class='id identifier rubyid_indent'>indent</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_args'>args</span> <span class='op'>=</span>
-    <span class='kw'>case</span> <span class='id identifier rubyid_node'>node</span><span class='period'>.</span><span class='id identifier rubyid_type'>type</span>
-    <span class='kw'>when</span> <span class='symbol'>:def</span> <span class='kw'>then</span> <span class='id identifier rubyid_node'>node</span><span class='period'>.</span><span class='id identifier rubyid_children'>children</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span>
-    <span class='kw'>when</span> <span class='symbol'>:defs</span> <span class='kw'>then</span> <span class='id identifier rubyid_node'>node</span><span class='period'>.</span><span class='id identifier rubyid_children'>children</span><span class='lbracket'>[</span><span class='int'>2</span><span class='rbracket'>]</span> <span class='comment'># FIX: args is children[2], not [3]
-</span>    <span class='kw'>end</span>
-  <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>unless</span> <span class='id identifier rubyid_args'>args</span>
-
-  <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
-  <span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_children'>children</span> <span class='op'>||</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_a'>a</span><span class='op'>|</span>
-    <span class='kw'>case</span> <span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_type'>type</span>
-    <span class='kw'>when</span> <span class='symbol'>:arg</span>
-      <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_children'>children</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
-      <span class='id identifier rubyid_ty'>ty</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Infer.html" title="Docscribe::Infer (module)">Infer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_infer_param_type'><span class='object_link'><a href="Infer.html#infer_param_type-class_method" title="Docscribe::Infer.infer_param_type (method)">infer_param_type</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='kw'>nil</span><span class='rparen'>)</span>
-      <span class='id identifier rubyid_params'>params</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_indent'>indent</span><span class='embexpr_end'>}</span><span class='tstring_content'># @param [</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_ty'>ty</span><span class='embexpr_end'>}</span><span class='tstring_content'>] </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'> Param documentation.</span><span class='tstring_end'>&quot;</span></span>
-    <span class='kw'>when</span> <span class='symbol'>:optarg</span>
-      <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_default'>default</span> <span class='op'>=</span> <span class='op'>*</span><span class='id identifier rubyid_a'>a</span>
-      <span class='id identifier rubyid_ty'>ty</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Infer.html" title="Docscribe::Infer (module)">Infer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_infer_param_type'><span class='object_link'><a href="Infer.html#infer_param_type-class_method" title="Docscribe::Infer.infer_param_type (method)">infer_param_type</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='comma'>,</span> <span class='id identifier rubyid_default'>default</span><span class='op'>&amp;.</span><span class='id identifier rubyid_loc'>loc</span><span class='op'>&amp;.</span><span class='id identifier rubyid_expression'>expression</span><span class='op'>&amp;.</span><span class='id identifier rubyid_source'>source</span><span class='rparen'>)</span>
-      <span class='id identifier rubyid_params'>params</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_indent'>indent</span><span class='embexpr_end'>}</span><span class='tstring_content'># @param [</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_ty'>ty</span><span class='embexpr_end'>}</span><span class='tstring_content'>] </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'> Param documentation.</span><span class='tstring_end'>&quot;</span></span>
-    <span class='kw'>when</span> <span class='symbol'>:kwarg</span>
-      <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_children'>children</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span><span class='embexpr_end'>}</span><span class='tstring_content'>:</span><span class='tstring_end'>&quot;</span></span>
-      <span class='id identifier rubyid_ty'>ty</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Infer.html" title="Docscribe::Infer (module)">Infer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_infer_param_type'><span class='object_link'><a href="Infer.html#infer_param_type-class_method" title="Docscribe::Infer.infer_param_type (method)">infer_param_type</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='kw'>nil</span><span class='rparen'>)</span>
-      <span class='id identifier rubyid_pname'>pname</span> <span class='op'>=</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_sub'>sub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>:$</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
-      <span class='id identifier rubyid_params'>params</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_indent'>indent</span><span class='embexpr_end'>}</span><span class='tstring_content'># @param [</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_ty'>ty</span><span class='embexpr_end'>}</span><span class='tstring_content'>] </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_pname'>pname</span><span class='embexpr_end'>}</span><span class='tstring_content'> Param documentation.</span><span class='tstring_end'>&quot;</span></span>
-    <span class='kw'>when</span> <span class='symbol'>:kwoptarg</span>
-      <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_default'>default</span> <span class='op'>=</span> <span class='op'>*</span><span class='id identifier rubyid_a'>a</span>
-      <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'>:</span><span class='tstring_end'>&quot;</span></span>
-      <span class='id identifier rubyid_ty'>ty</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Infer.html" title="Docscribe::Infer (module)">Infer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_infer_param_type'><span class='object_link'><a href="Infer.html#infer_param_type-class_method" title="Docscribe::Infer.infer_param_type (method)">infer_param_type</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_default'>default</span><span class='op'>&amp;.</span><span class='id identifier rubyid_loc'>loc</span><span class='op'>&amp;.</span><span class='id identifier rubyid_expression'>expression</span><span class='op'>&amp;.</span><span class='id identifier rubyid_source'>source</span><span class='rparen'>)</span>
-      <span class='id identifier rubyid_pname'>pname</span> <span class='op'>=</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_sub'>sub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>:$</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
-      <span class='id identifier rubyid_params'>params</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_indent'>indent</span><span class='embexpr_end'>}</span><span class='tstring_content'># @param [</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_ty'>ty</span><span class='embexpr_end'>}</span><span class='tstring_content'>] </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_pname'>pname</span><span class='embexpr_end'>}</span><span class='tstring_content'> Param documentation.</span><span class='tstring_end'>&quot;</span></span>
-    <span class='kw'>when</span> <span class='symbol'>:restarg</span>
-      <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>*</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_children'>children</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
-      <span class='id identifier rubyid_ty'>ty</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Infer.html" title="Docscribe::Infer (module)">Infer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_infer_param_type'><span class='object_link'><a href="Infer.html#infer_param_type-class_method" title="Docscribe::Infer.infer_param_type (method)">infer_param_type</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='kw'>nil</span><span class='rparen'>)</span>
-      <span class='id identifier rubyid_pname'>pname</span> <span class='op'>=</span> <span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_children'>children</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
-      <span class='id identifier rubyid_params'>params</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_indent'>indent</span><span class='embexpr_end'>}</span><span class='tstring_content'># @param [</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_ty'>ty</span><span class='embexpr_end'>}</span><span class='tstring_content'>] </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_pname'>pname</span><span class='embexpr_end'>}</span><span class='tstring_content'> Param documentation.</span><span class='tstring_end'>&quot;</span></span>
-    <span class='kw'>when</span> <span class='symbol'>:kwrestarg</span>
-      <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>**</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_children'>children</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span> <span class='op'>||</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>kwargs</span><span class='tstring_end'>&#39;</span></span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
-      <span class='id identifier rubyid_ty'>ty</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Infer.html" title="Docscribe::Infer (module)">Infer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_infer_param_type'><span class='object_link'><a href="Infer.html#infer_param_type-class_method" title="Docscribe::Infer.infer_param_type (method)">infer_param_type</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='kw'>nil</span><span class='rparen'>)</span>
-      <span class='id identifier rubyid_pname'>pname</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_children'>children</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span> <span class='op'>||</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>kwargs</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
-      <span class='id identifier rubyid_params'>params</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_indent'>indent</span><span class='embexpr_end'>}</span><span class='tstring_content'># @param [</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_ty'>ty</span><span class='embexpr_end'>}</span><span class='tstring_content'>] </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_pname'>pname</span><span class='embexpr_end'>}</span><span class='tstring_content'> Param documentation.</span><span class='tstring_end'>&quot;</span></span>
-    <span class='kw'>when</span> <span class='symbol'>:blockarg</span>
-      <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&amp;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_children'>children</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
-      <span class='id identifier rubyid_ty'>ty</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Infer.html" title="Docscribe::Infer (module)">Infer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_infer_param_type'><span class='object_link'><a href="Infer.html#infer_param_type-class_method" title="Docscribe::Infer.infer_param_type (method)">infer_param_type</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='kw'>nil</span><span class='rparen'>)</span>
-      <span class='id identifier rubyid_pname'>pname</span> <span class='op'>=</span> <span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_children'>children</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
-      <span class='id identifier rubyid_params'>params</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_indent'>indent</span><span class='embexpr_end'>}</span><span class='tstring_content'># @param [</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_ty'>ty</span><span class='embexpr_end'>}</span><span class='tstring_content'>] </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_pname'>pname</span><span class='embexpr_end'>}</span><span class='tstring_content'> Param documentation.</span><span class='tstring_end'>&quot;</span></span>
-    <span class='kw'>when</span> <span class='symbol'>:forward_arg</span>
-      <span class='comment'># Ruby 3 &#39;...&#39; forwarding; skip
-</span>    <span class='kw'>end</span>
-  <span class='kw'>end</span>
-  <span class='id identifier rubyid_params'>params</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span> <span class='op'>?</span> <span class='kw'>nil</span> <span class='op'>:</span> <span class='id identifier rubyid_params'>params</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="comment_block_removal_range-class_method">
-  
-    .<strong>comment_block_removal_range</strong>(buffer, def_bol_pos)  &#x21d2; <tt>Range</tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p><code>Docscribe::InlineRewriter.comment_block_removal_range</code> -&gt; Range</p>
-
-<p>Method documentation.</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  <p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>buffer</span>
-      
-      
-        <span class='type'>(<tt>Object</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>Param documentation.</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>def_bol_pos</span>
-      
-      
-        <span class='type'>(<tt>Object</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>Param documentation.</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>Range</tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
 98
 99
 100
@@ -934,400 +632,123 @@
 122
 123
 124
-125</pre>
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter.rb', line 98</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter.rb', line 75</span>
 
-<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_comment_block_removal_range'>comment_block_removal_range</span><span class='lparen'>(</span><span class='id identifier rubyid_buffer'>buffer</span><span class='comma'>,</span> <span class='id identifier rubyid_def_bol_pos'>def_bol_pos</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_src'>src</span> <span class='op'>=</span> <span class='id identifier rubyid_buffer'>buffer</span><span class='period'>.</span><span class='id identifier rubyid_source'>source</span>
-  <span class='id identifier rubyid_lines'>lines</span> <span class='op'>=</span> <span class='id identifier rubyid_src'>src</span><span class='period'>.</span><span class='id identifier rubyid_lines'>lines</span>
-  <span class='comment'># Find def line index
-</span>  <span class='id identifier rubyid_def_line_idx'>def_line_idx</span> <span class='op'>=</span> <span class='id identifier rubyid_src'>src</span><span class='lbracket'>[</span><span class='int'>0</span><span class='op'>...</span><span class='id identifier rubyid_def_bol_pos'>def_bol_pos</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_count'>count</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_i'>i</span> <span class='op'>=</span> <span class='id identifier rubyid_def_line_idx'>def_line_idx</span> <span class='op'>-</span> <span class='int'>1</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_rewrite_with_report'>rewrite_with_report</span><span class='lparen'>(</span><span class='id identifier rubyid_code'>code</span><span class='comma'>,</span> <span class='label'>strategy:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>rewrite:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>merge:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>config:</span> <span class='const'><span class='object_link'><a href="../Docscribe.html" title="Docscribe (module)">Docscribe</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Config.html" title="Docscribe::Config (class)">Config</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Config.html#initialize-instance_method" title="Docscribe::Config#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span><span class='comma'>,</span>
+                        <span class='label'>core_rbs_provider:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>file:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>(inline)</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_strategy'>strategy</span> <span class='op'>=</span> <span class='id identifier rubyid_normalize_strategy'>normalize_strategy</span><span class='lparen'>(</span><span class='label'>strategy:</span> <span class='id identifier rubyid_strategy'>strategy</span><span class='comma'>,</span> <span class='label'>rewrite:</span> <span class='id identifier rubyid_rewrite'>rewrite</span><span class='comma'>,</span> <span class='label'>merge:</span> <span class='id identifier rubyid_merge'>merge</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_validate_strategy!'>validate_strategy!</span><span class='lparen'>(</span><span class='id identifier rubyid_strategy'>strategy</span><span class='rparen'>)</span>
 
-  <span class='comment'># Walk up and skip blank lines directly above def
-</span>  <span class='id identifier rubyid_i'>i</span> <span class='op'>-=</span> <span class='int'>1</span> <span class='kw'>while</span> <span class='id identifier rubyid_i'>i</span> <span class='op'>&gt;=</span> <span class='int'>0</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_lines'>lines</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_strip'>strip</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
-  <span class='comment'># Now if the nearest non-blank line isn&#39;t a comment, nothing to remove
-</span>  <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>unless</span> <span class='id identifier rubyid_i'>i</span> <span class='op'>&gt;=</span> <span class='int'>0</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_lines'>lines</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span> <span class='op'>=~</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^\s*#</span><span class='regexp_end'>/</span></span>
-
-  <span class='comment'># Find the start of the contiguous comment block
-</span>  <span class='id identifier rubyid_start_idx'>start_idx</span> <span class='op'>=</span> <span class='id identifier rubyid_i'>i</span>
-  <span class='id identifier rubyid_start_idx'>start_idx</span> <span class='op'>-=</span> <span class='int'>1</span> <span class='kw'>while</span> <span class='id identifier rubyid_start_idx'>start_idx</span> <span class='op'>&gt;=</span> <span class='int'>0</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_lines'>lines</span><span class='lbracket'>[</span><span class='id identifier rubyid_start_idx'>start_idx</span><span class='rbracket'>]</span> <span class='op'>=~</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^\s*#</span><span class='regexp_end'>/</span></span>
-  <span class='id identifier rubyid_start_idx'>start_idx</span> <span class='op'>+=</span> <span class='int'>1</span>
-
-  <span class='comment'># End position is at def_bol_pos; start position is BOL of start_idx
-</span>  <span class='comment'># Compute absolute buffer positions
-</span>  <span class='comment'># Position of BOL for start_idx:
-</span>  <span class='id identifier rubyid_start_pos'>start_pos</span> <span class='op'>=</span> <span class='int'>0</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_start_idx'>start_idx</span><span class='period'>.</span><span class='id identifier rubyid_positive?'>positive?</span>
-    <span class='comment'># Sum lengths of all preceding lines
-</span>    <span class='id identifier rubyid_start_pos'>start_pos</span> <span class='op'>=</span> <span class='id identifier rubyid_lines'>lines</span><span class='lbracket'>[</span><span class='int'>0</span><span class='op'>...</span><span class='id identifier rubyid_start_idx'>start_idx</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span>
-  <span class='kw'>end</span>
-
-  <span class='const'>Parser</span><span class='op'>::</span><span class='const'>Source</span><span class='op'>::</span><span class='const'>Range</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_buffer'>buffer</span><span class='comma'>,</span> <span class='id identifier rubyid_start_pos'>start_pos</span><span class='comma'>,</span> <span class='id identifier rubyid_def_bol_pos'>def_bol_pos</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="insert_comments-class_method">
-  
-    .<strong>insert_comments</strong>(code, rewrite: false, config: nil)  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p><code>Docscribe::InlineRewriter.insert_comments</code> -&gt; Object</p>
-
-<p>Method documentation.</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  <p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>code</span>
-      
-      
-        <span class='type'>(<tt>Object</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>Param documentation.</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>rewrite</span>
-      
-      
-        <span class='type'>(<tt>Boolean</tt>)</span>
-      
-      
-        <em class="default">(defaults to: <tt>false</tt>)</em>
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>Param documentation.</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>config</span>
-      
-      
-        <span class='type'>(<tt>nil</tt>)</span>
-      
-      
-        <em class="default">(defaults to: <tt>nil</tt>)</em>
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>Param documentation.</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>Object</tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37
-38
-39
-40
-41
-42
-43
-44
-45
-46
-47
-48
-49
-50
-51
-52
-53
-54
-55
-56
-57
-58
-59
-60</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter.rb', line 25</span>
-
-<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_insert_comments'>insert_comments</span><span class='lparen'>(</span><span class='id identifier rubyid_code'>code</span><span class='comma'>,</span> <span class='label'>rewrite:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>config:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_buffer'>buffer</span> <span class='op'>=</span> <span class='const'>Parser</span><span class='op'>::</span><span class='const'>Source</span><span class='op'>::</span><span class='const'>Buffer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>(inline)</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_buffer'>buffer</span><span class='period'>.</span><span class='id identifier rubyid_source'>source</span> <span class='op'>=</span> <span class='id identifier rubyid_code'>code</span>
+  <span class='id identifier rubyid_buffer'>buffer</span> <span class='op'>=</span> <span class='const'>Parser</span><span class='op'>::</span><span class='const'>Source</span><span class='op'>::</span><span class='const'>Buffer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='comma'>,</span> <span class='label'>source:</span> <span class='id identifier rubyid_code'>code</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_ast'>ast</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Docscribe.html" title="Docscribe (module)">Docscribe</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Parsing.html" title="Docscribe::Parsing (module)">Parsing</a></span></span><span class='period'>.</span><span class='id identifier rubyid_parse_buffer'><span class='object_link'><a href="Parsing.html#parse_buffer-class_method" title="Docscribe::Parsing.parse_buffer (method)">parse_buffer</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_buffer'>buffer</span><span class='rparen'>)</span>
-  <span class='kw'>return</span> <span class='id identifier rubyid_code'>code</span> <span class='kw'>unless</span> <span class='id identifier rubyid_ast'>ast</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../Docscribe.html" title="Docscribe (module)">Docscribe</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ParseError.html" title="Docscribe::ParseError (class)">ParseError</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Failed to parse </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_file'>file</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_ast'>ast</span>
 
   <span class='id identifier rubyid_config'>config</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="../Docscribe.html" title="Docscribe (module)">Docscribe</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Config.html" title="Docscribe::Config (class)">Config</a></span></span><span class='period'>.</span><span class='id identifier rubyid_load'><span class='object_link'><a href="Config.html#load-class_method" title="Docscribe::Config.load (method)">load</a></span></span>
-
-  <span class='id identifier rubyid_collector'>collector</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="InlineRewriter/Collector.html" title="Docscribe::InlineRewriter::Collector (class)">Collector</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="InlineRewriter/Collector.html#initialize-instance_method" title="Docscribe::InlineRewriter::Collector#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_buffer'>buffer</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_collector'>collector</span><span class='period'>.</span><span class='id identifier rubyid_process'>process</span><span class='lparen'>(</span><span class='id identifier rubyid_ast'>ast</span><span class='rparen'>)</span>
-
-  <span class='id identifier rubyid_rewriter'>rewriter</span> <span class='op'>=</span> <span class='const'>Parser</span><span class='op'>::</span><span class='const'>Source</span><span class='op'>::</span><span class='const'>TreeRewriter</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_buffer'>buffer</span><span class='rparen'>)</span>
-
-  <span class='id identifier rubyid_collector'>collector</span><span class='period'>.</span><span class='id identifier rubyid_insertions'>insertions</span>
-           <span class='period'>.</span><span class='id identifier rubyid_sort_by'>sort_by</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_ins'>ins</span><span class='op'>|</span> <span class='id identifier rubyid_ins'>ins</span><span class='period'>.</span><span class='id identifier rubyid_node'>node</span><span class='period'>.</span><span class='id identifier rubyid_loc'>loc</span><span class='period'>.</span><span class='id identifier rubyid_expression'>expression</span><span class='period'>.</span><span class='id identifier rubyid_begin_pos'>begin_pos</span> <span class='rbrace'>}</span>
-           <span class='period'>.</span><span class='id identifier rubyid_reverse_each'>reverse_each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_ins'>ins</span><span class='op'>|</span>
-             <span class='id identifier rubyid_bol_range'>bol_range</span> <span class='op'>=</span> <span class='id identifier rubyid_line_start_range'>line_start_range</span><span class='lparen'>(</span><span class='id identifier rubyid_buffer'>buffer</span><span class='comma'>,</span> <span class='id identifier rubyid_ins'>ins</span><span class='period'>.</span><span class='id identifier rubyid_node'>node</span><span class='rparen'>)</span>
-
-             <span class='kw'>if</span> <span class='id identifier rubyid_rewrite'>rewrite</span>
-               <span class='comment'># If there is a comment block immediately above, remove it (and its trailing blank lines)
-</span>               <span class='kw'>if</span> <span class='lparen'>(</span><span class='id identifier rubyid_range'>range</span> <span class='op'>=</span> <span class='id identifier rubyid_comment_block_removal_range'>comment_block_removal_range</span><span class='lparen'>(</span><span class='id identifier rubyid_buffer'>buffer</span><span class='comma'>,</span> <span class='id identifier rubyid_bol_range'>bol_range</span><span class='period'>.</span><span class='id identifier rubyid_begin_pos'>begin_pos</span><span class='rparen'>)</span><span class='rparen'>)</span>
-                 <span class='id identifier rubyid_rewriter'>rewriter</span><span class='period'>.</span><span class='id identifier rubyid_remove'>remove</span><span class='lparen'>(</span><span class='id identifier rubyid_range'>range</span><span class='rparen'>)</span>
-               <span class='kw'>end</span>
-             <span class='kw'>elsif</span> <span class='id identifier rubyid_already_has_doc_immediately_above?'>already_has_doc_immediately_above?</span><span class='lparen'>(</span><span class='id identifier rubyid_buffer'>buffer</span><span class='comma'>,</span> <span class='id identifier rubyid_bol_range'>bol_range</span><span class='period'>.</span><span class='id identifier rubyid_begin_pos'>begin_pos</span><span class='rparen'>)</span>
-               <span class='comment'># Skip if a doc already exists immediately above
-</span>               <span class='kw'>next</span>
-             <span class='kw'>end</span>
-
-             <span class='id identifier rubyid_doc'>doc</span> <span class='op'>=</span> <span class='id identifier rubyid_build_doc_for_node'>build_doc_for_node</span><span class='lparen'>(</span><span class='id identifier rubyid_buffer'>buffer</span><span class='comma'>,</span> <span class='id identifier rubyid_ins'>ins</span><span class='comma'>,</span> <span class='id identifier rubyid_config'>config</span><span class='rparen'>)</span>
-             <span class='kw'>next</span> <span class='kw'>unless</span> <span class='id identifier rubyid_doc'>doc</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='id identifier rubyid_doc'>doc</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
-
-             <span class='id identifier rubyid_rewriter'>rewriter</span><span class='period'>.</span><span class='id identifier rubyid_insert_before'>insert_before</span><span class='lparen'>(</span><span class='id identifier rubyid_bol_range'>bol_range</span><span class='comma'>,</span> <span class='id identifier rubyid_doc'>doc</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_signature_provider'>signature_provider</span> <span class='op'>=</span> <span class='id identifier rubyid_build_signature_provider'>build_signature_provider</span><span class='lparen'>(</span><span class='id identifier rubyid_config'>config</span><span class='comma'>,</span> <span class='id identifier rubyid_code'>code</span><span class='comma'>,</span> <span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span>
+  <span class='kw'>unless</span> <span class='id identifier rubyid_core_rbs_provider'>core_rbs_provider</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='symbol'>:core_rbs_provider</span><span class='rparen'>)</span>
+      <span class='kw'>begin</span>
+        <span class='id identifier rubyid_core_rbs_provider'>core_rbs_provider</span> <span class='op'>=</span> <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_core_rbs_provider'>core_rbs_provider</span>
+      <span class='kw'>rescue</span> <span class='const'>StandardError</span>
+        <span class='id identifier rubyid_core_rbs_provider'>core_rbs_provider</span> <span class='op'>=</span> <span class='kw'>nil</span>
+      <span class='kw'>end</span>
+    <span class='kw'>elsif</span> <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='symbol'>:rbs_provider</span><span class='rparen'>)</span>
+      <span class='kw'>begin</span>
+        <span class='id identifier rubyid_core_rbs_provider'>core_rbs_provider</span> <span class='op'>=</span> <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_rbs_provider'>rbs_provider</span>
+      <span class='kw'>rescue</span> <span class='const'>StandardError</span>
+        <span class='id identifier rubyid_core_rbs_provider'>core_rbs_provider</span> <span class='op'>=</span> <span class='kw'>nil</span>
+      <span class='kw'>end</span>
+    <span class='kw'>end</span>
   <span class='kw'>end</span>
 
-  <span class='id identifier rubyid_rewriter'>rewriter</span><span class='period'>.</span><span class='id identifier rubyid_process'>process</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="line_start_range-class_method">
-  
-    .<strong>line_start_range</strong>(buffer, node)  &#x21d2; <tt>Range</tt> 
-  
+  <span class='id identifier rubyid_collector'>collector</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Docscribe.html" title="Docscribe (module)">Docscribe</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="Docscribe::InlineRewriter (module)">InlineRewriter</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="InlineRewriter/Collector.html" title="Docscribe::InlineRewriter::Collector (class)">Collector</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="InlineRewriter/Collector.html#initialize-instance_method" title="Docscribe::InlineRewriter::Collector#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_buffer'>buffer</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_collector'>collector</span><span class='period'>.</span><span class='id identifier rubyid_process'>process</span><span class='lparen'>(</span><span class='id identifier rubyid_ast'>ast</span><span class='rparen'>)</span>
 
-  
+  <span class='comment'># Collect additional insertions from CollectorPlugins
+</span>  <span class='id identifier rubyid_plugin_insertions'>plugin_insertions</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Docscribe.html" title="Docscribe (module)">Docscribe</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Plugin.html" title="Docscribe::Plugin (module)">Plugin</a></span></span><span class='period'>.</span><span class='id identifier rubyid_run_collector_plugins'><span class='object_link'><a href="Plugin.html#run_collector_plugins-class_method" title="Docscribe::Plugin.run_collector_plugins (method)">run_collector_plugins</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_ast'>ast</span><span class='comma'>,</span> <span class='id identifier rubyid_buffer'>buffer</span><span class='rparen'>)</span>
 
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p><code>Docscribe::InlineRewriter.line_start_range</code> -&gt; Range</p>
+  <span class='id identifier rubyid_method_insertions'>method_insertions</span> <span class='op'>=</span> <span class='id identifier rubyid_collector'>collector</span><span class='period'>.</span><span class='id identifier rubyid_insertions'>insertions</span>
+  <span class='id identifier rubyid_attr_insertions'>attr_insertions</span> <span class='op'>=</span> <span class='id identifier rubyid_collector'>collector</span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='symbol'>:attr_insertions</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id identifier rubyid_collector'>collector</span><span class='period'>.</span><span class='id identifier rubyid_attr_insertions'>attr_insertions</span> <span class='op'>:</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
 
-<p>Method documentation.</p>
+  <span class='id identifier rubyid_all'>all</span> <span class='op'>=</span> <span class='id identifier rubyid_method_insertions'>method_insertions</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span> <span class='lbracket'>[</span><span class='symbol'>:method</span><span class='comma'>,</span> <span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span> <span class='rbrace'>}</span> <span class='op'>+</span>
+        <span class='id identifier rubyid_attr_insertions'>attr_insertions</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span> <span class='lbracket'>[</span><span class='symbol'>:attr</span><span class='comma'>,</span> <span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span> <span class='rbrace'>}</span> <span class='op'>+</span>
+        <span class='id identifier rubyid_plugin_insertions'>plugin_insertions</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span> <span class='lbracket'>[</span><span class='symbol'>:plugin</span><span class='comma'>,</span> <span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span> <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_rewriter'>rewriter</span> <span class='op'>=</span> <span class='const'>Parser</span><span class='op'>::</span><span class='const'>Source</span><span class='op'>::</span><span class='const'>TreeRewriter</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_buffer'>buffer</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_merge_inserts'>merge_inserts</span> <span class='op'>=</span> <span class='const'>Hash</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_h'>h</span><span class='comma'>,</span> <span class='id identifier rubyid_k'>k</span><span class='op'>|</span> <span class='id identifier rubyid_h'>h</span><span class='lbracket'>[</span><span class='id identifier rubyid_k'>k</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_changes'>changes</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
 
+  <span class='id identifier rubyid_all'>all</span><span class='period'>.</span><span class='id identifier rubyid_sort_by'>sort_by</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='lparen'>(</span><span class='id identifier rubyid_kind'>kind</span><span class='comma'>,</span> <span class='id identifier rubyid_ins'>ins</span><span class='rparen'>)</span><span class='op'>|</span> <span class='id identifier rubyid_plugin_insertion_pos'>plugin_insertion_pos</span><span class='lparen'>(</span><span class='id identifier rubyid_kind'>kind</span><span class='comma'>,</span> <span class='id identifier rubyid_ins'>ins</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+     <span class='period'>.</span><span class='id identifier rubyid_reverse_each'>reverse_each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_kind'>kind</span><span class='comma'>,</span> <span class='id identifier rubyid_ins'>ins</span><span class='op'>|</span>
+    <span class='kw'>case</span> <span class='id identifier rubyid_kind'>kind</span>
+    <span class='kw'>when</span> <span class='symbol'>:method</span>
+      <span class='id identifier rubyid_apply_method_insertion!'>apply_method_insertion!</span><span class='lparen'>(</span>
+        <span class='label'>rewriter:</span> <span class='id identifier rubyid_rewriter'>rewriter</span><span class='comma'>,</span>
+        <span class='label'>buffer:</span> <span class='id identifier rubyid_buffer'>buffer</span><span class='comma'>,</span>
+        <span class='label'>insertion:</span> <span class='id identifier rubyid_ins'>ins</span><span class='comma'>,</span>
+        <span class='label'>config:</span> <span class='id identifier rubyid_config'>config</span><span class='comma'>,</span>
+        <span class='label'>signature_provider:</span> <span class='id identifier rubyid_signature_provider'>signature_provider</span><span class='comma'>,</span>
+        <span class='label'>core_rbs_provider:</span> <span class='id identifier rubyid_core_rbs_provider'>core_rbs_provider</span><span class='comma'>,</span>
+        <span class='label'>strategy:</span> <span class='id identifier rubyid_strategy'>strategy</span><span class='comma'>,</span>
+        <span class='label'>changes:</span> <span class='id identifier rubyid_changes'>changes</span><span class='comma'>,</span>
+        <span class='label'>file:</span> <span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
+      <span class='rparen'>)</span>
+    <span class='kw'>when</span> <span class='symbol'>:attr</span>
+      <span class='id identifier rubyid_apply_attr_insertion!'>apply_attr_insertion!</span><span class='lparen'>(</span>
+        <span class='label'>rewriter:</span> <span class='id identifier rubyid_rewriter'>rewriter</span><span class='comma'>,</span>
+        <span class='label'>buffer:</span> <span class='id identifier rubyid_buffer'>buffer</span><span class='comma'>,</span>
+        <span class='label'>insertion:</span> <span class='id identifier rubyid_ins'>ins</span><span class='comma'>,</span>
+        <span class='label'>config:</span> <span class='id identifier rubyid_config'>config</span><span class='comma'>,</span>
+        <span class='label'>signature_provider:</span> <span class='id identifier rubyid_signature_provider'>signature_provider</span><span class='comma'>,</span>
+        <span class='label'>strategy:</span> <span class='id identifier rubyid_strategy'>strategy</span><span class='comma'>,</span>
+        <span class='label'>merge_inserts:</span> <span class='id identifier rubyid_merge_inserts'>merge_inserts</span>
+      <span class='rparen'>)</span>
+    <span class='kw'>when</span> <span class='symbol'>:plugin</span>
+      <span class='id identifier rubyid_apply_plugin_insertion!'>apply_plugin_insertion!</span><span class='lparen'>(</span>
+        <span class='label'>rewriter:</span> <span class='id identifier rubyid_rewriter'>rewriter</span><span class='comma'>,</span>
+        <span class='label'>buffer:</span> <span class='id identifier rubyid_buffer'>buffer</span><span class='comma'>,</span>
+        <span class='label'>insertion:</span> <span class='id identifier rubyid_ins'>ins</span><span class='comma'>,</span>
+        <span class='label'>strategy:</span> <span class='id identifier rubyid_strategy'>strategy</span>
+      <span class='rparen'>)</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
 
-  </div>
-</div>
-<div class="tags">
-  <p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>buffer</span>
-      
-      
-        <span class='type'>(<tt>Object</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>Param documentation.</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>node</span>
-      
-      
-        <span class='type'>(<tt>Object</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>Param documentation.</p>
-</div>
-      
-    </li>
-  
-</ul>
+  <span class='id identifier rubyid_apply_merge_inserts!'>apply_merge_inserts!</span><span class='lparen'>(</span><span class='label'>rewriter:</span> <span class='id identifier rubyid_rewriter'>rewriter</span><span class='comma'>,</span> <span class='label'>buffer:</span> <span class='id identifier rubyid_buffer'>buffer</span><span class='comma'>,</span> <span class='label'>merge_inserts:</span> <span class='id identifier rubyid_merge_inserts'>merge_inserts</span><span class='rparen'>)</span>
 
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>Range</tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-69
-70
-71
-72
-73
-74</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter.rb', line 69</span>
-
-<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_line_start_range'>line_start_range</span><span class='lparen'>(</span><span class='id identifier rubyid_buffer'>buffer</span><span class='comma'>,</span> <span class='id identifier rubyid_node'>node</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_start_pos'>start_pos</span> <span class='op'>=</span> <span class='id identifier rubyid_node'>node</span><span class='period'>.</span><span class='id identifier rubyid_loc'>loc</span><span class='period'>.</span><span class='id identifier rubyid_expression'>expression</span><span class='period'>.</span><span class='id identifier rubyid_begin_pos'>begin_pos</span>
-  <span class='id identifier rubyid_src'>src</span> <span class='op'>=</span> <span class='id identifier rubyid_buffer'>buffer</span><span class='period'>.</span><span class='id identifier rubyid_source'>source</span>
-  <span class='id identifier rubyid_bol'>bol</span> <span class='op'>=</span> <span class='id identifier rubyid_src'>src</span><span class='period'>.</span><span class='id identifier rubyid_rindex'>rindex</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_start_pos'>start_pos</span> <span class='op'>-</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='op'>-</span><span class='int'>1</span>
-  <span class='const'>Parser</span><span class='op'>::</span><span class='const'>Source</span><span class='op'>::</span><span class='const'>Range</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_buffer'>buffer</span><span class='comma'>,</span> <span class='id identifier rubyid_bol'>bol</span> <span class='op'>+</span> <span class='int'>1</span><span class='comma'>,</span> <span class='id identifier rubyid_bol'>bol</span> <span class='op'>+</span> <span class='int'>1</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="node_name-class_method">
-  
-    .<strong>node_name</strong>(node)  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p><code>Docscribe::InlineRewriter.node_name</code> -&gt; Object</p>
-
-<p>Method documentation.</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  <p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>node</span>
-      
-      
-        <span class='type'>(<tt>Object</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>Param documentation.</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>Object</tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-82
-83
-84
-85
-86
-87
-88
-89</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter.rb', line 82</span>
-
-<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_node_name'>node_name</span><span class='lparen'>(</span><span class='id identifier rubyid_node'>node</span><span class='rparen'>)</span>
-  <span class='kw'>case</span> <span class='id identifier rubyid_node'>node</span><span class='period'>.</span><span class='id identifier rubyid_type'>type</span>
-  <span class='kw'>when</span> <span class='symbol'>:def</span>
-    <span class='id identifier rubyid_node'>node</span><span class='period'>.</span><span class='id identifier rubyid_children'>children</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
-  <span class='kw'>when</span> <span class='symbol'>:defs</span>
-    <span class='id identifier rubyid_node'>node</span><span class='period'>.</span><span class='id identifier rubyid_children'>children</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span> <span class='comment'># method name symbol
-</span>  <span class='kw'>end</span>
+  <span class='lbrace'>{</span> <span class='label'>output:</span> <span class='id identifier rubyid_rewriter'>rewriter</span><span class='period'>.</span><span class='id identifier rubyid_process'>process</span><span class='comma'>,</span> <span class='label'>changes:</span> <span class='id identifier rubyid_changes'>changes</span> <span class='rbrace'>}</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1339,9 +760,9 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Jan 16 16:20:18 2026 by
+  Generated on Wed Apr 29 12:33:55 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.38 (ruby-3.4.6).
+  0.9.38 (ruby-3.4.5).
 </div>
 
     </div>

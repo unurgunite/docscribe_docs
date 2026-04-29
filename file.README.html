@@ -62,34 +62,103 @@
 
 <p><a href="https://rubygems.org/gems/docscribe"><img src="https://img.shields.io/gem/v/docscribe.svg" alt="Gem Version"></a> <a href="https://rubygems.org/gems/docscribe"><img src="https://img.shields.io/gem/dt/docscribe.svg" alt="RubyGems Downloads"></a> <a href="https://github.com/unurgunite/docscribe/actions/workflows/ci.yml"><img src="https://github.com/unurgunite/docscribe/actions/workflows/ci.yml/badge.svg?branch=master" alt="CI"></a> <a href="https://github.com/unurgunite/docscribe/blob/master/LICENSE.txt"><img src="https://img.shields.io/github/license/unurgunite/docscribe.svg" alt="License"></a> <a href="#installation"><img src="https://img.shields.io/badge/ruby-%3E%3D%202.7-blue.svg" alt="Ruby"></a></p>
 
+<p><img src="docs/image.png" alt="Docscribe"> before/after demo</p>
+
 <p>Generate inline, YARD-style documentation comments for Ruby methods by analyzing your code’s AST.</p>
 
 <p>Docscribe inserts doc headers before method definitions, infers parameter and return types (including rescue-aware returns), and respects Ruby visibility semantics — without using YARD to parse.</p>
 <ul><li>
 <p>No AST reprinting. Your original code, formatting, and constructs (like <code>class &lt;&lt; self</code>, <code>heredocs</code>, <code>%i[]</code>) are preserved.</p>
 </li><li>
-<p>Inline-first. Comments are inserted at the start of each <code>def</code>/<code>defs</code> line.</p>
+<p>Inline-first. Comments are inserted before method headers without reprinting the AST. For methods with a leading Sorbet <code>sig</code>, new docs are inserted above the first <code>sig</code>.</p>
 </li><li>
 <p>Heuristic type inference for params and return values, including conditional returns in rescue branches.</p>
 </li><li>
-<p>Optional rewrite mode for regenerating existing method docs.</p>
+<p>Safe and aggressive update modes:</p>
+<ul><li>
+<p>safe mode inserts missing docs, merges existing doc-like blocks, and normalizes sortable tags;</p>
+</li><li>
+<p>aggressive mode rebuilds existing doc blocks.</p>
+</li></ul>
 </li><li>
 <p>Ruby 3.4+ syntax supported using Prism translation (see “Parser backend” below).</p>
+</li><li>
+<p>Optional external type integrations:</p>
+<ul><li>
+<p>RBS via <code>--rbs</code> / <code>--sig-dir</code>;</p>
+</li><li>
+<p>Sorbet via inline <code>sig</code> declarations and RBI files with <code>--sorbet</code> / <code>--rbi-dir</code>.</p>
+</li></ul>
+</li><li>
+<p>Optional <code>@!attribute</code> generation for:</p>
+<ul><li>
+<p><code>attr_reader</code> / <code>attr_writer</code> / <code>attr_accessor</code>;</p>
+</li><li>
+<p><code>Struct.new</code> declarations in both constant-assigned and class-based styles.</p>
+</li></ul>
 </li></ul>
 
-<p>Why not YARD? We started with YARD’s parser, but switched to an AST-based in-place rewriter for maximum preservation of source structure and exact control over Ruby semantics.</p>
+<p>Common workflows:</p>
+<ul><li>
+<p>Inspect what safe doc updates would be applied: <code>docscribe lib</code></p>
+</li><li>
+<p>Apply safe doc updates: <code>docscribe -a lib</code></p>
+</li><li>
+<p>Apply aggressive doc updates: <code>docscribe -A lib</code></p>
+</li><li>
+<p>Use RBS gem collection signatures: <code>docscribe -a --rbs-collection lib</code></p>
+</li><li>
+<p>Use RBS signatures when available: <code>docscribe -a --rbs --sig-dir sig lib</code></p>
+</li><li>
+<p>Use Sorbet signatures when available: <code>docscribe -a --sorbet --rbi-dir sorbet/rbi lib</code></p>
+</li></ul>
+
+<h2 id="label-Contents">Contents</h2>
 <ul><li>
 <p><a href="#docscribe">Docscribe</a></p>
 <ul><li>
+<p><a href="#contents">Contents</a></p>
+</li><li>
 <p><a href="#installation">Installation</a></p>
 </li><li>
 <p><a href="#quick-start">Quick start</a></p>
 </li><li>
 <p><a href="#cli">CLI</a></p>
-</li><li>
-<p><a href="#inline-behavior">Inline behavior</a></p>
 <ul><li>
-<p><a href="#rewrite-mode">Rewrite mode</a></p>
+<p><a href="#options">Options</a></p>
+</li><li>
+<p><a href="#examples">Examples</a></p>
+</li></ul>
+</li><li>
+<p><a href="#update-strategies">Update strategies</a></p>
+<ul><li>
+<p><a href="#safe-strategy">Safe strategy</a></p>
+</li><li>
+<p><a href="#aggressive-strategy">Aggressive strategy</a></p>
+</li><li>
+<p><a href="#output-markers">Output markers</a></p>
+</li></ul>
+</li><li>
+<p><a href="#parser-backend-parser-gem-vs-prism">Parser backend (Parser gem vs Prism)</a></p>
+</li><li>
+<p><a href="#external-type-integrations-optional">External type integrations (optional)</a></p>
+<ul><li>
+<p><a href="#rbs">RBS</a></p>
+<ul><li>
+<p><a href="#rbs-collection-auto-discovery">RBS collection auto-discovery</a></p>
+</li></ul>
+</li><li>
+<p><a href="#sorbet">Sorbet</a></p>
+</li><li>
+<p><a href="#inline-sorbet-example">Inline Sorbet example</a></p>
+</li><li>
+<p><a href="#sorbet-rbi-example">Sorbet RBI example</a></p>
+</li><li>
+<p><a href="#sorbet-comment-placement">Sorbet comment placement</a></p>
+</li><li>
+<p><a href="#generic-type-formatting">Generic type formatting</a></p>
+</li><li>
+<p><a href="#notes-and-fallback-behavior">Notes and fallback behavior</a></p>
 </li></ul>
 </li><li>
 <p><a href="#type-inference">Type inference</a></p>
@@ -100,9 +169,39 @@
 </li><li>
 <p><a href="#api-library-usage">API (library) usage</a></p>
 </li><li>
+<p><a href="#plugin-system">Plugin system</a></p>
+<ul><li>
+<p><a href="#tagplugin">TagPlugin</a></p>
+</li><li>
+<p><a href="#collectorplugin">CollectorPlugin</a></p>
+</li><li>
+<p><a href="#registering-plugins">Registering plugins</a></p>
+</li><li>
+<p><a href="#idempotency">Idempotency</a></p>
+</li><li>
+<p><a href="#plugin-examples">Plugin examples</a></p>
+</li></ul>
+</li><li>
 <p><a href="#configuration">Configuration</a></p>
 <ul><li>
-<p><a href="#cli-1">CLI</a></p>
+<p><a href="#filtering">Filtering</a></p>
+</li><li>
+<p>example[#attr_-example]</p>
+</li><li>
+<p>examples[#structnew-examples]</p>
+<ul><li>
+<p><a href="#constant-assigned-struct">Constant-assigned struct</a></p>
+</li><li>
+<p><a href="#class-based-struct">Class-based struct</a></p>
+</li></ul>
+</li><li>
+<p><a href="#merge-behavior">Merge behavior</a></p>
+</li><li>
+<p><a href="#param-tag-style">Param tag style</a></p>
+</li><li>
+<p><a href="#create-a-starter-config">Create a starter config</a></p>
+</li><li>
+<p><a href="#generate-a-plugin-skeleton">Generate a plugin skeleton</a></p>
 </li></ul>
 </li><li>
 <p><a href="#ci-integration">CI integration</a></p>
@@ -115,6 +214,8 @@
 </li><li>
 <p><a href="#contributing">Contributing</a></p>
 </li><li>
+<p><a href="#discussion--community">Discussion &amp; Community</a></p>
+</li><li>
 <p><a href="#license">License</a></p>
 </li></ul>
 </li></ul>
@@ -123,7 +224,7 @@
 
 <p>Add to your Gemfile:</p>
 
-<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_gem'>gem</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>docscribe</span><span class='tstring_end'>&#39;</span></span>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_gem'>gem</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>docscribe</span><span class='tstring_end'>&quot;</span></span>
 </code></pre>
 
 <p>Then:</p>
@@ -142,8 +243,7 @@
 
 <p>Given code:</p>
 
-<pre class="code ruby"><code class="ruby">
-<span class='kw'>class</span> <span class='const'>Demo</span>
+<pre class="code ruby"><code class="ruby"><span class='kw'>class</span> <span class='const'>Demo</span>
   <span class='kw'>def</span> <span class='id identifier rubyid_foo'>foo</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>options:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
     <span class='int'>42</span>
   <span class='kw'>end</span>
@@ -173,8 +273,7 @@
 
 <p>Output:</p>
 
-<pre class="code ruby"><code class="ruby">
-<span class='kw'>class</span> <span class='const'>Demo</span>
+<pre class="code ruby"><code class="ruby"><span class='kw'>class</span> <span class='const'>Demo</span>
   <span class='comment'># +Demo#foo+ -&gt; Integer
 </span>  <span class='comment'>#
 </span>  <span class='comment'># Method documentation.
@@ -221,102 +320,455 @@
 <span class='kw'>end</span>
 </code></pre>
 
-<p>Notes:</p>
-<ul><li>
-<p>The tool inserts doc headers at the start of def/defs lines and preserves everything else.</p>
-</li><li>
-<p>Class methods show with a dot (<code>Demo.bump</code>, <code>Demo.internal</code>).</p>
-</li><li>
-<p>Methods inside <code>class &lt;&lt; self</code> under private are marked <code>@private.</code></p>
-</li></ul>
+<blockquote>
+<p>[!NOTE] - The tool inserts doc headers before method headers and preserves everything else. - For methods with a leading Sorbet <code>sig</code>, docs are inserted above the first <code>sig</code>. - Class methods show with a dot (<code>Demo.bump</code>, <code>Demo.internal</code>). - Methods inside <code>class &lt;&lt; self</code> under <code>private</code> are marked <code>@private</code>.</p>
+</blockquote>
 
 <h2 id="label-CLI">CLI</h2>
 
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_docscribe'>docscribe</span> <span class='lbracket'>[</span><span class='id identifier rubyid_options'>options</span><span class='rbracket'>]</span> <span class='lbracket'>[</span><span class='id identifier rubyid_files'>files</span><span class='op'>...</span><span class='rbracket'>]</span>
 </code></pre>
 
-<p>Options:</p>
+<p>Docscribe has three main ways to run:</p>
 <ul><li>
-<p><code>--stdin</code> Read source from STDIN and print with docs inserted.</p>
+<p><strong>Inspect mode</strong> (default): checks what safe doc updates would be applied and exits non-zero if files need changes.</p>
 </li><li>
-<p><code>--write</code> Rewrite files in place (inline mode).</p>
+<p><strong>Safe autocorrect</strong> (<code>-a</code>, <code>--autocorrect</code>): writes safe, non-destructive updates in place.</p>
 </li><li>
-<p><code>--check</code> Dry-run: exit 1 if any file would change (useful in CI).</p>
+<p><strong>Aggressive autocorrect</strong> (<code>-A</code>, <code>--autocorrect-all</code>): rewrites existing doc blocks more aggressively.</p>
 </li><li>
-<p><code>--rewrite</code> Replace any existing comment block above methods (see “Rewrite mode” below).</p>
-</li><li>
-<p><code>--version</code> Print version and exit.</p>
-</li><li>
-<p><code>-h</code>, <code>--help</code> Show help.</p>
+<p><strong>STDIN mode</strong> (<code>--stdin</code>): reads Ruby source from STDIN and prints rewritten source to STDOUT.</p>
 </li></ul>
 
-<p>Examples:</p>
+<p>If you pass no files and don’t use <code>--stdin</code>, Docscribe processes the current directory recursively.</p>
+
+<h3 id="label-Options">Options</h3>
 <ul><li>
-<p>Print to stdout for one file: <code>shell  docscribe path/to/file.rb </code></p>
+<p><code>-a</code>, <code>--autocorrect</code><br> Apply safe doc updates in place.</p>
 </li><li>
-<p>Rewrite files in place (ensure a clean working tree): <code>shell  docscribe --write lib/<strong>*/</strong>.rb </code></p>
+<p><code>-A</code>, <code>--autocorrect-all</code><br> Apply aggressive doc updates in place.</p>
 </li><li>
-<p>CI check (fail if docs are missing/stale): <code>shell  docscribe --check lib/<strong>*/</strong>.rb </code></p>
+<p><code>--rbs-collection</code><br> Auto-discover the RBS collection directory from <code>rbs_collection.lock.yaml</code>.<br> Reads the <code>path:</code> field written by <code>bundle exec rbs collection install</code> and adds<br> it to the signature search path automatically. Implies <code>--rbs</code>.</p>
 </li><li>
-<p>Rewrite existing doc blocks above methods (regenerate headers/tags): <code>shell  docscribe --rewrite --write lib/<strong>*/</strong>.rb </code></p>
+<p><code>--stdin</code><br> Read source from STDIN and print rewritten output.</p>
 </li><li>
-<p>Check a directory (Docscribe expands directories to <strong><code>*/</strong>.rb</code>): <code>bash  docscribe --check lib </code></p>
+<p><code>--verbose</code><br> Print per-file actions.</p>
+</li><li>
+<p><code>--explain</code><br> Show detailed reasons for each file that would change.</p>
+</li><li>
+<p><code>--rbs</code><br> Use RBS signatures for <code>@param</code>/<code>@return</code> when available (falls back to inference).</p>
+</li><li>
+<p><code>--sig-dir DIR</code><br> Add an RBS signature directory (repeatable). Implies <code>--rbs</code>.</p>
+</li><li>
+<p><code>--include PATTERN</code><br> Include PATTERN (method id or file path; glob or <code>/regex/</code>).</p>
+</li><li>
+<p><code>--exclude PATTERN</code><br> Exclude PATTERN (method id or file path; glob or <code>/regex/</code>). Exclude wins.</p>
+</li><li>
+<p><code>--include-file PATTERN</code><br> Only process files matching PATTERN (glob or <code>/regex/</code>).</p>
+</li><li>
+<p><code>--exclude-file PATTERN</code><br> Skip files matching PATTERN (glob or <code>/regex/</code>). Exclude wins.</p>
+</li><li>
+<p><code>-C</code>, <code>--config PATH</code><br> Path to config YAML (default: <code>docscribe.yml</code>).</p>
+</li><li>
+<p><code>-v</code>, <code>--version</code><br> Print version and exit.</p>
+</li><li>
+<p><code>-h</code>, <code>--help</code><br> Show help.</p>
 </li></ul>
 
-<h2 id="label-Inline+behavior">Inline behavior</h2>
+<h3 id="label-Examples">Examples</h3>
 <ul><li>
-<p>Inserts comment blocks immediately above def/defs nodes.</p>
+<p>Inspect a directory: <code>shell  docscribe lib </code></p>
 </li><li>
-<p>Skips methods that already have a comment directly above them (does not merge into existing comments) unless you pass <code>--rewrite</code>.</p>
+<p>Apply safe updates: <code>shell  docscribe -a lib </code></p>
 </li><li>
-<p>Maintains original formatting and constructs; only adds comments.</p>
+<p>Apply aggressive updates: <code>shell  docscribe -A lib </code></p>
+</li><li>
+<p>Preview output for a single file via STDIN: <code>shell  cat path/to/file.rb | docscribe --stdin </code></p>
+</li><li>
+<p>Use RBS signatures: <code>shell  docscribe -a --rbs --sig-dir sig lib </code></p>
+</li><li>
+<p>Use RBS signatures with auto-discovered gem collection: <code>shell  docscribe -a --rbs-collection lib </code></p>
+</li><li>
+<p>Combine collection auto-discovery with a custom sig directory: <code>shell  docscribe -a --rbs-collection --sig-dir sig lib </code></p>
+</li><li>
+<p>Show detailed reasons for files that would change: <code>shell  docscribe --verbose --explain lib </code></p>
 </li></ul>
 
-<h3 id="label-Rewrite+mode">Rewrite mode</h3>
+<h2 id="label-Update+strategies">Update strategies</h2>
+
+<p>Docscribe supports two update strategies: <strong>safe</strong> and <strong>aggressive</strong>.</p>
+
+<h3 id="label-Safe+strategy">Safe strategy</h3>
+
+<p>Used by:</p>
 <ul><li>
-<p>With <code>--rewrite</code>, Docscribe will remove the contiguous comment block immediately above a method (plus intervening blank lines) and replace it with a fresh generated block.</p>
+<p>default inspect mode: <code>docscribe lib</code></p>
 </li><li>
-<p>This is useful to refresh docs across a codebase after improving inference or rules.</p>
-</li><li>
-<p>Use with caution (prefer a clean working tree and review diffs).</p>
+<p>safe write mode: <code>docscribe -a lib</code></p>
 </li></ul>
 
-<h3 id="label-Output+markers+in+CI">Output markers in CI</h3>
-
-<p>When using <code>--check</code>, Docscribe prints one character per file:</p>
+<p>Safe strategy:</p>
 <ul><li>
-<p><code>.</code> = file is up-to-date</p>
+<p>inserts docs for undocumented methods</p>
 </li><li>
-<p><code>F</code> = file would change (missing/stale docs)</p>
+<p>merges missing tags into existing <strong>doc-like</strong> blocks</p>
+</li><li>
+<p>normalizes configurable tag order inside sortable tag runs</p>
+</li><li>
+<p>preserves existing prose and comments where possible</p>
 </li></ul>
 
-<p>When using <code>--write</code>:</p>
+<p>This is the recommended day-to-day mode.</p>
+
+<h3 id="label-Aggressive+strategy">Aggressive strategy</h3>
+
+<p>Used by:</p>
+<ul><li>
+<p>aggressive write mode: <code>docscribe -A lib</code></p>
+</li></ul>
+
+<p>Aggressive strategy:</p>
+<ul><li>
+<p>rebuilds existing doc blocks</p>
+</li><li>
+<p>replaces existing generated documentation more fully</p>
+</li><li>
+<p>is more invasive than safe mode</p>
+</li></ul>
+
+<p>Use it when you want to rebaseline or regenerate docs wholesale.</p>
+
+<h3 id="label-Output+markers">Output markers</h3>
+
+<p>In inspect mode, Docscribe prints one character per file:</p>
+<ul><li>
+<p><code>.</code> = file is up to date</p>
+</li><li>
+<p><code>F</code> = file would change</p>
+</li><li>
+<p><code>E</code> = file had an error</p>
+</li></ul>
+
+<p>In write modes:</p>
 <ul><li>
 <p><code>.</code> = file already OK</p>
 </li><li>
-<p><code>C</code> = file was corrected and rewritten</p>
+<p><code>C</code> = file was updated</p>
+</li><li>
+<p><code>E</code> = file had an error</p>
 </li></ul>
 
-<p>Docscribe prints a summary at the end and exits non-zero in <code>--check</code> mode if any file would change.</p>
+<p>With <code>--verbose</code>, Docscribe prints per-file statuses instead.</p>
+
+<p>With <code>--explain</code>, Docscribe also prints detailed reasons, such as:</p>
+<ul><li>
+<p>missing <code>@param</code></p>
+</li><li>
+<p>missing <code>@return</code></p>
+</li><li>
+<p>missing module_function note</p>
+</li><li>
+<p>unsorted tags</p>
+</li></ul>
 
 <h2 id="label-Parser+backend+-28Parser+gem+vs+Prism-29">Parser backend (Parser gem vs Prism)</h2>
 
-<p>Docscribe internally works with <code>parser</code>-gem-compatible AST nodes and <code>Parser::Source::*</code> objects (so it can use <code>Parser::Source::TreeRewriter</code> without changing your formatting).</p>
+<p>Docscribe internally works with <code>parser</code>-gem-compatible AST nodes and <code>Parser::Source::*</code> objects (so it can use <code>Parser::Source::TreeRewriter</code> without changing formatting).</p>
 <ul><li>
 <p>On Ruby <strong>&lt;= 3.3</strong>, Docscribe parses using the <code>parser</code> gem.</p>
 </li><li>
-<p>On Ruby <strong>&gt;= 3.4</strong>, Docscribe parses using <strong>Prism</strong> and translates the tree into the <code>parser</code> gem’s AST (so tooling stays compatible).</p>
+<p>On Ruby <strong>&gt;= 3.4</strong>, Docscribe parses using <strong>Prism</strong> and translates the tree into the <code>parser</code> gem’s AST.</p>
 </li></ul>
 
 <p>You can force a backend with an environment variable:</p>
 
-<pre class="code ruby"><code class="ruby">DOCSCRIBE_PARSER_BACKEND=parser bundle exec docscribe --check lib
-DOCSCRIBE_PARSER_BACKEND=prism  bundle exec docscribe --check lib
+<pre class="code ruby"><code class="ruby"><span class='const'>DOCSCRIBE_PARSER_BACKEND</span><span class='op'>=</span><span class='id identifier rubyid_parser'>parser</span> <span class='id identifier rubyid_bundle'>bundle</span> <span class='id identifier rubyid_exec'>exec</span> <span class='id identifier rubyid_docscribe'>docscribe</span> <span class='id identifier rubyid_lib'>lib</span>
+<span class='const'>DOCSCRIBE_PARSER_BACKEND</span><span class='op'>=</span><span class='id identifier rubyid_prism'>prism</span>  <span class='id identifier rubyid_bundle'>bundle</span> <span class='id identifier rubyid_exec'>exec</span> <span class='id identifier rubyid_docscribe'>docscribe</span> <span class='id identifier rubyid_lib'>lib</span>
 </code></pre>
+
+<h2 id="label-External+type+integrations+-28optional-29">External type integrations (optional)</h2>
+
+<p>Docscribe can improve generated <code>@param</code> and <code>@return</code> types by reading external signatures instead of relying only on AST inference.</p>
+
+<blockquote>
+<p>[!IMPORTANT] When external type information is available, Docscribe resolves signatures in this order: - inline Sorbet <code>sig</code> declarations in the current Ruby source; - Sorbet RBI files; - RBS files; - AST inference fallback.</p>
+
+<p>If an external signature cannot be loaded or parsed, Docscribe falls back to normal inference instead of failing.</p>
+</blockquote>
+
+<h3 id="label-RBS">RBS</h3>
+
+<p>Docscribe can read method signatures from <code>.rbs</code> files and use them to generate more accurate parameter and return types.</p>
+
+<p>CLI:</p>
+
+<pre class="code ruby"><code class="ruby">docscribe -a --rbs --sig-dir sig lib
+</code></pre>
+
+<p>You can pass <code>--sig-dir</code> multiple times:</p>
+
+<pre class="code ruby"><code class="ruby">docscribe -a --rbs --sig-dir sig --sig-dir vendor/sigs lib
+</code></pre>
+
+<p>Config:</p>
+
+<pre class="code ruby"><code class="ruby">rbs:
+  enabled: true
+  sig_dirs:
+    - sig
+  collapse_generics: false
+</code></pre>
+
+<p>Example:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='comment'># Ruby source
+</span><span class='kw'>class</span> <span class='const'>Demo</span>
+  <span class='kw'>def</span> <span class='id identifier rubyid_foo'>foo</span><span class='lparen'>(</span><span class='label'>verbose:</span><span class='comma'>,</span> <span class='label'>count:</span><span class='rparen'>)</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>body says String</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<pre class="code ruby"><code class="ruby"># sig/demo.rbs
+class Demo
+    def foo: (verbose: bool, count: Integer) -&gt; Integer
+end
+</code></pre>
+
+<p>Generated docs will prefer the RBS signature over inferred Ruby types:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='kw'>class</span> <span class='const'>Demo</span>
+  <span class='comment'># +Demo#foo+ -&gt; Integer
+</span>  <span class='comment'>#
+</span>  <span class='comment'># Method documentation.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param [Boolean] verbose Param documentation.
+</span>  <span class='comment'># @param [Integer] count Param documentation.
+</span>  <span class='comment'># @return [Integer]
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_foo'>foo</span><span class='lparen'>(</span><span class='label'>verbose:</span><span class='comma'>,</span> <span class='label'>count:</span><span class='rparen'>)</span>
+    <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>body says String</span><span class='tstring_end'>&#39;</span></span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<h4 id="label-RBS+collection+auto-discovery">RBS collection auto-discovery</h4>
+
+<p>If your project uses collection</code><a href="https://github.com/ruby/rbs/blob/master/docs/collection.md"></a>, Docscribe can discover the installed gem signatures automatically without requiring you to pass <code>--sig-dir</code> manually.</p>
+
+<p><strong>Setup:</strong></p>
+
+<pre class="code ruby"><code class="ruby"><span class='comment'># 1. Initialize the collection config (one-time)
+</span><span class='id identifier rubyid_bundle'>bundle</span> <span class='id identifier rubyid_exec'>exec</span> <span class='id identifier rubyid_rbs'>rbs</span> <span class='id identifier rubyid_collection'>collection</span> <span class='id identifier rubyid_init'>init</span>
+
+<span class='comment'># 2. Install gem signatures
+</span><span class='id identifier rubyid_bundle'>bundle</span> <span class='id identifier rubyid_exec'>exec</span> <span class='id identifier rubyid_rbs'>rbs</span> <span class='id identifier rubyid_collection'>collection</span> <span class='id identifier rubyid_install'>install</span>
+</code></pre>
+
+<p>This produces <code>rbs_collection.lock.yaml</code> and <code>.gem_rbs_collection/</code> in your project root.</p>
+
+<p><strong>Usage:</strong></p>
+
+<pre class="code ruby"><code class="ruby">docscribe -a --rbs-collection lib
+</code></pre>
+
+<p>Docscribe reads the <code>path:</code> field from <code>rbs_collection.lock.yaml</code> and adds the resolved directory to the signature search path. If no <code>path:</code> is set, it falls back to <code>.gem_rbs_collection</code>.</p>
+
+<p>You can combine <code>--rbs-collection</code> with <code>--sig-dir</code> to mix gem signatures with your own:</p>
+
+<pre class="code ruby"><code class="ruby">docscribe -a --rbs-collection --sig-dir sig lib
+</code></pre>
+
+<blockquote>
+<p>[!NOTE] <code>--rbs-collection</code> only improves types for methods defined in gems that ship RBS signatures. For your own classes, provide a <code>sig/</code> directory with hand-written or generated <code>.rbs</code> files.</p>
+
+<p>[!IMPORTANT] If <code>rbs_collection.lock.yaml</code> is missing or the collection directory does not exist on disk, Docscribe will print a warning and skip the collection. Run <code>bundle exec rbs collection install</code> first.</p>
+</blockquote>
+
+<h3 id="label-Sorbet">Sorbet</h3>
+
+<p>Docscribe can also read Sorbet signatures from:</p>
+<ul><li>
+<p>inline <code>sig</code> declarations in Ruby source</p>
+</li><li>
+<p>RBI files</p>
+</li></ul>
+
+<p>CLI:</p>
+
+<pre class="code ruby"><code class="ruby">docscribe -a --sorbet lib
+</code></pre>
+
+<p>With RBI directories:</p>
+
+<pre class="code ruby"><code class="ruby">docscribe -a --sorbet --rbi-dir sorbet/rbi lib
+</code></pre>
+
+<p>You can pass <code>--rbi-dir</code> multiple times:</p>
+
+<pre class="code ruby"><code class="ruby">docscribe -a --sorbet --rbi-dir sorbet/rbi --rbi-dir rbi lib
+</code></pre>
+
+<p>Config:</p>
+
+<pre class="code ruby"><code class="ruby">sorbet:
+  enabled: true
+  rbi_dirs:
+    - sorbet/rbi
+    - rbi
+  collapse_generics: false
+</code></pre>
+
+<h3 id="label-Inline+Sorbet+example">Inline Sorbet example</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='kw'>class</span> <span class='const'>Demo</span>
+  <span class='id identifier rubyid_extend'>extend</span> <span class='const'>T</span><span class='op'>::</span><span class='const'>Sig</span>
+
+  <span class='id identifier rubyid_sig'>sig</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_params'>params</span><span class='lparen'>(</span><span class='label'>verbose:</span> <span class='const'>T</span><span class='op'>::</span><span class='const'>Boolean</span><span class='comma'>,</span> <span class='label'>count:</span> <span class='const'>Integer</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_returns'>returns</span><span class='lparen'>(</span><span class='const'>Integer</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+  <span class='kw'>def</span> <span class='id identifier rubyid_foo'>foo</span><span class='lparen'>(</span><span class='label'>verbose:</span><span class='comma'>,</span> <span class='label'>count:</span><span class='rparen'>)</span>
+    <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>body says String</span><span class='tstring_end'>&#39;</span></span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<p>Docscribe will use the Sorbet signature instead of the inferred body type:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='kw'>class</span> <span class='const'>Demo</span>
+  <span class='id identifier rubyid_extend'>extend</span> <span class='const'>T</span><span class='op'>::</span><span class='const'>Sig</span>
+
+  <span class='comment'># +Demo#foo+ -&gt; Integer
+</span>  <span class='comment'>#
+</span>  <span class='comment'># Method documentation.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param [Boolean] verbose Param documentation.
+</span>  <span class='comment'># @param [Integer] count Param documentation.
+</span>  <span class='comment'># @return [Integer]
+</span>  <span class='id identifier rubyid_sig'>sig</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_params'>params</span><span class='lparen'>(</span><span class='label'>verbose:</span> <span class='const'>T</span><span class='op'>::</span><span class='const'>Boolean</span><span class='comma'>,</span> <span class='label'>count:</span> <span class='const'>Integer</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_returns'>returns</span><span class='lparen'>(</span><span class='const'>Integer</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+  <span class='kw'>def</span> <span class='id identifier rubyid_foo'>foo</span><span class='lparen'>(</span><span class='label'>verbose:</span><span class='comma'>,</span> <span class='label'>count:</span><span class='rparen'>)</span>
+    <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>body says String</span><span class='tstring_end'>&#39;</span></span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<h3 id="label-Sorbet+RBI+example">Sorbet RBI example</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='comment'># Ruby source
+</span><span class='kw'>class</span> <span class='const'>Demo</span>
+  <span class='kw'>def</span> <span class='id identifier rubyid_foo'>foo</span><span class='lparen'>(</span><span class='label'>verbose:</span><span class='comma'>,</span> <span class='label'>count:</span><span class='rparen'>)</span>
+    <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>body says String</span><span class='tstring_end'>&#39;</span></span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<pre class="code ruby"><code class="ruby"><span class='comment'># sorbet/rbi/demo.rbi
+</span><span class='kw'>class</span> <span class='const'>Demo</span>
+  <span class='id identifier rubyid_extend'>extend</span> <span class='const'>T</span><span class='op'>::</span><span class='const'>Sig</span>
+
+  <span class='id identifier rubyid_sig'>sig</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_params'>params</span><span class='lparen'>(</span><span class='label'>verbose:</span> <span class='const'>T</span><span class='op'>::</span><span class='const'>Boolean</span><span class='comma'>,</span> <span class='label'>count:</span> <span class='const'>Integer</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_returns'>returns</span><span class='lparen'>(</span><span class='const'>Integer</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+  <span class='kw'>def</span> <span class='id identifier rubyid_foo'>foo</span><span class='lparen'>(</span><span class='label'>verbose:</span><span class='comma'>,</span> <span class='label'>count:</span><span class='rparen'>)</span><span class='semicolon'>;</span> <span class='kw'>end</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<p>With:</p>
+
+<pre class="code ruby"><code class="ruby">docscribe -a --sorbet --rbi-dir sorbet/rbi lib
+</code></pre>
+
+<p>Docscribe will use the RBI signature for generated docs.</p>
+
+<h3 id="label-Sorbet+comment+placement">Sorbet comment placement</h3>
+
+<p>For methods with a leading Sorbet <code>sig</code>, Docscribe treats the signature as part of the method header.</p>
+
+<p>That means:</p>
+<ul><li>
+<p>new docs are inserted <strong>above the first <code>sig</code></strong></p>
+</li><li>
+<p>existing docs <strong>above the <code>sig</code></strong> are recognized and merged</p>
+</li><li>
+<p>existing legacy docs <strong>between <code>sig</code> and <code>def</code></strong> are also recognized</p>
+</li></ul>
+
+<p>Example input:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='comment'># demo.rb
+</span><span class='kw'>class</span> <span class='const'>Demo</span>
+  <span class='id identifier rubyid_extend'>extend</span> <span class='const'>T</span><span class='op'>::</span><span class='const'>Sig</span>
+
+  <span class='id identifier rubyid_sig'>sig</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_returns'>returns</span><span class='lparen'>(</span><span class='const'>Integer</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+  <span class='kw'>def</span> <span class='id identifier rubyid_foo'>foo</span>
+    <span class='int'>1</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<p>Example output:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='comment'># demo.rb
+</span><span class='kw'>class</span> <span class='const'>Demo</span>
+  <span class='id identifier rubyid_extend'>extend</span> <span class='const'>T</span><span class='op'>::</span><span class='const'>Sig</span>
+
+  <span class='comment'># +Demo#foo+ -&gt; Integer
+</span>  <span class='comment'>#
+</span>  <span class='comment'># Method documentation.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @return [Integer]
+</span>  <span class='id identifier rubyid_sig'>sig</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_returns'>returns</span><span class='lparen'>(</span><span class='const'>Integer</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+  <span class='kw'>def</span> <span class='id identifier rubyid_foo'>foo</span>
+    <span class='int'>1</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<h3 id="label-Generic+type+formatting">Generic type formatting</h3>
+
+<p>Both RBS and Sorbet integrations support <code>collapse_generics</code>.</p>
+
+<p>When disabled:</p>
+
+<pre class="code ruby"><code class="ruby">rbs:
+  collapse_generics: false
+
+sorbet:
+  collapse_generics: false
+</code></pre>
+
+<p>Docscribe preserves generic container details where possible, for example:</p>
+<ul><li>
+<p><code>Array&lt;String&gt;</code></p>
+</li><li>
+<p><code>Hash&lt;Symbol, Integer&gt;</code></p>
+</li></ul>
+
+<p>When enabled:</p>
+
+<pre class="code ruby"><code class="ruby">rbs:
+  collapse_generics: true
+
+sorbet:
+  collapse_generics: true
+</code></pre>
+
+<p>Docscribe simplifies container types to their outer names, for example:</p>
+<ul><li>
+<p><code>Array</code></p>
+</li><li>
+<p><code>Hash</code></p>
+</li></ul>
+
+<h3 id="label-Notes+and+fallback+behavior">Notes and fallback behavior</h3>
+<ul><li>
+<p>External signature support is the <strong>best effort</strong>.</p>
+</li><li>
+<p>If a signature source cannot be loaded or parsed, Docscribe falls back to AST inference.</p>
+</li><li>
+<p>RBS and Sorbet integrations are used only to improve generated types; Docscribe still rewrites Ruby source directly.</p>
+</li><li>
+<p>Sorbet support does not require changing your documentation style — it only improves generated <code>@param</code> and <code>@return</code> tags when signatures are available.</p>
+</li></ul>
 
 <h2 id="label-Type+inference">Type inference</h2>
 
-<p>Heuristics (best-effort):</p>
+<p>Heuristics (best-effort).</p>
 
 <p>Parameters:</p>
 <ul><li>
@@ -328,11 +780,11 @@ DOCSCRIBE_PARSER_BACKEND=prism  bundle exec docscribe --check lib
 </li><li>
 <p>keyword args:</p>
 <ul><li>
-<p>verbose: <code>true</code> -&gt; <code>Boolean</code></p>
+<p><code>verbose: true</code> -&gt; <code>Boolean</code></p>
 </li><li>
-<p>options: <code>{}</code> -&gt; <code>Hash</code></p>
+<p><code>options: {}</code> -&gt; <code>Hash</code></p>
 </li><li>
-<p>kw: (no default) -&gt; <code>Object</code></p>
+<p><code>kw:</code> (no default) -&gt; <code>Object</code></p>
 </li></ul>
 </li><li>
 <p>positional defaults:</p>
@@ -345,16 +797,24 @@ DOCSCRIBE_PARSER_BACKEND=prism  bundle exec docscribe --check lib
 
 <p>Return values:</p>
 <ul><li>
-<p>For simple bodies, Docscribe looks at the last expression or explicit return:</p>
-<ul><li>
-<p><code>42</code> -&gt; <code>Integer</code></p>
+<p>For simple bodies, Docscribe looks at the last expression or explicit <code>return</code>.</p>
 </li><li>
-<p><code>:ok</code> -&gt; <code>Symbol</code></p>
-</li><li>
-<p>Unions with nil become optional types (e.g., <code>String</code> or <code>nil</code> -&gt; <code>String?</code>).</p>
-</li></ul>
+<p>Unions with <code>nil</code> become optional types (e.g. <code>String</code> or <code>nil</code> -&gt; <code>String?</code>).</p>
 </li><li>
 <p>For control flow (<code>if</code>/<code>case</code>), it unifies branches conservatively.</p>
+</li><li>
+<p><strong>RBS core type inference</strong>: when <code>--rbs</code> is enabled, Docscribe resolves return types for method calls on core types from their RBS definitions:</p>
+<ul><li>
+<p><code>arg.positive?</code> (<code>arg = 1</code>) -&gt; <code>Boolean</code> (from <code>Integer#positive?</code>)</p>
+</li><li>
+<p><code>arg.to_i</code> (<code>arg = &quot;&quot;</code>) -&gt; <code>Integer</code> (from <code>String#to_i</code>)</p>
+</li><li>
+<p><code>arg.to_s.length</code> (<code>arg = 1</code>) -&gt; <code>Integer</code> (chained: Integer -&gt; String -&gt; Integer)</p>
+</li><li>
+<p><code>arg.upcase</code> (<code>arg = &quot;&quot;</code>) -&gt; <code>String</code> (from <code>String#upcase</code>)</p>
+</li><li>
+<p>Rescue branches are also resolved (e.g. <code>&quot;default&quot;</code> -&gt; <code>String</code>)</p>
+</li></ul>
 </li></ul>
 
 <h2 id="label-Rescue-aware+returns+and+-40raise">Rescue-aware returns and @raise</h2>
@@ -367,71 +827,20 @@ DOCSCRIBE_PARSER_BACKEND=prism  bundle exec docscribe --check lib
 </li><li>
 <p>bare rescue -&gt; <code>@raise [StandardError]</code></p>
 </li><li>
-<p>(optional) explicit raise/fail also adds a tag (<code>raise Foo</code> -&gt; <code>@raise [Foo]</code>, <code>raise</code> -&gt; <code>@raise [StandardError]</code>).</p>
+<p>explicit <code>raise</code>/<code>fail</code> also adds a tag (<code>raise Foo</code> -&gt; <code>@raise [Foo]</code>, <code>raise</code> -&gt; <code>@raise [StandardError]</code>)</p>
 </li><li>
 <p><code>rescue Foo, Bar</code> -&gt; <code>@raise [Foo]</code> and <code>@raise [Bar]</code></p>
 </li><li>
 <p>bare rescue -&gt; <code>@raise [StandardError]</code></p>
 </li><li>
-<p>(optional) explicit raise/fail also adds a tag (<code>raise Foo</code> -&gt; <code>@raise [Foo]</code>, <code>raise</code> -&gt; <code>@raise [StandardError]</code>).</p>
+<p>explicit <code>raise</code>/<code>fail</code> also adds a tag (<code>raise Foo</code> -&gt; <code>@raise [Foo]</code>, <code>raise</code> -&gt; <code>@raise [StandardError]</code>)</p>
 </li></ul>
 </li><li>
 <p>Conditional return types for rescue branches:</p>
 <ul><li>
-<p>Docscribe adds <code>@return [Type]</code> if <code>ExceptionA</code>, <code>ExceptionB</code> for each rescue clause.</p>
+<p>Docscribe adds <code>@return [Type] if ExceptionA, ExceptionB</code> for each rescue clause</p>
 </li></ul>
 </li></ul>
-
-<p>Example:</p>
-
-<pre class="code ruby"><code class="ruby">
-<span class='kw'>class</span> <span class='const'>X</span>
-  <span class='kw'>def</span> <span class='id identifier rubyid_a'>a</span>
-    <span class='int'>42</span>
-  <span class='kw'>rescue</span> <span class='const'>Foo</span><span class='comma'>,</span> <span class='const'>Bar</span>
-    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>fallback</span><span class='tstring_end'>&quot;</span></span>
-  <span class='kw'>end</span>
-
-  <span class='kw'>def</span> <span class='id identifier rubyid_b'>b</span>
-    <span class='id identifier rubyid_risky'>risky</span>
-  <span class='kw'>rescue</span>
-    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>n</span><span class='tstring_end'>&quot;</span></span>
-  <span class='kw'>end</span>
-<span class='kw'>end</span>
-</code></pre>
-
-<p>Becomes:</p>
-
-<pre class="code ruby"><code class="ruby">
-<span class='kw'>class</span> <span class='const'>X</span>
-  <span class='comment'># +X#a+ -&gt; Integer
-</span>  <span class='comment'>#
-</span>  <span class='comment'># Method documentation.
-</span>  <span class='comment'>#
-</span>  <span class='comment'># @raise [Foo]
-</span>  <span class='comment'># @raise [Bar]
-</span>  <span class='comment'># @return [Integer]
-</span>  <span class='comment'># @return [String] if Foo, Bar
-</span>  <span class='kw'>def</span> <span class='id identifier rubyid_a'>a</span>
-    <span class='int'>42</span>
-  <span class='kw'>rescue</span> <span class='const'>Foo</span><span class='comma'>,</span> <span class='const'>Bar</span>
-    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>fallback</span><span class='tstring_end'>&quot;</span></span>
-  <span class='kw'>end</span>
-
-  <span class='comment'># +X#b+ -&gt; Object
-</span>  <span class='comment'>#
-</span>  <span class='comment'># Method documentation.
-</span>  <span class='comment'>#
-</span>  <span class='comment'># @raise [StandardError]
-</span>  <span class='comment'># @return [Object]
-</span>  <span class='comment'># @return [String] if StandardError
-</span>  <span class='kw'>def</span> <span class='id identifier rubyid_b'>b</span>
-    <span class='id identifier rubyid_risky'>risky</span>
-  <span class='kw'>rescue</span>
-    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>n</span><span class='tstring_end'>&quot;</span></span>
-  <span class='kw'>end</span>
-<span class='kw'>end</span>
-</code></pre>
 
 <h2 id="label-Visibility+semantics">Visibility semantics</h2>
 
@@ -451,9 +860,22 @@ DOCSCRIBE_PARSER_BACKEND=prism  bundle exec docscribe --check lib
 <p><code>@protected</code> is added similarly for protected methods.</p>
 </li></ul>
 
+<blockquote>
+<p>[!IMPORTANT] <code>module_function</code>: Docscribe documents methods affected by <code>module_function</code> as module methods (<code>M.foo</code>) rather than instance methods (<code>M#foo</code>), because that is usually the callable/public API. If a method was previously private as an instance method, Docscribe will avoid marking the generated docs as <code>@private</code> after it is promoted to a module method.</p>
+</blockquote>
+
+<pre class="code ruby"><code class="ruby"><span class='kw'>module</span> <span class='const'>M</span>
+  <span class='id identifier rubyid_private'>private</span>
+
+  <span class='kw'>def</span> <span class='id identifier rubyid_foo'>foo</span><span class='semicolon'>;</span> <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_module_function'>module_function</span> <span class='symbol'>:foo</span>
+<span class='kw'>end</span>
+</code></pre>
+
 <h2 id="label-API+-28library-29+usage">API (library) usage</h2>
 
-<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>docscribe/inline_rewriter</span><span class='tstring_end'>&#39;</span></span>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>docscribe/inline_rewriter</span><span class='tstring_end'>&quot;</span></span>
 
 <span class='id identifier rubyid_code'>code</span> <span class='op'>=</span> <span class='heredoc_beg'>&lt;&lt;~RUBY</span>
 <span class='tstring_content'>  class Demo
@@ -462,151 +884,559 @@ DOCSCRIBE_PARSER_BACKEND=prism  bundle exec docscribe --check lib
 </span><span class='tstring_content'>  end
 </span><span class='heredoc_end'>RUBY
 </span>
-<span class='comment'># Insert docs (skip methods that already have a comment above)
+<span class='comment'># Basic insertion behavior
 </span><span class='id identifier rubyid_out'>out</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Docscribe.html" title="Docscribe (module)">Docscribe</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Docscribe/InlineRewriter.html" title="Docscribe::InlineRewriter (module)">InlineRewriter</a></span></span><span class='period'>.</span><span class='id identifier rubyid_insert_comments'><span class='object_link'><a href="Docscribe/InlineRewriter.html#insert_comments-class_method" title="Docscribe::InlineRewriter.insert_comments (method)">insert_comments</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_code'>code</span><span class='rparen'>)</span>
 <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_out'>out</span>
 
-<span class='comment'># Replace existing comment blocks above methods
-</span><span class='id identifier rubyid_out2'>out2</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Docscribe.html" title="Docscribe (module)">Docscribe</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Docscribe/InlineRewriter.html" title="Docscribe::InlineRewriter (module)">InlineRewriter</a></span></span><span class='period'>.</span><span class='id identifier rubyid_insert_comments'><span class='object_link'><a href="Docscribe/InlineRewriter.html#insert_comments-class_method" title="Docscribe::InlineRewriter.insert_comments (method)">insert_comments</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_code'>code</span><span class='comma'>,</span> <span class='label'>rewrite:</span> <span class='kw'>true</span><span class='rparen'>)</span>
+<span class='comment'># Safe merge / normalization of existing doc-like blocks
+</span><span class='id identifier rubyid_out2'>out2</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Docscribe.html" title="Docscribe (module)">Docscribe</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Docscribe/InlineRewriter.html" title="Docscribe::InlineRewriter (module)">InlineRewriter</a></span></span><span class='period'>.</span><span class='id identifier rubyid_insert_comments'><span class='object_link'><a href="Docscribe/InlineRewriter.html#insert_comments-class_method" title="Docscribe::InlineRewriter.insert_comments (method)">insert_comments</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_code'>code</span><span class='comma'>,</span> <span class='label'>strategy:</span> <span class='symbol'>:safe</span><span class='rparen'>)</span>
+
+<span class='comment'># Aggressive rebuild of existing doc blocks (similar to CLI -A)
+</span><span class='id identifier rubyid_out3'>out3</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Docscribe.html" title="Docscribe (module)">Docscribe</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Docscribe/InlineRewriter.html" title="Docscribe::InlineRewriter (module)">InlineRewriter</a></span></span><span class='period'>.</span><span class='id identifier rubyid_insert_comments'><span class='object_link'><a href="Docscribe/InlineRewriter.html#insert_comments-class_method" title="Docscribe::InlineRewriter.insert_comments (method)">insert_comments</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_code'>code</span><span class='comma'>,</span> <span class='label'>strategy:</span> <span class='symbol'>:aggressive</span><span class='rparen'>)</span>
 </code></pre>
+
+<h2 id="label-Plugin+system">Plugin system</h2>
+
+<p>Docscribe ships a plugin system that lets you extend documentation generation without modifying the gem itself.</p>
+
+<p>There are two extension points:</p>
+
+<table role="table">
+<thead>
+<tr>
+<th>Type</th>
+<th>When it runs</th>
+<th>What it produces</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>TagPlugin</strong></td>
+<td>After a method is collected and its doc block is being built</td>
+<td>Extra YARD tags appended to the block</td>
+</tr>
+<tr>
+<td><strong>CollectorPlugin</strong></td>
+<td>Before doc building, alongside the standard AST collector</td>
+<td>New insertion targets for non-standard constructs</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="label-TagPlugin">TagPlugin</h3>
+
+<p>A <code>TagPlugin</code> receives a snapshot of everything known about a method at generation time and returns zero or more additional YARD tags to append to the doc block.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='kw'>class</span> <span class='const'>SincePlugin</span> <span class='op'>&lt;</span> <span class='const'><span class='object_link'><a href="Docscribe.html" title="Docscribe (module)">Docscribe</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Docscribe/Plugin.html" title="Docscribe::Plugin (module)">Plugin</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Docscribe/Plugin/Base.html" title="Docscribe::Plugin::Base (module)">Base</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Docscribe/Plugin/Base/TagPlugin.html" title="Docscribe::Plugin::Base::TagPlugin (class)">TagPlugin</a></span></span>
+  <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>version:</span><span class='rparen'>)</span>
+    <span class='ivar'>@version</span> <span class='op'>=</span> <span class='id identifier rubyid_version'>version</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># @param [Docscribe::Plugin::Context] context
+</span>  <span class='comment'># @return [Array&lt;Docscribe::Plugin::Tag&gt;]
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='id identifier rubyid_context'>context</span><span class='rparen'>)</span>
+    <span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="Docscribe.html" title="Docscribe (module)">Docscribe</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Docscribe/Plugin.html" title="Docscribe::Plugin (module)">Plugin</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Docscribe/Plugin/Tag.html" title="Docscribe::Plugin::Tag (class)">Tag</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>since</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>text:</span> <span class='ivar'>@version</span><span class='rparen'>)</span><span class='rbracket'>]</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<p>The <code>Context</code> struct provides:</p>
+
+<table role="table">
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>‘node`</td>
+<td>‘Parser::AST::Node`</td>
+<td>The ‘:def` or `:defs` AST node</td>
+</tr>
+<tr>
+<td>‘container`</td>
+<td>‘String`</td>
+<td>e.g. ‘“MyModule::MyClass”`</td>
+</tr>
+<tr>
+<td>‘scope`</td>
+<td>‘Symbol`</td>
+<td>‘:instance` or `:class`</td>
+</tr>
+<tr>
+<td>‘visibility`</td>
+<td>‘Symbol`</td>
+<td>‘:public`, `:protected`, or `:private`</td>
+</tr>
+<tr>
+<td>‘method_name`</td>
+<td>‘Symbol`</td>
+<td>Method name</td>
+</tr>
+<tr>
+<td>‘inferred_params`</td>
+<td>‘Hash=&gt; String`</td>
+<td>Name -&gt; inferred type</td>
+</tr>
+<tr>
+<td>‘inferred_return`</td>
+<td>‘String`</td>
+<td>Inferred return type</td>
+</tr>
+<tr>
+<td>‘source`</td>
+<td>‘String`</td>
+<td>Raw method source text</td>
+</tr>
+</tbody>
+</table>
+
+<p>The <code>Tag</code> struct:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='comment'># Simple tag
+</span><span class='const'><span class='object_link'><a href="Docscribe.html" title="Docscribe (module)">Docscribe</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Docscribe/Plugin.html" title="Docscribe::Plugin (module)">Plugin</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Docscribe/Plugin/Tag.html" title="Docscribe::Plugin::Tag (class)">Tag</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>since</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>text:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>1.3.0</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+<span class='comment'># =&gt; # @since 1.3.0
+</span>
+<span class='comment'># Tag with types
+</span><span class='const'><span class='object_link'><a href="Docscribe.html" title="Docscribe (module)">Docscribe</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Docscribe/Plugin.html" title="Docscribe::Plugin (module)">Plugin</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Docscribe/Plugin/Tag.html" title="Docscribe::Plugin::Tag (class)">Tag</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>raise</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>types:</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ArgumentError</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>text:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>if name is nil</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+<span class='comment'># =&gt; # @raise [ArgumentError] if name is nil
+</span></code></pre>
+
+<h3 id="label-CollectorPlugin">CollectorPlugin</h3>
+
+<p>A <code>CollectorPlugin</code> receives the raw AST and source buffer for each file. It walks the tree itself and returns insertion targets that Docscribe will document according to the selected strategy.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='kw'>class</span> <span class='const'>DefineMethodPlugin</span> <span class='op'>&lt;</span> <span class='const'><span class='object_link'><a href="Docscribe.html" title="Docscribe (module)">Docscribe</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Docscribe/Plugin.html" title="Docscribe::Plugin (module)">Plugin</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Docscribe/Plugin/Base.html" title="Docscribe::Plugin::Base (module)">Base</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Docscribe/Plugin/Base/CollectorPlugin.html" title="Docscribe::Plugin::Base::CollectorPlugin (class)">CollectorPlugin</a></span></span>
+  <span class='comment'># @param [Parser::AST::Node] ast
+</span>  <span class='comment'># @param [Parser::Source::Buffer] buffer
+</span>  <span class='comment'># @return [Array&lt;Hash&gt;]
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_collect'>collect</span><span class='lparen'>(</span><span class='id identifier rubyid_ast'>ast</span><span class='comma'>,</span> <span class='id identifier rubyid_buffer'>buffer</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_results'>results</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+
+    <span class='const'><span class='object_link'><a href="Docscribe.html" title="Docscribe (module)">Docscribe</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Docscribe/Infer.html" title="Docscribe::Infer (module)">Infer</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Docscribe/Infer/ASTWalk.html" title="Docscribe::Infer::ASTWalk (module)">ASTWalk</a></span></span><span class='period'>.</span><span class='id identifier rubyid_walk'><span class='object_link'><a href="Docscribe/Infer/ASTWalk.html#walk-class_method" title="Docscribe::Infer::ASTWalk.walk (method)">walk</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_ast'>ast</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_node'>node</span><span class='op'>|</span>
+      <span class='kw'>next</span> <span class='kw'>unless</span> <span class='id identifier rubyid_node'>node</span><span class='period'>.</span><span class='id identifier rubyid_type'>type</span> <span class='op'>==</span> <span class='symbol'>:send</span>
+
+      <span class='id identifier rubyid__recv'>_recv</span><span class='comma'>,</span> <span class='id identifier rubyid_meth'>meth</span><span class='comma'>,</span> <span class='id identifier rubyid_name_node'>name_node</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid__rest'>_rest</span> <span class='op'>=</span> <span class='op'>*</span><span class='id identifier rubyid_node'>node</span>
+      <span class='kw'>next</span> <span class='kw'>unless</span> <span class='id identifier rubyid_meth'>meth</span> <span class='op'>==</span> <span class='symbol'>:define_method</span>
+      <span class='kw'>next</span> <span class='kw'>unless</span> <span class='id identifier rubyid_name_node'>name_node</span><span class='op'>&amp;.</span><span class='id identifier rubyid_type'>type</span> <span class='op'>==</span> <span class='symbol'>:sym</span>
+
+      <span class='id identifier rubyid_meth_name'>meth_name</span> <span class='op'>=</span> <span class='id identifier rubyid_name_node'>name_node</span><span class='period'>.</span><span class='id identifier rubyid_children'>children</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span>
+
+      <span class='id identifier rubyid_results'>results</span> <span class='op'>&lt;&lt;</span> <span class='lbrace'>{</span>
+        <span class='label'>anchor_node:</span> <span class='id identifier rubyid_node'>node</span><span class='comma'>,</span>
+        <span class='label'>doc:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'># Dynamic method: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_meth_name'>meth_name</span><span class='embexpr_end'>}</span><span class='tstring_content'>\n# @return [Object]\n</span><span class='tstring_end'>&quot;</span></span>
+      <span class='rbrace'>}</span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_results'>results</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<p>Each result hash must have:</p>
+
+<table role="table">
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>‘:anchor_node`</td>
+<td>‘Parser::AST::Node`</td>
+<td>Node above which to insert the doc block</td>
+</tr>
+<tr>
+<td>‘:doc`</td>
+<td>‘String`</td>
+<td>Complete doc block text including newlines</td>
+</tr>
+</tbody>
+</table>
+
+<blockquote>
+<p>[!NOTE] You do not need to handle indentation manually. Docscribe reads the indentation from <code>anchor_node</code> and applies it to every line of <code>:doc</code> automatically.</p>
+</blockquote>
+
+<h3 id="label-Registering+plugins">Registering plugins</h3>
+
+<p>Plugins are registered at load time. The recommended pattern is to put registrations in a dedicated file and reference it from <code>docscribe.yml</code>.</p>
+
+<p><strong><code>docscribe_plugins.rb</code></strong> (in your project root or <code>lib/</code>):</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>docscribe/plugin</span><span class='tstring_end'>&#39;</span></span>
+
+<span class='comment'># Tag plugin
+</span><span class='kw'>class</span> <span class='const'>SincePlugin</span> <span class='op'>&lt;</span> <span class='const'><span class='object_link'><a href="Docscribe.html" title="Docscribe (module)">Docscribe</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Docscribe/Plugin.html" title="Docscribe::Plugin (module)">Plugin</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Docscribe/Plugin/Base.html" title="Docscribe::Plugin::Base (module)">Base</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Docscribe/Plugin/Base/TagPlugin.html" title="Docscribe::Plugin::Base::TagPlugin (class)">TagPlugin</a></span></span>
+  <span class='kw'>def</span> <span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='id identifier rubyid_context'>context</span><span class='rparen'>)</span>
+    <span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="Docscribe.html" title="Docscribe (module)">Docscribe</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Docscribe/Plugin.html" title="Docscribe::Plugin (module)">Plugin</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Docscribe/Plugin/Tag.html" title="Docscribe::Plugin::Tag (class)">Tag</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>since</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>text:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>1.3.0</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='rbracket'>]</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span>
+
+<span class='comment'># Collector plugin
+</span><span class='kw'>class</span> <span class='const'>DefineMethodPlugin</span> <span class='op'>&lt;</span> <span class='const'><span class='object_link'><a href="Docscribe.html" title="Docscribe (module)">Docscribe</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Docscribe/Plugin.html" title="Docscribe::Plugin (module)">Plugin</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Docscribe/Plugin/Base.html" title="Docscribe::Plugin::Base (module)">Base</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Docscribe/Plugin/Base/CollectorPlugin.html" title="Docscribe::Plugin::Base::CollectorPlugin (class)">CollectorPlugin</a></span></span>
+  <span class='kw'>def</span> <span class='id identifier rubyid_collect'>collect</span><span class='lparen'>(</span><span class='id identifier rubyid_ast'>ast</span><span class='comma'>,</span> <span class='id identifier rubyid_buffer'>buffer</span><span class='rparen'>)</span>
+    <span class='comment'># ...
+</span>  <span class='kw'>end</span>
+<span class='kw'>end</span>
+
+<span class='const'><span class='object_link'><a href="Docscribe.html" title="Docscribe (module)">Docscribe</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Docscribe/Plugin.html" title="Docscribe::Plugin (module)">Plugin</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Docscribe/Plugin/Registry.html" title="Docscribe::Plugin::Registry (module)">Registry</a></span></span><span class='period'>.</span><span class='id identifier rubyid_register'><span class='object_link'><a href="Docscribe/Plugin/Registry.html#register-class_method" title="Docscribe::Plugin::Registry.register (method)">register</a></span></span><span class='lparen'>(</span><span class='const'>SincePlugin</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='rparen'>)</span>
+<span class='const'><span class='object_link'><a href="Docscribe.html" title="Docscribe (module)">Docscribe</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Docscribe/Plugin.html" title="Docscribe::Plugin (module)">Plugin</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Docscribe/Plugin/Registry.html" title="Docscribe::Plugin::Registry (module)">Registry</a></span></span><span class='period'>.</span><span class='id identifier rubyid_register'><span class='object_link'><a href="Docscribe/Plugin/Registry.html#register-class_method" title="Docscribe::Plugin::Registry.register (method)">register</a></span></span><span class='lparen'>(</span><span class='const'>DefineMethodPlugin</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='rparen'>)</span>
+</code></pre>
+
+<p><strong><code>docscribe.yml</code></strong>:</p>
+
+<pre class="code ruby"><code class="ruby">plugins:
+  require:
+    - ./docscribe_plugins
+</code></pre>
+
+<p>Each entry is passed to <code>require</code>. The path is expanded relative to the current working directory.</p>
+
+<p>Duck typing is also supported — any object responding to <code>#call</code> is treated as a <code>TagPlugin</code>, any object responding to <code>#collect</code> is treated as a <code>CollectorPlugin</code>:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='comment'># Lambda as a TagPlugin
+</span><span class='const'><span class='object_link'><a href="Docscribe.html" title="Docscribe (module)">Docscribe</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Docscribe/Plugin.html" title="Docscribe::Plugin (module)">Plugin</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Docscribe/Plugin/Registry.html" title="Docscribe::Plugin::Registry (module)">Registry</a></span></span><span class='period'>.</span><span class='id identifier rubyid_register'><span class='object_link'><a href="Docscribe/Plugin/Registry.html#register-class_method" title="Docscribe::Plugin::Registry.register (method)">register</a></span></span><span class='lparen'>(</span>
+  <span class='tlambda'>-&gt;</span><span class='lparen'>(</span><span class='id identifier rubyid_context'>context</span><span class='rparen'>)</span> <span class='tlambeg'>{</span> <span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="Docscribe.html" title="Docscribe (module)">Docscribe</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Docscribe/Plugin.html" title="Docscribe::Plugin (module)">Plugin</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Docscribe/Plugin/Tag.html" title="Docscribe::Plugin::Tag (class)">Tag</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>api</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>text:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>public</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='rbracket'>]</span> <span class='rbrace'>}</span>
+<span class='rparen'>)</span>
+</code></pre>
+
+<h3 id="label-Idempotency">Idempotency</h3>
+
+<p>Docscribe handles idempotency for plugins automatically.</p>
+
+<p><strong>TagPlugin</strong>: before appending a tag, Docscribe checks whether a tag with that name already exists in the current doc block. If it does, the tag is skipped.</p>
+
+<p><strong>CollectorPlugin</strong>: idempotency depends on the selected strategy.</p>
+
+<table role="table">
+<thead>
+<tr>
+<th>Strategy</th>
+<th>Behaviour</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>‘:safe`</td>
+<td>Skips insertion if any comment block already exists immediately above ‘anchor_node`</td>
+</tr>
+<tr>
+<td>‘:aggressive`</td>
+<td>Removes the existing comment block above ‘anchor_node` and inserts a fresh doc block</td>
+</tr>
+</tbody>
+</table>
+
+<p>This means a <code>CollectorPlugin</code>-generated block will not be duplicated on repeated safe runs, and will be fully rebuilt on aggressive runs.</p>
+
+<h3 id="label-Plugin+examples">Plugin examples</h3>
+
+<p>Sample plugin available at <a href="examples/plugins">examples</a></p>
 
 <h2 id="label-Configuration">Configuration</h2>
 
-<p>Docscribe can be configured via a YAML file (docscribe.yml by default, or pass –config PATH).</p>
+<p>Docscribe can be configured via a YAML file (<code>docscribe.yml</code> by default, or pass <code>--config PATH</code>).</p>
+
+<h3 id="label-Filtering">Filtering</h3>
+
+<p>Docscribe can filter both <em>files</em> and <em>methods</em>.</p>
+
+<p>File filtering (recommended for excluding specs, vendor code, etc.):</p>
+
+<pre class="code ruby"><code class="ruby">filter:
+  files:
+    exclude: [ &quot;spec&quot; ]
+</code></pre>
+
+<p>Method filtering matches method ids like:</p>
+<ul><li>
+<p><code>MyModule::MyClass#instance_method</code></p>
+</li><li>
+<p><code>MyModule::MyClass.class_method</code></p>
+</li></ul>
 
 <p>Example:</p>
 
+<pre class="code ruby"><code class="ruby">filter:
+  exclude:
+    - &quot;*#initialize&quot;
+</code></pre>
+
+<p>CLI overrides are available too:</p>
+
+<pre class="code ruby"><code class="ruby"># Method filtering (matches method ids like A#foo / A.bar)
+docscribe --exclude &#39;*#initialize&#39; lib
+docscribe --include &#39;/^MyModule::.*#(foo|bar)$/&#39; lib
+
+# File filtering (matches paths relative to the project root)
+docscribe --exclude-file &#39;spec&#39; lib spec
+docscribe --exclude-file &#39;/^spec\//&#39; lib
+</code></pre>
+
+<blockquote>
+<p>[!NOTE] <code>/regex/</code> passed to <code>--include</code>/<code>--exclude</code> is treated as a <strong>method-id</strong> pattern. Use <code>--include-file</code> / <code>--exclude-file</code> for file regex filters.</p>
+</blockquote>
+
+<p>Enable attribute-style documentation generation with:</p>
+
 <pre class="code ruby"><code class="ruby">emit:
-  header: true           # controls &quot;# +Class#method+ -&gt; Type&quot;
-  param_tags: true       # include @param lines
-  return_tag: true       # include normal @return
-  visibility_tags: true  # include @private/@protected
-  raise_tags: true       # include @raise [Error]
-  rescue_conditional_returns: true  # include &quot;@return [...] if Exception&quot;
-
-doc:
-  default_message: &quot;Method documentation.&quot;
-
-methods:
-  instance:
-    public:
-      return_tag: true
-      default_message: &quot;Public API. Please document purpose and params.&quot;
-  class:
-    private:
-      return_tag: false
-
-inference:
-  fallback_type: &quot;Object&quot;
-  nil_as_optional: true
-  treat_options_keyword_as_hash: true
+  attributes: true
 </code></pre>
+
+<p>When enabled, Docscribe can generate YARD <code>@!attribute</code> docs for:</p>
 <ul><li>
-<p>emit.* toggles control which tags are emitted globally.</p>
+<p><code>attr_reader</code></p>
 </li><li>
-<p>methods.&lt;scope&gt;.&lt;visibility&gt; allows per-method overrides:</p>
-<ul><li>
-<p>return_tag: true/false</p>
+<p><code>attr_writer</code></p>
 </li><li>
-<p>default_message: override the message for that bucket</p>
-</li></ul>
+<p><code>attr_accessor</code></p>
 </li><li>
-<p>inference.* tunes type inference defaults.</p>
+<p><code>Struct.new</code> declarations</p>
 </li></ul>
 
-<h3 id="label-CLI">CLI</h3>
+<h3 id="label-attr_-2A+example"><code>attr_*</code> example</h3>
 
-<pre class="code ruby"><code class="ruby">docscribe --config docscribe.yml --write lib/**/*.rb
+<blockquote>
+<p>[!NOTE] - Attribute docs are inserted above the <code>attr_*</code> call, not above generated methods (since they don’t exist as <code>def</code> nodes). - If RBS is enabled, Docscribe will try to use the RBS return type of the reader method as the attribute type.</p>
+</blockquote>
+
+<pre class="code ruby"><code class="ruby"><span class='kw'>class</span> <span class='const'>User</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:name</span>
+<span class='kw'>end</span>
 </code></pre>
+
+<p>Generated docs:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='kw'>class</span> <span class='const'>User</span>
+  <span class='comment'># @!attribute [rw] name
+</span>  <span class='comment'>#   @return [Object]
+</span>  <span class='comment'>#   @param [Object] value
+</span>  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:name</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<h3 id="label-Struct.new+examples"><code>Struct.new</code> examples</h3>
+
+<p>Docscribe supports both common <code>Struct.new</code> declaration styles.</p>
+
+<h4 id="label-Constant-assigned+struct">Constant-assigned struct</h4>
+
+<pre class="code ruby"><code class="ruby"><span class='const'>User</span> <span class='op'>=</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:name</span><span class='comma'>,</span> <span class='symbol'>:email</span><span class='comma'>,</span> <span class='label'>keyword_init:</span> <span class='kw'>true</span><span class='rparen'>)</span>
+</code></pre>
+
+<p>Generated docs:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='comment'># @!attribute [rw] name
+</span><span class='comment'>#   @return [Object]
+</span><span class='comment'>#   @param [Object] value
+</span><span class='comment'>#
+</span><span class='comment'># @!attribute [rw] email
+</span><span class='comment'>#   @return [Object]
+</span><span class='comment'>#   @param [Object] value
+</span><span class='const'>User</span> <span class='op'>=</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:name</span><span class='comma'>,</span> <span class='symbol'>:email</span><span class='comma'>,</span> <span class='label'>keyword_init:</span> <span class='kw'>true</span><span class='rparen'>)</span>
+</code></pre>
+
+<h4 id="label-Class-based+struct">Class-based struct</h4>
+
+<pre class="code ruby"><code class="ruby"><span class='kw'>class</span> <span class='const'>User</span> <span class='op'>&lt;</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:name</span><span class='comma'>,</span> <span class='symbol'>:email</span><span class='comma'>,</span> <span class='label'>keyword_init:</span> <span class='kw'>true</span><span class='rparen'>)</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<p>Generated docs:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='comment'># @!attribute [rw] name
+</span><span class='comment'>#   @return [Object]
+</span><span class='comment'>#   @param [Object] value
+</span><span class='comment'>#
+</span><span class='comment'># @!attribute [rw] email
+</span><span class='comment'>#   @return [Object]
+</span><span class='comment'>#   @param [Object] value
+</span><span class='kw'>class</span> <span class='const'>User</span> <span class='op'>&lt;</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:name</span><span class='comma'>,</span> <span class='symbol'>:email</span><span class='comma'>,</span> <span class='label'>keyword_init:</span> <span class='kw'>true</span><span class='rparen'>)</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<p>Docscribe preserves the original declaration style and does not rewrite one form into the other.</p>
+
+<h3 id="label-Merge+behavior">Merge behavior</h3>
+
+<p>Struct member docs use the same attribute documentation pipeline as <code>attr_*</code> macros, which means they participate in the normal safe/aggressive rewrite flow.</p>
+
+<p>In safe mode, Docscribe can:</p>
+<ul><li>
+<p>insert full <code>@!attribute</code> docs when no doc-like block exists</p>
+</li><li>
+<p>append missing struct member docs into an existing doc-like block</p>
+</li></ul>
+
+<h3 id="label-Param+tag+style">Param tag style</h3>
+
+<p>Generated writer-style attribute docs respect <code>doc.param_tag_style</code>.</p>
+
+<p>For example, with:</p>
+
+<pre class="code ruby"><code class="ruby">doc:
+  param_tag_style: &quot;type_name&quot;
+</code></pre>
+
+<p>writer params are emitted as:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='comment'>#   @param [Object] value
+</span></code></pre>
+
+<p>With:</p>
+
+<pre class="code ruby"><code class="ruby">doc:
+  param_tag_style: &quot;name_type&quot;
+</code></pre>
+
+<p>they are emitted as:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='comment'>#   @param value [Object]
+</span></code></pre>
+
+<h3 id="label-Create+a+starter+config">Create a starter config</h3>
+
+<p>Create <code>docscribe.yml</code> in the current directory:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_docscribe'>docscribe</span> <span class='id identifier rubyid_init'>init</span>
+</code></pre>
+
+<p>Write to a custom path:</p>
+
+<pre class="code ruby"><code class="ruby">docscribe init --config config/docscribe.yml
+</code></pre>
+
+<p>Overwrite if it already exists:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_docscribe'>docscribe</span> <span class='id identifier rubyid_init'>init</span> <span class='op'>-</span><span class='op'>-</span><span class='id identifier rubyid_force'>force</span>
+</code></pre>
+
+<p>Print the template to stdout:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_docscribe'>docscribe</span> <span class='id identifier rubyid_init'>init</span> <span class='op'>-</span><span class='op'>-</span><span class='id identifier rubyid_stdout'>stdout</span>
+</code></pre>
+
+<h3 id="label-Generate+a+plugin+skeleton">Generate a plugin skeleton</h3>
+
+<p>Docscribe can scaffold a plugin file so you don’t have to write boilerplate by hand.</p>
+
+<p>Generate a <strong>TagPlugin</strong>:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_docscribe'>docscribe</span> <span class='id identifier rubyid_generate'>generate</span> <span class='id identifier rubyid_tag'>tag</span> <span class='const'>MyPlugin</span>
+<span class='comment'># Created: my_plugin.rb
+</span></code></pre>
+
+<p>Generate a <strong>CollectorPlugin</strong>:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_docscribe'>docscribe</span> <span class='id identifier rubyid_generate'>generate</span> <span class='id identifier rubyid_collector'>collector</span> <span class='const'>MyCollector</span>
+<span class='comment'># Created: my_collector.rb
+</span></code></pre>
+
+<p>Write to a specific directory:</p>
+
+<pre class="code ruby"><code class="ruby">docscribe generate tag SincePlugin --output lib/plugins
+# Created: lib/plugins/since_plugin.rb
+</code></pre>
+
+<p>Print to STDOUT instead of writing a file:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_docscribe'>docscribe</span> <span class='id identifier rubyid_generate'>generate</span> <span class='id identifier rubyid_tag'>tag</span> <span class='const'>SincePlugin</span> <span class='op'>-</span><span class='op'>-</span><span class='id identifier rubyid_stdout'>stdout</span>
+</code></pre>
+
+<p>The generated file contains: - the correct base class (<code>Base::TagPlugin</code> or <code>Base::CollectorPlugin</code>) - inline comments describing every available <code>Context</code> attribute (TagPlugin) or the expected return shape (CollectorPlugin) - TODO markers showing exactly where to add your logic - registration and next-steps instructions printed to the terminal</p>
+
+<blockquote>
+<p>[!NOTE] The class name must be a valid Ruby constant (<code>MyPlugin</code>, <code>My::Plugin</code>). The output filename is the snake_case equivalent (<code>my_plugin.rb</code>, <code>my/plugin.rb</code>).</p>
+</blockquote>
 
 <h2 id="label-CI+integration">CI integration</h2>
 
-<p>Fail the build if files would change:</p>
+<p>Fail the build if files would need safe updates:</p>
 
 <pre class="code ruby"><code class="ruby">- name: Check inline docs
-  run: docscribe --check lib/**/*.rb
+  run: docscribe lib
 </code></pre>
 
-<p>Auto-fix before test stage:</p>
+<p>Apply safe fixes before the test stage:</p>
 
-<pre class="code ruby"><code class="ruby">- name: Insert inline docs
-  run: docscribe --write lib/**/*.rb
+<pre class="code ruby"><code class="ruby">- name: Apply safe inline docs
+  run: docscribe -a lib
 </code></pre>
 
-<p>Rewrite mode (regenerate existing method docs):</p>
+<p>Aggressively rebuild docs:</p>
 
-<pre class="code ruby"><code class="ruby">- name: Refresh inline docs
-  run: docscribe --rewrite --write lib/**/*.rb
+<pre class="code ruby"><code class="ruby">- name: Rebuild inline docs
+  run: docscribe -A lib
 </code></pre>
 
 <h2 id="label-Comparison+to+YARD-27s+parser">Comparison to YARD’s parser</h2>
 
 <p>Docscribe and YARD solve different parts of the documentation problem:</p>
 <ul><li>
-<p>Parsing and insertion:</p>
-<ul><li>
-<p>Docscribe parses with Ruby's AST (parser gem) and inserts/updates doc comments inline. It does not reformat code or produce HTML by itself.</p>
+<p>Docscribe inserts/updates inline comments by rewriting source.</p>
 </li><li>
-<p>YARD parses Ruby into a registry and can generate documentation sites and perform advanced analysis (tags, transitive docs, macros).</p>
-</li><li>
-<p>Docscribe parses with Ruby's AST (parser gem) and inserts/updates doc comments inline. It does not reformat code or produce HTML by itself.</p>
-</li><li>
-<p>YARD parses Ruby into a registry and can generate documentation sites and perform advanced analysis (tags, transitive docs, macros).</p>
+<p>YARD can generate HTML docs based on inline comments.</p>
 </li></ul>
-</li><li>
-<p>Preservation vs generation:</p>
-<ul><li>
-<p>Docscribe preserves your original source exactly, only inserting comment blocks above methods.</p>
-</li><li>
-<p>YARD generates documentation output (HTML, JSON) based on its registry; it's not designed to write back to your source.</p>
-</li></ul>
-</li><li>
-<p>Semantics:</p>
-<ul><li>
-<p>Docscribe models Ruby visibility semantics precisely for inline usage (including <code>class &lt;&lt; self</code>).</p>
-</li><li>
-<p>YARD has rich semantics around tags and directives; it can leverage your inline comments (including those inserted by Docscribe).</p>
-</li></ul>
-</li><li>
+
 <p>Recommended workflow:</p>
 <ul><li>
 <p>Use Docscribe to seed and maintain inline docs with inferred tags/types.</p>
 </li><li>
-<p>Optionally use YARD (dev-only) to render HTML from those comments: <code>shell  yard doc -o docs </code></p>
+<p>Optionally use YARD (dev-only) to render HTML from those comments:</p>
 </li></ul>
-</li></ul>
+
+<pre class="code ruby"><code class="ruby">yard doc -o docs
+</code></pre>
 
 <h2 id="label-Limitations">Limitations</h2>
 <ul><li>
-<p>Does not merge into existing comments; in normal mode, a method with a comment directly above it is skipped. Use <code>--rewrite</code> to regenerate.</p>
+<p>Safe mode only merges into existing <strong>doc-like</strong> comment blocks. Ordinary comments that are not recognized as documentation are preserved and treated conservatively.</p>
 </li><li>
-<p>Type inference is heuristic. Complex flows and meta-programming will fall back to Object or best-effort types.</p>
+<p>Type inference is heuristic. Complex flows and meta-programming will fall back to <code>Object</code> or best-effort types.</p>
 </li><li>
-<p>Ruby 2.7+ supported.</p>
-</li><li>
-<p>Inline rewrite is textual; ensure a clean working tree before using <code>--write</code> or <code>--rewrite</code>.</p>
+<p>Aggressive mode (<code>-A</code>) replaces existing doc blocks and should be reviewed carefully.</p>
 </li></ul>
 
 <h2 id="label-Roadmap">Roadmap</h2>
 <ul><li>
-<p>Merge tags into existing docstrings (opt-in).</p>
+<p>Method behavior inference from AST;</p>
 </li><li>
-<p>Recognize common APIs for return inference (<code>Time.now</code>, <code>File.read</code>, <code>JSON.parse</code>).</p>
+<p>YAML-based plugin configuration;</p>
 </li><li>
-<p>Configurable rules and per-project exclusions.</p>
+<p>Effective config dump;</p>
 </li><li>
-<p>Editor integration for on-save inline docs.</p>
+<p>JSON output;</p>
+</li><li>
+<p>Overload-aware signature selection;</p>
+</li><li>
+<p>Manual <code>@!attribute</code> merge policy;</p>
+</li><li>
+<p>Richer inference for common APIs;</p>
+</li><li>
+<p>Editor integration.</p>
 </li></ul>
 
 <h2 id="label-Contributing">Contributing</h2>
-
-<p>Issues and PRs welcome. Please run:</p>
 
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_bundle'>bundle</span> <span class='id identifier rubyid_exec'>exec</span> <span class='id identifier rubyid_rspec'>rspec</span>
 <span class='id identifier rubyid_bundle'>bundle</span> <span class='id identifier rubyid_exec'>exec</span> <span class='id identifier rubyid_rubocop'>rubocop</span>
 </code></pre>
 
-<p>See CODE_OF_CONDUCT.md.</p>
+<h2 id="label-Discussion+-26+Community">Discussion &amp; Community</h2>
+<ul><li>
+<p><a href="https://www.reddit.com/r/ruby/comments/1s5uwjj/docscribe_for_ruby_autogenerate_inline_yard_docs/">Reddit discussion</a></p>
+</li><li>
+<p><a href="https://dev.to/unurgunite">Dev.to article</a></p>
+</li><li>
+<p><a href="https://github.com/unurgunite/docscribe/discussions">GitHub Discussions</a></p>
+</li></ul>
 
 <h2 id="label-License">License</h2>
 
@@ -614,9 +1444,9 @@ inference:
 </div></div>
 
       <div id="footer">
-  Generated on Fri Jan 16 16:20:18 2026 by
+  Generated on Wed Apr 29 12:33:54 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.38 (ruby-3.4.6).
+  0.9.38 (ruby-3.4.5).
 </div>
 
     </div>
