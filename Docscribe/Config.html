@@ -141,7 +141,9 @@
         </dt>
         <dd><pre class="code"><span class='lbrace'>{</span>
   <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>emit</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span>
-    <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>header</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='kw'>true</span><span class='comma'>,</span>
+    <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>header</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='kw'>false</span><span class='comma'>,</span>
+    <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>include_default_message</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='kw'>true</span><span class='comma'>,</span>
+    <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>include_param_documentation</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='kw'>true</span><span class='comma'>,</span>
     <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>param_tags</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='kw'>true</span><span class='comma'>,</span>
     <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>return_tag</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='kw'>true</span><span class='comma'>,</span>
     <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>visibility_tags</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='kw'>true</span><span class='comma'>,</span>
@@ -180,11 +182,12 @@
     <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>exclude</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='comma'>,</span>
     <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>files</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span>
       <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>include</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='comma'>,</span>
-      <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>exclude</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+      <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>exclude</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>spec</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
     <span class='rbrace'>}</span>
   <span class='rbrace'>}</span><span class='comma'>,</span>
   <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>rbs</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span>
     <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>enabled</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='kw'>false</span><span class='comma'>,</span>
+    <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>collection</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='kw'>false</span><span class='comma'>,</span>
     <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>sig_dirs</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>sig</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='comma'>,</span>
     <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>collapse_generics</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='kw'>false</span>
   <span class='rbrace'>}</span><span class='comma'>,</span>
@@ -353,6 +356,30 @@
     </h2>
 
     <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#core_rbs_provider-instance_method" title="#core_rbs_provider (instance method)">#<strong>core_rbs_provider</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Method documentation.</p>
+</div></span>
+  
+</li>
+
       
         <li class="public ">
   <span class="summary_signature">
@@ -791,30 +818,6 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#rbs_collapse_generics%3F-instance_method" title="#rbs_collapse_generics? (instance method)">#<strong>rbs_collapse_generics?</strong>  &#x21d2; Boolean </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p>Whether generic RBS types should be collapsed to simpler container names.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
       <a href="#rbs_enabled%3F-instance_method" title="#rbs_enabled? (instance method)">#<strong>rbs_enabled?</strong>  &#x21d2; Boolean </a>
     
 
@@ -855,30 +858,6 @@
   
     <span class="summary_desc"><div class='inline'>
 <p>Return a memoized RBS provider if RBS integration is enabled and available.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#rbs_sig_dirs-instance_method" title="#rbs_sig_dirs (instance method)">#<strong>rbs_sig_dirs</strong>  &#x21d2; Array&lt;String&gt; </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p>Signature directories used by the RBS provider.</p>
 </div></span>
   
 </li>
@@ -1344,100 +1323,7 @@
 103
 104
 105
-106
-107
-108
-109
-110
-111
-112
-113
-114
-115
-116
-117
-118
-119
-120
-121
-122
-123
-124
-125
-126
-127
-128
-129
-130
-131
-132
-133
-134
-135
-136
-137
-138
-139
-140
-141
-142
-143
-144
-145
-146
-147
-148
-149
-150
-151
-152
-153
-154
-155
-156
-157
-158
-159
-160
-161
-162
-163
-164
-165
-166
-167
-168
-169
-170
-171
-172
-173
-174
-175
-176
-177
-178
-179
-180
-181
-182
-183
-184
-185
-186
-187
-188
-189
-190
-191
-192
-193
-194
-195
-196
-197
-198
-199</pre>
+106</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/docscribe/config/template.rb', line 12</span>
@@ -1447,187 +1333,94 @@
 <span class='tstring_content'>    ---
 </span><span class='tstring_content'>    # Docscribe configuration file
 </span><span class='tstring_content'>    #
-</span><span class='tstring_content'>    # Inspect what safe doc updates would be applied:
-</span><span class='tstring_content'>    #   bundle exec docscribe lib
+</span><span class='tstring_content'>    # Docscribe works without this file — create it only for customization.
 </span><span class='tstring_content'>    #
-</span><span class='tstring_content'>    # Apply safe doc updates:
-</span><span class='tstring_content'>    #   bundle exec docscribe -a lib
-</span><span class='tstring_content'>    #
-</span><span class='tstring_content'>    # Apply aggressive doc updates (rebuild existing doc blocks):
-</span><span class='tstring_content'>    #   bundle exec docscribe -A lib
-</span><span class='tstring_content'>    #
+</span><span class='tstring_content'>    # Quick start:
+</span><span class='tstring_content'>    #   bundle exec docscribe lib          # check what would change
+</span><span class='tstring_content'>    #   bundle exec docscribe -a lib       # apply safe updates
+</span><span class='tstring_content'>    #   bundle exec docscribe -A lib       # rebuild all doc blocks
 </span><span class='tstring_content'>
 </span><span class='tstring_content'>    emit:
-</span><span class='tstring_content'>      # Emit the header line:
-</span><span class='tstring_content'>      #
-</span><span class='tstring_content'>      #   +MyClass#my_method+ -&gt; ReturnType
-</span><span class='tstring_content'>      header: false
+</span><span class='tstring_content'>      # What to include in generated documentation
+</span><span class='tstring_content'>      header: false                       # +MyClass#foo+ -&gt; ReturnType
+</span><span class='tstring_content'>      param_tags: true                    # @param tags
+</span><span class='tstring_content'>      return_tag: true                    # @return tag
+</span><span class='tstring_content'>      visibility_tags: true               # @private / @protected
+</span><span class='tstring_content'>      raise_tags: true                    # @raise tags
+</span><span class='tstring_content'>      rescue_conditional_returns: true    # @return [Type] if Error
+</span><span class='tstring_content'>      attributes: false                   # @!attribute for attr_*
 </span><span class='tstring_content'>
-</span><span class='tstring_content'>      # Whether to include the default placeholder line:
-</span><span class='tstring_content'>      #   # Method documentation.
-</span><span class='tstring_content'>      include_default_message: true
-</span><span class='tstring_content'>
-</span><span class='tstring_content'>      # Whether to append placeholder text to generated @param tags:
-</span><span class='tstring_content'>      #   # @param [String] name Param documentation.
-</span><span class='tstring_content'>      include_param_documentation: true
-</span><span class='tstring_content'>
-</span><span class='tstring_content'>      # Emit @param tags.
-</span><span class='tstring_content'>      param_tags: true
-</span><span class='tstring_content'>
-</span><span class='tstring_content'>      # Emit @return tag (can be overridden per scope/visibility under methods:).
-</span><span class='tstring_content'>      return_tag: true
-</span><span class='tstring_content'>
-</span><span class='tstring_content'>      # Emit @private / @protected tags based on Ruby visibility context.
-</span><span class='tstring_content'>      visibility_tags: true
-</span><span class='tstring_content'>
-</span><span class='tstring_content'>      # Emit @raise tags inferred from rescue clauses / raise/fail calls.
-</span><span class='tstring_content'>      raise_tags: true
-</span><span class='tstring_content'>
-</span><span class='tstring_content'>      # Emit conditional rescue return tags:
-</span><span class='tstring_content'>      #
-</span><span class='tstring_content'>      #   @return [String] if FooError, BarError
-</span><span class='tstring_content'>      rescue_conditional_returns: true
-</span><span class='tstring_content'>
-</span><span class='tstring_content'>      # Generate @!attribute docs for attr_reader/attr_writer/attr_accessor.
-</span><span class='tstring_content'>      attributes: false
+</span><span class='tstring_content'>      # Placeholder text for generated docs
+</span><span class='tstring_content'>      include_default_message: true       # &quot;Method documentation.&quot;
+</span><span class='tstring_content'>      include_param_documentation: true   # &quot;Param documentation.&quot;
 </span><span class='tstring_content'>
 </span><span class='tstring_content'>    doc:
-</span><span class='tstring_content'>      # Default text inserted into each generated doc block.
+</span><span class='tstring_content'>      # Default text and formatting
 </span><span class='tstring_content'>      default_message: &quot;Method documentation.&quot;
-</span><span class='tstring_content'>
-</span><span class='tstring_content'>      # Default text appended to generated @param tags.
 </span><span class='tstring_content'>      param_documentation: &quot;Param documentation.&quot;
-</span><span class='tstring_content'>
-</span><span class='tstring_content'>      # Style for generated @param tags:
-</span><span class='tstring_content'>      # - type_name =&gt; @param [Type] name
-</span><span class='tstring_content'>      # - name_type =&gt; @param name [Type]
-</span><span class='tstring_content'>      param_tag_style: &quot;type_name&quot;
-</span><span class='tstring_content'>
-</span><span class='tstring_content'>      # Sort generated / merged tags in safe mode when possible.
+</span><span class='tstring_content'>      param_tag_style: &quot;type_name&quot;        # &quot;type_name&quot; or &quot;name_type&quot;
 </span><span class='tstring_content'>      sort_tags: true
-</span><span class='tstring_content'>
-</span><span class='tstring_content'>      # Tag order used when sorting contiguous tag runs.
 </span><span class='tstring_content'>      tag_order: [&quot;todo&quot;, &quot;note&quot;, &quot;api&quot;, &quot;private&quot;, &quot;protected&quot;, &quot;param&quot;, &quot;option&quot;, &quot;yieldparam&quot;, &quot;raise&quot;, &quot;return&quot;]
 </span><span class='tstring_content'>
+</span><span class='tstring_content'>    inference:
+</span><span class='tstring_content'>      # Type inference behavior
+</span><span class='tstring_content'>      fallback_type: &quot;Object&quot;             # when uncertain
+</span><span class='tstring_content'>      nil_as_optional: true               # String | nil =&gt; String?
+</span><span class='tstring_content'>      treat_options_keyword_as_hash: true # options: keyword =&gt; Hash
+</span><span class='tstring_content'>
+</span><span class='tstring_content'>    filter:
+</span><span class='tstring_content'>      # Which methods and files to process
+</span><span class='tstring_content'>      # Method format: &quot;Container#method&quot; (instance) or &quot;Container.method&quot; (class)
+</span><span class='tstring_content'>      # Supports globs (&quot;*#initialize&quot;) and regex (&quot;/^MyApp::.*$/&quot;)
+</span><span class='tstring_content'>      include: []
+</span><span class='tstring_content'>      exclude: []
+</span><span class='tstring_content'>      visibilities: [&quot;public&quot;, &quot;protected&quot;, &quot;private&quot;]
+</span><span class='tstring_content'>      scopes: [&quot;instance&quot;, &quot;class&quot;]
+</span><span class='tstring_content'>
+</span><span class='tstring_content'>      files:
+</span><span class='tstring_content'>        # File paths relative to project root (globs or /regex/)
+</span><span class='tstring_content'>        include: []
+</span><span class='tstring_content'>        exclude: [&quot;spec&quot;]
+</span><span class='tstring_content'>
 </span><span class='tstring_content'>    methods:
-</span><span class='tstring_content'>      # Per-scope / per-visibility overrides.
+</span><span class='tstring_content'>      # Override defaults per scope and visibility.
+</span><span class='tstring_content'>      # Empty {} means &quot;use values from `doc` section&quot;.
 </span><span class='tstring_content'>      #
 </span><span class='tstring_content'>      # Example:
-</span><span class='tstring_content'>      # methods:
 </span><span class='tstring_content'>      #   instance:
 </span><span class='tstring_content'>      #     public:
 </span><span class='tstring_content'>      #       default_message: &quot;Public API.&quot;
-</span><span class='tstring_content'>      #       return_tag: true
+</span><span class='tstring_content'>      #     private:
+</span><span class='tstring_content'>      #       return_tag: false
 </span><span class='tstring_content'>      instance:
 </span><span class='tstring_content'>        public: {}
 </span><span class='tstring_content'>        protected: {}
 </span><span class='tstring_content'>        private: {}
-</span><span class='tstring_content'>
 </span><span class='tstring_content'>      class:
 </span><span class='tstring_content'>        public: {}
 </span><span class='tstring_content'>        protected: {}
 </span><span class='tstring_content'>        private: {}
 </span><span class='tstring_content'>
-</span><span class='tstring_content'>    inference:
-</span><span class='tstring_content'>      # Type used when inference is uncertain.
-</span><span class='tstring_content'>      fallback_type: &quot;Object&quot;
+</span><span class='tstring_content'>    rbs:
+</span><span class='tstring_content'>      # Use RBS signatures for better types (requires `gem &quot;rbs&quot;`)
+</span><span class='tstring_content'>      enabled: false
+</span><span class='tstring_content'>      sig_dirs: [&quot;sig&quot;]
+</span><span class='tstring_content'>      collapse_generics: false            # Hash&lt;Symbol, String&gt; =&gt; Hash
+</span><span class='tstring_content'>      collection: false                   # auto-discover from rbs_collection.lock.yaml
 </span><span class='tstring_content'>
-</span><span class='tstring_content'>      # Whether nil unions become optional types (for example String | nil =&gt; String?).
-</span><span class='tstring_content'>      nil_as_optional: true
-</span><span class='tstring_content'>
-</span><span class='tstring_content'>      # Special-case: treat keyword arg named options/options: as a Hash.
-</span><span class='tstring_content'>      treat_options_keyword_as_hash: true
-</span><span class='tstring_content'>
-</span><span class='tstring_content'>    filter:
-</span><span class='tstring_content'>      # Filter which methods Docscribe touches.
-</span><span class='tstring_content'>      #
-</span><span class='tstring_content'>      # Method id format:
-</span><span class='tstring_content'>      #   instance: &quot;MyModule::MyClass#instance_method&quot;
-</span><span class='tstring_content'>      #   class:    &quot;MyModule::MyClass.class_method&quot;
-</span><span class='tstring_content'>      #
-</span><span class='tstring_content'>      # Patterns:
-</span><span class='tstring_content'>      # - glob: &quot;*#initialize&quot;, &quot;MyApp::*#*&quot;
-</span><span class='tstring_content'>      # - regex: &quot;/^MyApp::.*#(foo|bar)$/&quot;
-</span><span class='tstring_content'>      #
-</span><span class='tstring_content'>      # Semantics:
-</span><span class='tstring_content'>      # - scopes / visibilities act as allow-lists
-</span><span class='tstring_content'>      # - exclude wins
-</span><span class='tstring_content'>      # - if include is empty =&gt; include everything (subject to allow-lists)
-</span><span class='tstring_content'>      visibilities: [&quot;public&quot;, &quot;protected&quot;, &quot;private&quot;]
-</span><span class='tstring_content'>      scopes: [&quot;instance&quot;, &quot;class&quot;]
-</span><span class='tstring_content'>      include: []
-</span><span class='tstring_content'>      exclude: []
-</span><span class='tstring_content'>
-</span><span class='tstring_content'>      files:
-</span><span class='tstring_content'>        # Filter which files Docscribe processes (paths are matched relative
-</span><span class='tstring_content'>        # to the project root).
-</span><span class='tstring_content'>        #
-</span><span class='tstring_content'>        # Tips:
-</span><span class='tstring_content'>        # - Use directory shorthand to exclude a whole directory:
-</span><span class='tstring_content'>        #     exclude: [&quot;spec&quot;]
-</span><span class='tstring_content'>        # - Or use globs:
-</span><span class='tstring_content'>        #     exclude: [&quot;spec/**/*.rb&quot;, &quot;vendor/**/*.rb&quot;]
-</span><span class='tstring_content'>        include: []
-</span><span class='tstring_content'>        exclude: [&quot;spec&quot;]
+</span><span class='tstring_content'>    sorbet:
+</span><span class='tstring_content'>      # Use Sorbet inline sigs and RBI files for better types
+</span><span class='tstring_content'>      enabled: false
+</span><span class='tstring_content'>      rbi_dirs: [&quot;sorbet/rbi&quot;, &quot;rbi&quot;]
+</span><span class='tstring_content'>      collapse_generics: false
 </span><span class='tstring_content'>
 </span><span class='tstring_content'>    plugins:
-</span><span class='tstring_content'>      # Load custom plugins by path or gem name.
-</span><span class='tstring_content'>      #
-</span><span class='tstring_content'>      # Each entry is passed to `require`. Registration happens inside
-</span><span class='tstring_content'>      # the required file via Docscribe::Plugin::Registry.register.
-</span><span class='tstring_content'>      #
+</span><span class='tstring_content'>      # Load custom plugins
 </span><span class='tstring_content'>      # Example:
 </span><span class='tstring_content'>      #   require:
 </span><span class='tstring_content'>      #     - ./docscribe_plugins
 </span><span class='tstring_content'>      #     - docscribe-rails-associations
 </span><span class='tstring_content'>      require: []
-</span><span class='tstring_content'>
-</span><span class='tstring_content'>    rbs:
-</span><span class='tstring_content'>      # Optional: use RBS signatures to improve @param / @return types.
-</span><span class='tstring_content'>      #
-</span><span class='tstring_content'>      # CLI equivalent:
-</span><span class='tstring_content'>      # bundle exec docscribe -a --rbs --sig-dir sig lib
-</span><span class='tstring_content'>      #
-</span><span class='tstring_content'>      # Under Bundler, you may need `gem &quot;rbs&quot;` in your Gemfile (or a
-</span><span class='tstring_content'>      # Gemfile that includes it), otherwise `require &quot;rbs&quot;` may fail and
-</span><span class='tstring_content'>      # Docscribe will fall back to inference.
-</span><span class='tstring_content'>      enabled: false
-</span><span class='tstring_content'>
-</span><span class='tstring_content'>      # Signature directories (repeatable via --sig-dir).
-</span><span class='tstring_content'>      sig_dirs: [&quot;sig&quot;]
-</span><span class='tstring_content'>
-</span><span class='tstring_content'>      # If true, simplify generic types:
-</span><span class='tstring_content'>      # - Hash&lt;Symbol, String&gt; =&gt; Hash
-</span><span class='tstring_content'>      # - Array&lt;Integer&gt;       =&gt; Array
-</span><span class='tstring_content'>      collapse_generics: false
-</span><span class='tstring_content'>      # Auto-discover RBS collection from rbs_collection.lock.yaml.
-</span><span class='tstring_content'>      # Equivalent to --rbs-collection CLI flag.
-</span><span class='tstring_content'>      # Requires `bundle exec rbs collection install` to have been run.
-</span><span class='tstring_content'>      #
-</span><span class='tstring_content'>      collection: false
-</span><span class='tstring_content'>
-</span><span class='tstring_content'>    sorbet:
-</span><span class='tstring_content'>      # Optional: use Sorbet signatures from inline `sig` declarations and
-</span><span class='tstring_content'>      # RBI files to improve @param / @return types.
-</span><span class='tstring_content'>      #
-</span><span class='tstring_content'>      # CLI equivalent:
-</span><span class='tstring_content'>      # bundle exec docscribe -a --sorbet --rbi-dir sorbet/rbi lib
-</span><span class='tstring_content'>      #
-</span><span class='tstring_content'>      # Sorbet resolution order is:
-</span><span class='tstring_content'>      # 1. inline `sig` in the current source file
-</span><span class='tstring_content'>      # 2. RBI files
-</span><span class='tstring_content'>      # 3. RBS
-</span><span class='tstring_content'>      # 4. AST inference
-</span><span class='tstring_content'>      enabled: false
-</span><span class='tstring_content'>
-</span><span class='tstring_content'>      # RBI directories scanned recursively for `.rbi` files
-</span><span class='tstring_content'>      # (repeatable via --rbi-dir).
-</span><span class='tstring_content'>      rbi_dirs: [&quot;sorbet/rbi&quot;, &quot;rbi&quot;]
-</span><span class='tstring_content'>
-</span><span class='tstring_content'>      # If true, simplify generic types:
-</span><span class='tstring_content'>      # - Hash&lt;Symbol, String&gt; =&gt; Hash
-</span><span class='tstring_content'>      # - Array&lt;Integer&gt;       =&gt; Array
-</span><span class='tstring_content'>      collapse_generics: false
 </span><span class='heredoc_end'>  YAML
 </span><span class='kw'>end</span></pre>
     </td>
@@ -1948,7 +1741,94 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="default_message-instance_method">
+  <h3 class="signature first" id="core_rbs_provider-instance_method">
+  
+    #<strong>core_rbs_provider</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Method documentation.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Object</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>LoadError</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/config/rbs.rb', line 38</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_core_rbs_provider'>core_rbs_provider</span>
+  <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>unless</span> <span class='id identifier rubyid_ruby_supports_rbs?'>ruby_supports_rbs?</span>
+
+  <span class='ivar'>@core_rbs_provider</span> <span class='op'>||=</span> <span class='kw'>begin</span>
+    <span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>docscribe/types/rbs/provider</span><span class='tstring_end'>&#39;</span></span>
+    <span class='const'><span class='object_link'><a href="../Docscribe.html" title="Docscribe (module)">Docscribe</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Types.html" title="Docscribe::Types (module)">Types</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Types/RBS.html" title="Docscribe::Types::RBS (module)">RBS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Types/RBS/Provider.html" title="Docscribe::Types::RBS::Provider (class)">Provider</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Types/RBS/Provider.html#initialize-instance_method" title="Docscribe::Types::RBS::Provider#initialize (method)">new</a></span></span><span class='lparen'>(</span>
+      <span class='label'>sig_dirs:</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='comma'>,</span>
+      <span class='label'>collapse_generics:</span> <span class='kw'>false</span>
+    <span class='rparen'>)</span>
+  <span class='kw'>rescue</span> <span class='const'>LoadError</span>
+    <span class='kw'>nil</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="default_message-instance_method">
   
     #<strong>default_message</strong>(scope, visibility)  &#x21d2; <tt>String</tt> 
   
@@ -3167,67 +3047,6 @@
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="rbs_collapse_generics?-instance_method">
-  
-    #<strong>rbs_collapse_generics?</strong>  &#x21d2; <tt>Boolean</tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>Whether generic RBS types should be collapsed to simpler container names.</p>
-
-<p>Examples:</p>
-<ul><li>
-<p>‘Hash&lt;Symbol, String&gt;` =&gt; `Hash`</p>
-</li><li>
-<p>‘Array&lt;Integer&gt;`       =&gt; `Array`</p>
-</li></ul>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>Boolean</tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-47
-48
-49</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/config/rbs.rb', line 47</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_rbs_collapse_generics?'>rbs_collapse_generics?</span>
-  <span class='id identifier rubyid_fetch_bool'>fetch_bool</span><span class='lparen'>(</span><span class='qwords_beg'>%w[</span><span class='tstring_content'>rbs</span><span class='words_sep'> </span><span class='tstring_content'>collapse_generics</span><span class='tstring_end'>]</span></span><span class='comma'>,</span> <span class='kw'>false</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
   <h3 class="signature " id="rbs_enabled?-instance_method">
   
     #<strong>rbs_enabled?</strong>  &#x21d2; <tt>Boolean</tt> 
@@ -3266,12 +3085,12 @@
       <pre class="lines">
 
 
-29
 30
-31</pre>
+31
+32</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/config/rbs.rb', line 29</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/config/rbs.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_rbs_enabled?'>rbs_enabled?</span>
   <span class='id identifier rubyid_fetch_bool'>fetch_bool</span><span class='lparen'>(</span><span class='qwords_beg'>%w[</span><span class='tstring_content'>rbs</span><span class='words_sep'> </span><span class='tstring_content'>enabled</span><span class='tstring_end'>]</span></span><span class='comma'>,</span> <span class='kw'>false</span><span class='rparen'>)</span>
@@ -3347,13 +3166,15 @@
 21
 22
 23
-24</pre>
+24
+25</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/docscribe/config/rbs.rb', line 12</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_rbs_provider'>rbs_provider</span>
   <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>unless</span> <span class='id identifier rubyid_rbs_enabled?'>rbs_enabled?</span>
+  <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>unless</span> <span class='id identifier rubyid_ruby_supports_rbs?'>ruby_supports_rbs?</span>
 
   <span class='ivar'>@rbs_provider</span> <span class='op'>||=</span> <span class='kw'>begin</span>
     <span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>docscribe/types/rbs/provider</span><span class='tstring_end'>&#39;</span></span>
@@ -3364,60 +3185,6 @@
   <span class='kw'>rescue</span> <span class='const'>LoadError</span>
     <span class='kw'>nil</span>
   <span class='kw'>end</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="rbs_sig_dirs-instance_method">
-  
-    #<strong>rbs_sig_dirs</strong>  &#x21d2; <tt>Array&lt;String&gt;</tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>Signature directories used by the RBS provider.</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>Array&lt;String&gt;</tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-36
-37
-38</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/config/rbs.rb', line 36</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_rbs_sig_dirs'>rbs_sig_dirs</span>
-  <span class='const'>Array</span><span class='lparen'>(</span><span class='id identifier rubyid_raw'>raw</span><span class='period'>.</span><span class='id identifier rubyid_dig'>dig</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>rbs</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>sig_dirs</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='op'>||</span> <span class='const'><span class='object_link'><a href="#DEFAULT-constant" title="Docscribe::Config::DEFAULT (constant)">DEFAULT</a></span></span><span class='period'>.</span><span class='id identifier rubyid_dig'>dig</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>rbs</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>sig_dirs</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:to_s</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -4008,7 +3775,7 @@
 </div>
 
       <div id="footer">
-  Generated on Wed Apr 29 12:33:55 2026 by
+  Generated on Sat May 23 13:25:19 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.38 (ruby-3.4.5).
 </div>
