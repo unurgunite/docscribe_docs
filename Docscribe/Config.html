@@ -101,7 +101,18 @@
   
 </div>
 
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>File and method include/exclude filtering.</p>
 
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
   
     <h2>
       Constant Summary
@@ -160,15 +171,15 @@
   <span class='rbrace'>}</span><span class='comma'>,</span>
   <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>methods</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span>
     <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>instance</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span>
-      <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>public</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span>
-      <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>protected</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span>
-      <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>private</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
-    <span class='rbrace'>}</span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>public</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='comment'>#: Hash[String, untyped]
+</span>      <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>protected</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='comment'>#: Hash[String, untyped]
+</span>      <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>private</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span><span class='rbrace'>}</span> <span class='comment'>#: Hash[String, untyped]
+</span>    <span class='rbrace'>}</span><span class='comma'>,</span>
     <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>class</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span>
-      <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>public</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span>
-      <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>protected</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span>
-      <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>private</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
-    <span class='rbrace'>}</span>
+      <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>public</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='comment'>#: Hash[String, untyped]
+</span>      <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>protected</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='comment'>#: Hash[String, untyped]
+</span>      <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>private</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span><span class='rbrace'>}</span> <span class='comment'>#: Hash[String, untyped]
+</span>    <span class='rbrace'>}</span>
   <span class='rbrace'>}</span><span class='comma'>,</span>
   <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>inference</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span>
     <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>fallback_type</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Object</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
@@ -178,18 +189,19 @@
   <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>filter</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span>
     <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>visibilities</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='qwords_beg'>%w[</span><span class='tstring_content'>public</span><span class='words_sep'> </span><span class='tstring_content'>protected</span><span class='words_sep'> </span><span class='tstring_content'>private</span><span class='tstring_end'>]</span></span><span class='comma'>,</span>
     <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>scopes</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='qwords_beg'>%w[</span><span class='tstring_content'>instance</span><span class='words_sep'> </span><span class='tstring_content'>class</span><span class='tstring_end'>]</span></span><span class='comma'>,</span>
-    <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>include</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='comma'>,</span>
-    <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>exclude</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='comma'>,</span>
-    <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>files</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span>
-      <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>include</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='comma'>,</span>
-      <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>exclude</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>spec</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+    <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>include</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='comment'>#: Array[String]
+</span>    <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>exclude</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='comment'>#: Array[String]
+</span>    <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>files</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span>
+      <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>include</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='comment'>#: Array[String]
+</span>      <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>exclude</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>spec</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
     <span class='rbrace'>}</span>
   <span class='rbrace'>}</span><span class='comma'>,</span>
   <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>rbs</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span>
     <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>enabled</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='kw'>false</span><span class='comma'>,</span>
     <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>collection</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='kw'>false</span><span class='comma'>,</span>
     <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>sig_dirs</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>sig</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='comma'>,</span>
-    <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>collapse_generics</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='kw'>false</span>
+    <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>collection_dirs</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='comment'>#: Array[String]
+</span>    <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>collapse_generics</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='kw'>false</span>
   <span class='rbrace'>}</span><span class='comma'>,</span>
   <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>sorbet</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span>
     <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>enabled</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='kw'>false</span><span class='comma'>,</span>
@@ -197,8 +209,8 @@
     <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>collapse_generics</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='kw'>false</span>
   <span class='rbrace'>}</span><span class='comma'>,</span>
   <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>plugins</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span>
-    <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>require</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
-  <span class='rbrace'>}</span>
+    <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>require</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='comment'>#: Array[String]
+</span>  <span class='rbrace'>}</span>
 <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
       
     </dl>
@@ -360,7 +372,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#core_rbs_provider-instance_method" title="#core_rbs_provider (instance method)">#<strong>core_rbs_provider</strong>  &#x21d2; Object </a>
+      <a href="#append_sorbet_providers-instance_method" title="#append_sorbet_providers (instance method)">#<strong>append_sorbet_providers</strong>(providers, source:, file:)  &#x21d2; void </a>
     
 
     
@@ -375,8 +387,54 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Method documentation.</p>
+<p>Append Sorbet-based providers to the list.</p>
 </div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#build_provider_chain-instance_method" title="#build_provider_chain (instance method)">#<strong>build_provider_chain</strong>(providers)  &#x21d2; Docscribe::Types::ProviderChain<sup>?</sup> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Build the provider chain from a non-empty list, or return nil.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#core_rbs_provider-instance_method" title="#core_rbs_provider (instance method)">#<strong>core_rbs_provider</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -576,6 +634,30 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#expand_directory_shorthand-instance_method" title="#expand_directory_shorthand (instance method)">#<strong>expand_directory_shorthand</strong>(pattern)  &#x21d2; Array&lt;String&gt; </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Expand a directory-like pattern into a recursive glob when appropriate.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#fallback_type-instance_method" title="#fallback_type (instance method)">#<strong>fallback_type</strong>  &#x21d2; String </a>
     
 
@@ -592,6 +674,150 @@
   
     <span class="summary_desc"><div class='inline'>
 <p>Fallback type used when inference cannot determine a more specific type.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#file_match_pattern%3F-instance_method" title="#file_match_pattern? (instance method)">#<strong>file_match_pattern?</strong>(pattern, path)  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Match a file path against a single configured file filter.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#file_matches_any%3F-instance_method" title="#file_matches_any? (instance method)">#<strong>file_matches_any?</strong>(patterns, path)  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Check whether a file path matches any configured file pattern.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#filter_exclude_patterns-instance_method" title="#filter_exclude_patterns (instance method)">#<strong>filter_exclude_patterns</strong>  &#x21d2; Array&lt;String&gt; </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Exclude method filter patterns.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#filter_include_patterns-instance_method" title="#filter_include_patterns (instance method)">#<strong>filter_include_patterns</strong>  &#x21d2; Array&lt;String&gt; </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Include method filter patterns.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#filter_scopes-instance_method" title="#filter_scopes (instance method)">#<strong>filter_scopes</strong>  &#x21d2; Array&lt;String&gt; </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Allowed method scopes from config/defaults.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#filter_visibilities-instance_method" title="#filter_visibilities (instance method)">#<strong>filter_visibilities</strong>  &#x21d2; Array&lt;String&gt; </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Allowed method visibilities from config/defaults.</p>
 </div></span>
   
 </li>
@@ -674,6 +900,30 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#load_file_patterns-instance_method" title="#load_file_patterns (instance method)">#<strong>load_file_patterns</strong>  &#x21d2; Array(Array&lt;String&gt;, Array&lt;String&gt;) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Load normalized file include/exclude patterns from config.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#load_plugins!-instance_method" title="#load_plugins! (instance method)">#<strong>load_plugins!</strong>  &#x21d2; void </a>
     
 
@@ -714,6 +964,30 @@
   
     <span class="summary_desc"><div class='inline'>
 <p>Whether unions involving nil should be rendered as optional types.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#normalize_file_patterns-instance_method" title="#normalize_file_patterns (instance method)">#<strong>normalize_file_patterns</strong>(list)  &#x21d2; Array&lt;String&gt; </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Normalize file filter patterns: - compact nils - stringify - remove empties - expand shorthand directory forms.</p>
 </div></span>
   
 </li>
@@ -866,6 +1140,30 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#relative_path-instance_method" title="#relative_path (instance method)">#<strong>relative_path</strong>(path)  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Compute the relative path for filtering.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#signature_provider_for-instance_method" title="#signature_provider_for (instance method)">#<strong>signature_provider_for</strong>(source:, file:)  &#x21d2; Docscribe::Types::ProviderChain<sup>?</sup> </a>
     
 
@@ -978,6 +1276,30 @@
   
     <span class="summary_desc"><div class='inline'>
 <p>Return a memoized Sorbet RBI provider if Sorbet integration is enabled.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#sorbet_source_provider-instance_method" title="#sorbet_source_provider (instance method)">#<strong>sorbet_source_provider</strong>(source, file)  &#x21d2; Docscribe::Types::Sorbet::SourceProvider<sup>?</sup> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Build a Sorbet source provider (inline sigs).</p>
 </div></span>
   
 </li>
@@ -1111,12 +1433,12 @@
       <pre class="lines">
 
 
-21
 22
-23</pre>
+23
+24</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/config.rb', line 21</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/config.rb', line 22</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_raw'>raw</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='ivar'>@raw</span> <span class='op'>=</span> <span class='id identifier rubyid_deep_merge'>deep_merge</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#DEFAULT-constant" title="Docscribe::Config::DEFAULT (constant)">DEFAULT</a></span></span><span class='comma'>,</span> <span class='id identifier rubyid_raw'>raw</span> <span class='op'>||</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
@@ -1159,12 +1481,12 @@
       <pre class="lines">
 
 
-13
 14
-15</pre>
+15
+16</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/config.rb', line 13</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/config.rb', line 14</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_raw'>raw</span>
   <span class='ivar'>@raw</span>
@@ -1229,7 +1551,6 @@
       <pre class="lines">
 
 
-12
 13
 14
 15
@@ -1323,10 +1644,12 @@
 103
 104
 105
-106</pre>
+106
+107
+108</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/config/template.rb', line 12</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/config/template.rb', line 13</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_default_yaml'>default_yaml</span>
   <span class='heredoc_beg'>&lt;&lt;~YAML</span>
@@ -1405,6 +1728,7 @@
 </span><span class='tstring_content'>      # Use RBS signatures for better types (requires `gem &quot;rbs&quot;`)
 </span><span class='tstring_content'>      enabled: false
 </span><span class='tstring_content'>      sig_dirs: [&quot;sig&quot;]
+</span><span class='tstring_content'>      collection_dirs: []                 # auto-discovered from --rbs-collection
 </span><span class='tstring_content'>      collapse_generics: false            # Hash&lt;Symbol, String&gt; =&gt; Hash
 </span><span class='tstring_content'>      collection: false                   # auto-discover from rbs_collection.lock.yaml
 </span><span class='tstring_content'>
@@ -1498,7 +1822,6 @@
       <pre class="lines">
 
 
-14
 15
 16
 17
@@ -1506,14 +1829,15 @@
 19
 20
 21
-22</pre>
+22
+23</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/config/loader.rb', line 14</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/config/loader.rb', line 15</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_load'>load</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_raw'>raw</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_path'>path</span> <span class='op'>&amp;&amp;</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_file?'>file?</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_raw'>raw</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span> <span class='comment'>#: Hash[String, untyped]
+</span>  <span class='kw'>if</span> <span class='id identifier rubyid_path'>path</span> <span class='op'>&amp;&amp;</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_file?'>file?</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_raw'>raw</span> <span class='op'>=</span> <span class='id identifier rubyid_safe_load_file_compat'>safe_load_file_compat</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
   <span class='kw'>elsif</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_file?'>file?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>docscribe.yml</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
     <span class='id identifier rubyid_raw'>raw</span> <span class='op'>=</span> <span class='id identifier rubyid_safe_load_file_compat'>safe_load_file_compat</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>docscribe.yml</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
@@ -1615,9 +1939,6 @@
       <pre class="lines">
 
 
-46
-47
-48
 49
 50
 51
@@ -1626,10 +1947,13 @@
 54
 55
 56
-57</pre>
+57
+58
+59
+60</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/config/loader.rb', line 46</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/config/loader.rb', line 49</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_safe_load_compat'>safe_load_compat</span><span class='lparen'>(</span><span class='id identifier rubyid_yaml'>yaml</span><span class='comma'>,</span> <span class='label'>filename:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='const'>Psych</span><span class='period'>.</span><span class='id identifier rubyid_safe_load'>safe_load</span><span class='lparen'>(</span>
@@ -1638,8 +1962,8 @@
     <span class='label'>permitted_symbols:</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='comma'>,</span>
     <span class='label'>aliases:</span> <span class='kw'>true</span><span class='comma'>,</span>
     <span class='label'>filename:</span> <span class='id identifier rubyid_filename'>filename</span>
-  <span class='rparen'>)</span>
-<span class='kw'>rescue</span> <span class='const'>ArgumentError</span>
+  <span class='rparen'>)</span> <span class='comment'>#: Hash[String, untyped]
+</span><span class='kw'>rescue</span> <span class='const'>ArgumentError</span>
   <span class='comment'># Older Psych signature uses positional args
 </span>  <span class='const'>Psych</span><span class='period'>.</span><span class='id identifier rubyid_safe_load'>safe_load</span><span class='lparen'>(</span><span class='id identifier rubyid_yaml'>yaml</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='id identifier rubyid_filename'>filename</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
@@ -1709,25 +2033,29 @@
       <pre class="lines">
 
 
-31
 32
 33
 34
 35
 36
 37
-38</pre>
+38
+39
+40
+41</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/config/loader.rb', line 31</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/config/loader.rb', line 32</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_safe_load_file_compat'>safe_load_file_compat</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='const'>YAML</span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='symbol'>:safe_load_file</span><span class='rparen'>)</span>
-    <span class='const'>YAML</span><span class='period'>.</span><span class='id identifier rubyid_safe_load_file'>safe_load_file</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='label'>permitted_classes:</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>permitted_symbols:</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>aliases:</span> <span class='kw'>true</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
-  <span class='kw'>else</span>
+    <span class='const'>YAML</span><span class='period'>.</span><span class='id identifier rubyid_safe_load_file'>safe_load_file</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='comma'>,</span>
+                        <span class='label'>permitted_classes:</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>permitted_symbols:</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='comma'>,</span>
+                        <span class='label'>aliases:</span> <span class='kw'>true</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='lbrace'>{</span><span class='rbrace'>}</span> <span class='comment'>#: Hash[String, untyped]
+</span>  <span class='kw'>else</span>
     <span class='id identifier rubyid_yaml'>yaml</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_open'>open</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>r:bom|utf-8</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='symbol'>:read</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_safe_load_compat'>safe_load_compat</span><span class='lparen'>(</span><span class='id identifier rubyid_yaml'>yaml</span><span class='comma'>,</span> <span class='label'>filename:</span> <span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
-  <span class='kw'>end</span>
+    <span class='id identifier rubyid_safe_load_compat'>safe_load_compat</span><span class='lparen'>(</span><span class='id identifier rubyid_yaml'>yaml</span><span class='comma'>,</span> <span class='label'>filename:</span> <span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='lbrace'>{</span><span class='rbrace'>}</span> <span class='comment'>#: Hash[String, untyped]
+</span>  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1741,7 +2069,168 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="core_rbs_provider-instance_method">
+  <h3 class="signature first" id="append_sorbet_providers-instance_method">
+  
+    #<strong>append_sorbet_providers</strong>(providers, source:, file:)  &#x21d2; <tt>void</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p class="note returns_void">This method returns an undefined value.</p>
+<p>Append Sorbet-based providers to the list.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>providers</span>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>source</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>file</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+33
+34
+35
+36
+37
+38</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/config/sorbet.rb', line 33</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_append_sorbet_providers'>append_sorbet_providers</span><span class='lparen'>(</span><span class='id identifier rubyid_providers'>providers</span><span class='comma'>,</span> <span class='label'>source:</span><span class='comma'>,</span> <span class='label'>file:</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_sorbet_enabled?'>sorbet_enabled?</span>
+
+  <span class='id identifier rubyid_providers'>providers</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_sorbet_source_provider'>sorbet_source_provider</span><span class='lparen'>(</span><span class='id identifier rubyid_source'>source</span><span class='comma'>,</span> <span class='id identifier rubyid_file'>file</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_providers'>providers</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_sorbet_rbi_provider'>sorbet_rbi_provider</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="build_provider_chain-instance_method">
+  
+    #<strong>build_provider_chain</strong>(providers)  &#x21d2; <tt><span class='object_link'><a href="Types/ProviderChain.html" title="Docscribe::Types::ProviderChain (class)">Docscribe::Types::ProviderChain</a></span></tt><sup>?</sup> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Build the provider chain from a non-empty list, or return nil.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>providers</span>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Types/ProviderChain.html" title="Docscribe::Types::ProviderChain (class)">Docscribe::Types::ProviderChain</a></span></tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+63
+64
+65
+66
+67
+68
+69</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/config/sorbet.rb', line 63</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_build_provider_chain'>build_provider_chain</span><span class='lparen'>(</span><span class='id identifier rubyid_providers'>providers</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_providers'>providers</span> <span class='op'>=</span> <span class='id identifier rubyid_providers'>providers</span><span class='period'>.</span><span class='id identifier rubyid_compact'>compact</span>
+  <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>if</span> <span class='id identifier rubyid_providers'>providers</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+
+  <span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>docscribe/types/provider_chain</span><span class='tstring_end'>&#39;</span></span>
+  <span class='const'><span class='object_link'><a href="../Docscribe.html" title="Docscribe (module)">Docscribe</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Types.html" title="Docscribe::Types (module)">Types</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Types/ProviderChain.html" title="Docscribe::Types::ProviderChain (class)">ProviderChain</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Types/ProviderChain.html#initialize-instance_method" title="Docscribe::Types::ProviderChain#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_providers'>providers</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="core_rbs_provider-instance_method">
   
     #<strong>core_rbs_provider</strong>  &#x21d2; <tt>Object</tt> 
   
@@ -1752,8 +2241,6 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Method documentation.</p>
-
 
   </div>
 </div>
@@ -1792,35 +2279,19 @@
       <pre class="lines">
 
 
-38
-39
-40
-41
-42
-43
-44
-45
-46
-47
-48
-49
-50</pre>
+29
+30
+31
+32
+33</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/config/rbs.rb', line 38</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/config/rbs.rb', line 29</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_core_rbs_provider'>core_rbs_provider</span>
   <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>unless</span> <span class='id identifier rubyid_ruby_supports_rbs?'>ruby_supports_rbs?</span>
 
-  <span class='ivar'>@core_rbs_provider</span> <span class='op'>||=</span> <span class='kw'>begin</span>
-    <span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>docscribe/types/rbs/provider</span><span class='tstring_end'>&#39;</span></span>
-    <span class='const'><span class='object_link'><a href="../Docscribe.html" title="Docscribe (module)">Docscribe</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Types.html" title="Docscribe::Types (module)">Types</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Types/RBS.html" title="Docscribe::Types::RBS (module)">RBS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Types/RBS/Provider.html" title="Docscribe::Types::RBS::Provider (class)">Provider</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Types/RBS/Provider.html#initialize-instance_method" title="Docscribe::Types::RBS::Provider#initialize (method)">new</a></span></span><span class='lparen'>(</span>
-      <span class='label'>sig_dirs:</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='comma'>,</span>
-      <span class='label'>collapse_generics:</span> <span class='kw'>false</span>
-    <span class='rparen'>)</span>
-  <span class='kw'>rescue</span> <span class='const'>LoadError</span>
-    <span class='kw'>nil</span>
-  <span class='kw'>end</span>
+  <span class='ivar'>@core_rbs_provider</span> <span class='op'>||=</span> <span class='id identifier rubyid_build_core_rbs_provider'>build_core_rbs_provider</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1902,7 +2373,6 @@
       <pre class="lines">
 
 
-70
 71
 72
 73
@@ -1911,10 +2381,11 @@
 76
 77
 78
-79</pre>
+79
+80</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/config/emit.rb', line 70</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/config/emit.rb', line 71</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_default_message'>default_message</span><span class='lparen'>(</span><span class='id identifier rubyid_scope'>scope</span><span class='comma'>,</span> <span class='id identifier rubyid_visibility'>visibility</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_method_override_str'>method_override_str</span><span class='lparen'>(</span>
@@ -1970,12 +2441,12 @@
       <pre class="lines">
 
 
-45
 46
-47</pre>
+47
+48</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/config/emit.rb', line 45</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/config/emit.rb', line 46</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_emit_attributes?'>emit_attributes?</span>
   <span class='id identifier rubyid_fetch_bool'>fetch_bool</span><span class='lparen'>(</span><span class='qwords_beg'>%w[</span><span class='tstring_content'>emit</span><span class='words_sep'> </span><span class='tstring_content'>attributes</span><span class='tstring_end'>]</span></span><span class='comma'>,</span> <span class='kw'>false</span><span class='rparen'>)</span>
@@ -2027,12 +2498,12 @@
       <pre class="lines">
 
 
-9
 10
-11</pre>
+11
+12</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/config/emit.rb', line 9</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/config/emit.rb', line 10</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_emit_header?'>emit_header?</span>
   <span class='id identifier rubyid_fetch_bool'>fetch_bool</span><span class='lparen'>(</span><span class='qwords_beg'>%w[</span><span class='tstring_content'>emit</span><span class='words_sep'> </span><span class='tstring_content'>header</span><span class='tstring_end'>]</span></span><span class='comma'>,</span> <span class='kw'>true</span><span class='rparen'>)</span>
@@ -2081,12 +2552,12 @@
       <pre class="lines">
 
 
-16
 17
-18</pre>
+18
+19</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/config/emit.rb', line 16</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/config/emit.rb', line 17</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_emit_param_tags?'>emit_param_tags?</span>
   <span class='id identifier rubyid_fetch_bool'>fetch_bool</span><span class='lparen'>(</span><span class='qwords_beg'>%w[</span><span class='tstring_content'>emit</span><span class='words_sep'> </span><span class='tstring_content'>param_tags</span><span class='tstring_end'>]</span></span><span class='comma'>,</span> <span class='kw'>true</span><span class='rparen'>)</span>
@@ -2135,12 +2606,12 @@
       <pre class="lines">
 
 
-30
 31
-32</pre>
+32
+33</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/config/emit.rb', line 30</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/config/emit.rb', line 31</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_emit_raise_tags?'>emit_raise_tags?</span>
   <span class='id identifier rubyid_fetch_bool'>fetch_bool</span><span class='lparen'>(</span><span class='qwords_beg'>%w[</span><span class='tstring_content'>emit</span><span class='words_sep'> </span><span class='tstring_content'>raise_tags</span><span class='tstring_end'>]</span></span><span class='comma'>,</span> <span class='kw'>true</span><span class='rparen'>)</span>
@@ -2192,12 +2663,12 @@
       <pre class="lines">
 
 
-38
 39
-40</pre>
+40
+41</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/config/emit.rb', line 38</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/config/emit.rb', line 39</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_emit_rescue_conditional_returns?'>emit_rescue_conditional_returns?</span>
   <span class='id identifier rubyid_fetch_bool'>fetch_bool</span><span class='lparen'>(</span><span class='qwords_beg'>%w[</span><span class='tstring_content'>emit</span><span class='words_sep'> </span><span class='tstring_content'>rescue_conditional_returns</span><span class='tstring_end'>]</span></span><span class='comma'>,</span> <span class='kw'>true</span><span class='rparen'>)</span>
@@ -2282,17 +2753,17 @@
       <pre class="lines">
 
 
-55
 56
 57
 58
 59
 60
 61
-62</pre>
+62
+63</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/config/emit.rb', line 55</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/config/emit.rb', line 56</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_emit_return_tag?'>emit_return_tag?</span><span class='lparen'>(</span><span class='id identifier rubyid_scope'>scope</span><span class='comma'>,</span> <span class='id identifier rubyid_visibility'>visibility</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_method_override_bool'>method_override_bool</span><span class='lparen'>(</span>
@@ -2346,15 +2817,107 @@
       <pre class="lines">
 
 
-23
 24
-25</pre>
+25
+26</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/config/emit.rb', line 23</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/config/emit.rb', line 24</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_emit_visibility_tags?'>emit_visibility_tags?</span>
   <span class='id identifier rubyid_fetch_bool'>fetch_bool</span><span class='lparen'>(</span><span class='qwords_beg'>%w[</span><span class='tstring_content'>emit</span><span class='words_sep'> </span><span class='tstring_content'>visibility_tags</span><span class='tstring_end'>]</span></span><span class='comma'>,</span> <span class='kw'>true</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="expand_directory_shorthand-instance_method">
+  
+    #<strong>expand_directory_shorthand</strong>(pattern)  &#x21d2; <tt>Array&lt;String&gt;</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Expand a directory-like pattern into a recursive glob when appropriate.</p>
+
+<p>Examples:</p>
+<ul><li>
+<p>‘“spec/”` =&gt; `“spec/<strong>*/</strong>”`</p>
+</li><li>
+<p>‘“spec”` =&gt; `“spec/<strong>*/</strong>”` if `spec` exists as a directory</p>
+</li></ul>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>pattern</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array&lt;String&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/config/filtering.rb', line 95</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_expand_directory_shorthand'>expand_directory_shorthand</span><span class='lparen'>(</span><span class='id identifier rubyid_pattern'>pattern</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_pat'>pat</span> <span class='op'>=</span> <span class='id identifier rubyid_pattern'>pattern</span><span class='period'>.</span><span class='id identifier rubyid_dup'>dup</span>
+
+  <span class='kw'>if</span> <span class='id identifier rubyid_pat'>pat</span><span class='period'>.</span><span class='id identifier rubyid_end_with?'>end_with?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+    <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_pat'>pat</span><span class='embexpr_end'>}</span><span class='tstring_content'>**/*</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+  <span class='kw'>elsif</span> <span class='op'>!</span><span class='id identifier rubyid_pat'>pat</span><span class='period'>.</span><span class='id identifier rubyid_match?'>match?</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>[*?\[]|{</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_directory?'>directory?</span><span class='lparen'>(</span><span class='id identifier rubyid_pat'>pat</span><span class='rparen'>)</span>
+    <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_pat'>pat</span><span class='embexpr_end'>}</span><span class='tstring_content'>/**/*</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+  <span class='kw'>else</span>
+    <span class='lbracket'>[</span><span class='id identifier rubyid_pat'>pat</span><span class='rbracket'>]</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2400,19 +2963,422 @@
       <pre class="lines">
 
 
-84
 85
 86
 87
-88</pre>
+88
+89</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/config/emit.rb', line 84</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/config/emit.rb', line 85</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_fallback_type'>fallback_type</span>
   <span class='id identifier rubyid_raw'>raw</span><span class='period'>.</span><span class='id identifier rubyid_dig'>dig</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>inference</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>fallback_type</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='op'>||</span>
     <span class='const'><span class='object_link'><a href="#DEFAULT-constant" title="Docscribe::Config::DEFAULT (constant)">DEFAULT</a></span></span><span class='period'>.</span><span class='id identifier rubyid_dig'>dig</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>inference</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>fallback_type</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='op'>||</span>
     <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Object</span><span class='tstring_end'>&#39;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="file_match_pattern?-instance_method">
+  
+    #<strong>file_match_pattern?</strong>(pattern, path)  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Match a file path against a single configured file filter.</p>
+
+<p>Supports:</p>
+<ul><li>
+<p>‘/regex/`</p>
+</li><li>
+<p>globs</p>
+</li><li>
+<p>recursive glob shorthand normalization</p>
+</li></ul>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>pattern</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>path</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/config/filtering.rb', line 128</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_file_match_pattern?'>file_match_pattern?</span><span class='lparen'>(</span><span class='id identifier rubyid_pattern'>pattern</span><span class='comma'>,</span> <span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_pattern'>pattern</span><span class='period'>.</span><span class='id identifier rubyid_start_with?'>start_with?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_pattern'>pattern</span><span class='period'>.</span><span class='id identifier rubyid_end_with?'>end_with?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_pattern'>pattern</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span> <span class='op'>&gt;=</span> <span class='int'>2</span>
+    <span class='kw'>return</span> <span class='const'>Regexp</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_pattern'>pattern</span><span class='lbracket'>[</span><span class='int'>1</span><span class='op'>..</span><span class='op'>-</span><span class='int'>2</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_match?'>match?</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_patterns_to_try'>patterns_to_try</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='id identifier rubyid_pattern'>pattern</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_patterns_to_try'>patterns_to_try</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_pattern'>pattern</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/**/</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_pattern'>pattern</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/**/</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_patterns_to_try'>patterns_to_try</span><span class='period'>.</span><span class='id identifier rubyid_any?'>any?</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_pat'>pat</span><span class='op'>|</span>
+    <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_fnmatch?'>fnmatch?</span><span class='lparen'>(</span><span class='id identifier rubyid_pat'>pat</span><span class='comma'>,</span> <span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='const'>File</span><span class='op'>::</span><span class='const'>FNM_EXTGLOB</span> <span class='op'>|</span> <span class='const'>File</span><span class='op'>::</span><span class='const'>FNM_DOTMATCH</span> <span class='op'>|</span> <span class='const'>File</span><span class='op'>::</span><span class='const'>FNM_PATHNAME</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="file_matches_any?-instance_method">
+  
+    #<strong>file_matches_any?</strong>(patterns, path)  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Check whether a file path matches any configured file pattern.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>patterns</span>
+      
+      
+        <span class='type'>(<tt>Array&lt;String&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>path</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+113
+114
+115</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/config/filtering.rb', line 113</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_file_matches_any?'>file_matches_any?</span><span class='lparen'>(</span><span class='id identifier rubyid_patterns'>patterns</span><span class='comma'>,</span> <span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_patterns'>patterns</span><span class='period'>.</span><span class='id identifier rubyid_any?'>any?</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_pat'>pat</span><span class='op'>|</span> <span class='id identifier rubyid_file_match_pattern?'>file_match_pattern?</span><span class='lparen'>(</span><span class='id identifier rubyid_pat'>pat</span><span class='comma'>,</span> <span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="filter_exclude_patterns-instance_method">
+  
+    #<strong>filter_exclude_patterns</strong>  &#x21d2; <tt>Array&lt;String&gt;</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Exclude method filter patterns.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array&lt;String&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+161
+162
+163</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/config/filtering.rb', line 161</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_filter_exclude_patterns'>filter_exclude_patterns</span>
+  <span class='const'>Array</span><span class='lparen'>(</span><span class='id identifier rubyid_raw'>raw</span><span class='period'>.</span><span class='id identifier rubyid_dig'>dig</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>filter</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>exclude</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='op'>||</span> <span class='const'><span class='object_link'><a href="#DEFAULT-constant" title="Docscribe::Config::DEFAULT (constant)">DEFAULT</a></span></span><span class='period'>.</span><span class='id identifier rubyid_dig'>dig</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>filter</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>exclude</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:to_s</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_reject'>reject</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:empty?</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="filter_include_patterns-instance_method">
+  
+    #<strong>filter_include_patterns</strong>  &#x21d2; <tt>Array&lt;String&gt;</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Include method filter patterns.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array&lt;String&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+169
+170
+171</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/config/filtering.rb', line 169</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_filter_include_patterns'>filter_include_patterns</span>
+  <span class='const'>Array</span><span class='lparen'>(</span><span class='id identifier rubyid_raw'>raw</span><span class='period'>.</span><span class='id identifier rubyid_dig'>dig</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>filter</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>include</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='op'>||</span> <span class='const'><span class='object_link'><a href="#DEFAULT-constant" title="Docscribe::Config::DEFAULT (constant)">DEFAULT</a></span></span><span class='period'>.</span><span class='id identifier rubyid_dig'>dig</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>filter</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>include</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:to_s</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_reject'>reject</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:empty?</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="filter_scopes-instance_method">
+  
+    #<strong>filter_scopes</strong>  &#x21d2; <tt>Array&lt;String&gt;</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Allowed method scopes from config/defaults.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array&lt;String&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+145
+146
+147</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/config/filtering.rb', line 145</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_filter_scopes'>filter_scopes</span>
+  <span class='const'>Array</span><span class='lparen'>(</span><span class='id identifier rubyid_raw'>raw</span><span class='period'>.</span><span class='id identifier rubyid_dig'>dig</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>filter</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>scopes</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='op'>||</span> <span class='const'><span class='object_link'><a href="#DEFAULT-constant" title="Docscribe::Config::DEFAULT (constant)">DEFAULT</a></span></span><span class='period'>.</span><span class='id identifier rubyid_dig'>dig</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>filter</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>scopes</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:to_s</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="filter_visibilities-instance_method">
+  
+    #<strong>filter_visibilities</strong>  &#x21d2; <tt>Array&lt;String&gt;</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Allowed method visibilities from config/defaults.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array&lt;String&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+153
+154
+155</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/config/filtering.rb', line 153</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_filter_visibilities'>filter_visibilities</span>
+  <span class='const'>Array</span><span class='lparen'>(</span><span class='id identifier rubyid_raw'>raw</span><span class='period'>.</span><span class='id identifier rubyid_dig'>dig</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>filter</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>visibilities</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='op'>||</span> <span class='const'><span class='object_link'><a href="#DEFAULT-constant" title="Docscribe::Config::DEFAULT (constant)">DEFAULT</a></span></span><span class='period'>.</span><span class='id identifier rubyid_dig'>dig</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>filter</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>visibilities</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:to_s</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2461,12 +3427,12 @@
       <pre class="lines">
 
 
-130
 131
-132</pre>
+132
+133</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/config/emit.rb', line 130</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/config/emit.rb', line 131</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_include_default_message?'>include_default_message?</span>
   <span class='id identifier rubyid_fetch_bool'>fetch_bool</span><span class='lparen'>(</span><span class='qwords_beg'>%w[</span><span class='tstring_content'>emit</span><span class='words_sep'> </span><span class='tstring_content'>include_default_message</span><span class='tstring_end'>]</span></span><span class='comma'>,</span> <span class='kw'>true</span><span class='rparen'>)</span>
@@ -2518,15 +3484,76 @@
       <pre class="lines">
 
 
-138
 139
-140</pre>
+140
+141</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/config/emit.rb', line 138</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/config/emit.rb', line 139</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_include_param_documentation?'>include_param_documentation?</span>
   <span class='id identifier rubyid_fetch_bool'>fetch_bool</span><span class='lparen'>(</span><span class='qwords_beg'>%w[</span><span class='tstring_content'>emit</span><span class='words_sep'> </span><span class='tstring_content'>include_param_documentation</span><span class='tstring_end'>]</span></span><span class='comma'>,</span> <span class='kw'>true</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="load_file_patterns-instance_method">
+  
+    #<strong>load_file_patterns</strong>  &#x21d2; <tt>Array(Array&lt;String&gt;, Array&lt;String&gt;)</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Load normalized file include/exclude patterns from config.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array(Array&lt;String&gt;, Array&lt;String&gt;)</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>include_patterns, exclude_patterns</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+28
+29
+30
+31</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/config/filtering.rb', line 28</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_load_file_patterns'>load_file_patterns</span>
+  <span class='id identifier rubyid_files'>files</span> <span class='op'>=</span> <span class='id identifier rubyid_raw'>raw</span><span class='period'>.</span><span class='id identifier rubyid_dig'>dig</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>filter</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>files</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='op'>||</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+  <span class='lbracket'>[</span><span class='id identifier rubyid_normalize_file_patterns'>normalize_file_patterns</span><span class='lparen'>(</span><span class='id identifier rubyid_files'>files</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>include</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_normalize_file_patterns'>normalize_file_patterns</span><span class='lparen'>(</span><span class='id identifier rubyid_files'>files</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>exclude</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='rbracket'>]</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2576,7 +3603,6 @@
       <pre class="lines">
 
 
-16
 17
 18
 19
@@ -2587,10 +3613,11 @@
 24
 25
 26
-27</pre>
+27
+28</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/config/plugin.rb', line 16</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/config/plugin.rb', line 17</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_load_plugins!'>load_plugins!</span>
   <span class='id identifier rubyid_paths'>paths</span> <span class='op'>=</span> <span class='const'>Array</span><span class='lparen'>(</span><span class='id identifier rubyid_raw'>raw</span><span class='period'>.</span><span class='id identifier rubyid_dig'>dig</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>plugins</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>require</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_compact'>compact</span>
@@ -2650,15 +3677,98 @@
       <pre class="lines">
 
 
-96
 97
-98</pre>
+98
+99</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/config/emit.rb', line 96</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/config/emit.rb', line 97</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_nil_as_optional?'>nil_as_optional?</span>
   <span class='id identifier rubyid_fetch_bool'>fetch_bool</span><span class='lparen'>(</span><span class='qwords_beg'>%w[</span><span class='tstring_content'>inference</span><span class='words_sep'> </span><span class='tstring_content'>nil_as_optional</span><span class='tstring_end'>]</span></span><span class='comma'>,</span> <span class='kw'>true</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="normalize_file_patterns-instance_method">
+  
+    #<strong>normalize_file_patterns</strong>(list)  &#x21d2; <tt>Array&lt;String&gt;</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Normalize file filter patterns:</p>
+<ul><li>
+<p>compact nils</p>
+</li><li>
+<p>stringify</p>
+</li><li>
+<p>remove empties</p>
+</li><li>
+<p>expand shorthand directory forms</p>
+</li></ul>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>list</span>
+      
+      
+        <span class='type'>(<tt>Array&lt;String&gt;</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>raw pattern list</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array&lt;String&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+82
+83
+84</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/config/filtering.rb', line 82</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_normalize_file_patterns'>normalize_file_patterns</span><span class='lparen'>(</span><span class='id identifier rubyid_list'>list</span><span class='rparen'>)</span>
+  <span class='const'>Array</span><span class='lparen'>(</span><span class='id identifier rubyid_list'>list</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_compact'>compact</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:to_s</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_reject'>reject</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:empty?</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_flat_map'>flat_map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_pat'>pat</span><span class='op'>|</span> <span class='id identifier rubyid_expand_directory_shorthand'>expand_directory_shorthand</span><span class='lparen'>(</span><span class='id identifier rubyid_pat'>pat</span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_uniq'>uniq</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2704,12 +3814,12 @@
       <pre class="lines">
 
 
-122
 123
-124</pre>
+124
+125</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/config/emit.rb', line 122</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/config/emit.rb', line 123</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_param_documentation'>param_documentation</span>
   <span class='id identifier rubyid_raw'>raw</span><span class='period'>.</span><span class='id identifier rubyid_dig'>dig</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>doc</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>param_documentation</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='op'>||</span> <span class='const'><span class='object_link'><a href="#DEFAULT-constant" title="Docscribe::Config::DEFAULT (constant)">DEFAULT</a></span></span><span class='period'>.</span><span class='id identifier rubyid_dig'>dig</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>doc</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>param_documentation</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
@@ -2765,12 +3875,12 @@
       <pre class="lines">
 
 
-115
 116
-117</pre>
+117
+118</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/config/emit.rb', line 115</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/config/emit.rb', line 116</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_param_tag_style'>param_tag_style</span>
   <span class='id identifier rubyid_raw'>raw</span><span class='period'>.</span><span class='id identifier rubyid_dig'>dig</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>doc</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>param_tag_style</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='op'>||</span> <span class='const'><span class='object_link'><a href="#DEFAULT-constant" title="Docscribe::Config::DEFAULT (constant)">DEFAULT</a></span></span><span class='period'>.</span><span class='id identifier rubyid_dig'>dig</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>doc</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>param_tag_style</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
@@ -2854,7 +3964,6 @@
       <pre class="lines">
 
 
-13
 14
 15
 16
@@ -2863,27 +3972,14 @@
 19
 20
 21
-22
-23
-24
-25
-26
-27
-28</pre>
+22</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/config/filtering.rb', line 13</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/config/filtering.rb', line 14</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_process_file?'>process_file?</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_files'>files</span> <span class='op'>=</span> <span class='id identifier rubyid_raw'>raw</span><span class='period'>.</span><span class='id identifier rubyid_dig'>dig</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>filter</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>files</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='op'>||</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
-  <span class='id identifier rubyid_include_patterns'>include_patterns</span> <span class='op'>=</span> <span class='id identifier rubyid_normalize_file_patterns'>normalize_file_patterns</span><span class='lparen'>(</span><span class='id identifier rubyid_files'>files</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>include</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_exclude_patterns'>exclude_patterns</span> <span class='op'>=</span> <span class='id identifier rubyid_normalize_file_patterns'>normalize_file_patterns</span><span class='lparen'>(</span><span class='id identifier rubyid_files'>files</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>exclude</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
-
-  <span class='id identifier rubyid_rel'>rel</span> <span class='op'>=</span> <span class='kw'>begin</span>
-    <span class='const'>Pathname</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_expand_path'>expand_path</span><span class='period'>.</span><span class='id identifier rubyid_relative_path_from'>relative_path_from</span><span class='lparen'>(</span><span class='const'>Pathname</span><span class='period'>.</span><span class='id identifier rubyid_pwd'>pwd</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_cleanpath'>cleanpath</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
-  <span class='kw'>rescue</span> <span class='const'>StandardError</span>
-    <span class='id identifier rubyid_path'>path</span>
-  <span class='kw'>end</span>
+  <span class='id identifier rubyid_include_patterns'>include_patterns</span><span class='comma'>,</span> <span class='id identifier rubyid_exclude_patterns'>exclude_patterns</span> <span class='op'>=</span> <span class='id identifier rubyid_load_file_patterns'>load_file_patterns</span>
+  <span class='id identifier rubyid_rel'>rel</span> <span class='op'>=</span> <span class='id identifier rubyid_relative_path'>relative_path</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
 
   <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>if</span> <span class='id identifier rubyid_file_matches_any?'>file_matches_any?</span><span class='lparen'>(</span><span class='id identifier rubyid_exclude_patterns'>exclude_patterns</span><span class='comma'>,</span> <span class='id identifier rubyid_rel'>rel</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='kw'>true</span> <span class='kw'>if</span> <span class='id identifier rubyid_include_patterns'>include_patterns</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
@@ -3011,22 +4107,22 @@
       <pre class="lines">
 
 
-44
-45
-46
-47
-48
-49
-50
-51
-52
-53
-54
-55
-56</pre>
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/config/filtering.rb', line 44</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/config/filtering.rb', line 59</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_process_method?'>process_method?</span><span class='lparen'>(</span><span class='label'>container:</span><span class='comma'>,</span> <span class='label'>scope:</span><span class='comma'>,</span> <span class='label'>visibility:</span><span class='comma'>,</span> <span class='label'>name:</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>unless</span> <span class='id identifier rubyid_filter_scopes'>filter_scopes</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_scope'>scope</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span>
@@ -3085,12 +4181,12 @@
       <pre class="lines">
 
 
-30
-31
-32</pre>
+23
+24
+25</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/config/rbs.rb', line 30</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/config/rbs.rb', line 23</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_rbs_enabled?'>rbs_enabled?</span>
   <span class='id identifier rubyid_fetch_bool'>fetch_bool</span><span class='lparen'>(</span><span class='qwords_beg'>%w[</span><span class='tstring_content'>rbs</span><span class='words_sep'> </span><span class='tstring_content'>enabled</span><span class='tstring_end'>]</span></span><span class='comma'>,</span> <span class='kw'>false</span><span class='rparen'>)</span>
@@ -3154,37 +4250,107 @@
       <pre class="lines">
 
 
-12
 13
 14
 15
 16
 17
-18
-19
-20
-21
-22
-23
-24
-25</pre>
+18</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/config/rbs.rb', line 12</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/config/rbs.rb', line 13</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_rbs_provider'>rbs_provider</span>
   <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>unless</span> <span class='id identifier rubyid_rbs_enabled?'>rbs_enabled?</span>
   <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>unless</span> <span class='id identifier rubyid_ruby_supports_rbs?'>ruby_supports_rbs?</span>
 
-  <span class='ivar'>@rbs_provider</span> <span class='op'>||=</span> <span class='kw'>begin</span>
-    <span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>docscribe/types/rbs/provider</span><span class='tstring_end'>&#39;</span></span>
-    <span class='const'><span class='object_link'><a href="../Docscribe.html" title="Docscribe (module)">Docscribe</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Types.html" title="Docscribe::Types (module)">Types</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Types/RBS.html" title="Docscribe::Types::RBS (module)">RBS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Types/RBS/Provider.html" title="Docscribe::Types::RBS::Provider (class)">Provider</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Types/RBS/Provider.html#initialize-instance_method" title="Docscribe::Types::RBS::Provider#initialize (method)">new</a></span></span><span class='lparen'>(</span>
-      <span class='label'>sig_dirs:</span> <span class='id identifier rubyid_rbs_sig_dirs'>rbs_sig_dirs</span><span class='comma'>,</span>
-      <span class='label'>collapse_generics:</span> <span class='id identifier rubyid_rbs_collapse_generics?'>rbs_collapse_generics?</span>
-    <span class='rparen'>)</span>
-  <span class='kw'>rescue</span> <span class='const'>LoadError</span>
-    <span class='kw'>nil</span>
-  <span class='kw'>end</span>
+  <span class='ivar'>@rbs_provider</span> <span class='op'>||=</span> <span class='id identifier rubyid_build_rbs_provider'>build_rbs_provider</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="relative_path-instance_method">
+  
+    #<strong>relative_path</strong>(path)  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Compute the relative path for filtering.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>path</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>StandardError</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+39
+40
+41
+42
+43</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/config/filtering.rb', line 39</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_relative_path'>relative_path</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
+  <span class='const'>Pathname</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_expand_path'>expand_path</span><span class='period'>.</span><span class='id identifier rubyid_relative_path_from'>relative_path_from</span><span class='lparen'>(</span><span class='const'>Pathname</span><span class='period'>.</span><span class='id identifier rubyid_pwd'>pwd</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_cleanpath'>cleanpath</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
+<span class='kw'>rescue</span> <span class='const'>StandardError</span>
+  <span class='id identifier rubyid_path'>path</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -3290,61 +4456,21 @@
       <pre class="lines">
 
 
-18
 19
 20
 21
 22
 23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37
-38
-39
-40
-41
-42
-43</pre>
+24</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/config/sorbet.rb', line 18</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/config/sorbet.rb', line 19</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_signature_provider_for'>signature_provider_for</span><span class='lparen'>(</span><span class='label'>source:</span><span class='comma'>,</span> <span class='label'>file:</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_providers'>providers</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
-
-  <span class='kw'>if</span> <span class='id identifier rubyid_sorbet_enabled?'>sorbet_enabled?</span>
-    <span class='kw'>begin</span>
-      <span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>docscribe/types/sorbet/source_provider</span><span class='tstring_end'>&#39;</span></span>
-      <span class='id identifier rubyid_providers'>providers</span> <span class='op'>&lt;&lt;</span> <span class='const'><span class='object_link'><a href="../Docscribe.html" title="Docscribe (module)">Docscribe</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Types.html" title="Docscribe::Types (module)">Types</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Types/Sorbet.html" title="Docscribe::Types::Sorbet (module)">Sorbet</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Types/Sorbet/SourceProvider.html" title="Docscribe::Types::Sorbet::SourceProvider (class)">SourceProvider</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Types/Sorbet/SourceProvider.html#initialize-instance_method" title="Docscribe::Types::Sorbet::SourceProvider#initialize (method)">new</a></span></span><span class='lparen'>(</span>
-        <span class='label'>source:</span> <span class='id identifier rubyid_source'>source</span><span class='comma'>,</span>
-        <span class='label'>file:</span> <span class='id identifier rubyid_file'>file</span><span class='comma'>,</span>
-        <span class='label'>collapse_generics:</span> <span class='id identifier rubyid_sorbet_collapse_generics?'>sorbet_collapse_generics?</span>
-      <span class='rparen'>)</span>
-    <span class='kw'>rescue</span> <span class='const'>LoadError</span>
-      <span class='comment'># Sorbet support is optional; fall back quietly.
-</span>    <span class='kw'>end</span>
-
-    <span class='id identifier rubyid_providers'>providers</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_sorbet_rbi_provider'>sorbet_rbi_provider</span>
-  <span class='kw'>end</span>
-
+  <span class='id identifier rubyid_providers'>providers</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='comment'>#: Array[untyped]
+</span>  <span class='id identifier rubyid_append_sorbet_providers'>append_sorbet_providers</span><span class='lparen'>(</span><span class='id identifier rubyid_providers'>providers</span><span class='comma'>,</span> <span class='label'>source:</span> <span class='id identifier rubyid_source'>source</span><span class='comma'>,</span> <span class='label'>file:</span> <span class='id identifier rubyid_file'>file</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_providers'>providers</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_rbs_provider'>rbs_provider</span> <span class='kw'>if</span> <span class='id identifier rubyid_rbs_enabled?'>rbs_enabled?</span>
-
-  <span class='id identifier rubyid_providers'>providers</span> <span class='op'>=</span> <span class='id identifier rubyid_providers'>providers</span><span class='period'>.</span><span class='id identifier rubyid_compact'>compact</span>
-  <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>if</span> <span class='id identifier rubyid_providers'>providers</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
-
-  <span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>docscribe/types/provider_chain</span><span class='tstring_end'>&#39;</span></span>
-  <span class='const'><span class='object_link'><a href="../Docscribe.html" title="Docscribe (module)">Docscribe</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Types.html" title="Docscribe::Types (module)">Types</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Types/ProviderChain.html" title="Docscribe::Types::ProviderChain (class)">ProviderChain</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Types/ProviderChain.html#initialize-instance_method" title="Docscribe::Types::ProviderChain#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_providers'>providers</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_build_provider_chain'>build_provider_chain</span><span class='lparen'>(</span><span class='id identifier rubyid_providers'>providers</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -3392,12 +4518,12 @@
       <pre class="lines">
 
 
-83
-84
-85</pre>
+109
+110
+111</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/config/sorbet.rb', line 83</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/config/sorbet.rb', line 109</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_sorbet_collapse_generics?'>sorbet_collapse_generics?</span>
   <span class='id identifier rubyid_fetch_bool'>fetch_bool</span><span class='lparen'>(</span><span class='qwords_beg'>%w[</span><span class='tstring_content'>sorbet</span><span class='words_sep'> </span><span class='tstring_content'>collapse_generics</span><span class='tstring_end'>]</span></span><span class='comma'>,</span> <span class='id identifier rubyid_rbs_collapse_generics?'>rbs_collapse_generics?</span><span class='rparen'>)</span>
@@ -3446,12 +4572,12 @@
       <pre class="lines">
 
 
-66
-67
-68</pre>
+92
+93
+94</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/config/sorbet.rb', line 66</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/config/sorbet.rb', line 92</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_sorbet_enabled?'>sorbet_enabled?</span>
   <span class='id identifier rubyid_fetch_bool'>fetch_bool</span><span class='lparen'>(</span><span class='qwords_beg'>%w[</span><span class='tstring_content'>sorbet</span><span class='words_sep'> </span><span class='tstring_content'>enabled</span><span class='tstring_end'>]</span></span><span class='comma'>,</span> <span class='kw'>false</span><span class='rparen'>)</span>
@@ -3500,12 +4626,12 @@
       <pre class="lines">
 
 
-73
-74
-75</pre>
+99
+100
+101</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/config/sorbet.rb', line 73</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/config/sorbet.rb', line 99</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_sorbet_rbi_dirs'>sorbet_rbi_dirs</span>
   <span class='const'>Array</span><span class='lparen'>(</span><span class='id identifier rubyid_raw'>raw</span><span class='period'>.</span><span class='id identifier rubyid_dig'>dig</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>sorbet</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>rbi_dirs</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='op'>||</span> <span class='const'><span class='object_link'><a href="#DEFAULT-constant" title="Docscribe::Config::DEFAULT (constant)">DEFAULT</a></span></span><span class='period'>.</span><span class='id identifier rubyid_dig'>dig</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>sorbet</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>rbi_dirs</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:to_s</span><span class='rparen'>)</span>
@@ -3567,22 +4693,22 @@
       <pre class="lines">
 
 
-49
-50
-51
-52
-53
-54
-55
-56
-57
-58
-59
-60
-61</pre>
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/config/sorbet.rb', line 49</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/config/sorbet.rb', line 75</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_sorbet_rbi_provider'>sorbet_rbi_provider</span>
   <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>unless</span> <span class='id identifier rubyid_sorbet_enabled?'>sorbet_enabled?</span>
@@ -3596,6 +4722,113 @@
   <span class='kw'>rescue</span> <span class='const'>LoadError</span>
     <span class='kw'>nil</span>
   <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="sorbet_source_provider-instance_method">
+  
+    #<strong>sorbet_source_provider</strong>(source, file)  &#x21d2; <tt><span class='object_link'><a href="Types/Sorbet/SourceProvider.html" title="Docscribe::Types::Sorbet::SourceProvider (class)">Docscribe::Types::Sorbet::SourceProvider</a></span></tt><sup>?</sup> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Build a Sorbet source provider (inline sigs).</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>source</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>file</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Types/Sorbet/SourceProvider.html" title="Docscribe::Types::Sorbet::SourceProvider (class)">Docscribe::Types::Sorbet::SourceProvider</a></span></tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>LoadError</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/config/sorbet.rb', line 47</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_sorbet_source_provider'>sorbet_source_provider</span><span class='lparen'>(</span><span class='id identifier rubyid_source'>source</span><span class='comma'>,</span> <span class='id identifier rubyid_file'>file</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>docscribe/types/sorbet/source_provider</span><span class='tstring_end'>&#39;</span></span>
+  <span class='const'><span class='object_link'><a href="../Docscribe.html" title="Docscribe (module)">Docscribe</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Types.html" title="Docscribe::Types (module)">Types</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Types/Sorbet.html" title="Docscribe::Types::Sorbet (module)">Sorbet</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Types/Sorbet/SourceProvider.html" title="Docscribe::Types::Sorbet::SourceProvider (class)">SourceProvider</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Types/Sorbet/SourceProvider.html#initialize-instance_method" title="Docscribe::Types::Sorbet::SourceProvider#initialize (method)">new</a></span></span><span class='lparen'>(</span>
+    <span class='label'>source:</span> <span class='id identifier rubyid_source'>source</span><span class='comma'>,</span>
+    <span class='label'>file:</span> <span class='id identifier rubyid_file'>file</span><span class='comma'>,</span>
+    <span class='label'>collapse_generics:</span> <span class='id identifier rubyid_sorbet_collapse_generics?'>sorbet_collapse_generics?</span>
+  <span class='rparen'>)</span>
+<span class='kw'>rescue</span> <span class='const'>LoadError</span>
+  <span class='kw'>nil</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -3641,12 +4874,12 @@
       <pre class="lines">
 
 
-8
 9
-10</pre>
+10
+11</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/config/sorting.rb', line 8</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/config/sorting.rb', line 9</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_sort_tags?'>sort_tags?</span>
   <span class='id identifier rubyid_raw'>raw</span><span class='period'>.</span><span class='id identifier rubyid_dig'>dig</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>doc</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>sort_tags</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='op'>!=</span> <span class='kw'>false</span>
@@ -3697,14 +4930,14 @@
       <pre class="lines">
 
 
-17
 18
 19
 20
-21</pre>
+21
+22</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/config/sorting.rb', line 17</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/config/sorting.rb', line 18</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_tag_order'>tag_order</span>
   <span class='const'>Array</span><span class='lparen'>(</span><span class='id identifier rubyid_raw'>raw</span><span class='period'>.</span><span class='id identifier rubyid_dig'>dig</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>doc</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>tag_order</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='op'>||</span> <span class='const'><span class='object_link'><a href="#DEFAULT-constant" title="Docscribe::Config::DEFAULT (constant)">DEFAULT</a></span></span><span class='period'>.</span><span class='id identifier rubyid_dig'>dig</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>doc</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>tag_order</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_t'>t</span><span class='op'>|</span>
@@ -3755,12 +4988,12 @@
       <pre class="lines">
 
 
-104
 105
-106</pre>
+106
+107</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/config/emit.rb', line 104</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/config/emit.rb', line 105</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_treat_options_keyword_as_hash?'>treat_options_keyword_as_hash?</span>
   <span class='id identifier rubyid_fetch_bool'>fetch_bool</span><span class='lparen'>(</span><span class='qwords_beg'>%w[</span><span class='tstring_content'>inference</span><span class='words_sep'> </span><span class='tstring_content'>treat_options_keyword_as_hash</span><span class='tstring_end'>]</span></span><span class='comma'>,</span> <span class='kw'>true</span><span class='rparen'>)</span>
@@ -3775,7 +5008,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat May 23 13:25:19 2026 by
+  Generated on Sat Jun 13 01:24:26 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.38 (ruby-3.4.5).
 </div>

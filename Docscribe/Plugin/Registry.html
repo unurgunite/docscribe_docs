@@ -98,7 +98,17 @@
 <div class="tags">
   
 
-</div>
+</div><h2>Defined Under Namespace</h2>
+<p class="children">
+  
+    
+  
+    
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Registry/Entry.html" title="Docscribe::Plugin::Registry::Entry (class)">Entry</a></span>
+    
+  
+</p>
+
 
 
 
@@ -140,6 +150,30 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#collector_entries-class_method" title="collector_entries (class method)">.<strong>collector_entries</strong>  &#x21d2; Array&lt;Entry&gt; </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>All registered collector plugin entries (plugin + priority metadata).</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#collector_plugins-class_method" title="collector_plugins (class method)">.<strong>collector_plugins</strong>  &#x21d2; Array&lt;#collect&gt; </a>
     
 
@@ -164,7 +198,55 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#register-class_method" title="register (class method)">.<strong>register</strong>(plugin)  &#x21d2; void </a>
+      <a href="#create_entry-class_method" title="create_entry (class method)">.<strong>create_entry</strong>(plugin, priority)  &#x21d2; Entry </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Create a new Entry with the next order number.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#parse_priority-class_method" title="parse_priority (class method)">.<strong>parse_priority</strong>(priority)  &#x21d2; Integer </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Parse and validate plugin priority.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#register-class_method" title="register (class method)">.<strong>register</strong>(plugin, priority: 0)  &#x21d2; void </a>
     
 
     
@@ -180,6 +262,54 @@
   
     <span class="summary_desc"><div class='inline'>
 <p>Register a plugin.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#route_entry-class_method" title="route_entry (class method)">.<strong>route_entry</strong>(entry, plugin)  &#x21d2; void </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Route entry to tag or collector list.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#tag_entries-class_method" title="tag_entries (class method)">.<strong>tag_entries</strong>  &#x21d2; Array&lt;Entry&gt; </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>All registered tag plugin entries (plugin + priority metadata).</p>
 </div></span>
   
 </li>
@@ -254,17 +384,81 @@
       <pre class="lines">
 
 
-63
-64
-65
-66</pre>
+132
+133
+134
+135
+136</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/plugin/registry.rb', line 63</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/plugin/registry.rb', line 132</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_clear!'>clear!</span>
-  <span class='ivar'>@tag_plugins</span><span class='period'>.</span><span class='id identifier rubyid_clear'>clear</span>
-  <span class='ivar'>@collector_plugins</span><span class='period'>.</span><span class='id identifier rubyid_clear'>clear</span>
+  <span class='ivar'>@tag_entries</span><span class='period'>.</span><span class='id identifier rubyid_clear'>clear</span>
+  <span class='ivar'>@collector_entries</span><span class='period'>.</span><span class='id identifier rubyid_clear'>clear</span>
+  <span class='ivar'>@order_seq</span> <span class='op'>=</span> <span class='int'>0</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="collector_entries-class_method">
+  
+    .<strong>collector_entries</strong>  &#x21d2; <tt>Array&lt;<span class='object_link'><a href="Registry/Entry.html" title="Docscribe::Plugin::Registry::Entry (class)">Entry</a></span>&gt;</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+  <div class="note notetag">
+    <strong>Note:</strong>
+    <div class='inline'>
+<p>module_function: when included, also defines #collector_entries (instance visibility: private)</p>
+</div>
+  </div>
+
+
+<p>All registered collector plugin entries (plugin + priority metadata).</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array&lt;<span class='object_link'><a href="Registry/Entry.html" title="Docscribe::Plugin::Registry::Entry (class)">Entry</a></span>&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+122
+123
+124</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/plugin/registry.rb', line 122</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_collector_entries'>collector_entries</span>
+  <span class='ivar'>@collector_entries</span><span class='period'>.</span><span class='id identifier rubyid_dup'>dup</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -318,15 +512,208 @@
       <pre class="lines">
 
 
-53
-54
-55</pre>
+106
+107
+108</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/plugin/registry.rb', line 53</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/plugin/registry.rb', line 106</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_collector_plugins'>collector_plugins</span>
-  <span class='ivar'>@collector_plugins</span><span class='period'>.</span><span class='id identifier rubyid_dup'>dup</span>
+  <span class='ivar'>@collector_entries</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:plugin</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="create_entry-class_method">
+  
+    .<strong>create_entry</strong>(plugin, priority)  &#x21d2; <tt><span class='object_link'><a href="Registry/Entry.html" title="Docscribe::Plugin::Registry::Entry (class)">Entry</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+  <div class="note notetag">
+    <strong>Note:</strong>
+    <div class='inline'>
+<p>module_function: when included, also defines #create_entry (instance visibility: private)</p>
+</div>
+  </div>
+
+
+<p>Create a new Entry with the next order number.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>plugin</span>
+      
+      
+        <span class='type'>(<tt>Object</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>priority</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Registry/Entry.html" title="Docscribe::Plugin::Registry::Entry (class)">Entry</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+72
+73
+74
+75</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/plugin/registry.rb', line 72</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_create_entry'>create_entry</span><span class='lparen'>(</span><span class='id identifier rubyid_plugin'>plugin</span><span class='comma'>,</span> <span class='id identifier rubyid_priority'>priority</span><span class='rparen'>)</span>
+  <span class='ivar'>@order_seq</span> <span class='op'>+=</span> <span class='int'>1</span>
+  <span class='const'><span class='object_link'><a href="Registry/Entry.html" title="Docscribe::Plugin::Registry::Entry (class)">Entry</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>plugin:</span> <span class='id identifier rubyid_plugin'>plugin</span><span class='comma'>,</span> <span class='label'>priority:</span> <span class='id identifier rubyid_priority'>priority</span><span class='comma'>,</span> <span class='label'>order:</span> <span class='ivar'>@order_seq</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="parse_priority-class_method">
+  
+    .<strong>parse_priority</strong>(priority)  &#x21d2; <tt>Integer</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+  <div class="note notetag">
+    <strong>Note:</strong>
+    <div class='inline'>
+<p>module_function: when included, also defines #parse_priority (instance visibility: private)</p>
+</div>
+  </div>
+
+
+<p>Parse and validate plugin priority.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>priority</span>
+      
+      
+        <span class='type'>(<tt>Object</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>ArgumentError</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>StandardError</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+60
+61
+62
+63
+64</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/plugin/registry.rb', line 60</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_parse_priority'>parse_priority</span><span class='lparen'>(</span><span class='id identifier rubyid_priority'>priority</span><span class='rparen'>)</span>
+  <span class='const'>Integer</span><span class='lparen'>(</span><span class='id identifier rubyid_priority'>priority</span><span class='rparen'>)</span>
+<span class='kw'>rescue</span> <span class='const'>StandardError</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>priority must be an Integer-like value, got: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_priority'>priority</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -336,7 +723,7 @@
       <div class="method_details ">
   <h3 class="signature " id="register-class_method">
   
-    .<strong>register</strong>(plugin)  &#x21d2; <tt>void</tt> 
+    .<strong>register</strong>(plugin, priority: 0)  &#x21d2; <tt>void</tt> 
   
 
   
@@ -389,6 +776,24 @@
       
     </li>
   
+    <li>
+      
+        <span class='name'>priority</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>0</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>plugin priority (higher wins for conflicts)</p>
+</div>
+      
+    </li>
+  
 </ul>
 
 <p class="tag_title">Raises:</p>
@@ -408,6 +813,15 @@
       
     </li>
   
+    <li>
+      
+      
+        <span class='type'>(<tt>StandardError</tt>)</span>
+      
+      
+      
+    </li>
+  
 </ul>
 
 </div><table class="source_code">
@@ -416,27 +830,181 @@
       <pre class="lines">
 
 
-31
-32
-33
-34
-35
-36
-37
-38
-39</pre>
+47
+48
+49
+50
+51</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/plugin/registry.rb', line 31</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/plugin/registry.rb', line 47</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_register'>register</span><span class='lparen'>(</span><span class='id identifier rubyid_plugin'>plugin</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_register'>register</span><span class='lparen'>(</span><span class='id identifier rubyid_plugin'>plugin</span><span class='comma'>,</span> <span class='label'>priority:</span> <span class='int'>0</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_prio'>prio</span> <span class='op'>=</span> <span class='id identifier rubyid_parse_priority'>parse_priority</span><span class='lparen'>(</span><span class='id identifier rubyid_priority'>priority</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_entry'>entry</span> <span class='op'>=</span> <span class='id identifier rubyid_create_entry'>create_entry</span><span class='lparen'>(</span><span class='id identifier rubyid_plugin'>plugin</span><span class='comma'>,</span> <span class='id identifier rubyid_prio'>prio</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_route_entry'>route_entry</span><span class='lparen'>(</span><span class='id identifier rubyid_entry'>entry</span><span class='comma'>,</span> <span class='id identifier rubyid_plugin'>plugin</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="route_entry-class_method">
+  
+    .<strong>route_entry</strong>(entry, plugin)  &#x21d2; <tt>void</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+  <div class="note notetag">
+    <strong>Note:</strong>
+    <div class='inline'>
+<p>module_function: when included, also defines #route_entry (instance visibility: private)</p>
+</div>
+  </div>
+
+<p class="note returns_void">This method returns an undefined value.</p>
+<p>Route entry to tag or collector list.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>entry</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Registry/Entry.html" title="Docscribe::Plugin::Registry::Entry (class)">Entry</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>plugin</span>
+      
+      
+        <span class='type'>(<tt>Object</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>ArgumentError</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+84
+85
+86
+87
+88
+89
+90
+91
+92</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/plugin/registry.rb', line 84</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_route_entry'>route_entry</span><span class='lparen'>(</span><span class='id identifier rubyid_entry'>entry</span><span class='comma'>,</span> <span class='id identifier rubyid_plugin'>plugin</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_plugin'>plugin</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="Base.html" title="Docscribe::Plugin::Base (module)">Base</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Base/CollectorPlugin.html" title="Docscribe::Plugin::Base::CollectorPlugin (class)">CollectorPlugin</a></span></span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_plugin'>plugin</span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='symbol'>:collect</span><span class='rparen'>)</span>
-    <span class='ivar'>@collector_plugins</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_plugin'>plugin</span>
+    <span class='ivar'>@collector_entries</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_entry'>entry</span>
   <span class='kw'>elsif</span> <span class='id identifier rubyid_plugin'>plugin</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="Base.html" title="Docscribe::Plugin::Base (module)">Base</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Base/TagPlugin.html" title="Docscribe::Plugin::Base::TagPlugin (class)">TagPlugin</a></span></span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_plugin'>plugin</span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='symbol'>:call</span><span class='rparen'>)</span>
-    <span class='ivar'>@tag_plugins</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_plugin'>plugin</span>
+    <span class='ivar'>@tag_entries</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_entry'>entry</span>
   <span class='kw'>else</span>
     <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Plugin must respond to #call (TagPlugin) or #collect (CollectorPlugin)</span><span class='tstring_end'>&#39;</span></span>
   <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="tag_entries-class_method">
+  
+    .<strong>tag_entries</strong>  &#x21d2; <tt>Array&lt;<span class='object_link'><a href="Registry/Entry.html" title="Docscribe::Plugin::Registry::Entry (class)">Entry</a></span>&gt;</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+  <div class="note notetag">
+    <strong>Note:</strong>
+    <div class='inline'>
+<p>module_function: when included, also defines #tag_entries (instance visibility: private)</p>
+</div>
+  </div>
+
+
+<p>All registered tag plugin entries (plugin + priority metadata).</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array&lt;<span class='object_link'><a href="Registry/Entry.html" title="Docscribe::Plugin::Registry::Entry (class)">Entry</a></span>&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+114
+115
+116</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/plugin/registry.rb', line 114</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_tag_entries'>tag_entries</span>
+  <span class='ivar'>@tag_entries</span><span class='period'>.</span><span class='id identifier rubyid_dup'>dup</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -490,15 +1058,15 @@
       <pre class="lines">
 
 
-45
-46
-47</pre>
+98
+99
+100</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/plugin/registry.rb', line 45</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/plugin/registry.rb', line 98</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_tag_plugins'>tag_plugins</span>
-  <span class='ivar'>@tag_plugins</span><span class='period'>.</span><span class='id identifier rubyid_dup'>dup</span>
+  <span class='ivar'>@tag_entries</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:plugin</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -510,7 +1078,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat May 23 13:25:19 2026 by
+  Generated on Sat Jun 13 01:24:25 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.38 (ruby-3.4.5).
 </div>

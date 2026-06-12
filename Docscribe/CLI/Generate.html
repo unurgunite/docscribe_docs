@@ -116,6 +116,26 @@ docscribe generate tag MyPlugin --stdout
         </dt>
         <dd><pre class="code"><span class='qwords_beg'>%w[</span><span class='tstring_content'>tag</span><span class='words_sep'> </span><span class='tstring_content'>collector</span><span class='tstring_end'>]</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
       
+        <dt id="NEXT_STEPS_TEMPLATE-constant" class="">NEXT_STEPS_TEMPLATE =
+          
+        </dt>
+        <dd><pre class="code"><span class='heredoc_beg'>&lt;&lt;~TEXT</span>
+<span class='tstring_content'>  Next steps:
+</span><span class='tstring_content'>    1. Open %&lt;path&gt;s and implement the plugin logic.
+</span><span class='tstring_content'>       %&lt;hint&gt;s
+</span><span class='tstring_content'>
+</span><span class='tstring_content'>  2. Register the plugin in your docscribe_plugins.rb:
+</span><span class='tstring_content'>
+</span><span class='tstring_content'>         require_relative &#39;%&lt;require_path&gt;s&#39;
+</span><span class='tstring_content'>         Docscribe::Plugin::Registry.register(%&lt;base_name&gt;s.new)
+</span><span class='tstring_content'>
+</span><span class='tstring_content'>  3. Add the file to docscribe.yml:
+</span><span class='tstring_content'>
+</span><span class='tstring_content'>         plugins:
+</span><span class='tstring_content'>           require:
+</span><span class='tstring_content'>             - ./docscribe_plugins
+</span><span class='heredoc_end'>TEXT</span></pre></dd>
+      
     </dl>
   
 
@@ -238,23 +258,6 @@ docscribe generate tag MyPlugin --stdout
       <pre class="lines">
 
 
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37
-38
-39
 40
 41
 42
@@ -265,104 +268,21 @@ docscribe generate tag MyPlugin --stdout
 47
 48
 49
-50
-51
-52
-53
-54
-55
-56
-57
-58
-59
-60
-61
-62
-63
-64
-65
-66
-67
-68
-69
-70
-71
-72
-73
-74
-75
-76
-77
-78
-79
-80
-81
-82
-83</pre>
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/generate.rb', line 23</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/generate.rb', line 40</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_run'>run</span><span class='lparen'>(</span><span class='id identifier rubyid_argv'>argv</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='lbrace'>{</span>
-    <span class='label'>output:</span> <span class='kw'>nil</span><span class='comma'>,</span>
-    <span class='label'>stdout:</span> <span class='kw'>false</span>
-  <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_parser'>parser</span> <span class='op'>=</span> <span class='id identifier rubyid_parse_generate_options'>parse_generate_options</span><span class='lparen'>(</span><span class='id identifier rubyid_argv'>argv</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='int'>0</span> <span class='kw'>if</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:help</span><span class='rbracket'>]</span>
 
-  <span class='id identifier rubyid_parser'>parser</span> <span class='op'>=</span> <span class='const'>OptionParser</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_o'>o</span><span class='op'>|</span>
-    <span class='id identifier rubyid_o'>o</span><span class='period'>.</span><span class='id identifier rubyid_banner'>banner</span> <span class='op'>=</span> <span class='heredoc_beg'>&lt;&lt;~TEXT</span>
-<span class='tstring_content'>      Usage: docscribe generate &lt;type&gt; &lt;PluginName&gt; [options]
-</span><span class='tstring_content'>
-</span><span class='tstring_content'>      Types:
-</span><span class='tstring_content'>        tag         Generate a TagPlugin skeleton
-</span><span class='tstring_content'>        collector   Generate a CollectorPlugin skeleton
-</span><span class='tstring_content'>
-</span><span class='tstring_content'>      Options:
-</span><span class='heredoc_end'>    TEXT
-</span>
-    <span class='id identifier rubyid_o'>o</span><span class='period'>.</span><span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>--output DIR</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Directory to write the plugin file (default: .)</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_v'>v</span><span class='op'>|</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:output</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_v'>v</span> <span class='rbrace'>}</span>
-    <span class='id identifier rubyid_o'>o</span><span class='period'>.</span><span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>--stdout</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Print the generated plugin to STDOUT instead of writing a file</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:stdout</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='kw'>true</span> <span class='rbrace'>}</span>
-    <span class='id identifier rubyid_o'>o</span><span class='period'>.</span><span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>-h</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>--help</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Show this help</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
-      <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_o'>o</span>
-      <span class='kw'>return</span> <span class='int'>0</span>
-    <span class='kw'>end</span>
-  <span class='kw'>end</span>
-
-  <span class='kw'>begin</span>
-    <span class='id identifier rubyid_parser'>parser</span><span class='period'>.</span><span class='id identifier rubyid_parse!'>parse!</span><span class='lparen'>(</span><span class='id identifier rubyid_argv'>argv</span><span class='rparen'>)</span>
-  <span class='kw'>rescue</span> <span class='const'>OptionParser</span><span class='op'>::</span><span class='const'>InvalidOption</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
-    <span class='id identifier rubyid_warn'>warn</span> <span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span>
-    <span class='id identifier rubyid_warn'>warn</span> <span class='id identifier rubyid_parser'>parser</span>
-    <span class='kw'>return</span> <span class='int'>1</span>
-  <span class='kw'>end</span>
-
-  <span class='id identifier rubyid_plugin_type'>plugin_type</span> <span class='op'>=</span> <span class='id identifier rubyid_argv'>argv</span><span class='period'>.</span><span class='id identifier rubyid_shift'>shift</span>
-  <span class='id identifier rubyid_class_name'>class_name</span>  <span class='op'>=</span> <span class='id identifier rubyid_argv'>argv</span><span class='period'>.</span><span class='id identifier rubyid_shift'>shift</span>
-
-  <span class='kw'>unless</span> <span class='id identifier rubyid_plugin_type'>plugin_type</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_class_name'>class_name</span>
-    <span class='id identifier rubyid_warn'>warn</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Error: both &lt;type&gt; and &lt;PluginName&gt; are required.</span><span class='tstring_end'>&#39;</span></span>
-    <span class='id identifier rubyid_warn'>warn</span> <span class='id identifier rubyid_parser'>parser</span>
-    <span class='kw'>return</span> <span class='int'>1</span>
-  <span class='kw'>end</span>
-
-  <span class='kw'>unless</span> <span class='const'><span class='object_link'><a href="#PLUGIN_TYPES-constant" title="Docscribe::CLI::Generate::PLUGIN_TYPES (constant)">PLUGIN_TYPES</a></span></span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_plugin_type'>plugin_type</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_warn'>warn</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Error: unknown type </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_plugin_type'>plugin_type</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span><span class='embexpr_end'>}</span><span class='tstring_content'>. Must be one of: </span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="#PLUGIN_TYPES-constant" title="Docscribe::CLI::Generate::PLUGIN_TYPES (constant)">PLUGIN_TYPES</a></span></span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>, </span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>.</span><span class='tstring_end'>&quot;</span></span>
-    <span class='kw'>return</span> <span class='int'>1</span>
-  <span class='kw'>end</span>
-
-  <span class='kw'>unless</span> <span class='id identifier rubyid_valid_constant?'>valid_constant?</span><span class='lparen'>(</span><span class='id identifier rubyid_class_name'>class_name</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_warn'>warn</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Error: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_class_name'>class_name</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span><span class='embexpr_end'>}</span><span class='tstring_content'> is not a valid Ruby constant name.</span><span class='tstring_end'>&quot;</span></span>
-    <span class='kw'>return</span> <span class='int'>1</span>
-  <span class='kw'>end</span>
+  <span class='id identifier rubyid_plugin_type'>plugin_type</span><span class='comma'>,</span> <span class='id identifier rubyid_class_name'>class_name</span> <span class='op'>=</span> <span class='id identifier rubyid_extract_generate_args'>extract_generate_args</span><span class='lparen'>(</span><span class='id identifier rubyid_argv'>argv</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='id identifier rubyid_validate_generate_args'>validate_generate_args</span><span class='lparen'>(</span><span class='id identifier rubyid_plugin_type'>plugin_type</span><span class='comma'>,</span> <span class='id identifier rubyid_class_name'>class_name</span><span class='comma'>,</span> <span class='id identifier rubyid_parser'>parser</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_result'>result</span> <span class='kw'>if</span> <span class='id identifier rubyid_result'>result</span>
 
   <span class='id identifier rubyid_content'>content</span> <span class='op'>=</span> <span class='id identifier rubyid_render'>render</span><span class='lparen'>(</span><span class='id identifier rubyid_plugin_type'>plugin_type</span><span class='comma'>,</span> <span class='id identifier rubyid_class_name'>class_name</span><span class='rparen'>)</span>
-
-  <span class='kw'>if</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:stdout</span><span class='rbracket'>]</span>
-    <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_content'>content</span>
-    <span class='kw'>return</span> <span class='int'>0</span>
-  <span class='kw'>end</span>
-
-  <span class='id identifier rubyid_write_plugin'>write_plugin</span><span class='lparen'>(</span><span class='id identifier rubyid_content'>content</span><span class='comma'>,</span> <span class='label'>plugin_type:</span> <span class='id identifier rubyid_plugin_type'>plugin_type</span><span class='comma'>,</span> <span class='label'>class_name:</span> <span class='id identifier rubyid_class_name'>class_name</span><span class='comma'>,</span> <span class='label'>output_dir:</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:output</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>.</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_dispatch_output'>dispatch_output</span><span class='lparen'>(</span><span class='id identifier rubyid_content'>content</span><span class='comma'>,</span> <span class='id identifier rubyid_plugin_type'>plugin_type</span><span class='comma'>,</span> <span class='id identifier rubyid_class_name'>class_name</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -374,7 +294,7 @@ docscribe generate tag MyPlugin --stdout
 </div>
 
       <div id="footer">
-  Generated on Sat May 23 13:25:19 2026 by
+  Generated on Sat Jun 13 01:24:25 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.38 (ruby-3.4.5).
 </div>
