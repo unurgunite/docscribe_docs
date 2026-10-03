@@ -205,7 +205,7 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines # (instance visibility: private)</p>
+<p>module_function: defines #collect_send_raise (visibility: private)</p>
 </div>
   </div>
 
@@ -260,6 +260,9 @@
       <pre class="lines">
 
 
+62
+63
+64
 65
 66
 67
@@ -267,13 +270,10 @@
 69
 70
 71
-72
-73
-74
-75</pre>
+72</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/infer/raises.rb', line 65</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/infer/raises.rb', line 62</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_collect_send_raise'>collect_send_raise</span><span class='lparen'>(</span><span class='id identifier rubyid_raises'>raises</span><span class='comma'>,</span> <span class='id identifier rubyid_node'>node</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_recv'>recv</span><span class='comma'>,</span> <span class='id identifier rubyid_meth'>meth</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span> <span class='op'>=</span> <span class='op'>*</span><span class='id identifier rubyid_node'>node</span>
@@ -306,7 +306,7 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines #exception_names_from_rescue_list (instance visibility: private)</p>
+<p>module_function: defines #exception_names_from_rescue_list (visibility: private)</p>
 </div>
   </div>
 
@@ -367,23 +367,23 @@
       <pre class="lines">
 
 
+46
+47
 48
 49
 50
 51
 52
 53
-54
-55
-56</pre>
+54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/infer/raises.rb', line 48</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/infer/raises.rb', line 46</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_exception_names_from_rescue_list'>exception_names_from_rescue_list</span><span class='lparen'>(</span><span class='id identifier rubyid_exc_list'>exc_list</span><span class='rparen'>)</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_exc_list'>exc_list</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
-    <span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="../Infer.html#DEFAULT_ERROR-constant" title="Docscribe::Infer::DEFAULT_ERROR (constant)">DEFAULT_ERROR</a></span></span><span class='rbracket'>]</span>
-  <span class='kw'>elsif</span> <span class='id identifier rubyid_exc_list'>exc_list</span><span class='period'>.</span><span class='id identifier rubyid_type'>type</span> <span class='op'>==</span> <span class='symbol'>:array</span>
+  <span class='kw'>return</span> <span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="../Infer.html#DEFAULT_ERROR-constant" title="Docscribe::Infer::DEFAULT_ERROR (constant)">DEFAULT_ERROR</a></span></span><span class='rbracket'>]</span> <span class='kw'>unless</span> <span class='id identifier rubyid_exc_list'>exc_list</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Parser</span><span class='op'>::</span><span class='const'>AST</span><span class='op'>::</span><span class='const'>Node</span><span class='rparen'>)</span>
+
+  <span class='kw'>if</span> <span class='id identifier rubyid_exc_list'>exc_list</span><span class='period'>.</span><span class='id identifier rubyid_type'>type</span> <span class='op'>==</span> <span class='symbol'>:array</span>
     <span class='id identifier rubyid_exc_list'>exc_list</span><span class='period'>.</span><span class='id identifier rubyid_children'>children</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_e'>e</span><span class='op'>|</span> <span class='const'><span class='object_link'><a href="Names.html" title="Docscribe::Infer::Names (module)">Names</a></span></span><span class='period'>.</span><span class='id identifier rubyid_const_full_name'><span class='object_link'><a href="Names.html#const_full_name-class_method" title="Docscribe::Infer::Names.const_full_name (method)">const_full_name</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_e'>e</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='const'><span class='object_link'><a href="../Infer.html#DEFAULT_ERROR-constant" title="Docscribe::Infer::DEFAULT_ERROR (constant)">DEFAULT_ERROR</a></span></span> <span class='rbrace'>}</span>
   <span class='kw'>else</span>
     <span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="Names.html" title="Docscribe::Infer::Names (module)">Names</a></span></span><span class='period'>.</span><span class='id identifier rubyid_const_full_name'><span class='object_link'><a href="Names.html#const_full_name-class_method" title="Docscribe::Infer::Names.const_full_name (method)">const_full_name</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_exc_list'>exc_list</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='const'><span class='object_link'><a href="../Infer.html#DEFAULT_ERROR-constant" title="Docscribe::Infer::DEFAULT_ERROR (constant)">DEFAULT_ERROR</a></span></span><span class='rbracket'>]</span>
@@ -409,7 +409,7 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines #infer_raises_from_node (instance visibility: private)</p>
+<p>module_function: defines #infer_raises_from_node (visibility: private)</p>
 </div>
   </div>
 
@@ -486,8 +486,7 @@
 31
 32
 33
-34
-35</pre>
+34</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/docscribe/infer/raises.rb', line 22</span>
@@ -496,10 +495,9 @@
   <span class='id identifier rubyid_raises'>raises</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='comment'>#: Array[String]
 </span>
   <span class='const'><span class='object_link'><a href="ASTWalk.html" title="Docscribe::Infer::ASTWalk (module)">ASTWalk</a></span></span><span class='period'>.</span><span class='id identifier rubyid_walk'><span class='object_link'><a href="ASTWalk.html#walk-class_method" title="Docscribe::Infer::ASTWalk.walk (method)">walk</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_node'>node</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_n'>n</span><span class='op'>|</span>
-    <span class='kw'>case</span> <span class='id identifier rubyid_n'>n</span><span class='period'>.</span><span class='id identifier rubyid_type'>type</span>
-    <span class='kw'>when</span> <span class='symbol'>:resbody</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_n'>n</span><span class='op'>&amp;.</span><span class='id identifier rubyid_type'>type</span> <span class='op'>==</span> <span class='symbol'>:resbody</span>
       <span class='id identifier rubyid_raises'>raises</span><span class='period'>.</span><span class='id identifier rubyid_concat'>concat</span><span class='lparen'>(</span><span class='id identifier rubyid_exception_names_from_rescue_list'>exception_names_from_rescue_list</span><span class='lparen'>(</span><span class='id identifier rubyid_n'>n</span><span class='period'>.</span><span class='id identifier rubyid_children'>children</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='rparen'>)</span>
-    <span class='kw'>when</span> <span class='symbol'>:send</span>
+    <span class='kw'>elsif</span> <span class='id identifier rubyid_n'>n</span><span class='op'>&amp;.</span><span class='id identifier rubyid_type'>type</span> <span class='op'>==</span> <span class='symbol'>:send</span>
       <span class='id identifier rubyid_collect_send_raise'>collect_send_raise</span><span class='lparen'>(</span><span class='id identifier rubyid_raises'>raises</span><span class='comma'>,</span> <span class='id identifier rubyid_n'>n</span><span class='rparen'>)</span>
     <span class='kw'>end</span>
   <span class='kw'>end</span>
@@ -516,7 +514,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Jun 13 01:27:04 2026 by
+  Generated on Sun Oct  4 00:19:54 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.38 (ruby-3.4.5).
 </div>

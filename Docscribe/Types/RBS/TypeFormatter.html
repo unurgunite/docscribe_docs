@@ -186,6 +186,126 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#format_bottom-class_method" title="format_bottom (class method)">.<strong>format_bottom</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Format RBS bottom type as YARD ‘Object`.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#format_class_type-class_method" title="format_class_type (class method)">.<strong>format_class_type</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Format RBS class type as YARD ‘Class`.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#format_generic_args-class_method" title="format_generic_args (class method)">.<strong>format_generic_args</strong>(name, args, collapse_generics:, collapse_object_generics:)  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Format generic type arguments for a named type.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#format_instance-class_method" title="format_instance (class method)">.<strong>format_instance</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Format RBS instance type as YARD ‘Object`.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#format_intersection-class_method" title="format_intersection (class method)">.<strong>format_intersection</strong>(type, collapse_generics:, collapse_object_generics:)  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Format an RBS Intersection type as ‘Type &amp; Type` list.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#format_literal-class_method" title="format_literal (class method)">.<strong>format_literal</strong>(lit)  &#x21d2; String </a>
     
 
@@ -210,7 +330,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#format_named-class_method" title="format_named (class method)">.<strong>format_named</strong>(type, collapse_generics:)  &#x21d2; String </a>
+      <a href="#format_named-class_method" title="format_named (class method)">.<strong>format_named</strong>(type, collapse_generics:, collapse_object_generics:)  &#x21d2; String </a>
     
 
     
@@ -258,7 +378,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#format_optional-class_method" title="format_optional (class method)">.<strong>format_optional</strong>(type, collapse_generics:)  &#x21d2; String </a>
+      <a href="#format_optional-class_method" title="format_optional (class method)">.<strong>format_optional</strong>(type, collapse_generics:, collapse_object_generics:)  &#x21d2; String </a>
     
 
     
@@ -306,7 +426,103 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#format_union-class_method" title="format_union (class method)">.<strong>format_union</strong>(type, collapse_generics:)  &#x21d2; String </a>
+      <a href="#format_record-class_method" title="format_record (class method)">.<strong>format_record</strong>(type, collapse_generics:, collapse_object_generics:)  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Format an RBS Record type as a YARD ‘Hash&lt;Symbol, ValueType&gt;`.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#format_self-class_method" title="format_self (class method)">.<strong>format_self</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Format RBS self type as YARD ‘self`.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#format_top-class_method" title="format_top (class method)">.<strong>format_top</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Format RBS top type as YARD ‘Object`.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#format_tuple-class_method" title="format_tuple (class method)">.<strong>format_tuple</strong>(type, collapse_generics:, collapse_object_generics:)  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Format an RBS Tuple type as a parenthesized list of YARD types.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#format_union-class_method" title="format_union (class method)">.<strong>format_union</strong>(type, collapse_generics:, collapse_object_generics:)  &#x21d2; String </a>
     
 
     
@@ -322,6 +538,30 @@
   
     <span class="summary_desc"><div class='inline'>
 <p>Format an RBS Union type as a comma-separated list of YARD types.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#format_variable-class_method" title="format_variable (class method)">.<strong>format_variable</strong>(type)  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Format an RBS type variable as its name string.</p>
 </div></span>
   
 </li>
@@ -346,6 +586,30 @@
   
     <span class="summary_desc"><div class='inline'>
 <p>Format RBS ‘void` type as the YARD `void`.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#formatter_pairs-class_method" title="formatter_pairs (class method)">.<strong>formatter_pairs</strong>  &#x21d2; Hash&lt;Class, Docscribe::Types::RBS::TypeFormatter::formatter_fn&gt; </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Hash of RBS type classes and their YARD formatter lambdas.</p>
 </div></span>
   
 </li>
@@ -426,7 +690,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#to_yard-class_method" title="to_yard (class method)">.<strong>to_yard</strong>(type, collapse_generics: false)  &#x21d2; String </a>
+      <a href="#to_yard-class_method" title="to_yard (class method)">.<strong>to_yard</strong>(type, collapse_generics: false, collapse_object_generics: false)  &#x21d2; String </a>
     
 
     
@@ -450,7 +714,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#to_yard_formatters-class_method" title="to_yard_formatters (class method)">.<strong>to_yard_formatters</strong>  &#x21d2; Hash{Class=&gt;Proc} </a>
+      <a href="#to_yard_formatters-class_method" title="to_yard_formatters (class method)">.<strong>to_yard_formatters</strong>  &#x21d2; Hash&lt;Class, Docscribe::Types::RBS::TypeFormatter::formatter_fn&gt; </a>
     
 
     
@@ -465,7 +729,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>rubocop:disable Metrics/AbcSize, Layout/LineLength Return or memoize the dispatch hash mapping RBS type classes to formatter lambdas.</p>
+<p>Return or memoize the dispatch hash mapping RBS type classes to formatter lambdas.</p>
 </div></span>
   
 </li>
@@ -495,7 +759,7 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines #fallback_string (instance visibility: private)</p>
+<p>module_function: defines #fallback_string (visibility: private)</p>
 </div>
   </div>
 
@@ -514,7 +778,7 @@
         <span class='name'>type</span>
       
       
-        <span class='type'>(<tt>::RBS::Type</tt>)</span>
+        <span class='type'>(<tt>Docscribe::Types::RBS::TypeFormatter::rbs_type</tt>)</span>
       
       
       
@@ -547,15 +811,15 @@
       <pre class="lines">
 
 
-191
-192
-193
-194
-195
-196</pre>
+62
+63
+64
+65
+66
+67</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/types/rbs/type_formatter.rb', line 191</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/types/rbs/type_formatter.rb', line 62</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_fallback_string'>fallback_string</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_type'>type</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
@@ -583,7 +847,7 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines #format_any (instance visibility: private)</p>
+<p>module_function: defines #format_any (visibility: private)</p>
 </div>
   </div>
 
@@ -615,12 +879,12 @@
       <pre class="lines">
 
 
-36
-37
-38</pre>
+115
+116
+117</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/types/rbs/type_formatter.rb', line 36</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/types/rbs/type_formatter.rb', line 115</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_format_any'>format_any</span>
   <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Object</span><span class='tstring_end'>&#39;</span></span>
@@ -645,7 +909,7 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines #format_bool (instance visibility: private)</p>
+<p>module_function: defines #format_bool (visibility: private)</p>
 </div>
   </div>
 
@@ -677,15 +941,463 @@
       <pre class="lines">
 
 
-44
-45
-46</pre>
+123
+124
+125</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/types/rbs/type_formatter.rb', line 44</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/types/rbs/type_formatter.rb', line 123</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_format_bool'>format_bool</span>
   <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Boolean</span><span class='tstring_end'>&#39;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="format_bottom-class_method">
+  
+    .<strong>format_bottom</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+  <div class="note notetag">
+    <strong>Note:</strong>
+    <div class='inline'>
+<p>module_function: defines #format_bottom (visibility: private)</p>
+</div>
+  </div>
+
+
+<p>Format RBS bottom type as YARD ‘Object`.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+205
+206
+207</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/types/rbs/type_formatter.rb', line 205</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_format_bottom'>format_bottom</span>
+  <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Object</span><span class='tstring_end'>&#39;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="format_class_type-class_method">
+  
+    .<strong>format_class_type</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+  <div class="note notetag">
+    <strong>Note:</strong>
+    <div class='inline'>
+<p>module_function: defines #format_class_type (visibility: private)</p>
+</div>
+  </div>
+
+
+<p>Format RBS class type as YARD ‘Class`.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+229
+230
+231</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/types/rbs/type_formatter.rb', line 229</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_format_class_type'>format_class_type</span>
+  <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Class</span><span class='tstring_end'>&#39;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="format_generic_args-class_method">
+  
+    .<strong>format_generic_args</strong>(name, args, collapse_generics:, collapse_object_generics:)  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+  <div class="note notetag">
+    <strong>Note:</strong>
+    <div class='inline'>
+<p>module_function: defines #format_generic_args (visibility: private)</p>
+</div>
+  </div>
+
+
+<p>Format generic type arguments for a named type.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>name</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the type name</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>args</span>
+      
+      
+        <span class='type'>(<tt>Array&lt;Docscribe::Types::RBS::TypeFormatter::rbs_type&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the generic type arguments</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>collapse_generics</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>whether to omit generic type arguments</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>collapse_object_generics</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>whether to collapse generics when all inner types are Object</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/types/rbs/type_formatter.rb', line 311</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_format_generic_args'>format_generic_args</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='label'>collapse_generics:</span><span class='comma'>,</span> <span class='label'>collapse_object_generics:</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_name'>name</span> <span class='kw'>if</span> <span class='id identifier rubyid_collapse_generics'>collapse_generics</span>
+
+  <span class='id identifier rubyid_formatted'>formatted</span> <span class='op'>=</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_a'>a</span><span class='op'>|</span>
+    <span class='id identifier rubyid_to_yard'>to_yard</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>collapse_generics:</span> <span class='id identifier rubyid_collapse_generics'>collapse_generics</span><span class='comma'>,</span> <span class='label'>collapse_object_generics:</span> <span class='id identifier rubyid_collapse_object_generics'>collapse_object_generics</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_name'>name</span> <span class='kw'>if</span> <span class='id identifier rubyid_collapse_object_generics'>collapse_object_generics</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_formatted'>formatted</span><span class='period'>.</span><span class='id identifier rubyid_all?'>all?</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_s'>s</span><span class='op'>|</span> <span class='id identifier rubyid_s'>s</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Object</span><span class='tstring_end'>&#39;</span></span> <span class='rbrace'>}</span>
+
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'>&lt;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_formatted'>formatted</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>, </span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>&gt;</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="format_instance-class_method">
+  
+    .<strong>format_instance</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+  <div class="note notetag">
+    <strong>Note:</strong>
+    <div class='inline'>
+<p>module_function: defines #format_instance (visibility: private)</p>
+</div>
+  </div>
+
+
+<p>Format RBS instance type as YARD ‘Object`.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+221
+222
+223</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/types/rbs/type_formatter.rb', line 221</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_format_instance'>format_instance</span>
+  <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Object</span><span class='tstring_end'>&#39;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="format_intersection-class_method">
+  
+    .<strong>format_intersection</strong>(type, collapse_generics:, collapse_object_generics:)  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+  <div class="note notetag">
+    <strong>Note:</strong>
+    <div class='inline'>
+<p>module_function: defines #format_intersection (visibility: private)</p>
+</div>
+  </div>
+
+
+<p>Format an RBS Intersection type as ‘Type &amp; Type` list.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>type</span>
+      
+      
+        <span class='type'>(<tt>RBS::Types::Intersection</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the intersection type</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>collapse_generics</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>whether to omit generic type arguments</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>collapse_object_generics</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>collapse Object generics flag</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+263
+264
+265
+266
+267</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/types/rbs/type_formatter.rb', line 263</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_format_intersection'>format_intersection</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='label'>collapse_generics:</span><span class='comma'>,</span> <span class='label'>collapse_object_generics:</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_type'>type</span><span class='period'>.</span><span class='id identifier rubyid_types'>types</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_t'>t</span><span class='op'>|</span>
+    <span class='id identifier rubyid_to_yard'>to_yard</span><span class='lparen'>(</span><span class='id identifier rubyid_t'>t</span><span class='comma'>,</span> <span class='label'>collapse_generics:</span> <span class='id identifier rubyid_collapse_generics'>collapse_generics</span><span class='comma'>,</span> <span class='label'>collapse_object_generics:</span> <span class='id identifier rubyid_collapse_object_generics'>collapse_object_generics</span><span class='rparen'>)</span>
+  <span class='kw'>end</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'> &amp; </span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -707,7 +1419,7 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines #format_literal (instance visibility: private)</p>
+<p>module_function: defines #format_literal (visibility: private)</p>
 </div>
   </div>
 
@@ -726,7 +1438,7 @@
         <span class='name'>lit</span>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>RBS::Types::Literal</tt>)</span>
       
       
       
@@ -759,20 +1471,20 @@
       <pre class="lines">
 
 
-79
-80
-81
-82
-83
-84
-85
-86
-87
-88
-89</pre>
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/types/rbs/type_formatter.rb', line 79</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/types/rbs/type_formatter.rb', line 160</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_format_literal'>format_literal</span><span class='lparen'>(</span><span class='id identifier rubyid_lit'>lit</span><span class='rparen'>)</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_lit'>lit</span>
@@ -793,7 +1505,7 @@
       <div class="method_details ">
   <h3 class="signature " id="format_named-class_method">
   
-    .<strong>format_named</strong>(type, collapse_generics:)  &#x21d2; <tt>String</tt> 
+    .<strong>format_named</strong>(type, collapse_generics:, collapse_object_generics:)  &#x21d2; <tt>String</tt> 
   
 
   
@@ -805,7 +1517,7 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines #format_named (instance visibility: private)</p>
+<p>module_function: defines #format_named (visibility: private)</p>
 </div>
   </div>
 
@@ -824,9 +1536,14 @@
         <span class='name'>type</span>
       
       
-        <span class='type'>(<tt>::RBS::Types::ClassInstance</tt>, <tt>::RBS::Types::Interface</tt>, <tt>::RBS::Types::Alias</tt>)</span>
+        <span class='type'>(<tt>Docscribe::Types::RBS::TypeFormatter::named_rbs_type</tt>)</span>
       
       
+      
+        &mdash;
+        <div class='inline'>
+<p>the unrecognized RBS type object</p>
+</div>
       
     </li>
   
@@ -842,6 +1559,22 @@
         &mdash;
         <div class='inline'>
 <p>whether to omit generic type arguments</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>collapse_object_generics</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>whether to collapse generics when all inner types are Object</p>
 </div>
       
     </li>
@@ -868,30 +1601,28 @@
       <pre class="lines">
 
 
-117
-118
-119
-120
-121
-122
-123
-124
-125
-126
-127
-128</pre>
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/types/rbs/type_formatter.rb', line 117</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/types/rbs/type_formatter.rb', line 291</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_format_named'>format_named</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='label'>collapse_generics:</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_format_named'>format_named</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='label'>collapse_generics:</span><span class='comma'>,</span> <span class='label'>collapse_object_generics:</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='id identifier rubyid_type'>type</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_delete_prefix'>delete_prefix</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>::</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
   <span class='id identifier rubyid_args'>args</span> <span class='op'>=</span> <span class='id identifier rubyid_type'>type</span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='symbol'>:args</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id identifier rubyid_type'>type</span><span class='period'>.</span><span class='id identifier rubyid_args'>args</span> <span class='op'>:</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='comment'>#: Array[untyped]
 </span>
   <span class='kw'>if</span> <span class='id identifier rubyid_args'>args</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
-    <span class='kw'>return</span> <span class='id identifier rubyid_name'>name</span> <span class='kw'>if</span> <span class='id identifier rubyid_collapse_generics'>collapse_generics</span>
-
-    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'>&lt;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_a'>a</span><span class='op'>|</span> <span class='id identifier rubyid_to_yard'>to_yard</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>collapse_generics:</span> <span class='id identifier rubyid_collapse_generics'>collapse_generics</span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>, </span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>&gt;</span><span class='tstring_end'>&quot;</span></span>
+    <span class='id identifier rubyid_format_generic_args'>format_generic_args</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='label'>collapse_generics:</span> <span class='id identifier rubyid_collapse_generics'>collapse_generics</span><span class='comma'>,</span>
+                                    <span class='label'>collapse_object_generics:</span> <span class='id identifier rubyid_collapse_object_generics'>collapse_object_generics</span><span class='rparen'>)</span>
   <span class='kw'>else</span>
     <span class='id identifier rubyid_name'>name</span>
   <span class='kw'>end</span>
@@ -916,7 +1647,7 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines #format_nil (instance visibility: private)</p>
+<p>module_function: defines #format_nil (visibility: private)</p>
 </div>
   </div>
 
@@ -948,12 +1679,12 @@
       <pre class="lines">
 
 
-60
-61
-62</pre>
+139
+140
+141</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/types/rbs/type_formatter.rb', line 60</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/types/rbs/type_formatter.rb', line 139</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_format_nil'>format_nil</span>
   <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>nil</span><span class='tstring_end'>&#39;</span></span>
@@ -966,7 +1697,7 @@
       <div class="method_details ">
   <h3 class="signature " id="format_optional-class_method">
   
-    .<strong>format_optional</strong>(type, collapse_generics:)  &#x21d2; <tt>String</tt> 
+    .<strong>format_optional</strong>(type, collapse_generics:, collapse_object_generics:)  &#x21d2; <tt>String</tt> 
   
 
   
@@ -978,7 +1709,7 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines #format_optional (instance visibility: private)</p>
+<p>module_function: defines #format_optional (visibility: private)</p>
 </div>
   </div>
 
@@ -997,7 +1728,7 @@
         <span class='name'>type</span>
       
       
-        <span class='type'>(<tt>::RBS::Types::Optional</tt>)</span>
+        <span class='type'>(<tt>RBS::Types::Optional</tt>)</span>
       
       
       
@@ -1024,6 +1755,22 @@
       
     </li>
   
+    <li>
+      
+        <span class='name'>collapse_object_generics</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>collapse Object generics flag</p>
+</div>
+      
+    </li>
+  
 </ul>
 
 <p class="tag_title">Returns:</p>
@@ -1046,15 +1793,17 @@
       <pre class="lines">
 
 
-70
-71
-72</pre>
+150
+151
+152
+153</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/types/rbs/type_formatter.rb', line 70</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/types/rbs/type_formatter.rb', line 150</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_format_optional'>format_optional</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='label'>collapse_generics:</span><span class='rparen'>)</span>
-  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_to_yard'>to_yard</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='period'>.</span><span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='label'>collapse_generics:</span> <span class='id identifier rubyid_collapse_generics'>collapse_generics</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>?</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>def</span> <span class='id identifier rubyid_format_optional'>format_optional</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='label'>collapse_generics:</span><span class='comma'>,</span> <span class='label'>collapse_object_generics:</span><span class='rparen'>)</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_to_yard'>to_yard</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='period'>.</span><span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='label'>collapse_generics:</span> <span class='id identifier rubyid_collapse_generics'>collapse_generics</span><span class='comma'>,</span>
+                        <span class='label'>collapse_object_generics:</span> <span class='id identifier rubyid_collapse_object_generics'>collapse_object_generics</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>?</span><span class='tstring_end'>&quot;</span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1076,7 +1825,7 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines #format_proc (instance visibility: private)</p>
+<p>module_function: defines #format_proc (visibility: private)</p>
 </div>
   </div>
 
@@ -1108,12 +1857,12 @@
       <pre class="lines">
 
 
-95
-96
-97</pre>
+176
+177
+178</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/types/rbs/type_formatter.rb', line 95</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/types/rbs/type_formatter.rb', line 176</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_format_proc'>format_proc</span>
   <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Proc</span><span class='tstring_end'>&#39;</span></span>
@@ -1124,9 +1873,9 @@
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="format_union-class_method">
+  <h3 class="signature " id="format_record-class_method">
   
-    .<strong>format_union</strong>(type, collapse_generics:)  &#x21d2; <tt>String</tt> 
+    .<strong>format_record</strong>(type, collapse_generics:, collapse_object_generics:)  &#x21d2; <tt>String</tt> 
   
 
   
@@ -1138,12 +1887,12 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines #format_union (instance visibility: private)</p>
+<p>module_function: defines #format_record (visibility: private)</p>
 </div>
   </div>
 
 
-<p>Format an RBS Union type as a comma-separated list of YARD types.</p>
+<p>Format an RBS Record type as a YARD ‘Hash&lt;Symbol, ValueType&gt;`.</p>
 
 
   </div>
@@ -1157,13 +1906,13 @@
         <span class='name'>type</span>
       
       
-        <span class='type'>(<tt>::RBS::Types::Union</tt>)</span>
+        <span class='type'>(<tt>RBS::Types::Record</tt>)</span>
       
       
       
         &mdash;
         <div class='inline'>
-<p>the union type to format</p>
+<p>the record type</p>
 </div>
       
     </li>
@@ -1180,6 +1929,22 @@
         &mdash;
         <div class='inline'>
 <p>whether to omit generic type arguments</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>collapse_object_generics</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>collapse Object generics flag</p>
 </div>
       
     </li>
@@ -1206,19 +1971,467 @@
       <pre class="lines">
 
 
-105
-106
-107
-108
-109</pre>
+249
+250
+251
+252
+253
+254</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/types/rbs/type_formatter.rb', line 105</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/types/rbs/type_formatter.rb', line 249</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_format_union'>format_union</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='label'>collapse_generics:</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_type'>type</span><span class='period'>.</span><span class='id identifier rubyid_types'>types</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_t'>t</span><span class='op'>|</span> <span class='id identifier rubyid_to_yard'>to_yard</span><span class='lparen'>(</span><span class='id identifier rubyid_t'>t</span><span class='comma'>,</span> <span class='label'>collapse_generics:</span> <span class='id identifier rubyid_collapse_generics'>collapse_generics</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
-      <span class='period'>.</span><span class='id identifier rubyid_uniq'>uniq</span>
-      <span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>, </span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_format_record'>format_record</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='label'>collapse_generics:</span><span class='comma'>,</span> <span class='label'>collapse_object_generics:</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_value_types'>value_types</span> <span class='op'>=</span> <span class='id identifier rubyid_type'>type</span><span class='period'>.</span><span class='id identifier rubyid_all_fields'>all_fields</span><span class='period'>.</span><span class='id identifier rubyid_values'>values</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='lparen'>(</span><span class='id identifier rubyid_ty'>ty</span><span class='comma'>,</span> <span class='id identifier rubyid__'>_</span><span class='rparen'>)</span><span class='op'>|</span>
+    <span class='id identifier rubyid_to_yard'>to_yard</span><span class='lparen'>(</span><span class='id identifier rubyid_ty'>ty</span><span class='comma'>,</span> <span class='label'>collapse_generics:</span> <span class='id identifier rubyid_collapse_generics'>collapse_generics</span><span class='comma'>,</span> <span class='label'>collapse_object_generics:</span> <span class='id identifier rubyid_collapse_object_generics'>collapse_object_generics</span><span class='rparen'>)</span>
+  <span class='kw'>end</span><span class='period'>.</span><span class='id identifier rubyid_uniq'>uniq</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Hash&lt;Symbol, </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_value_types'>value_types</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>, </span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>&gt;</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="format_self-class_method">
+  
+    .<strong>format_self</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+  <div class="note notetag">
+    <strong>Note:</strong>
+    <div class='inline'>
+<p>module_function: defines #format_self (visibility: private)</p>
+</div>
+  </div>
+
+
+<p>Format RBS self type as YARD ‘self`.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+213
+214
+215</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/types/rbs/type_formatter.rb', line 213</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_format_self'>format_self</span>
+  <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>self</span><span class='tstring_end'>&#39;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="format_top-class_method">
+  
+    .<strong>format_top</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+  <div class="note notetag">
+    <strong>Note:</strong>
+    <div class='inline'>
+<p>module_function: defines #format_top (visibility: private)</p>
+</div>
+  </div>
+
+
+<p>Format RBS top type as YARD ‘Object`.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+197
+198
+199</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/types/rbs/type_formatter.rb', line 197</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_format_top'>format_top</span>
+  <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Object</span><span class='tstring_end'>&#39;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="format_tuple-class_method">
+  
+    .<strong>format_tuple</strong>(type, collapse_generics:, collapse_object_generics:)  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+  <div class="note notetag">
+    <strong>Note:</strong>
+    <div class='inline'>
+<p>module_function: defines #format_tuple (visibility: private)</p>
+</div>
+  </div>
+
+
+<p>Format an RBS Tuple type as a parenthesized list of YARD types.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>type</span>
+      
+      
+        <span class='type'>(<tt>RBS::Types::Tuple</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the tuple type to format</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>collapse_generics</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>whether to omit generic type arguments</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>collapse_object_generics</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>collapse Object generics flag</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+187
+188
+189
+190
+191</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/types/rbs/type_formatter.rb', line 187</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_format_tuple'>format_tuple</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='label'>collapse_generics:</span><span class='comma'>,</span> <span class='label'>collapse_object_generics:</span><span class='rparen'>)</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>(</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_type'>type</span><span class='period'>.</span><span class='id identifier rubyid_types'>types</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_t'>t</span><span class='op'>|</span>
+    <span class='id identifier rubyid_to_yard'>to_yard</span><span class='lparen'>(</span><span class='id identifier rubyid_t'>t</span><span class='comma'>,</span> <span class='label'>collapse_generics:</span> <span class='id identifier rubyid_collapse_generics'>collapse_generics</span><span class='comma'>,</span> <span class='label'>collapse_object_generics:</span> <span class='id identifier rubyid_collapse_object_generics'>collapse_object_generics</span><span class='rparen'>)</span>
+  <span class='kw'>end</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>, </span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>)</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="format_union-class_method">
+  
+    .<strong>format_union</strong>(type, collapse_generics:, collapse_object_generics:)  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+  <div class="note notetag">
+    <strong>Note:</strong>
+    <div class='inline'>
+<p>module_function: defines #format_union (visibility: private)</p>
+</div>
+  </div>
+
+
+<p>Format an RBS Union type as a comma-separated list of YARD types.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>type</span>
+      
+      
+        <span class='type'>(<tt>RBS::Types::Union</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the union type to format</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>collapse_generics</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>whether to omit generic type arguments</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>collapse_object_generics</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>collapse Object generics flag</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+276
+277
+278
+279
+280
+281
+282</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/types/rbs/type_formatter.rb', line 276</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_format_union'>format_union</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='label'>collapse_generics:</span><span class='comma'>,</span> <span class='label'>collapse_object_generics:</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_type'>type</span><span class='period'>.</span><span class='id identifier rubyid_types'>types</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_t'>t</span><span class='op'>|</span>
+    <span class='id identifier rubyid_to_yard'>to_yard</span><span class='lparen'>(</span><span class='id identifier rubyid_t'>t</span><span class='comma'>,</span> <span class='label'>collapse_generics:</span> <span class='id identifier rubyid_collapse_generics'>collapse_generics</span><span class='comma'>,</span> <span class='label'>collapse_object_generics:</span> <span class='id identifier rubyid_collapse_object_generics'>collapse_object_generics</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+            <span class='period'>.</span><span class='id identifier rubyid_uniq'>uniq</span>
+            <span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>, </span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="format_variable-class_method">
+  
+    .<strong>format_variable</strong>(type)  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+  <div class="note notetag">
+    <strong>Note:</strong>
+    <div class='inline'>
+<p>module_function: defines #format_variable (visibility: private)</p>
+</div>
+  </div>
+
+
+<p>Format an RBS type variable as its name string.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>type</span>
+      
+      
+        <span class='type'>(<tt>RBS::Types::Variable</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the variable type</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+238
+239
+240</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/types/rbs/type_formatter.rb', line 238</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_format_variable'>format_variable</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_type'>type</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1240,7 +2453,7 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines #format_void (instance visibility: private)</p>
+<p>module_function: defines #format_void (visibility: private)</p>
 </div>
   </div>
 
@@ -1272,15 +2485,129 @@
       <pre class="lines">
 
 
-52
-53
-54</pre>
+131
+132
+133</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/types/rbs/type_formatter.rb', line 52</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/types/rbs/type_formatter.rb', line 131</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_format_void'>format_void</span>
   <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>void</span><span class='tstring_end'>&#39;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="formatter_pairs-class_method">
+  
+    .<strong>formatter_pairs</strong>  &#x21d2; <tt>Hash&lt;Class, Docscribe::Types::RBS::TypeFormatter::formatter_fn&gt;</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+  <div class="note notetag">
+    <strong>Note:</strong>
+    <div class='inline'>
+<p>module_function: defines #formatter_pairs (visibility: private)</p>
+</div>
+  </div>
+
+
+<p>Hash of RBS type classes and their YARD formatter lambdas.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Hash&lt;Class, Docscribe::Types::RBS::TypeFormatter::formatter_fn&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/types/rbs/type_formatter.rb', line 81</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_formatter_pairs'>formatter_pairs</span> <span class='comment'># steep:ignore # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+</span>  <span class='ivar'>@formatter_pairs</span> <span class='op'>||=</span> <span class='lbrace'>{</span>
+    <span class='op'>::</span><span class='const'>RBS</span><span class='op'>::</span><span class='const'>Types</span><span class='op'>::</span><span class='const'>Bases</span><span class='op'>::</span><span class='const'>Any</span> <span class='op'>=&gt;</span> <span class='tlambda'>-&gt;</span><span class='lparen'>(</span><span class='id identifier rubyid__'>_</span><span class='comma'>,</span> <span class='op'>**</span><span class='rparen'>)</span> <span class='tlambeg'>{</span> <span class='id identifier rubyid_format_any'>format_any</span> <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='op'>::</span><span class='const'>RBS</span><span class='op'>::</span><span class='const'>Types</span><span class='op'>::</span><span class='const'>Bases</span><span class='op'>::</span><span class='const'>Bool</span> <span class='op'>=&gt;</span> <span class='tlambda'>-&gt;</span><span class='lparen'>(</span><span class='id identifier rubyid__'>_</span><span class='comma'>,</span> <span class='op'>**</span><span class='rparen'>)</span> <span class='tlambeg'>{</span> <span class='id identifier rubyid_format_bool'>format_bool</span> <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='op'>::</span><span class='const'>RBS</span><span class='op'>::</span><span class='const'>Types</span><span class='op'>::</span><span class='const'>Bases</span><span class='op'>::</span><span class='const'>Void</span> <span class='op'>=&gt;</span> <span class='tlambda'>-&gt;</span><span class='lparen'>(</span><span class='id identifier rubyid__'>_</span><span class='comma'>,</span> <span class='op'>**</span><span class='rparen'>)</span> <span class='tlambeg'>{</span> <span class='id identifier rubyid_format_void'>format_void</span> <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='op'>::</span><span class='const'>RBS</span><span class='op'>::</span><span class='const'>Types</span><span class='op'>::</span><span class='const'>Bases</span><span class='op'>::</span><span class='const'>Nil</span> <span class='op'>=&gt;</span> <span class='tlambda'>-&gt;</span><span class='lparen'>(</span><span class='id identifier rubyid__'>_</span><span class='comma'>,</span> <span class='op'>**</span><span class='rparen'>)</span> <span class='tlambeg'>{</span> <span class='id identifier rubyid_format_nil'>format_nil</span> <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='op'>::</span><span class='const'>RBS</span><span class='op'>::</span><span class='const'>Types</span><span class='op'>::</span><span class='const'>Optional</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_lambda'>lambda</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_t'>t</span><span class='comma'>,</span> <span class='label'>cg:</span><span class='comma'>,</span> <span class='label'>cog:</span><span class='op'>|</span>
+      <span class='id identifier rubyid_format_optional'>format_optional</span><span class='lparen'>(</span><span class='id identifier rubyid_t'>t</span><span class='comma'>,</span> <span class='label'>collapse_generics:</span> <span class='id identifier rubyid_cg'>cg</span><span class='comma'>,</span> <span class='label'>collapse_object_generics:</span> <span class='id identifier rubyid_cog'>cog</span><span class='rparen'>)</span>
+    <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='op'>::</span><span class='const'>RBS</span><span class='op'>::</span><span class='const'>Types</span><span class='op'>::</span><span class='const'>Union</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_lambda'>lambda</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_t'>t</span><span class='comma'>,</span> <span class='label'>cg:</span><span class='comma'>,</span> <span class='label'>cog:</span><span class='op'>|</span>
+      <span class='id identifier rubyid_format_union'>format_union</span><span class='lparen'>(</span><span class='id identifier rubyid_t'>t</span><span class='comma'>,</span> <span class='label'>collapse_generics:</span> <span class='id identifier rubyid_cg'>cg</span><span class='comma'>,</span> <span class='label'>collapse_object_generics:</span> <span class='id identifier rubyid_cog'>cog</span><span class='rparen'>)</span>
+    <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='op'>::</span><span class='const'>RBS</span><span class='op'>::</span><span class='const'>Types</span><span class='op'>::</span><span class='const'>Literal</span> <span class='op'>=&gt;</span> <span class='tlambda'>-&gt;</span><span class='lparen'>(</span><span class='id identifier rubyid_t'>t</span><span class='comma'>,</span> <span class='op'>**</span><span class='rparen'>)</span> <span class='tlambeg'>{</span> <span class='id identifier rubyid_format_literal'>format_literal</span><span class='lparen'>(</span><span class='id identifier rubyid_t'>t</span><span class='period'>.</span><span class='id identifier rubyid_literal'>literal</span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='op'>::</span><span class='const'>RBS</span><span class='op'>::</span><span class='const'>Types</span><span class='op'>::</span><span class='const'>Proc</span> <span class='op'>=&gt;</span> <span class='tlambda'>-&gt;</span><span class='lparen'>(</span><span class='id identifier rubyid__'>_</span><span class='comma'>,</span> <span class='op'>**</span><span class='rparen'>)</span> <span class='tlambeg'>{</span> <span class='id identifier rubyid_format_proc'>format_proc</span> <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='op'>::</span><span class='const'>RBS</span><span class='op'>::</span><span class='const'>Types</span><span class='op'>::</span><span class='const'>Tuple</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_lambda'>lambda</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_t'>t</span><span class='comma'>,</span> <span class='label'>cg:</span><span class='comma'>,</span> <span class='label'>cog:</span><span class='op'>|</span>
+      <span class='id identifier rubyid_format_tuple'>format_tuple</span><span class='lparen'>(</span><span class='id identifier rubyid_t'>t</span><span class='comma'>,</span> <span class='label'>collapse_generics:</span> <span class='id identifier rubyid_cg'>cg</span><span class='comma'>,</span> <span class='label'>collapse_object_generics:</span> <span class='id identifier rubyid_cog'>cog</span><span class='rparen'>)</span>
+    <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='op'>::</span><span class='const'>RBS</span><span class='op'>::</span><span class='const'>Types</span><span class='op'>::</span><span class='const'>Bases</span><span class='op'>::</span><span class='const'>Top</span> <span class='op'>=&gt;</span> <span class='tlambda'>-&gt;</span><span class='lparen'>(</span><span class='id identifier rubyid__'>_</span><span class='comma'>,</span> <span class='op'>**</span><span class='rparen'>)</span> <span class='tlambeg'>{</span> <span class='id identifier rubyid_format_top'>format_top</span> <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='op'>::</span><span class='const'>RBS</span><span class='op'>::</span><span class='const'>Types</span><span class='op'>::</span><span class='const'>Bases</span><span class='op'>::</span><span class='const'>Bottom</span> <span class='op'>=&gt;</span> <span class='tlambda'>-&gt;</span><span class='lparen'>(</span><span class='id identifier rubyid__'>_</span><span class='comma'>,</span> <span class='op'>**</span><span class='rparen'>)</span> <span class='tlambeg'>{</span> <span class='id identifier rubyid_format_bottom'>format_bottom</span> <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='op'>::</span><span class='const'>RBS</span><span class='op'>::</span><span class='const'>Types</span><span class='op'>::</span><span class='const'>Bases</span><span class='op'>::</span><span class='const'>Self</span> <span class='op'>=&gt;</span> <span class='tlambda'>-&gt;</span><span class='lparen'>(</span><span class='id identifier rubyid__'>_</span><span class='comma'>,</span> <span class='op'>**</span><span class='rparen'>)</span> <span class='tlambeg'>{</span> <span class='id identifier rubyid_format_self'>format_self</span> <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='op'>::</span><span class='const'>RBS</span><span class='op'>::</span><span class='const'>Types</span><span class='op'>::</span><span class='const'>Bases</span><span class='op'>::</span><span class='const'>Instance</span> <span class='op'>=&gt;</span> <span class='tlambda'>-&gt;</span><span class='lparen'>(</span><span class='id identifier rubyid__'>_</span><span class='comma'>,</span> <span class='op'>**</span><span class='rparen'>)</span> <span class='tlambeg'>{</span> <span class='id identifier rubyid_format_instance'>format_instance</span> <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='op'>::</span><span class='const'>RBS</span><span class='op'>::</span><span class='const'>Types</span><span class='op'>::</span><span class='const'>Bases</span><span class='op'>::</span><span class='const'>Class</span> <span class='op'>=&gt;</span> <span class='tlambda'>-&gt;</span><span class='lparen'>(</span><span class='id identifier rubyid__'>_</span><span class='comma'>,</span> <span class='op'>**</span><span class='rparen'>)</span> <span class='tlambeg'>{</span> <span class='id identifier rubyid_format_class_type'>format_class_type</span> <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='op'>::</span><span class='const'>RBS</span><span class='op'>::</span><span class='const'>Types</span><span class='op'>::</span><span class='const'>Variable</span> <span class='op'>=&gt;</span> <span class='tlambda'>-&gt;</span><span class='lparen'>(</span><span class='id identifier rubyid_t'>t</span><span class='comma'>,</span> <span class='op'>**</span><span class='rparen'>)</span> <span class='tlambeg'>{</span> <span class='id identifier rubyid_format_variable'>format_variable</span><span class='lparen'>(</span><span class='id identifier rubyid_t'>t</span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='op'>::</span><span class='const'>RBS</span><span class='op'>::</span><span class='const'>Types</span><span class='op'>::</span><span class='const'>Record</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_lambda'>lambda</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_t'>t</span><span class='comma'>,</span> <span class='label'>cg:</span><span class='comma'>,</span> <span class='label'>cog:</span><span class='op'>|</span>
+      <span class='id identifier rubyid_format_record'>format_record</span><span class='lparen'>(</span><span class='id identifier rubyid_t'>t</span><span class='comma'>,</span> <span class='label'>collapse_generics:</span> <span class='id identifier rubyid_cg'>cg</span><span class='comma'>,</span> <span class='label'>collapse_object_generics:</span> <span class='id identifier rubyid_cog'>cog</span><span class='rparen'>)</span>
+    <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='op'>::</span><span class='const'>RBS</span><span class='op'>::</span><span class='const'>Types</span><span class='op'>::</span><span class='const'>Intersection</span> <span class='op'>=&gt;</span> <span class='tlambda'>-&gt;</span><span class='lparen'>(</span><span class='id identifier rubyid_t'>t</span><span class='comma'>,</span> <span class='label'>cg:</span><span class='comma'>,</span> <span class='label'>cog:</span><span class='rparen'>)</span> <span class='tlambeg'>{</span> <span class='id identifier rubyid_format_intersection'>format_intersection</span><span class='lparen'>(</span><span class='id identifier rubyid_t'>t</span><span class='comma'>,</span> <span class='label'>collapse_generics:</span> <span class='id identifier rubyid_cg'>cg</span><span class='comma'>,</span> <span class='label'>collapse_object_generics:</span> <span class='id identifier rubyid_cog'>cog</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+  <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1302,7 +2629,7 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines #literal_to_yard (instance visibility: private)</p>
+<p>module_function: defines #literal_to_yard (visibility: private)</p>
 </div>
   </div>
 
@@ -1354,20 +2681,20 @@
       <pre class="lines">
 
 
-135
-136
-137
-138
-139
-140
-141
-142
-143
-144
-145</pre>
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/types/rbs/type_formatter.rb', line 135</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/types/rbs/type_formatter.rb', line 327</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_literal_to_yard'>literal_to_yard</span><span class='lparen'>(</span><span class='id identifier rubyid_lit'>lit</span><span class='rparen'>)</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_lit'>lit</span>
@@ -1400,7 +2727,7 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines #named_type? (instance visibility: private)</p>
+<p>module_function: defines #named_type? (visibility: private)</p>
 </div>
   </div>
 
@@ -1419,7 +2746,7 @@
         <span class='name'>type</span>
       
       
-        <span class='type'>(<tt>::RBS::Type</tt>)</span>
+        <span class='type'>(<tt>Docscribe::Types::RBS::TypeFormatter::rbs_type</tt>)</span>
       
       
       
@@ -1452,12 +2779,12 @@
       <pre class="lines">
 
 
-169
-170
-171</pre>
+40
+41
+42</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/types/rbs/type_formatter.rb', line 169</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/types/rbs/type_formatter.rb', line 40</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_named_type?'>named_type?</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_named_type_classes'>named_type_classes</span><span class='period'>.</span><span class='id identifier rubyid_any?'>any?</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_klass'>klass</span><span class='op'>|</span> <span class='id identifier rubyid_type'>type</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='id identifier rubyid_klass'>klass</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
@@ -1482,7 +2809,7 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines #named_type_classes (instance visibility: private)</p>
+<p>module_function: defines #named_type_classes (visibility: private)</p>
 </div>
   </div>
 
@@ -1514,17 +2841,17 @@
       <pre class="lines">
 
 
-177
-178
-179
-180
-181
-182
-183
-184</pre>
+48
+49
+50
+51
+52
+53
+54
+55</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/types/rbs/type_formatter.rb', line 177</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/types/rbs/type_formatter.rb', line 48</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_named_type_classes'>named_type_classes</span>
   <span class='ivar'>@named_type_classes</span> <span class='op'>||=</span> <span class='lbracket'>[</span>
@@ -1542,7 +2869,7 @@
       <div class="method_details ">
   <h3 class="signature " id="to_yard-class_method">
   
-    .<strong>to_yard</strong>(type, collapse_generics: false)  &#x21d2; <tt>String</tt> 
+    .<strong>to_yard</strong>(type, collapse_generics: false, collapse_object_generics: false)  &#x21d2; <tt>String</tt> 
   
 
   
@@ -1554,7 +2881,7 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines #to_yard (instance visibility: private)</p>
+<p>module_function: defines #to_yard (visibility: private)</p>
 </div>
   </div>
 
@@ -1573,7 +2900,7 @@
         <span class='name'>type</span>
       
       
-        <span class='type'>(<tt>::RBS::Type</tt>)</span>
+        <span class='type'>(<tt>Docscribe::Types::RBS::TypeFormatter::rbs_type</tt>, <tt>nil</tt>)</span>
       
       
       
@@ -1602,6 +2929,24 @@
       
     </li>
   
+    <li>
+      
+        <span class='name'>collapse_object_generics</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>false</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>whether to collapse generics when all inner types are Object</p>
+</div>
+      
+    </li>
+  
 </ul>
 
 <p class="tag_title">Returns:</p>
@@ -1624,27 +2969,35 @@
       <pre class="lines">
 
 
-153
-154
-155
-156
-157
-158
-159
-160
-161
-162</pre>
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/types/rbs/type_formatter.rb', line 153</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/types/rbs/type_formatter.rb', line 20</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_to_yard'>to_yard</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='label'>collapse_generics:</span> <span class='kw'>false</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_to_yard'>to_yard</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='label'>collapse_generics:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>collapse_object_generics:</span> <span class='kw'>false</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Object</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_type'>type</span>
 
   <span class='id identifier rubyid_handler'>handler</span> <span class='op'>=</span> <span class='id identifier rubyid_to_yard_formatters'>to_yard_formatters</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_klass'>klass</span><span class='comma'>,</span> <span class='id identifier rubyid__'>_</span><span class='op'>|</span> <span class='id identifier rubyid_type'>type</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='id identifier rubyid_klass'>klass</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
-  <span class='kw'>return</span> <span class='id identifier rubyid_handler'>handler</span><span class='period'>.</span><span class='id identifier rubyid_last'>last</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='label'>collapse_generics:</span> <span class='id identifier rubyid_collapse_generics'>collapse_generics</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_handler'>handler</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_handler'>handler</span><span class='period'>.</span><span class='id identifier rubyid_last'>last</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='label'>cg:</span> <span class='id identifier rubyid_collapse_generics'>collapse_generics</span><span class='comma'>,</span> <span class='label'>cog:</span> <span class='id identifier rubyid_collapse_object_generics'>collapse_object_generics</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_handler'>handler</span>
 
-  <span class='kw'>return</span> <span class='id identifier rubyid_format_named'>format_named</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='label'>collapse_generics:</span> <span class='id identifier rubyid_collapse_generics'>collapse_generics</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_named_type?'>named_type?</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_named_type?'>named_type?</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='rparen'>)</span>
+    <span class='kw'>return</span> <span class='id identifier rubyid_format_named'>format_named</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='comment'># steep:ignore
+</span>                        <span class='label'>collapse_generics:</span> <span class='id identifier rubyid_collapse_generics'>collapse_generics</span><span class='comma'>,</span>
+                        <span class='label'>collapse_object_generics:</span> <span class='id identifier rubyid_collapse_object_generics'>collapse_object_generics</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
 
   <span class='id identifier rubyid_fallback_string'>fallback_string</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
@@ -1656,7 +3009,7 @@
       <div class="method_details ">
   <h3 class="signature " id="to_yard_formatters-class_method">
   
-    .<strong>to_yard_formatters</strong>  &#x21d2; <tt>Hash{Class=&gt;Proc}</tt> 
+    .<strong>to_yard_formatters</strong>  &#x21d2; <tt>Hash&lt;Class, Docscribe::Types::RBS::TypeFormatter::formatter_fn&gt;</tt> 
   
 
   
@@ -1668,12 +3021,12 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines #to_yard_formatters (instance visibility: private)</p>
+<p>module_function: defines #to_yard_formatters (visibility: private)</p>
 </div>
   </div>
 
 
-<p>rubocop:disable Metrics/AbcSize, Layout/LineLength Return or memoize the dispatch hash mapping RBS type classes to formatter lambdas.</p>
+<p>Return or memoize the dispatch hash mapping RBS type classes to formatter lambdas.</p>
 
 
   </div>
@@ -1686,7 +3039,7 @@
     <li>
       
       
-        <span class='type'>(<tt>Hash{Class=&gt;Proc}</tt>)</span>
+        <span class='type'>(<tt>Hash&lt;Class, Docscribe::Types::RBS::TypeFormatter::formatter_fn&gt;</tt>)</span>
       
       
       
@@ -1700,33 +3053,15 @@
       <pre class="lines">
 
 
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29</pre>
+73
+74
+75</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/types/rbs/type_formatter.rb', line 18</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/types/rbs/type_formatter.rb', line 73</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_yard_formatters'>to_yard_formatters</span>
-  <span class='ivar'>@to_yard_formatters</span> <span class='op'>||=</span> <span class='lbrace'>{</span>
-    <span class='op'>::</span><span class='const'>RBS</span><span class='op'>::</span><span class='const'>Types</span><span class='op'>::</span><span class='const'>Bases</span><span class='op'>::</span><span class='const'>Any</span> <span class='op'>=&gt;</span> <span class='tlambda'>-&gt;</span><span class='lparen'>(</span><span class='id identifier rubyid__'>_</span><span class='comma'>,</span> <span class='op'>**</span><span class='rparen'>)</span> <span class='tlambeg'>{</span> <span class='id identifier rubyid_format_any'>format_any</span> <span class='rbrace'>}</span><span class='comma'>,</span>
-    <span class='op'>::</span><span class='const'>RBS</span><span class='op'>::</span><span class='const'>Types</span><span class='op'>::</span><span class='const'>Bases</span><span class='op'>::</span><span class='const'>Bool</span> <span class='op'>=&gt;</span> <span class='tlambda'>-&gt;</span><span class='lparen'>(</span><span class='id identifier rubyid__'>_</span><span class='comma'>,</span> <span class='op'>**</span><span class='rparen'>)</span> <span class='tlambeg'>{</span> <span class='id identifier rubyid_format_bool'>format_bool</span> <span class='rbrace'>}</span><span class='comma'>,</span>
-    <span class='op'>::</span><span class='const'>RBS</span><span class='op'>::</span><span class='const'>Types</span><span class='op'>::</span><span class='const'>Bases</span><span class='op'>::</span><span class='const'>Void</span> <span class='op'>=&gt;</span> <span class='tlambda'>-&gt;</span><span class='lparen'>(</span><span class='id identifier rubyid__'>_</span><span class='comma'>,</span> <span class='op'>**</span><span class='rparen'>)</span> <span class='tlambeg'>{</span> <span class='id identifier rubyid_format_void'>format_void</span> <span class='rbrace'>}</span><span class='comma'>,</span>
-    <span class='op'>::</span><span class='const'>RBS</span><span class='op'>::</span><span class='const'>Types</span><span class='op'>::</span><span class='const'>Bases</span><span class='op'>::</span><span class='const'>Nil</span> <span class='op'>=&gt;</span> <span class='tlambda'>-&gt;</span><span class='lparen'>(</span><span class='id identifier rubyid__'>_</span><span class='comma'>,</span> <span class='op'>**</span><span class='rparen'>)</span> <span class='tlambeg'>{</span> <span class='id identifier rubyid_format_nil'>format_nil</span> <span class='rbrace'>}</span><span class='comma'>,</span>
-    <span class='op'>::</span><span class='const'>RBS</span><span class='op'>::</span><span class='const'>Types</span><span class='op'>::</span><span class='const'>Optional</span> <span class='op'>=&gt;</span> <span class='tlambda'>-&gt;</span><span class='lparen'>(</span><span class='id identifier rubyid_t'>t</span><span class='comma'>,</span> <span class='label'>collapse_generics:</span><span class='rparen'>)</span> <span class='tlambeg'>{</span> <span class='id identifier rubyid_format_optional'>format_optional</span><span class='lparen'>(</span><span class='id identifier rubyid_t'>t</span><span class='comma'>,</span> <span class='label'>collapse_generics:</span> <span class='id identifier rubyid_collapse_generics'>collapse_generics</span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='comma'>,</span>
-    <span class='op'>::</span><span class='const'>RBS</span><span class='op'>::</span><span class='const'>Types</span><span class='op'>::</span><span class='const'>Union</span> <span class='op'>=&gt;</span> <span class='tlambda'>-&gt;</span><span class='lparen'>(</span><span class='id identifier rubyid_t'>t</span><span class='comma'>,</span> <span class='label'>collapse_generics:</span><span class='rparen'>)</span> <span class='tlambeg'>{</span> <span class='id identifier rubyid_format_union'>format_union</span><span class='lparen'>(</span><span class='id identifier rubyid_t'>t</span><span class='comma'>,</span> <span class='label'>collapse_generics:</span> <span class='id identifier rubyid_collapse_generics'>collapse_generics</span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='comma'>,</span>
-    <span class='op'>::</span><span class='const'>RBS</span><span class='op'>::</span><span class='const'>Types</span><span class='op'>::</span><span class='const'>Literal</span> <span class='op'>=&gt;</span> <span class='tlambda'>-&gt;</span><span class='lparen'>(</span><span class='id identifier rubyid_t'>t</span><span class='comma'>,</span> <span class='op'>**</span><span class='rparen'>)</span> <span class='tlambeg'>{</span> <span class='id identifier rubyid_format_literal'>format_literal</span><span class='lparen'>(</span><span class='id identifier rubyid_t'>t</span><span class='period'>.</span><span class='id identifier rubyid_literal'>literal</span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='comma'>,</span>
-    <span class='op'>::</span><span class='const'>RBS</span><span class='op'>::</span><span class='const'>Types</span><span class='op'>::</span><span class='const'>Proc</span> <span class='op'>=&gt;</span> <span class='tlambda'>-&gt;</span><span class='lparen'>(</span><span class='id identifier rubyid__'>_</span><span class='comma'>,</span> <span class='op'>**</span><span class='rparen'>)</span> <span class='tlambeg'>{</span> <span class='id identifier rubyid_format_proc'>format_proc</span> <span class='rbrace'>}</span>
-  <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span>
+  <span class='ivar'>@to_yard_formatters</span> <span class='op'>||=</span> <span class='id identifier rubyid_formatter_pairs'>formatter_pairs</span><span class='period'>.</span><span class='id identifier rubyid_to_h'>to_h</span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1738,7 +3073,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Jun 13 01:27:04 2026 by
+  Generated on Sun Oct  4 00:19:54 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.38 (ruby-3.4.5).
 </div>

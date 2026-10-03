@@ -1,0 +1,1886 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Class: Docscribe::Validator::TypeMismatchValidator
+  
+    &mdash; Documentation by YARD 0.9.38
+  
+</title>
+
+  <link rel="stylesheet" href="../../css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="../../css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "Docscribe::Validator::TypeMismatchValidator";
+  relpath = '../../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../../_index.html">Index (T)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../../Docscribe.html" title="Docscribe (module)">Docscribe</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Validator.html" title="Docscribe::Validator (module)">Validator</a></span></span>
+     &raquo; 
+    <span class="title">TypeMismatchValidator</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Class: Docscribe::Validator::TypeMismatchValidator
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">Docscribe::Validator::TypeMismatchValidator</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+    </dd>
+  </dl>
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/docscribe/validator/type_mismatch_validator.rb</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>Compares YARD-documented types against inferred / external types.</p>
+
+<p>Lightweight, in-process checks only:</p>
+<ul><li>
+<p>last expression / literal inference (already in ‘Infer`)</p>
+</li><li>
+<p>‘core_rbs_provider` for stdlib sends (`String#to_i` etc.)</p>
+</li><li>
+<p>‘external_sig` (RBS/Sorbet) when available and `–validate-types` is on</p>
+</li></ul>
+
+<p>Heavy inter-procedural ‘send(“foo”)` graph is out of scope for this MVP. When `expected` is `Object` (fallback) we silence to avoid false positives.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><h2>Defined Under Namespace</h2>
+<p class="children">
+  
+    
+  
+    
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="TypeMismatchValidator/Result.html" title="Docscribe::Validator::TypeMismatchValidator::Result (class)">Result</a></span>
+    
+  
+</p>
+
+
+
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#check_param-instance_method" title="#check_param (instance method)">#<strong>check_param</strong>(param_name, yard_type, expected_type, source: &#39;infer&#39;, method_name: nil)  &#x21d2; Docscribe::Validator::TypeMismatchValidator::Result<sup>?</sup> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Build a Result for a param mismatch, or nil if no mismatch.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#check_return-instance_method" title="#check_return (instance method)">#<strong>check_return</strong>(yard_type, expected_type, source: &#39;infer&#39;, method_name: nil)  &#x21d2; Docscribe::Validator::TypeMismatchValidator::Result<sup>?</sup> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Build a Result for a return mismatch, or nil if no mismatch.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#fallback_union%3F-instance_method" title="#fallback_union? (instance method)">#<strong>fallback_union?</strong>(type_str)  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Whether a type string is a union of only fallback types (with optional ‘?`).</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#generic_compatible%3F-instance_method" title="#generic_compatible? (instance method)">#<strong>generic_compatible?</strong>(yard_type, expected_type, method_name: nil)  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Whether YARD type is generic compatible with expected (e.g. Hash vs Hash&lt;Symbol, String&gt;).</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(fallback_type: Infer::FALLBACK_TYPE)  &#x21d2; void </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#invalid_param_result-instance_method" title="#invalid_param_result (instance method)">#<strong>invalid_param_result</strong>(param_name, yard_type, expected_type)  &#x21d2; Docscribe::Validator::TypeMismatchValidator::Result </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#invalid_return_result-instance_method" title="#invalid_return_result (instance method)">#<strong>invalid_return_result</strong>(yard_type, expected_type)  &#x21d2; Docscribe::Validator::TypeMismatchValidator::Result </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#invalid_syntax%3F-instance_method" title="#invalid_syntax? (instance method)">#<strong>invalid_syntax?</strong>(yard_type)  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Whether a YARD type string has invalid syntax (e.g. ‘Sym bol` leftover).</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#mismatch_param_result-instance_method" title="#mismatch_param_result (instance method)">#<strong>mismatch_param_result</strong>(param_name, yard_type, expected_type, source: &#39;infer&#39;)  &#x21d2; Docscribe::Validator::TypeMismatchValidator::Result </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#mismatch_return_result-instance_method" title="#mismatch_return_result (instance method)">#<strong>mismatch_return_result</strong>(yard_type, expected_type, source: &#39;infer&#39;)  &#x21d2; Docscribe::Validator::TypeMismatchValidator::Result </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#mismatched_param%3F-instance_method" title="#mismatched_param? (instance method)">#<strong>mismatched_param?</strong>(yard_type, expected_type, method_name: nil)  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Whether a documented param type mismatches the expected one.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#mismatched_return%3F-instance_method" title="#mismatched_return? (instance method)">#<strong>mismatched_return?</strong>(yard_type, expected_type, method_name: nil)  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Whether a documented return type mismatches the expected one.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#void_compatible%3F-instance_method" title="#void_compatible? (instance method)">#<strong>void_compatible?</strong>(yard_type, expected_type, method_name: nil)  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Whether void YARD type is compatible with fallback union or initialize/setup dynamic.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#yard_in_expected_union%3F-instance_method" title="#yard_in_expected_union? (instance method)">#<strong>yard_in_expected_union?</strong>(yard_type, expected_type)  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Whether yard type is included in expected union.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <h3 class="signature first" id="initialize-instance_method">
+  
+    #<strong>initialize</strong>(fallback_type: Infer::FALLBACK_TYPE)  &#x21d2; <tt>void</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>fallback_type</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>Infer::FALLBACK_TYPE</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>value of ‘inference.fallback_type` (default `Object`)</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+42
+43
+44</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/validator/type_mismatch_validator.rb', line 42</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>fallback_type:</span> <span class='const'><span class='object_link'><a href="../Infer.html" title="Docscribe::Infer (module)">Infer</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Infer.html#FALLBACK_TYPE-constant" title="Docscribe::Infer::FALLBACK_TYPE (constant)">FALLBACK_TYPE</a></span></span><span class='rparen'>)</span>
+  <span class='ivar'>@fallback_type</span> <span class='op'>=</span> <span class='id identifier rubyid_fallback_type'>fallback_type</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="check_param-instance_method">
+  
+    #<strong>check_param</strong>(param_name, yard_type, expected_type, source: &#39;infer&#39;, method_name: nil)  &#x21d2; <tt><span class='object_link'><a href="TypeMismatchValidator/Result.html" title="Docscribe::Validator::TypeMismatchValidator::Result (class)">Docscribe::Validator::TypeMismatchValidator::Result</a></span></tt><sup>?</sup> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Build a Result for a param mismatch, or nil if no mismatch.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>param_name</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>yard_type</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>expected_type</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>source</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;infer&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>source of expected type: “rbs” or “infer”</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>method_name</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>, <tt>nil</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>method name for void compatibility</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="TypeMismatchValidator/Result.html" title="Docscribe::Validator::TypeMismatchValidator::Result (class)">Docscribe::Validator::TypeMismatchValidator::Result</a></span></tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+149
+150
+151
+152
+153
+154</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/validator/type_mismatch_validator.rb', line 149</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_check_param'>check_param</span><span class='lparen'>(</span><span class='id identifier rubyid_param_name'>param_name</span><span class='comma'>,</span> <span class='id identifier rubyid_yard_type'>yard_type</span><span class='comma'>,</span> <span class='id identifier rubyid_expected_type'>expected_type</span><span class='comma'>,</span> <span class='label'>source:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>infer</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>method_name:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_invalid_param_result'>invalid_param_result</span><span class='lparen'>(</span><span class='id identifier rubyid_param_name'>param_name</span><span class='comma'>,</span> <span class='id identifier rubyid_yard_type'>yard_type</span><span class='comma'>,</span> <span class='id identifier rubyid_expected_type'>expected_type</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_invalid_syntax?'>invalid_syntax?</span><span class='lparen'>(</span><span class='id identifier rubyid_yard_type'>yard_type</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_mismatched_param?'>mismatched_param?</span><span class='lparen'>(</span><span class='id identifier rubyid_yard_type'>yard_type</span><span class='comma'>,</span> <span class='id identifier rubyid_expected_type'>expected_type</span><span class='comma'>,</span> <span class='label'>method_name:</span> <span class='id identifier rubyid_method_name'>method_name</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_mismatch_param_result'>mismatch_param_result</span><span class='lparen'>(</span><span class='id identifier rubyid_param_name'>param_name</span><span class='comma'>,</span> <span class='id identifier rubyid_yard_type'>yard_type</span><span class='comma'>,</span> <span class='id identifier rubyid_expected_type'>expected_type</span><span class='comma'>,</span> <span class='label'>source:</span> <span class='id identifier rubyid_source'>source</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="check_return-instance_method">
+  
+    #<strong>check_return</strong>(yard_type, expected_type, source: &#39;infer&#39;, method_name: nil)  &#x21d2; <tt><span class='object_link'><a href="TypeMismatchValidator/Result.html" title="Docscribe::Validator::TypeMismatchValidator::Result (class)">Docscribe::Validator::TypeMismatchValidator::Result</a></span></tt><sup>?</sup> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Build a Result for a return mismatch, or nil if no mismatch.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>yard_type</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>expected_type</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>source</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;infer&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>source of expected type: “rbs” or “infer”</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>method_name</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>, <tt>nil</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>method name for void compatibility</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="TypeMismatchValidator/Result.html" title="Docscribe::Validator::TypeMismatchValidator::Result (class)">Docscribe::Validator::TypeMismatchValidator::Result</a></span></tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+134
+135
+136
+137
+138
+139</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/validator/type_mismatch_validator.rb', line 134</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_check_return'>check_return</span><span class='lparen'>(</span><span class='id identifier rubyid_yard_type'>yard_type</span><span class='comma'>,</span> <span class='id identifier rubyid_expected_type'>expected_type</span><span class='comma'>,</span> <span class='label'>source:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>infer</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>method_name:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_invalid_return_result'>invalid_return_result</span><span class='lparen'>(</span><span class='id identifier rubyid_yard_type'>yard_type</span><span class='comma'>,</span> <span class='id identifier rubyid_expected_type'>expected_type</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_invalid_syntax?'>invalid_syntax?</span><span class='lparen'>(</span><span class='id identifier rubyid_yard_type'>yard_type</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_mismatched_return?'>mismatched_return?</span><span class='lparen'>(</span><span class='id identifier rubyid_yard_type'>yard_type</span><span class='comma'>,</span> <span class='id identifier rubyid_expected_type'>expected_type</span><span class='comma'>,</span> <span class='label'>method_name:</span> <span class='id identifier rubyid_method_name'>method_name</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_mismatch_return_result'>mismatch_return_result</span><span class='lparen'>(</span><span class='id identifier rubyid_yard_type'>yard_type</span><span class='comma'>,</span> <span class='id identifier rubyid_expected_type'>expected_type</span><span class='comma'>,</span> <span class='label'>source:</span> <span class='id identifier rubyid_source'>source</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="fallback_union?-instance_method">
+  
+    #<strong>fallback_union?</strong>(type_str)  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Whether a type string is a union of only fallback types (with optional ‘?`).</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>type_str</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+109
+110
+111
+112
+113
+114
+115</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/validator/type_mismatch_validator.rb', line 109</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_fallback_union?'>fallback_union?</span><span class='lparen'>(</span><span class='id identifier rubyid_type_str'>type_str</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>if</span> <span class='id identifier rubyid_type_str'>type_str</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>||</span> <span class='id identifier rubyid_type_str'>type_str</span><span class='period'>.</span><span class='id identifier rubyid_strip'>strip</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+
+  <span class='id identifier rubyid_fallback_norm'>fallback_norm</span> <span class='op'>=</span> <span class='id identifier rubyid_normalize'>normalize</span><span class='lparen'>(</span><span class='ivar'>@fallback_type</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_parts'>parts</span> <span class='op'>=</span> <span class='id identifier rubyid_type_str'>type_str</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>,</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_p'>p</span><span class='op'>|</span> <span class='id identifier rubyid_normalize'>normalize</span><span class='lparen'>(</span><span class='id identifier rubyid_p'>p</span><span class='period'>.</span><span class='id identifier rubyid_strip'>strip</span><span class='period'>.</span><span class='id identifier rubyid_delete_suffix'>delete_suffix</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>?</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_strip'>strip</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_parts'>parts</span><span class='period'>.</span><span class='id identifier rubyid_all?'>all?</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_p'>p</span><span class='op'>|</span> <span class='id identifier rubyid_p'>p</span> <span class='op'>==</span> <span class='id identifier rubyid_fallback_norm'>fallback_norm</span> <span class='op'>||</span> <span class='id identifier rubyid_p'>p</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span> <span class='rbrace'>}</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="generic_compatible?-instance_method">
+  
+    #<strong>generic_compatible?</strong>(yard_type, expected_type, method_name: nil)  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Whether YARD type is generic compatible with expected (e.g. Hash vs Hash&lt;Symbol, String&gt;). Delegates to GenericCompatibility service for dynamic, map-dispatched checks.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>yard_type</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>expected_type</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>method_name</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>, <tt>nil</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>method name for void compatibility threading</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+79
+80
+81</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/validator/type_mismatch_validator.rb', line 79</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_generic_compatible?'>generic_compatible?</span><span class='lparen'>(</span><span class='id identifier rubyid_yard_type'>yard_type</span><span class='comma'>,</span> <span class='id identifier rubyid_expected_type'>expected_type</span><span class='comma'>,</span> <span class='label'>method_name:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="GenericCompatibility.html" title="Docscribe::Validator::GenericCompatibility (module)">GenericCompatibility</a></span></span><span class='period'>.</span><span class='id identifier rubyid_compatible?'><span class='object_link'><a href="GenericCompatibility.html#compatible%3F-class_method" title="Docscribe::Validator::GenericCompatibility.compatible? (method)">compatible?</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_yard_type'>yard_type</span><span class='comma'>,</span> <span class='id identifier rubyid_expected_type'>expected_type</span><span class='comma'>,</span> <span class='label'>fallback_type:</span> <span class='ivar'>@fallback_type</span><span class='comma'>,</span> <span class='label'>method_name:</span> <span class='id identifier rubyid_method_name'>method_name</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="invalid_param_result-instance_method">
+  
+    #<strong>invalid_param_result</strong>(param_name, yard_type, expected_type)  &#x21d2; <tt><span class='object_link'><a href="TypeMismatchValidator/Result.html" title="Docscribe::Validator::TypeMismatchValidator::Result (class)">Docscribe::Validator::TypeMismatchValidator::Result</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>param_name</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>yard_type</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>expected_type</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="TypeMismatchValidator/Result.html" title="Docscribe::Validator::TypeMismatchValidator::Result (class)">Docscribe::Validator::TypeMismatchValidator::Result</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+187
+188
+189
+190
+191
+192
+193
+194
+195</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/validator/type_mismatch_validator.rb', line 187</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_invalid_param_result'>invalid_param_result</span><span class='lparen'>(</span><span class='id identifier rubyid_param_name'>param_name</span><span class='comma'>,</span> <span class='id identifier rubyid_yard_type'>yard_type</span><span class='comma'>,</span> <span class='id identifier rubyid_expected_type'>expected_type</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="TypeMismatchValidator/Result.html" title="Docscribe::Validator::TypeMismatchValidator::Result (class)">Result</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="Docscribe::Validator::TypeMismatchValidator#initialize (method)">new</a></span></span><span class='lparen'>(</span>
+    <span class='label'>type:</span> <span class='symbol'>:invalid_syntax</span><span class='comma'>,</span>
+    <span class='label'>yard_type:</span> <span class='id identifier rubyid_yard_type'>yard_type</span><span class='comma'>,</span>
+    <span class='label'>expected_type:</span> <span class='id identifier rubyid_expected_type'>expected_type</span><span class='comma'>,</span>
+    <span class='label'>message:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>invalid YARD type [</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_yard_type'>yard_type</span><span class='embexpr_end'>}</span><span class='tstring_content'>] for @param </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_param_name'>param_name</span><span class='embexpr_end'>}</span><span class='embexpr_beg'>#{</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> expected [</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_expected_type'>expected_type</span><span class='embexpr_end'>}</span><span class='tstring_content'>]</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_expected_type'>expected_type</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_expected_type'>expected_type</span> <span class='op'>!=</span> <span class='ivar'>@fallback_type</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='label'>source:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>syntax</span><span class='tstring_end'>&#39;</span></span>
+  <span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="invalid_return_result-instance_method">
+  
+    #<strong>invalid_return_result</strong>(yard_type, expected_type)  &#x21d2; <tt><span class='object_link'><a href="TypeMismatchValidator/Result.html" title="Docscribe::Validator::TypeMismatchValidator::Result (class)">Docscribe::Validator::TypeMismatchValidator::Result</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>yard_type</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>expected_type</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="TypeMismatchValidator/Result.html" title="Docscribe::Validator::TypeMismatchValidator::Result (class)">Docscribe::Validator::TypeMismatchValidator::Result</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+159
+160
+161
+162
+163
+164
+165
+166
+167</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/validator/type_mismatch_validator.rb', line 159</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_invalid_return_result'>invalid_return_result</span><span class='lparen'>(</span><span class='id identifier rubyid_yard_type'>yard_type</span><span class='comma'>,</span> <span class='id identifier rubyid_expected_type'>expected_type</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="TypeMismatchValidator/Result.html" title="Docscribe::Validator::TypeMismatchValidator::Result (class)">Result</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="Docscribe::Validator::TypeMismatchValidator#initialize (method)">new</a></span></span><span class='lparen'>(</span>
+    <span class='label'>type:</span> <span class='symbol'>:invalid_syntax</span><span class='comma'>,</span>
+    <span class='label'>yard_type:</span> <span class='id identifier rubyid_yard_type'>yard_type</span><span class='comma'>,</span>
+    <span class='label'>expected_type:</span> <span class='id identifier rubyid_expected_type'>expected_type</span><span class='comma'>,</span>
+    <span class='label'>message:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>invalid YARD type [</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_yard_type'>yard_type</span><span class='embexpr_end'>}</span><span class='tstring_content'>]</span><span class='embexpr_beg'>#{</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> expected [</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_expected_type'>expected_type</span><span class='embexpr_end'>}</span><span class='tstring_content'>]</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_expected_type'>expected_type</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_expected_type'>expected_type</span> <span class='op'>!=</span> <span class='ivar'>@fallback_type</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='label'>source:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>syntax</span><span class='tstring_end'>&#39;</span></span>
+  <span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="invalid_syntax?-instance_method">
+  
+    #<strong>invalid_syntax?</strong>(yard_type)  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Whether a YARD type string has invalid syntax (e.g. ‘Sym bol` leftover).</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>yard_type</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+121
+122
+123
+124
+125</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/validator/type_mismatch_validator.rb', line 121</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_invalid_syntax?'>invalid_syntax?</span><span class='lparen'>(</span><span class='id identifier rubyid_yard_type'>yard_type</span><span class='rparen'>)</span> <span class='comment'># rubocop:disable SortedMethodsByCall/Waterfall
+</span>  <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>if</span> <span class='id identifier rubyid_yard_type'>yard_type</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>||</span> <span class='id identifier rubyid_yard_type'>yard_type</span><span class='period'>.</span><span class='id identifier rubyid_strip'>strip</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+
+  <span class='op'>!</span><span class='const'><span class='object_link'><a href="../Types.html" title="Docscribe::Types (module)">Types</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Types/Yard.html" title="Docscribe::Types::Yard (module)">Yard</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Types/Yard/Validator.html" title="Docscribe::Types::Yard::Validator (module)">Validator</a></span></span><span class='period'>.</span><span class='id identifier rubyid_valid?'><span class='object_link'><a href="../Types/Yard/Validator.html#valid%3F-class_method" title="Docscribe::Types::Yard::Validator.valid? (method)">valid?</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_yard_type'>yard_type</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="mismatch_param_result-instance_method">
+  
+    #<strong>mismatch_param_result</strong>(param_name, yard_type, expected_type, source: &#39;infer&#39;)  &#x21d2; <tt><span class='object_link'><a href="TypeMismatchValidator/Result.html" title="Docscribe::Validator::TypeMismatchValidator::Result (class)">Docscribe::Validator::TypeMismatchValidator::Result</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>param_name</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>yard_type</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>expected_type</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>source</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;infer&#39;</tt>)</em>
+      
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="TypeMismatchValidator/Result.html" title="Docscribe::Validator::TypeMismatchValidator::Result (class)">Docscribe::Validator::TypeMismatchValidator::Result</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+202
+203
+204
+205
+206
+207
+208
+209
+210</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/validator/type_mismatch_validator.rb', line 202</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_mismatch_param_result'>mismatch_param_result</span><span class='lparen'>(</span><span class='id identifier rubyid_param_name'>param_name</span><span class='comma'>,</span> <span class='id identifier rubyid_yard_type'>yard_type</span><span class='comma'>,</span> <span class='id identifier rubyid_expected_type'>expected_type</span><span class='comma'>,</span> <span class='label'>source:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>infer</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="TypeMismatchValidator/Result.html" title="Docscribe::Validator::TypeMismatchValidator::Result (class)">Result</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="Docscribe::Validator::TypeMismatchValidator#initialize (method)">new</a></span></span><span class='lparen'>(</span>
+    <span class='label'>type:</span> <span class='symbol'>:type_mismatch_param</span><span class='comma'>,</span>
+    <span class='label'>yard_type:</span> <span class='id identifier rubyid_yard_type'>yard_type</span><span class='comma'>,</span>
+    <span class='label'>expected_type:</span> <span class='id identifier rubyid_expected_type'>expected_type</span><span class='comma'>,</span>
+    <span class='label'>message:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>updated @param </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_param_name'>param_name</span><span class='embexpr_end'>}</span><span class='tstring_content'> from </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_yard_type'>yard_type</span><span class='embexpr_end'>}</span><span class='tstring_content'> to </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_expected_type'>expected_type</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='label'>source:</span> <span class='id identifier rubyid_source'>source</span>
+  <span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="mismatch_return_result-instance_method">
+  
+    #<strong>mismatch_return_result</strong>(yard_type, expected_type, source: &#39;infer&#39;)  &#x21d2; <tt><span class='object_link'><a href="TypeMismatchValidator/Result.html" title="Docscribe::Validator::TypeMismatchValidator::Result (class)">Docscribe::Validator::TypeMismatchValidator::Result</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>yard_type</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>expected_type</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>source</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;infer&#39;</tt>)</em>
+      
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="TypeMismatchValidator/Result.html" title="Docscribe::Validator::TypeMismatchValidator::Result (class)">Docscribe::Validator::TypeMismatchValidator::Result</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+173
+174
+175
+176
+177
+178
+179
+180
+181</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/validator/type_mismatch_validator.rb', line 173</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_mismatch_return_result'>mismatch_return_result</span><span class='lparen'>(</span><span class='id identifier rubyid_yard_type'>yard_type</span><span class='comma'>,</span> <span class='id identifier rubyid_expected_type'>expected_type</span><span class='comma'>,</span> <span class='label'>source:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>infer</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="TypeMismatchValidator/Result.html" title="Docscribe::Validator::TypeMismatchValidator::Result (class)">Result</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="Docscribe::Validator::TypeMismatchValidator#initialize (method)">new</a></span></span><span class='lparen'>(</span>
+    <span class='label'>type:</span> <span class='symbol'>:type_mismatch_return</span><span class='comma'>,</span>
+    <span class='label'>yard_type:</span> <span class='id identifier rubyid_yard_type'>yard_type</span><span class='comma'>,</span>
+    <span class='label'>expected_type:</span> <span class='id identifier rubyid_expected_type'>expected_type</span><span class='comma'>,</span>
+    <span class='label'>message:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>updated @return from </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_yard_type'>yard_type</span><span class='embexpr_end'>}</span><span class='tstring_content'> to </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_expected_type'>expected_type</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='label'>source:</span> <span class='id identifier rubyid_source'>source</span>
+  <span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="mismatched_param?-instance_method">
+  
+    #<strong>mismatched_param?</strong>(yard_type, expected_type, method_name: nil)  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Whether a documented param type mismatches the expected one.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>yard_type</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>type from ‘@param […]`</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>expected_type</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>type from ‘external_sig` or `Infer`</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>method_name</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>, <tt>nil</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>method name for void compatibility</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+52
+53
+54</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/validator/type_mismatch_validator.rb', line 52</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_mismatched_param?'>mismatched_param?</span><span class='lparen'>(</span><span class='id identifier rubyid_yard_type'>yard_type</span><span class='comma'>,</span> <span class='id identifier rubyid_expected_type'>expected_type</span><span class='comma'>,</span> <span class='label'>method_name:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_mismatched_return?'>mismatched_return?</span><span class='lparen'>(</span><span class='id identifier rubyid_yard_type'>yard_type</span><span class='comma'>,</span> <span class='id identifier rubyid_expected_type'>expected_type</span><span class='comma'>,</span> <span class='label'>method_name:</span> <span class='id identifier rubyid_method_name'>method_name</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="mismatched_return?-instance_method">
+  
+    #<strong>mismatched_return?</strong>(yard_type, expected_type, method_name: nil)  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Whether a documented return type mismatches the expected one.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>yard_type</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>type from ‘@return […]`</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>expected_type</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>inferred or external ‘normal_type`</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>method_name</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>, <tt>nil</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>method name for void compatibility</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+62
+63
+64
+65
+66
+67
+68
+69
+70</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/validator/type_mismatch_validator.rb', line 62</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_mismatched_return?'>mismatched_return?</span><span class='lparen'>(</span><span class='id identifier rubyid_yard_type'>yard_type</span><span class='comma'>,</span> <span class='id identifier rubyid_expected_type'>expected_type</span><span class='comma'>,</span> <span class='label'>method_name:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>if</span> <span class='id identifier rubyid_blank_type?'>blank_type?</span><span class='lparen'>(</span><span class='id identifier rubyid_yard_type'>yard_type</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>if</span> <span class='id identifier rubyid_blank_type?'>blank_type?</span><span class='lparen'>(</span><span class='id identifier rubyid_expected_type'>expected_type</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>if</span> <span class='id identifier rubyid_expected_suppressed?'>expected_suppressed?</span><span class='lparen'>(</span><span class='id identifier rubyid_expected_type'>expected_type</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>if</span> <span class='id identifier rubyid_yard_compatible?'>yard_compatible?</span><span class='lparen'>(</span><span class='id identifier rubyid_yard_type'>yard_type</span><span class='comma'>,</span> <span class='id identifier rubyid_expected_type'>expected_type</span><span class='comma'>,</span> <span class='label'>method_name:</span> <span class='id identifier rubyid_method_name'>method_name</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>if</span> <span class='id identifier rubyid_types_normalized_equal?'>types_normalized_equal?</span><span class='lparen'>(</span><span class='id identifier rubyid_yard_type'>yard_type</span><span class='comma'>,</span> <span class='id identifier rubyid_expected_type'>expected_type</span><span class='rparen'>)</span>
+
+  <span class='op'>!</span><span class='id identifier rubyid_normalized_equal?'>normalized_equal?</span><span class='lparen'>(</span><span class='id identifier rubyid_yard_type'>yard_type</span><span class='comma'>,</span> <span class='id identifier rubyid_expected_type'>expected_type</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="void_compatible?-instance_method">
+  
+    #<strong>void_compatible?</strong>(yard_type, expected_type, method_name: nil)  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Whether void YARD type is compatible with fallback union or initialize/setup dynamic.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>yard_type</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>expected_type</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>method_name</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>, <tt>nil</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>method name for dynamic check</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+101
+102
+103</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/validator/type_mismatch_validator.rb', line 101</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_void_compatible?'>void_compatible?</span><span class='lparen'>(</span><span class='id identifier rubyid_yard_type'>yard_type</span><span class='comma'>,</span> <span class='id identifier rubyid_expected_type'>expected_type</span><span class='comma'>,</span> <span class='label'>method_name:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="GenericCompatibility.html" title="Docscribe::Validator::GenericCompatibility (module)">GenericCompatibility</a></span></span><span class='period'>.</span><span class='id identifier rubyid_void_compatible?'><span class='object_link'><a href="GenericCompatibility.html#void_compatible%3F-class_method" title="Docscribe::Validator::GenericCompatibility.void_compatible? (method)">void_compatible?</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_yard_type'>yard_type</span><span class='comma'>,</span> <span class='id identifier rubyid_expected_type'>expected_type</span><span class='comma'>,</span> <span class='ivar'>@fallback_type</span><span class='comma'>,</span> <span class='label'>method_name:</span> <span class='id identifier rubyid_method_name'>method_name</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="yard_in_expected_union?-instance_method">
+  
+    #<strong>yard_in_expected_union?</strong>(yard_type, expected_type)  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Whether yard type is included in expected union.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>yard_type</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>expected_type</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+88
+89
+90
+91
+92
+93</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/validator/type_mismatch_validator.rb', line 88</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_yard_in_expected_union?'>yard_in_expected_union?</span><span class='lparen'>(</span><span class='id identifier rubyid_yard_type'>yard_type</span><span class='comma'>,</span> <span class='id identifier rubyid_expected_type'>expected_type</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>if</span> <span class='id identifier rubyid_yard_type'>yard_type</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>||</span> <span class='id identifier rubyid_expected_type'>expected_type</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+
+  <span class='id identifier rubyid_normalized_yard'>normalized_yard</span> <span class='op'>=</span> <span class='id identifier rubyid_normalize'>normalize</span><span class='lparen'>(</span><span class='id identifier rubyid_yard_type'>yard_type</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_expected_type'>expected_type</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>,</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_any?'>any?</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_part'>part</span><span class='op'>|</span> <span class='id identifier rubyid_normalize'>normalize</span><span class='lparen'>(</span><span class='id identifier rubyid_part'>part</span><span class='rparen'>)</span> <span class='op'>==</span> <span class='id identifier rubyid_normalized_yard'>normalized_yard</span> <span class='rbrace'>}</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Sun Oct  4 00:19:55 2026 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.38 (ruby-3.4.5).
+</div>
+
+    </div>
+  </body>
+</html>

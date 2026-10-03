@@ -229,7 +229,7 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines # (instance visibility: private)</p>
+<p>module_function: defines #const_type_for (visibility: private)</p>
 </div>
   </div>
 
@@ -252,16 +252,10 @@
       
       
       
-    </li>
-  
-    <li>
-      
-        <span class='name'>fallback_type</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
+        &mdash;
+        <div class='inline'>
+<p>literal/value node</p>
+</div>
       
     </li>
   
@@ -303,14 +297,14 @@
       <pre class="lines">
 
 
+46
+47
+48
 49
-50
-51
-52
-53</pre>
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/infer/literals.rb', line 49</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/infer/literals.rb', line 46</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_const_type_for'>const_type_for</span><span class='lparen'>(</span><span class='id identifier rubyid_node'>node</span><span class='comma'>,</span> <span class='id identifier rubyid__fallback_type'>_fallback_type</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_node'>node</span><span class='period'>.</span><span class='id identifier rubyid_type'>type</span> <span class='op'>==</span> <span class='symbol'>:const</span>
@@ -337,7 +331,7 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines # (instance visibility: private)</p>
+<p>module_function: defines #literal_type_for (visibility: private)</p>
 </div>
   </div>
 
@@ -389,12 +383,12 @@
       <pre class="lines">
 
 
+36
 37
-38
-39</pre>
+38</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/infer/literals.rb', line 37</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/infer/literals.rb', line 36</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_literal_type_for'>literal_type_for</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='rparen'>)</span>
   <span class='const'><span class='object_link'><a href="../Infer.html#LITERAL_TYPE_MAP-constant" title="Docscribe::Infer::LITERAL_TYPE_MAP (constant)">LITERAL_TYPE_MAP</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_type'>type</span><span class='rbracket'>]</span>
@@ -419,7 +413,7 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines # (instance visibility: private)</p>
+<p>module_function: defines #send_new_type_for (visibility: private)</p>
 </div>
   </div>
 
@@ -442,16 +436,10 @@
       
       
       
-    </li>
-  
-    <li>
-      
-        <span class='name'>fallback_type</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
+        &mdash;
+        <div class='inline'>
+<p>literal/value node</p>
+</div>
       
     </li>
   
@@ -493,17 +481,17 @@
       <pre class="lines">
 
 
+58
+59
+60
+61
+62
 63
 64
-65
-66
-67
-68
-69
-70</pre>
+65</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/infer/literals.rb', line 63</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/infer/literals.rb', line 58</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_send_new_type_for'>send_new_type_for</span><span class='lparen'>(</span><span class='id identifier rubyid_node'>node</span><span class='comma'>,</span> <span class='id identifier rubyid__fallback_type'>_fallback_type</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_node'>node</span><span class='period'>.</span><span class='id identifier rubyid_type'>type</span> <span class='op'>==</span> <span class='symbol'>:send</span>
@@ -533,7 +521,7 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines #type_from_literal (instance visibility: private)</p>
+<p>module_function: defines #type_from_literal (visibility: private)</p>
 </div>
   </div>
 
@@ -644,7 +632,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Jun 13 01:27:04 2026 by
+  Generated on Sun Oct  4 00:19:54 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.38 (ruby-3.4.5).
 </div>

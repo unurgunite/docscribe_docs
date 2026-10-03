@@ -1,0 +1,2053 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Module: Docscribe::Server
+  
+    &mdash; Documentation by YARD 0.9.38
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "Docscribe::Server";
+  relpath = '../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../_index.html">Index (S)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../Docscribe.html" title="Docscribe (module)">Docscribe</a></span></span>
+     &raquo; 
+    <span class="title">Server</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Module: Docscribe::Server
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/docscribe/server/base.rb<span class="defines">,<br />
+  lib/docscribe/server/client.rb,<br /> lib/docscribe/server/daemon.rb,<br /> lib/docscribe/server/protocol.rb</span>
+</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>Server/daemon mode for persistent multi-request operation.</p>
+
+<p>Architecture:</p>
+<ul><li>
+<p>Daemon process loads Ruby runtime once, listens on a Unix socket</p>
+</li><li>
+<p>Client sends JSON-line requests, receives JSON-line responses</p>
+</li><li>
+<p>Auto-shutdown after idle timeout</p>
+</li><li>
+<p>Protocol: JSON-RPC 2.0 over Unix socket</p>
+</li></ul>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><h2>Defined Under Namespace</h2>
+<p class="children">
+  
+    
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Server/Protocol.html" title="Docscribe::Server::Protocol (module)">Protocol</a></span>
+    
+  
+    
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Server/Client.html" title="Docscribe::Server::Client (class)">Client</a></span>, <span class='object_link'><a href="Server/Daemon.html" title="Docscribe::Server::Daemon (class)">Daemon</a></span>
+    
+  
+</p>
+
+  
+    <h2>
+      Constant Summary
+      <small><a href="#" class="constants_summary_toggle">collapse</a></small>
+    </h2>
+
+    <dl class="constants">
+      
+        <dt id="SOCKET_DIR-constant" class="">SOCKET_DIR =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>Unix socket path max is 104 bytes on macOS (the more restrictive). Dir.tmpdir on macOS often returns a long path under /var/folders/…/T that exceeds this limit, so we fall back to /tmp when needed.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='kw'>begin</span>
+  <span class='id identifier rubyid_tmp'>tmp</span> <span class='op'>=</span> <span class='const'>Dir</span><span class='period'>.</span><span class='id identifier rubyid_tmpdir'>tmpdir</span> <span class='op'>||</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/tmp</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_sock_overhead'>sock_overhead</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/docscribe-</span><span class='embexpr_beg'>#{</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>a</span><span class='tstring_end'>&#39;</span></span> <span class='op'>*</span> <span class='int'>32</span><span class='embexpr_end'>}</span><span class='tstring_content'>.sock</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_bytesize'>bytesize</span> <span class='comment'># 48
+</span>  <span class='id identifier rubyid_tmp'>tmp</span><span class='period'>.</span><span class='id identifier rubyid_bytesize'>bytesize</span> <span class='op'>&lt;=</span> <span class='int'>104</span> <span class='op'>-</span> <span class='id identifier rubyid_sock_overhead'>sock_overhead</span> <span class='op'>?</span> <span class='id identifier rubyid_tmp'>tmp</span> <span class='op'>:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/tmp</span><span class='tstring_end'>&#39;</span></span>
+<span class='kw'>end</span></pre></dd>
+      
+        <dt id="IDLE_TIMEOUT-constant" class="">IDLE_TIMEOUT =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>300</span></pre></dd>
+      
+        <dt id="ENV_FILES-constant" class="">ENV_FILES =
+          
+        </dt>
+        <dd><pre class="code"><span class='qwords_beg'>%w[</span><span class='tstring_content'>Gemfile.lock</span><span class='words_sep'> </span><span class='tstring_content'>rbs_collection.lock.yaml</span><span class='words_sep'> </span><span class='tstring_content'>docscribe.yml</span><span class='tstring_end'>]</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
+      
+        <dt id="SIG_RBS_GLOB-constant" class="">SIG_RBS_GLOB =
+          
+        </dt>
+        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>sig/**/*.rbs</span><span class='tstring_end'>&#39;</span></span></pre></dd>
+      
+    </dl>
+  
+
+
+
+
+
+
+
+  
+    <h2>
+      Class Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#check_platform_support!-class_method" title="check_platform_support! (class method)">.<strong>check_platform_support!</strong>  &#x21d2; void </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Check platform compatibility before starting server.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#clean_socket_files-class_method" title="clean_socket_files (class method)">.<strong>clean_socket_files</strong>(config_path)  &#x21d2; void </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Remove stale socket and pid files.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#config_hash-class_method" title="config_hash (class method)">.<strong>config_hash</strong>(config_path)  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#ensure_running!-class_method" title="ensure_running! (class method)">.<strong>ensure_running!</strong>(config_path: nil, daemonize: false, timeout: 5)  &#x21d2; void </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Start the server daemon if not running.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#env_file_mtime-class_method" title="env_file_mtime (class method)">.<strong>env_file_mtime</strong>(file)  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#env_hash-class_method" title="env_hash (class method)">.<strong>env_hash</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Hash of environment files that affect analysis results.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#handle_stale_socket%3F-class_method" title="handle_stale_socket? (class method)">.<strong>handle_stale_socket?</strong>(config_path)  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Handle ECONNREFUSED: check if the pid process is alive.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#pid_path-class_method" title="pid_path (class method)">.<strong>pid_path</strong>(config_path = nil)  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#process_alive%3F-class_method" title="process_alive? (class method)">.<strong>process_alive?</strong>(pid)  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#read_pid-class_method" title="read_pid (class method)">.<strong>read_pid</strong>(config_path = nil)  &#x21d2; Integer?<sup>?</sup> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#running%3F-class_method" title="running? (class method)">.<strong>running?</strong>(config_path = nil)  &#x21d2; Boolean, void </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Whether a server process is listening on the socket.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#sig_env_parts-class_method" title="sig_env_parts (class method)">.<strong>sig_env_parts</strong>  &#x21d2; Array&lt;String&gt; </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#sig_files-class_method" title="sig_files (class method)">.<strong>sig_files</strong>  &#x21d2; Array&lt;String&gt; </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#sig_hash-class_method" title="sig_hash (class method)">.<strong>sig_hash</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Hash of RBS signature files for cache invalidation inside daemon.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#socket_path-class_method" title="socket_path (class method)">.<strong>socket_path</strong>(config_path = nil)  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Derive a project-specific socket path from the current working directory.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#start_daemon_process-class_method" title="start_daemon_process (class method)">.<strong>start_daemon_process</strong>(config_path:, daemonize:)  &#x21d2; void </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#wait_for_ready-class_method" title="wait_for_ready (class method)">.<strong>wait_for_ready</strong>(config_path: nil, timeout: 5, raise_on_timeout: true)  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Start the server daemon and wait for it to become ready.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="check_platform_support!-class_method">
+  
+    .<strong>check_platform_support!</strong>  &#x21d2; <tt>void</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p class="note returns_void">This method returns an undefined value.</p>
+<p>Check platform compatibility before starting server.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>StandardError</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/server/base.rb', line 165</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_check_platform_support!'>check_platform_support!</span>
+  <span class='kw'>unless</span> <span class='kw'>defined?</span><span class='lparen'>(</span><span class='const'>UNIXSocket</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Server mode requires Unix domain sockets, which are not available on Windows. </span><span class='tstring_end'>&#39;</span></span> \
+          <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Use docscribe directly without --server flag.</span><span class='tstring_end'>&#39;</span></span>
+  <span class='kw'>end</span>
+  <span class='kw'>return</span> <span class='kw'>if</span> <span class='const'>Process</span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='symbol'>:fork</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Server mode requires Process.fork, which is not available on JRuby. </span><span class='tstring_end'>&#39;</span></span> \
+        <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Use docscribe directly without --server flag.</span><span class='tstring_end'>&#39;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="clean_socket_files-class_method">
+  
+    .<strong>clean_socket_files</strong>(config_path)  &#x21d2; <tt>void</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p class="note returns_void">This method returns an undefined value.</p>
+<p>Remove stale socket and pid files.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>config_path</span>
+      
+      
+        <span class='type'>(<tt>String?</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+139
+140
+141
+142</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/server/base.rb', line 139</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_clean_socket_files'>clean_socket_files</span><span class='lparen'>(</span><span class='id identifier rubyid_config_path'>config_path</span><span class='rparen'>)</span>
+  <span class='const'>FileUtils</span><span class='period'>.</span><span class='id identifier rubyid_rm_f'>rm_f</span><span class='lparen'>(</span><span class='id identifier rubyid_socket_path'>socket_path</span><span class='lparen'>(</span><span class='id identifier rubyid_config_path'>config_path</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='const'>FileUtils</span><span class='period'>.</span><span class='id identifier rubyid_rm_f'>rm_f</span><span class='lparen'>(</span><span class='id identifier rubyid_pid_path'>pid_path</span><span class='lparen'>(</span><span class='id identifier rubyid_config_path'>config_path</span><span class='rparen'>)</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="config_hash-class_method">
+  
+    .<strong>config_hash</strong>(config_path)  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>config_path</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+155
+156
+157
+158
+159</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/server/base.rb', line 155</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_config_hash'>config_hash</span><span class='lparen'>(</span><span class='id identifier rubyid_config_path'>config_path</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_resolved'>resolved</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_expand_path'>expand_path</span><span class='lparen'>(</span><span class='id identifier rubyid_config_path'>config_path</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_mtime'>mtime</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_exist?'>exist?</span><span class='lparen'>(</span><span class='id identifier rubyid_resolved'>resolved</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_mtime'>mtime</span><span class='lparen'>(</span><span class='id identifier rubyid_resolved'>resolved</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_f'>to_f</span> <span class='op'>:</span> <span class='float'>0.0</span>
+  <span class='const'>Digest</span><span class='op'>::</span><span class='const'>MD5</span><span class='period'>.</span><span class='id identifier rubyid_hexdigest'>hexdigest</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_resolved'>resolved</span><span class='embexpr_end'>}</span><span class='tstring_content'>:</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_mtime'>mtime</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="ensure_running!-class_method">
+  
+    .<strong>ensure_running!</strong>(config_path: nil, daemonize: false, timeout: 5)  &#x21d2; <tt>void</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p class="note returns_void">This method returns an undefined value.</p>
+<p>Start the server daemon if not running.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>config_path</span>
+      
+      
+        <span class='type'>(<tt>String?</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>optional config file path</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>daemonize</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>false</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>redirect stdin/stdout/stderr to /dev/null</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>timeout</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>5</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>max seconds to wait for readiness</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/server/base.rb', line 34</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_ensure_running!'>ensure_running!</span><span class='lparen'>(</span><span class='label'>config_path:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>daemonize:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>timeout:</span> <span class='int'>5</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_running?'>running?</span><span class='lparen'>(</span><span class='id identifier rubyid_config_path'>config_path</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_check_platform_support!'>check_platform_support!</span>
+
+  <span class='id identifier rubyid_lock_path'>lock_path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_socket_path'>socket_path</span><span class='lparen'>(</span><span class='id identifier rubyid_config_path'>config_path</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>.lock</span><span class='tstring_end'>&quot;</span></span>
+  <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_open'>open</span><span class='lparen'>(</span><span class='id identifier rubyid_lock_path'>lock_path</span><span class='comma'>,</span> <span class='const'>File</span><span class='op'>::</span><span class='const'>RDWR</span> <span class='op'>|</span> <span class='const'>File</span><span class='op'>::</span><span class='const'>CREAT</span><span class='comma'>,</span> <span class='int'>0o644</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_lock'>lock</span><span class='op'>|</span>
+    <span class='id identifier rubyid_lock'>lock</span><span class='period'>.</span><span class='id identifier rubyid_flock'>flock</span><span class='lparen'>(</span><span class='const'>File</span><span class='op'>::</span><span class='const'>LOCK_EX</span><span class='rparen'>)</span>
+    <span class='kw'>next</span> <span class='kw'>if</span> <span class='id identifier rubyid_running?'>running?</span><span class='lparen'>(</span><span class='id identifier rubyid_config_path'>config_path</span><span class='rparen'>)</span>
+
+    <span class='id identifier rubyid_start_daemon_process'>start_daemon_process</span><span class='lparen'>(</span><span class='label'>config_path:</span> <span class='id identifier rubyid_config_path'>config_path</span><span class='comma'>,</span> <span class='label'>daemonize:</span> <span class='id identifier rubyid_daemonize'>daemonize</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_wait_for_ready'>wait_for_ready</span><span class='lparen'>(</span><span class='label'>config_path:</span> <span class='id identifier rubyid_config_path'>config_path</span><span class='comma'>,</span> <span class='label'>timeout:</span> <span class='id identifier rubyid_timeout'>timeout</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="env_file_mtime-class_method">
+  
+    .<strong>env_file_mtime</strong>(file)  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>file</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+221
+222
+223
+224</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/server/base.rb', line 221</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_env_file_mtime'>env_file_mtime</span><span class='lparen'>(</span><span class='id identifier rubyid_file'>file</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_path'>path</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='const'>Dir</span><span class='period'>.</span><span class='id identifier rubyid_pwd'>pwd</span><span class='comma'>,</span> <span class='id identifier rubyid_file'>file</span><span class='rparen'>)</span>
+  <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_exist?'>exist?</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_mtime'>mtime</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_f'>to_f</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='op'>:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>0</span><span class='tstring_end'>&#39;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="env_hash-class_method">
+  
+    .<strong>env_hash</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Hash of environment files that affect analysis results. When any of these change, the daemon is invalidated (new socket path). Includes Gemfile.lock, rbs_collection.lock.yaml, docscribe.yml and all sig/<strong>*/</strong>.rbs.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+202
+203
+204
+205
+206</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/server/base.rb', line 202</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_env_hash'>env_hash</span>
+  <span class='id identifier rubyid_parts'>parts</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="#ENV_FILES-constant" title="Docscribe::Server::ENV_FILES (constant)">ENV_FILES</a></span></span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_file'>file</span><span class='op'>|</span> <span class='id identifier rubyid_env_file_mtime'>env_file_mtime</span><span class='lparen'>(</span><span class='id identifier rubyid_file'>file</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_parts'>parts</span><span class='period'>.</span><span class='id identifier rubyid_concat'>concat</span><span class='lparen'>(</span><span class='id identifier rubyid_sig_env_parts'>sig_env_parts</span><span class='rparen'>)</span>
+  <span class='const'>Digest</span><span class='op'>::</span><span class='const'>MD5</span><span class='period'>.</span><span class='id identifier rubyid_hexdigest'>hexdigest</span><span class='lparen'>(</span><span class='id identifier rubyid_parts'>parts</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>:</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="handle_stale_socket?-class_method">
+  
+    .<strong>handle_stale_socket?</strong>(config_path)  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Handle ECONNREFUSED: check if the pid process is alive. Cleans up only if the process is dead.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>config_path</span>
+      
+      
+        <span class='type'>(<tt>String?</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>false (not running)</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+106
+107
+108
+109
+110
+111
+112</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/server/base.rb', line 106</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_handle_stale_socket?'>handle_stale_socket?</span><span class='lparen'>(</span><span class='id identifier rubyid_config_path'>config_path</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_pid'>pid</span> <span class='op'>=</span> <span class='id identifier rubyid_read_pid'>read_pid</span><span class='lparen'>(</span><span class='id identifier rubyid_config_path'>config_path</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>if</span> <span class='id identifier rubyid_pid'>pid</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_process_alive?'>process_alive?</span><span class='lparen'>(</span><span class='id identifier rubyid_pid'>pid</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_clean_socket_files'>clean_socket_files</span><span class='lparen'>(</span><span class='id identifier rubyid_config_path'>config_path</span><span class='rparen'>)</span>
+  <span class='kw'>false</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="pid_path-class_method">
+  
+    .<strong>pid_path</strong>(config_path = nil)  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>config_path</span>
+      
+      
+        <span class='type'>(<tt>String?</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+146
+147
+148</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/server/base.rb', line 146</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_pid_path'>pid_path</span><span class='lparen'>(</span><span class='id identifier rubyid_config_path'>config_path</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_socket_path'>socket_path</span><span class='lparen'>(</span><span class='id identifier rubyid_config_path'>config_path</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>.pid</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="process_alive?-class_method">
+  
+    .<strong>process_alive?</strong>(pid)  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>pid</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>if Errno::ESRCH</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Errno::ESRCH</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+118
+119
+120
+121
+122
+123</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/server/base.rb', line 118</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_process_alive?'>process_alive?</span><span class='lparen'>(</span><span class='id identifier rubyid_pid'>pid</span><span class='rparen'>)</span>
+  <span class='const'>Process</span><span class='period'>.</span><span class='id identifier rubyid_kill'>kill</span><span class='lparen'>(</span><span class='int'>0</span><span class='comma'>,</span> <span class='id identifier rubyid_pid'>pid</span><span class='rparen'>)</span>
+  <span class='kw'>true</span>
+<span class='kw'>rescue</span> <span class='const'>Errno</span><span class='op'>::</span><span class='const'>ESRCH</span>
+  <span class='kw'>false</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="read_pid-class_method">
+  
+    .<strong>read_pid</strong>(config_path = nil)  &#x21d2; <tt>Integer?</tt><sup>?</sup> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>config_path</span>
+      
+      
+        <span class='type'>(<tt>String?</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer?</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>if StandardError</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>StandardError</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+129
+130
+131
+132
+133</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/server/base.rb', line 129</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_read_pid'>read_pid</span><span class='lparen'>(</span><span class='id identifier rubyid_config_path'>config_path</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_read'>read</span><span class='lparen'>(</span><span class='id identifier rubyid_pid_path'>pid_path</span><span class='lparen'>(</span><span class='id identifier rubyid_config_path'>config_path</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span> <span class='kw'>if</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_exist?'>exist?</span><span class='lparen'>(</span><span class='id identifier rubyid_pid_path'>pid_path</span><span class='lparen'>(</span><span class='id identifier rubyid_config_path'>config_path</span><span class='rparen'>)</span><span class='rparen'>)</span>
+<span class='kw'>rescue</span> <span class='const'>StandardError</span>
+  <span class='kw'>nil</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="running?-class_method">
+  
+    .<strong>running?</strong>(config_path = nil)  &#x21d2; <tt>Boolean</tt>, <tt>void</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Whether a server process is listening on the socket.</p>
+
+<p>On ECONNREFUSED, checks whether the PID process is still alive: if yes, the daemon is still starting up (don’t clean up); if no, removes stale socket and pid files.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>config_path</span>
+      
+      
+        <span class='type'>(<tt>String?</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>optional config path for socket lookup</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>if Errno::ECONNREFUSED</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>void</tt>, <tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>if Errno::ENOENT, Errno::ENOTSOCK</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>if StandardError</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Errno::ECONNREFUSED</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Errno::ENOENT</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Errno::ENOTSOCK</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>StandardError</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/server/base.rb', line 87</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_running?'>running?</span><span class='lparen'>(</span><span class='id identifier rubyid_config_path'>config_path</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>unless</span> <span class='kw'>defined?</span><span class='lparen'>(</span><span class='const'>UNIXSocket</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_socket'>socket</span> <span class='op'>=</span> <span class='const'>UNIXSocket</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_socket_path'>socket_path</span><span class='lparen'>(</span><span class='id identifier rubyid_config_path'>config_path</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_socket'>socket</span><span class='period'>.</span><span class='id identifier rubyid_close'>close</span>
+  <span class='kw'>true</span>
+<span class='kw'>rescue</span> <span class='const'>Errno</span><span class='op'>::</span><span class='const'>ECONNREFUSED</span>
+  <span class='id identifier rubyid_handle_stale_socket?'>handle_stale_socket?</span><span class='lparen'>(</span><span class='id identifier rubyid_config_path'>config_path</span><span class='rparen'>)</span>
+<span class='kw'>rescue</span> <span class='const'>Errno</span><span class='op'>::</span><span class='const'>ENOENT</span><span class='comma'>,</span> <span class='const'>Errno</span><span class='op'>::</span><span class='const'>ENOTSOCK</span>
+  <span class='id identifier rubyid_clean_socket_files'>clean_socket_files</span><span class='lparen'>(</span><span class='id identifier rubyid_config_path'>config_path</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='kw'>false</span>
+<span class='kw'>rescue</span> <span class='const'>StandardError</span>
+  <span class='kw'>false</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="sig_env_parts-class_method">
+  
+    .<strong>sig_env_parts</strong>  &#x21d2; <tt>Array&lt;String&gt;</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array&lt;String&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+227
+228
+229
+230
+231
+232</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/server/base.rb', line 227</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_sig_env_parts'>sig_env_parts</span>
+  <span class='id identifier rubyid_files'>files</span> <span class='op'>=</span> <span class='id identifier rubyid_sig_files'>sig_files</span>
+  <span class='id identifier rubyid_mtimes'>mtimes</span> <span class='op'>=</span> <span class='id identifier rubyid_files'>files</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_p'>p</span><span class='op'>|</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_mtime'>mtime</span><span class='lparen'>(</span><span class='id identifier rubyid_p'>p</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_f'>to_f</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_mtimes'>mtimes</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_files'>files</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
+  <span class='id identifier rubyid_mtimes'>mtimes</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="sig_files-class_method">
+  
+    .<strong>sig_files</strong>  &#x21d2; <tt>Array&lt;String&gt;</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array&lt;String&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+235
+236
+237</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/server/base.rb', line 235</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_sig_files'>sig_files</span>
+  <span class='const'>Dir</span><span class='period'>.</span><span class='id identifier rubyid_glob'>glob</span><span class='lparen'>(</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='const'>Dir</span><span class='period'>.</span><span class='id identifier rubyid_pwd'>pwd</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="#SIG_RBS_GLOB-constant" title="Docscribe::Server::SIG_RBS_GLOB (constant)">SIG_RBS_GLOB</a></span></span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_sort'>sort</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="sig_hash-class_method">
+  
+    .<strong>sig_hash</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Hash of RBS signature files for cache invalidation inside daemon. Used by Daemon#rewrite_file to detect sig changes without requiring a new socket.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+212
+213
+214
+215
+216
+217</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/server/base.rb', line 212</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_sig_hash'>sig_hash</span>
+  <span class='id identifier rubyid_files'>files</span> <span class='op'>=</span> <span class='id identifier rubyid_sig_files'>sig_files</span>
+  <span class='id identifier rubyid_parts'>parts</span> <span class='op'>=</span> <span class='id identifier rubyid_files'>files</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_p'>p</span><span class='op'>|</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_p'>p</span><span class='embexpr_end'>}</span><span class='tstring_content'>:</span><span class='embexpr_beg'>#{</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_mtime'>mtime</span><span class='lparen'>(</span><span class='id identifier rubyid_p'>p</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_f'>to_f</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_parts'>parts</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>count:</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_files'>files</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='const'>Digest</span><span class='op'>::</span><span class='const'>MD5</span><span class='period'>.</span><span class='id identifier rubyid_hexdigest'>hexdigest</span><span class='lparen'>(</span><span class='id identifier rubyid_parts'>parts</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>|</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="socket_path-class_method">
+  
+    .<strong>socket_path</strong>(config_path = nil)  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Derive a project-specific socket path from the current working directory. Uses MD5 (deterministic across processes) instead of String#hash (which varies per Ruby process due to random seeding). When a config_path is given, its path + mtime are included in the hash so different configs get different daemons. Environment files (Gemfile.lock, rbs_collection.lock.yaml) are also included so daemon is invalidated when gems or RBS types change.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>config_path</span>
+      
+      
+        <span class='type'>(<tt>String?</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>optional config path to differentiate</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/server/base.rb', line 186</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_socket_path'>socket_path</span><span class='lparen'>(</span><span class='id identifier rubyid_config_path'>config_path</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_seed'>seed</span> <span class='op'>=</span> <span class='op'>+</span><span class='const'>Dir</span><span class='period'>.</span><span class='id identifier rubyid_pwd'>pwd</span>
+  <span class='id identifier rubyid_seed'>seed</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>:</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_env_hash'>env_hash</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_config_path'>config_path</span>
+    <span class='id identifier rubyid_resolved'>resolved</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_expand_path'>expand_path</span><span class='lparen'>(</span><span class='id identifier rubyid_config_path'>config_path</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_mtime'>mtime</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_exist?'>exist?</span><span class='lparen'>(</span><span class='id identifier rubyid_resolved'>resolved</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_mtime'>mtime</span><span class='lparen'>(</span><span class='id identifier rubyid_resolved'>resolved</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_f'>to_f</span> <span class='op'>:</span> <span class='float'>0.0</span>
+    <span class='id identifier rubyid_seed'>seed</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>:</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_resolved'>resolved</span><span class='embexpr_end'>}</span><span class='tstring_content'>:</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_mtime'>mtime</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="#SOCKET_DIR-constant" title="Docscribe::Server::SOCKET_DIR (constant)">SOCKET_DIR</a></span></span><span class='embexpr_end'>}</span><span class='tstring_content'>/docscribe-</span><span class='embexpr_beg'>#{</span><span class='const'>Digest</span><span class='op'>::</span><span class='const'>MD5</span><span class='period'>.</span><span class='id identifier rubyid_hexdigest'>hexdigest</span><span class='lparen'>(</span><span class='id identifier rubyid_seed'>seed</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>.sock</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="start_daemon_process-class_method">
+  
+    .<strong>start_daemon_process</strong>(config_path:, daemonize:)  &#x21d2; <tt>void</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p class="note returns_void">This method returns an undefined value.</p>
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>config_path</span>
+      
+      
+        <span class='type'>(<tt>String?</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>daemonize</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+244
+245
+246
+247
+248
+249
+250
+251
+252</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/server/base.rb', line 244</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_start_daemon_process'>start_daemon_process</span><span class='lparen'>(</span><span class='label'>config_path:</span><span class='comma'>,</span> <span class='label'>daemonize:</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_warn'>warn</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Docscribe: starting server...</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_daemonize'>daemonize</span>
+  <span class='id identifier rubyid_pid'>pid</span> <span class='op'>=</span> <span class='const'>Process</span><span class='period'>.</span><span class='id identifier rubyid_fork'>fork</span> <span class='kw'>do</span> <span class='comment'># steep:ignore NoMethod
+</span>    <span class='lbracket'>[</span><span class='gvar'>$stdin</span><span class='comma'>,</span> <span class='gvar'>$stdout</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span> <span class='id identifier rubyid__1'>_1</span><span class='period'>.</span><span class='id identifier rubyid_reopen'>reopen</span><span class='lparen'>(</span><span class='const'>File</span><span class='op'>::</span><span class='const'>NULL</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+    <span class='gvar'>$stderr</span><span class='period'>.</span><span class='id identifier rubyid_reopen'>reopen</span><span class='lparen'>(</span><span class='const'>File</span><span class='op'>::</span><span class='const'>NULL</span><span class='rparen'>)</span>
+    <span class='const'><span class='object_link'><a href="Server/Daemon.html" title="Docscribe::Server::Daemon (class)">Daemon</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Server/Daemon.html#initialize-instance_method" title="Docscribe::Server::Daemon#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>config_path:</span> <span class='id identifier rubyid_config_path'>config_path</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_start'>start</span>
+  <span class='kw'>end</span>
+  <span class='const'>Process</span><span class='period'>.</span><span class='id identifier rubyid_detach'>detach</span><span class='lparen'>(</span><span class='id identifier rubyid_pid'>pid</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="wait_for_ready-class_method">
+  
+    .<strong>wait_for_ready</strong>(config_path: nil, timeout: 5, raise_on_timeout: true)  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Start the server daemon and wait for it to become ready.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>config_path</span>
+      
+      
+        <span class='type'>(<tt>String?</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>optional config path for socket/pid lookup</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>timeout</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>5</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>max seconds to wait for readiness</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>raise_on_timeout</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>true</tt>)</em>
+      
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>StandardError</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/server/base.rb', line 56</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_wait_for_ready'>wait_for_ready</span><span class='lparen'>(</span><span class='label'>config_path:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>timeout:</span> <span class='int'>5</span><span class='comma'>,</span> <span class='label'>raise_on_timeout:</span> <span class='kw'>true</span><span class='rparen'>)</span> <span class='comment'># rubocop:disable SortedMethodsByCall/Waterfall
+</span>  <span class='id identifier rubyid_deadline'>deadline</span> <span class='op'>=</span> <span class='const'>Process</span><span class='period'>.</span><span class='id identifier rubyid_clock_gettime'>clock_gettime</span><span class='lparen'>(</span><span class='const'>Process</span><span class='op'>::</span><span class='const'>CLOCK_MONOTONIC</span><span class='rparen'>)</span> <span class='op'>+</span> <span class='id identifier rubyid_timeout'>timeout</span>
+  <span class='id identifier rubyid_loop'>loop</span> <span class='kw'>do</span>
+    <span class='kw'>return</span> <span class='kw'>true</span> <span class='kw'>if</span> <span class='id identifier rubyid_running?'>running?</span><span class='lparen'>(</span><span class='id identifier rubyid_config_path'>config_path</span><span class='rparen'>)</span>
+
+    <span class='kw'>if</span> <span class='const'>Process</span><span class='period'>.</span><span class='id identifier rubyid_clock_gettime'>clock_gettime</span><span class='lparen'>(</span><span class='const'>Process</span><span class='op'>::</span><span class='const'>CLOCK_MONOTONIC</span><span class='rparen'>)</span> <span class='op'>&gt;</span> <span class='id identifier rubyid_deadline'>deadline</span>
+      <span class='id identifier rubyid_raise'>raise</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Docscribe: server failed to start</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_raise_on_timeout'>raise_on_timeout</span>
+
+      <span class='id identifier rubyid_warn'>warn</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Docscribe server failed to start within timeout</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+      <span class='kw'>return</span> <span class='kw'>false</span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_sleep'>sleep</span> <span class='float'>0.1</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Sun Oct  4 00:19:54 2026 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.38 (ruby-3.4.5).
+</div>
+
+    </div>
+  </body>
+</html>

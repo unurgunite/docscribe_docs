@@ -277,7 +277,7 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines #infer_param_type (instance visibility: private)</p>
+<p>module_function: defines #infer_param_type (visibility: private)</p>
 </div>
   </div>
 
@@ -323,7 +323,7 @@
         <span class='name'>default_str</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+        <span class='type'>(<tt>String?</tt>)</span>
       
       
       
@@ -365,7 +365,7 @@
       
         &mdash;
         <div class='inline'>
-<p>whether ‘options:` should be treated specially as Hash</p>
+<p>whether ‘options:` should</p>
 </div>
       
     </li>
@@ -392,13 +392,13 @@
       <pre class="lines">
 
 
+24
 25
 26
-27
-28</pre>
+27</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/infer/params.rb', line 25</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/infer/params.rb', line 24</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_infer_param_type'>infer_param_type</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_default_str'>default_str</span><span class='comma'>,</span> <span class='label'>fallback_type:</span> <span class='const'><span class='object_link'><a href="../Infer.html#FALLBACK_TYPE-constant" title="Docscribe::Infer::FALLBACK_TYPE (constant)">FALLBACK_TYPE</a></span></span><span class='comma'>,</span> <span class='label'>treat_options_keyword_as_hash:</span> <span class='kw'>true</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_prefix_param_type'>prefix_param_type</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_inferred_param_type'>inferred_param_type</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_default_str'>default_str</span><span class='comma'>,</span> <span class='id identifier rubyid_fallback_type'>fallback_type</span><span class='comma'>,</span>
@@ -424,7 +424,7 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines # (instance visibility: private)</p>
+<p>module_function: defines #inferred_param_type (visibility: private)</p>
 </div>
   </div>
 
@@ -459,7 +459,7 @@
         <span class='name'>default_str</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+        <span class='type'>(<tt>String?</tt>)</span>
       
       
       
@@ -479,6 +479,11 @@
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>type returned when not special-cased</p>
+</div>
+      
     </li>
   
     <li>
@@ -489,6 +494,11 @@
         <span class='type'>(<tt>Boolean</tt>)</span>
       
       
+      
+        &mdash;
+        <div class='inline'>
+<p>whether to treat ‘options:’ as Hash</p>
+</div>
       
     </li>
   
@@ -514,26 +524,22 @@
       <pre class="lines">
 
 
+50
+51
+52
 53
 54
 55
 56
 57
 58
-59
-60
-61
-62
-63
-64</pre>
+59</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/infer/params.rb', line 53</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/infer/params.rb', line 50</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_inferred_param_type'>inferred_param_type</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_default_str'>default_str</span><span class='comma'>,</span> <span class='id identifier rubyid_fallback_type'>fallback_type</span><span class='comma'>,</span> <span class='label'>treat_options_keyword_as_hash:</span><span class='rparen'>)</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_end_with?'>end_with?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>:</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_default_str'>default_str</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
-    <span class='kw'>return</span> <span class='id identifier rubyid_options_keyword_type'>options_keyword_type</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_treat_options_keyword_as_hash'>treat_options_keyword_as_hash</span><span class='comma'>,</span> <span class='id identifier rubyid_fallback_type'>fallback_type</span><span class='rparen'>)</span>
-  <span class='kw'>end</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_options_keyword_type'>options_keyword_type</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_treat_options_keyword_as_hash'>treat_options_keyword_as_hash</span><span class='comma'>,</span> <span class='id identifier rubyid_fallback_type'>fallback_type</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_end_with?'>end_with?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>:</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_default_str'>default_str</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
 
   <span class='id identifier rubyid_node'>node</span> <span class='op'>=</span> <span class='id identifier rubyid_parse_expr'>parse_expr</span><span class='lparen'>(</span><span class='id identifier rubyid_default_str'>default_str</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_ty'>ty</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Literals.html" title="Docscribe::Infer::Literals (module)">Literals</a></span></span><span class='period'>.</span><span class='id identifier rubyid_type_from_literal'><span class='object_link'><a href="Literals.html#type_from_literal-class_method" title="Docscribe::Infer::Literals.type_from_literal (method)">type_from_literal</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_node'>node</span><span class='comma'>,</span> <span class='label'>fallback_type:</span> <span class='id identifier rubyid_fallback_type'>fallback_type</span><span class='rparen'>)</span>
@@ -562,7 +568,7 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines #options_hash_keyword? (instance visibility: private)</p>
+<p>module_function: defines #options_hash_keyword? (visibility: private)</p>
 </div>
   </div>
 
@@ -597,7 +603,7 @@
         <span class='name'>default_str</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+        <span class='type'>(<tt>String?</tt>)</span>
       
       
       
@@ -662,12 +668,12 @@
       <pre class="lines">
 
 
-85
-86
-87</pre>
+80
+81
+82</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/infer/params.rb', line 85</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/infer/params.rb', line 80</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_options_hash_keyword?'>options_hash_keyword?</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_default_str'>default_str</span><span class='comma'>,</span> <span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_treat_options_keyword_as_hash'>treat_options_keyword_as_hash</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_treat_options_keyword_as_hash'>treat_options_keyword_as_hash</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_name'>name</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>options:</span><span class='tstring_end'>&#39;</span></span> <span class='op'>&amp;&amp;</span> <span class='lparen'>(</span><span class='id identifier rubyid_default_str'>default_str</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>{}</span><span class='tstring_end'>&#39;</span></span> <span class='op'>||</span> <span class='id identifier rubyid_type'>type</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Hash</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
@@ -692,7 +698,7 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines #options_keyword_type (instance visibility: private)</p>
+<p>module_function: defines #options_keyword_type (visibility: private)</p>
 </div>
   </div>
 
@@ -776,12 +782,12 @@
       <pre class="lines">
 
 
-73
-74
-75</pre>
+68
+69
+70</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/infer/params.rb', line 73</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/infer/params.rb', line 68</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_options_keyword_type'>options_keyword_type</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_treat_options_keyword_as_hash'>treat_options_keyword_as_hash</span><span class='comma'>,</span> <span class='id identifier rubyid_fallback_type'>fallback_type</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_treat_options_keyword_as_hash'>treat_options_keyword_as_hash</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_name'>name</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>options:</span><span class='tstring_end'>&#39;</span></span> <span class='op'>?</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Hash</span><span class='tstring_end'>&#39;</span></span> <span class='op'>:</span> <span class='id identifier rubyid_fallback_type'>fallback_type</span>
@@ -806,7 +812,7 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines #parse_expr (instance visibility: private)</p>
+<p>module_function: defines #parse_expr (visibility: private)</p>
 </div>
   </div>
 
@@ -827,7 +833,7 @@
         <span class='name'>src</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+        <span class='type'>(<tt>String?</tt>)</span>
       
       
       
@@ -852,6 +858,20 @@
       
     </li>
   
+    <li>
+      
+      
+        <span class='type'>(<tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>if Parser::SyntaxError</p>
+</div>
+      
+    </li>
+  
 </ul>
 <p class="tag_title">Raises:</p>
 <ul class="raise">
@@ -873,18 +893,18 @@
       <pre class="lines">
 
 
+93
+94
+95
+96
 97
 98
 99
 100
-101
-102
-103
-104
-105</pre>
+101</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/infer/params.rb', line 97</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/infer/params.rb', line 93</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_parse_expr'>parse_expr</span><span class='lparen'>(</span><span class='id identifier rubyid_src'>src</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>if</span> <span class='id identifier rubyid_src'>src</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>||</span> <span class='id identifier rubyid_src'>src</span><span class='period'>.</span><span class='id identifier rubyid_strip'>strip</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
@@ -915,7 +935,7 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines # (instance visibility: private)</p>
+<p>module_function: defines #prefix_param_type (visibility: private)</p>
 </div>
   </div>
 
@@ -967,21 +987,21 @@
       <pre class="lines">
 
 
+34
+35
 36
 37
 38
 39
-40
-41
-42</pre>
+40</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/infer/params.rb', line 36</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/infer/params.rb', line 34</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_prefix_param_type'>prefix_param_type</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Array</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_start_with?'>start_with?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>*</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_start_with?'>start_with?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>**</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
-  <span class='kw'>return</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Hash</span><span class='tstring_end'>&#39;</span></span>  <span class='kw'>if</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_start_with?'>start_with?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>**</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
-  <span class='kw'>return</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Proc</span><span class='tstring_end'>&#39;</span></span>  <span class='kw'>if</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_start_with?'>start_with?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>&amp;</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Hash</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_start_with?'>start_with?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>**</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Proc</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_start_with?'>start_with?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>&amp;</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
 
   <span class='kw'>nil</span>
 <span class='kw'>end</span></pre>
@@ -995,7 +1015,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Jun 13 01:27:04 2026 by
+  Generated on Sun Oct  4 00:19:54 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.38 (ruby-3.4.5).
 </div>

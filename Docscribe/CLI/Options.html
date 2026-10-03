@@ -112,6 +112,8 @@
 </span>  <span class='label'>strategy:</span> <span class='symbol'>:safe</span><span class='comma'>,</span>    <span class='comment'># :safe, :aggressive
 </span>  <span class='label'>verbose:</span> <span class='kw'>false</span><span class='comma'>,</span>
   <span class='label'>explain:</span> <span class='kw'>false</span><span class='comma'>,</span>
+  <span class='label'>quiet:</span> <span class='kw'>false</span><span class='comma'>,</span>
+  <span class='label'>format:</span> <span class='symbol'>:text</span><span class='comma'>,</span>
   <span class='label'>config:</span> <span class='kw'>nil</span><span class='comma'>,</span>
   <span class='label'>include:</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='comment'>#: Array[String]
 </span>  <span class='label'>exclude:</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='comment'>#: Array[String]
@@ -121,14 +123,26 @@
   <span class='label'>sig_dirs:</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='comment'>#: Array[String]
 </span>  <span class='label'>sorbet:</span> <span class='kw'>false</span><span class='comma'>,</span>
   <span class='label'>rbi_dirs:</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='comment'>#: Array[String]
-</span>  <span class='label'>rbs_collection:</span> <span class='kw'>false</span>
-<span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
+</span>  <span class='label'>rbs_collection:</span> <span class='kw'>false</span><span class='comma'>,</span>
+  <span class='label'>keep_descriptions:</span> <span class='kw'>false</span><span class='comma'>,</span>
+  <span class='label'>no_boilerplate:</span> <span class='kw'>false</span><span class='comma'>,</span>
+  <span class='label'>progress:</span> <span class='kw'>false</span><span class='comma'>,</span>
+  <span class='label'>parallel:</span> <span class='kw'>false</span><span class='comma'>,</span>
+  <span class='label'>server:</span> <span class='kw'>false</span><span class='comma'>,</span>
+  <span class='label'>validate_types:</span> <span class='kw'>nil</span> <span class='comment'>#: true or false when --[no-]validate-types is passed, nil otherwise
+</span><span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
       
         <dt id="BANNER-constant" class="">BANNER =
           
         </dt>
         <dd><pre class="code"><span class='heredoc_beg'>&lt;&lt;~TEXT</span>
 <span class='tstring_content'>  Usage: docscribe [options] [files...]
+</span><span class='tstring_content'>         docscribe init [options]
+</span><span class='tstring_content'>         docscribe generate &lt;type&gt; &lt;name&gt; [options]
+</span><span class='tstring_content'>         docscribe sigs [options] [files...]
+</span><span class='tstring_content'>         docscribe rbs [options] [files...]
+</span><span class='tstring_content'>         docscribe update_types [directory|file]
+</span><span class='tstring_content'>         docscribe check_for_comments [paths...]
 </span><span class='tstring_content'>
 </span><span class='tstring_content'>  Default behavior:
 </span><span class='tstring_content'>    Inspect files and report what safe doc updates would be applied.
@@ -142,7 +156,8 @@
 </span><span class='tstring_content'>
 </span><span class='tstring_content'>  Input / config:
 </span><span class='tstring_content'>          --stdin                    Read code from STDIN and print rewritten output
-</span><span class='tstring_content'>      -C, --config PATH              Path to config YAML (default: docscribe.yml)
+</span><span class='tstring_content'>      -C,                 --config PATH              Path to config YAML (default: docscribe.yml)
+</span><span class='tstring_content'>          --server                   Use background server for faster repeated runs
 </span><span class='tstring_content'>
 </span><span class='tstring_content'>  Type information:
 </span><span class='tstring_content'>          --rbs                      Use RBS signatures for @param/@return when available
@@ -150,6 +165,7 @@
 </span><span class='tstring_content'>          --sorbet                   Use Sorbet signatures from inline sigs / RBI files when available
 </span><span class='tstring_content'>          --rbi-dir DIR              Add a Sorbet RBI directory (repeatable). Implies --sorbet.
 </span><span class='tstring_content'>          --rbs-collection           Auto-discover RBS collection from rbs_collection.lock.yaml. Implies --rbs.
+</span><span class='tstring_content'>          --validate-types           Validate YARD types against inferred/RBS types and report mismatches
 </span><span class='tstring_content'>
 </span><span class='tstring_content'>  Filtering:
 </span><span class='tstring_content'>          --include PATTERN          Include PATTERN (method id or file path; glob or /regex/)
@@ -159,7 +175,13 @@
 </span><span class='tstring_content'>
 </span><span class='tstring_content'>  Output:
 </span><span class='tstring_content'>          --verbose                  Print per-file actions
-</span><span class='tstring_content'>      -e, --explain                  Show detailed reasons for changes
+</span><span class='tstring_content'>          --progress                 Show progress [N/total] per file
+</span><span class='tstring_content'>      -e, --explain                  Show detailed reasons for changes (default)
+</span><span class='tstring_content'>      -q, --quiet                    Only show status, no details
+</span><span class='tstring_content'>          --format FORMAT            Output format: text (default), json, or sarif
+</span><span class='tstring_content'>
+</span><span class='tstring_content'>  Performance:
+</span><span class='tstring_content'>          --parallel                 Process files in parallel (default: sequential)
 </span><span class='tstring_content'>
 </span><span class='tstring_content'>  Other:
 </span><span class='tstring_content'>      -v, --version                  Print version and exit
@@ -224,7 +246,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Define autocorrect options.</p>
+</div></span>
   
 </li>
 
@@ -246,7 +270,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Define config option.</p>
+</div></span>
   
 </li>
 
@@ -268,7 +294,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Define exclude file option.</p>
+</div></span>
   
 </li>
 
@@ -290,7 +318,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Define exclude option.</p>
+</div></span>
   
 </li>
 
@@ -312,7 +342,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Define explain option.</p>
+</div></span>
   
 </li>
 
@@ -334,7 +366,33 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Define filter options.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#define_format_option-class_method" title="define_format_option (class method)">.<strong>define_format_option</strong>(opts, options)  &#x21d2; void </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Define format option.</p>
+</div></span>
   
 </li>
 
@@ -356,7 +414,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Define include file option.</p>
+</div></span>
   
 </li>
 
@@ -378,7 +438,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Define include option.</p>
+</div></span>
   
 </li>
 
@@ -400,7 +462,33 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Define input options.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#define_keep_descriptions_option-class_method" title="define_keep_descriptions_option (class method)">.<strong>define_keep_descriptions_option</strong>(opts, options)  &#x21d2; void </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Define keep descriptions option.</p>
+</div></span>
   
 </li>
 
@@ -422,7 +510,33 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Define misc options.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#define_no_boilerplate_option-class_method" title="define_no_boilerplate_option (class method)">.<strong>define_no_boilerplate_option</strong>(opts, options)  &#x21d2; void </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Define no boilerplate option.</p>
+</div></span>
   
 </li>
 
@@ -444,7 +558,81 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Define output options.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#define_parallel_option-class_method" title="define_parallel_option (class method)">.<strong>define_parallel_option</strong>(opts, options)  &#x21d2; void </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Define parallel option.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#define_progress_option-class_method" title="define_progress_option (class method)">.<strong>define_progress_option</strong>(opts, options)  &#x21d2; void </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Define progress option.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#define_quiet_option-class_method" title="define_quiet_option (class method)">.<strong>define_quiet_option</strong>(opts, options)  &#x21d2; void </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Define quiet option.</p>
+</div></span>
   
 </li>
 
@@ -466,7 +654,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Define rbi dir option.</p>
+</div></span>
   
 </li>
 
@@ -488,7 +678,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Define rbs collection option.</p>
+</div></span>
   
 </li>
 
@@ -510,7 +702,33 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Define rbs option.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#define_server_option-class_method" title="define_server_option (class method)">.<strong>define_server_option</strong>(opts, options)  &#x21d2; void </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Define server option.</p>
+</div></span>
   
 </li>
 
@@ -532,7 +750,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Define sig dir option.</p>
+</div></span>
   
 </li>
 
@@ -554,7 +774,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Define sorbet option.</p>
+</div></span>
   
 </li>
 
@@ -576,7 +798,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Define stdin option.</p>
+</div></span>
   
 </li>
 
@@ -598,7 +822,33 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Define type options.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#define_validate_types_option-class_method" title="define_validate_types_option (class method)">.<strong>define_validate_types_option</strong>(opts, options)  &#x21d2; void </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Define validate types option.</p>
+</div></span>
   
 </li>
 
@@ -620,7 +870,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Define verbose option.</p>
+</div></span>
   
 </li>
 
@@ -652,7 +904,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#parse!-class_method" title="parse! (class method)">.<strong>parse!</strong>(argv)  &#x21d2; Hash </a>
+      <a href="#parse!-class_method" title="parse! (class method)">.<strong>parse!</strong>(argv)  &#x21d2; Docscribe::CLI::Formatters::opts </a>
     
 
     
@@ -745,7 +997,7 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines #build_option_parser (instance visibility: private)</p>
+<p>module_function: defines #build_option_parser (visibility: private)</p>
 </div>
   </div>
 
@@ -764,7 +1016,7 @@
         <span class='name'>options</span>
       
       
-        <span class='type'>(<tt>Hash</tt>)</span>
+        <span class='type'>(<tt>Hash&lt;Symbol, Object&gt;</tt>)</span>
       
       
       
@@ -780,7 +1032,7 @@
         <span class='name'>autocorrect</span>
       
       
-        <span class='type'>(<tt>Hash{Symbol =&gt; Symbol,nil}</tt>)</span>
+        <span class='type'>(<tt>Hash&lt;Symbol, Symbol, nil&gt;</tt>)</span>
       
       
       
@@ -813,20 +1065,20 @@
       <pre class="lines">
 
 
-97
-98
-99
-100
-101
-102
-103
-104
-105
-106
-107</pre>
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 97</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 119</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_build_option_parser'>build_option_parser</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='comma'>,</span> <span class='id identifier rubyid_autocorrect'>autocorrect</span><span class='rparen'>)</span>
   <span class='const'>OptionParser</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_opts'>opts</span><span class='op'>|</span>
@@ -859,11 +1111,13 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines # (instance visibility: private)</p>
+<p>module_function: defines #define_autocorrect_options (visibility: private)</p>
 </div>
   </div>
 
 <p class="note returns_void">This method returns an undefined value.</p>
+<p>Define autocorrect options</p>
+
 
   </div>
 </div>
@@ -880,6 +1134,11 @@
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>the option parser to configure</p>
+</div>
+      
     </li>
   
     <li>
@@ -887,7 +1146,7 @@
         <span class='name'>autocorrect</span>
       
       
-        <span class='type'>(<tt>Hash{Symbol =&gt; Symbol,nil}</tt>)</span>
+        <span class='type'>(<tt>Hash&lt;Symbol, Symbol, nil&gt;</tt>)</span>
       
       
       
@@ -907,18 +1166,18 @@
       <pre class="lines">
 
 
-114
-115
-116
-117
-118
-119
-120
-121
-122</pre>
+137
+138
+139
+140
+141
+142
+143
+144
+145</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 114</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 137</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_define_autocorrect_options'>define_autocorrect_options</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_autocorrect'>autocorrect</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>-a</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>--autocorrect</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Apply safe doc updates in place</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
@@ -949,11 +1208,13 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines # (instance visibility: private)</p>
+<p>module_function: defines #define_config_option (visibility: private)</p>
 </div>
   </div>
 
 <p class="note returns_void">This method returns an undefined value.</p>
+<p>Define config option</p>
+
 
   </div>
 </div>
@@ -970,6 +1231,11 @@
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>the option parser to configure</p>
+</div>
+      
     </li>
   
     <li>
@@ -977,7 +1243,7 @@
         <span class='name'>options</span>
       
       
-        <span class='type'>(<tt>Hash</tt>)</span>
+        <span class='type'>(<tt>Hash&lt;Symbol, Object&gt;</tt>)</span>
       
       
       
@@ -997,14 +1263,14 @@
       <pre class="lines">
 
 
-150
-151
-152
-153
-154</pre>
+177
+178
+179
+180
+181</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 150</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 177</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_define_config_option'>define_config_option</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>-C</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>--config PATH</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Path to config YAML (default: docscribe.yml)</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_v'>v</span><span class='op'>|</span>
@@ -1031,11 +1297,13 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines # (instance visibility: private)</p>
+<p>module_function: defines #define_exclude_file_option (visibility: private)</p>
 </div>
   </div>
 
 <p class="note returns_void">This method returns an undefined value.</p>
+<p>Define exclude file option</p>
+
 
   </div>
 </div>
@@ -1052,6 +1320,11 @@
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>the option parser to configure</p>
+</div>
+      
     </li>
   
     <li>
@@ -1059,7 +1332,7 @@
         <span class='name'>options</span>
       
       
-        <span class='type'>(<tt>Hash</tt>)</span>
+        <span class='type'>(<tt>Hash&lt;Symbol, Object&gt;</tt>)</span>
       
       
       
@@ -1079,14 +1352,14 @@
       <pre class="lines">
 
 
-278
-279
-280
-281
-282</pre>
+341
+342
+343
+344
+345</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 278</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 341</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_define_exclude_file_option'>define_exclude_file_option</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>--exclude-file PATTERN</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Skip files matching PATTERN (glob or /regex/). Exclude wins.</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_v'>v</span><span class='op'>|</span>
@@ -1113,11 +1386,13 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines # (instance visibility: private)</p>
+<p>module_function: defines #define_exclude_option (visibility: private)</p>
 </div>
   </div>
 
 <p class="note returns_void">This method returns an undefined value.</p>
+<p>Define exclude option</p>
+
 
   </div>
 </div>
@@ -1134,6 +1409,11 @@
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>the option parser to configure</p>
+</div>
+      
     </li>
   
     <li>
@@ -1141,7 +1421,7 @@
         <span class='name'>options</span>
       
       
-        <span class='type'>(<tt>Hash</tt>)</span>
+        <span class='type'>(<tt>Hash&lt;Symbol, Object&gt;</tt>)</span>
       
       
       
@@ -1161,15 +1441,15 @@
       <pre class="lines">
 
 
-255
-256
-257
-258
-259
-260</pre>
+316
+317
+318
+319
+320
+321</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 255</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 316</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_define_exclude_option'>define_exclude_option</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>--exclude PATTERN</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
@@ -1197,11 +1477,13 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines # (instance visibility: private)</p>
+<p>module_function: defines #define_explain_option (visibility: private)</p>
 </div>
   </div>
 
 <p class="note returns_void">This method returns an undefined value.</p>
+<p>Define explain option</p>
+
 
   </div>
 </div>
@@ -1218,6 +1500,11 @@
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>the option parser to configure</p>
+</div>
+      
     </li>
   
     <li>
@@ -1225,7 +1512,7 @@
         <span class='name'>options</span>
       
       
-        <span class='type'>(<tt>Hash</tt>)</span>
+        <span class='type'>(<tt>Hash&lt;Symbol, Object&gt;</tt>)</span>
       
       
       
@@ -1245,14 +1532,14 @@
       <pre class="lines">
 
 
-310
-311
-312
-313
-314</pre>
+407
+408
+409
+410
+411</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 310</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 407</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_define_explain_option'>define_explain_option</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>-e</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>--explain</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Show detailed reasons for changes</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
@@ -1279,11 +1566,13 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines # (instance visibility: private)</p>
+<p>module_function: defines #define_filter_options (visibility: private)</p>
 </div>
   </div>
 
 <p class="note returns_void">This method returns an undefined value.</p>
+<p>Define filter options</p>
+
 
   </div>
 </div>
@@ -1300,6 +1589,11 @@
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>the option parser to configure</p>
+</div>
+      
     </li>
   
     <li>
@@ -1307,7 +1601,7 @@
         <span class='name'>options</span>
       
       
-        <span class='type'>(<tt>Hash</tt>)</span>
+        <span class='type'>(<tt>Hash&lt;Symbol, Object&gt;</tt>)</span>
       
       
       
@@ -1327,21 +1621,112 @@
       <pre class="lines">
 
 
-232
-233
-234
-235
-236
-237</pre>
+291
+292
+293
+294
+295
+296</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 232</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 291</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_define_filter_options'>define_filter_options</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_define_include_option'>define_include_option</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_define_exclude_option'>define_exclude_option</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_define_include_file_option'>define_include_file_option</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_define_exclude_file_option'>define_exclude_file_option</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="define_format_option-class_method">
+  
+    .<strong>define_format_option</strong>(opts, options)  &#x21d2; <tt>void</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+  <div class="note notetag">
+    <strong>Note:</strong>
+    <div class='inline'>
+<p>module_function: defines #define_format_option (visibility: private)</p>
+</div>
+  </div>
+
+<p class="note returns_void">This method returns an undefined value.</p>
+<p>Define format option</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>opts</span>
+      
+      
+        <span class='type'>(<tt>OptionParser</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the option parser to configure</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash&lt;Symbol, Object&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>mutable parsed options hash</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+431
+432
+433
+434
+435
+436</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 431</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_define_format_option'>define_format_option</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>--format FORMAT</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>text</span><span class='words_sep'> </span><span class='tstring_content'>json</span><span class='words_sep'> </span><span class='tstring_content'>sarif</span><span class='tstring_end'>]</span></span><span class='comma'>,</span> <span class='comment'># steep:ignore
+</span>          <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Output format: text (default), json, or sarif</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_v'>v</span><span class='op'>|</span>
+    <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:format</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_v'>v</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1363,11 +1748,13 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines # (instance visibility: private)</p>
+<p>module_function: defines #define_include_file_option (visibility: private)</p>
 </div>
   </div>
 
 <p class="note returns_void">This method returns an undefined value.</p>
+<p>Define include file option</p>
+
 
   </div>
 </div>
@@ -1384,6 +1771,11 @@
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>the option parser to configure</p>
+</div>
+      
     </li>
   
     <li>
@@ -1391,7 +1783,7 @@
         <span class='name'>options</span>
       
       
-        <span class='type'>(<tt>Hash</tt>)</span>
+        <span class='type'>(<tt>Hash&lt;Symbol, Object&gt;</tt>)</span>
       
       
       
@@ -1411,14 +1803,14 @@
       <pre class="lines">
 
 
-267
-268
-269
-270
-271</pre>
+329
+330
+331
+332
+333</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 267</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 329</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_define_include_file_option'>define_include_file_option</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>--include-file PATTERN</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Only process files matching PATTERN (glob or /regex/)</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_v'>v</span><span class='op'>|</span>
@@ -1445,11 +1837,13 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines # (instance visibility: private)</p>
+<p>module_function: defines #define_include_option (visibility: private)</p>
 </div>
   </div>
 
 <p class="note returns_void">This method returns an undefined value.</p>
+<p>Define include option</p>
+
 
   </div>
 </div>
@@ -1466,6 +1860,11 @@
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>the option parser to configure</p>
+</div>
+      
     </li>
   
     <li>
@@ -1473,7 +1872,7 @@
         <span class='name'>options</span>
       
       
-        <span class='type'>(<tt>Hash</tt>)</span>
+        <span class='type'>(<tt>Hash&lt;Symbol, Object&gt;</tt>)</span>
       
       
       
@@ -1493,14 +1892,14 @@
       <pre class="lines">
 
 
-244
-245
-246
-247
-248</pre>
+304
+305
+306
+307
+308</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 244</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 304</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_define_include_option'>define_include_option</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>--include PATTERN</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Include PATTERN (method id or file path; glob or /regex/)</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_v'>v</span><span class='op'>|</span>
@@ -1527,11 +1926,13 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines # (instance visibility: private)</p>
+<p>module_function: defines #define_input_options (visibility: private)</p>
 </div>
   </div>
 
 <p class="note returns_void">This method returns an undefined value.</p>
+<p>Define input options</p>
+
 
   </div>
 </div>
@@ -1548,6 +1949,11 @@
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>the option parser to configure</p>
+</div>
+      
     </li>
   
     <li>
@@ -1555,7 +1961,7 @@
         <span class='name'>options</span>
       
       
-        <span class='type'>(<tt>Hash</tt>)</span>
+        <span class='type'>(<tt>Hash&lt;Symbol, Object&gt;</tt>)</span>
       
       
       
@@ -1575,17 +1981,110 @@
       <pre class="lines">
 
 
-129
-130
-131
-132</pre>
+153
+154
+155
+156
+157</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 129</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 153</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_define_input_options'>define_input_options</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_define_stdin_option'>define_stdin_option</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_define_config_option'>define_config_option</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_define_server_option'>define_server_option</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="define_keep_descriptions_option-class_method">
+  
+    .<strong>define_keep_descriptions_option</strong>(opts, options)  &#x21d2; <tt>void</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+  <div class="note notetag">
+    <strong>Note:</strong>
+    <div class='inline'>
+<p>module_function: defines #define_keep_descriptions_option (visibility: private)</p>
+</div>
+  </div>
+
+<p class="note returns_void">This method returns an undefined value.</p>
+<p>Define keep descriptions option</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>opts</span>
+      
+      
+        <span class='type'>(<tt>OptionParser</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the option parser to configure</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash&lt;Symbol, Object&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>mutable parsed options hash</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+444
+445
+446
+447
+448
+449</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 444</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_define_keep_descriptions_option'>define_keep_descriptions_option</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>-k</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>--keep-descriptions</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+          <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Preserve existing @param/@return descriptions in aggressive mode</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:keep_descriptions</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='kw'>true</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1607,11 +2106,13 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines # (instance visibility: private)</p>
+<p>module_function: defines #define_misc_options (visibility: private)</p>
 </div>
   </div>
 
 <p class="note returns_void">This method returns an undefined value.</p>
+<p>Define misc options</p>
+
 
   </div>
 </div>
@@ -1628,6 +2129,11 @@
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>the option parser to configure</p>
+</div>
+      
     </li>
   
 </ul>
@@ -1639,21 +2145,21 @@
       <pre class="lines">
 
 
-320
-321
-322
-323
-324
-325
-326
-327
-328
-329
-330
-331</pre>
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 320</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 469</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_define_misc_options'>define_misc_options</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>-v</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>--version</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Print version and exit</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
@@ -1665,6 +2171,97 @@
   <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>-h</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>--help</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Show this help</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
     <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_opts'>opts</span>
     <span class='id identifier rubyid_exit'>exit</span> <span class='int'>0</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="define_no_boilerplate_option-class_method">
+  
+    .<strong>define_no_boilerplate_option</strong>(opts, options)  &#x21d2; <tt>void</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+  <div class="note notetag">
+    <strong>Note:</strong>
+    <div class='inline'>
+<p>module_function: defines #define_no_boilerplate_option (visibility: private)</p>
+</div>
+  </div>
+
+<p class="note returns_void">This method returns an undefined value.</p>
+<p>Define no boilerplate option</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>opts</span>
+      
+      
+        <span class='type'>(<tt>OptionParser</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the option parser to configure</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash&lt;Symbol, Object&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>mutable parsed options hash</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+457
+458
+459
+460
+461
+462</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 457</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_define_no_boilerplate_option'>define_no_boilerplate_option</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>-B</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>--no-boilerplate</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+          <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Don&#39;t insert template text when generating documentation</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:no_boilerplate</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='kw'>true</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1687,11 +2284,13 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines # (instance visibility: private)</p>
+<p>module_function: defines #define_output_options (visibility: private)</p>
 </div>
   </div>
 
 <p class="note returns_void">This method returns an undefined value.</p>
+<p>Define output options</p>
+
 
   </div>
 </div>
@@ -1708,6 +2307,11 @@
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>the option parser to configure</p>
+</div>
+      
     </li>
   
     <li>
@@ -1715,7 +2319,7 @@
         <span class='name'>options</span>
       
       
-        <span class='type'>(<tt>Hash</tt>)</span>
+        <span class='type'>(<tt>Hash&lt;Symbol, Object&gt;</tt>)</span>
       
       
       
@@ -1735,17 +2339,296 @@
       <pre class="lines">
 
 
-289
-290
-291
-292</pre>
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 289</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 353</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_define_output_options'>define_output_options</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_define_verbose_option'>define_verbose_option</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_define_progress_option'>define_progress_option</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_define_parallel_option'>define_parallel_option</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_define_explain_option'>define_explain_option</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_define_quiet_option'>define_quiet_option</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_define_format_option'>define_format_option</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_define_keep_descriptions_option'>define_keep_descriptions_option</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_define_no_boilerplate_option'>define_no_boilerplate_option</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="define_parallel_option-class_method">
+  
+    .<strong>define_parallel_option</strong>(opts, options)  &#x21d2; <tt>void</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+  <div class="note notetag">
+    <strong>Note:</strong>
+    <div class='inline'>
+<p>module_function: defines #define_parallel_option (visibility: private)</p>
+</div>
+  </div>
+
+<p class="note returns_void">This method returns an undefined value.</p>
+<p>Define parallel option</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>opts</span>
+      
+      
+        <span class='type'>(<tt>Hash&lt;Symbol, Object&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the option parser to configure</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash&lt;Symbol, Object&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>mutable parsed options hash</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+395
+396
+397
+398
+399</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 395</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_define_parallel_option'>define_parallel_option</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>--parallel</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Process files in parallel (default: sequential)</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:parallel</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='kw'>true</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="define_progress_option-class_method">
+  
+    .<strong>define_progress_option</strong>(opts, options)  &#x21d2; <tt>void</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+  <div class="note notetag">
+    <strong>Note:</strong>
+    <div class='inline'>
+<p>module_function: defines #define_progress_option (visibility: private)</p>
+</div>
+  </div>
+
+<p class="note returns_void">This method returns an undefined value.</p>
+<p>Define progress option</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>opts</span>
+      
+      
+        <span class='type'>(<tt>OptionParser</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the option parser to configure</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash&lt;Symbol, Object&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>mutable parsed options hash</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+383
+384
+385
+386
+387</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 383</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_define_progress_option'>define_progress_option</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>--progress</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Show progress [N/total] per file</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:progress</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='kw'>true</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="define_quiet_option-class_method">
+  
+    .<strong>define_quiet_option</strong>(opts, options)  &#x21d2; <tt>void</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+  <div class="note notetag">
+    <strong>Note:</strong>
+    <div class='inline'>
+<p>module_function: defines #define_quiet_option (visibility: private)</p>
+</div>
+  </div>
+
+<p class="note returns_void">This method returns an undefined value.</p>
+<p>Define quiet option</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>opts</span>
+      
+      
+        <span class='type'>(<tt>OptionParser</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the option parser to configure</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash&lt;Symbol, Object&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>mutable parsed options hash</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+419
+420
+421
+422
+423</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 419</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_define_quiet_option'>define_quiet_option</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>-q</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>--quiet</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Only show status, no details</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:quiet</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='kw'>true</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1767,11 +2650,13 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines # (instance visibility: private)</p>
+<p>module_function: defines #define_rbi_dir_option (visibility: private)</p>
 </div>
   </div>
 
 <p class="note returns_void">This method returns an undefined value.</p>
+<p>Define rbi dir option</p>
+
 
   </div>
 </div>
@@ -1788,6 +2673,11 @@
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>the option parser to configure</p>
+</div>
+      
     </li>
   
     <li>
@@ -1795,9 +2685,14 @@
         <span class='name'>options</span>
       
       
-        <span class='type'>(<tt>Hash</tt>)</span>
+        <span class='type'>(<tt>Hash&lt;Symbol, Object&gt;</tt>)</span>
       
       
+      
+        &mdash;
+        <div class='inline'>
+<p>mutable parsed options hash</p>
+</div>
       
     </li>
   
@@ -1810,15 +2705,15 @@
       <pre class="lines">
 
 
-208
-209
-210
-211
-212
-213</pre>
+253
+254
+255
+256
+257
+258</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 208</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 253</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_define_rbi_dir_option'>define_rbi_dir_option</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>--rbi-dir DIR</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Add a Sorbet RBI directory (repeatable). Implies --sorbet.</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_v'>v</span><span class='op'>|</span>
@@ -1846,11 +2741,13 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines # (instance visibility: private)</p>
+<p>module_function: defines #define_rbs_collection_option (visibility: private)</p>
 </div>
   </div>
 
 <p class="note returns_void">This method returns an undefined value.</p>
+<p>Define rbs collection option</p>
+
 
   </div>
 </div>
@@ -1867,6 +2764,11 @@
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>the option parser to configure</p>
+</div>
+      
     </li>
   
     <li>
@@ -1874,9 +2776,14 @@
         <span class='name'>options</span>
       
       
-        <span class='type'>(<tt>Hash</tt>)</span>
+        <span class='type'>(<tt>Hash&lt;Symbol, Object&gt;</tt>)</span>
       
       
+      
+        &mdash;
+        <div class='inline'>
+<p>mutable parsed options hash</p>
+</div>
       
     </li>
   
@@ -1889,15 +2796,15 @@
       <pre class="lines">
 
 
-220
-221
-222
-223
-224
-225</pre>
+266
+267
+268
+269
+270
+271</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 220</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 266</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_define_rbs_collection_option'>define_rbs_collection_option</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>--rbs-collection</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Auto-discover RBS collection from rbs_collection.lock.yaml. Implies --rbs.</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
@@ -1925,11 +2832,13 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines # (instance visibility: private)</p>
+<p>module_function: defines #define_rbs_option (visibility: private)</p>
 </div>
   </div>
 
 <p class="note returns_void">This method returns an undefined value.</p>
+<p>Define rbs option</p>
+
 
   </div>
 </div>
@@ -1946,6 +2855,11 @@
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>the option parser to configure</p>
+</div>
+      
     </li>
   
     <li>
@@ -1953,9 +2867,14 @@
         <span class='name'>options</span>
       
       
-        <span class='type'>(<tt>Hash</tt>)</span>
+        <span class='type'>(<tt>Hash&lt;Symbol, Object&gt;</tt>)</span>
       
       
+      
+        &mdash;
+        <div class='inline'>
+<p>mutable parsed options hash</p>
+</div>
       
     </li>
   
@@ -1968,18 +2887,107 @@
       <pre class="lines">
 
 
-174
-175
-176
-177
-178</pre>
+216
+217
+218
+219
+220</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 174</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 216</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_define_rbs_option'>define_rbs_option</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>--rbs</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Use RBS signatures for @param/@return when available (falls back to inference)</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
     <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:rbs</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='kw'>true</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="define_server_option-class_method">
+  
+    .<strong>define_server_option</strong>(opts, options)  &#x21d2; <tt>void</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+  <div class="note notetag">
+    <strong>Note:</strong>
+    <div class='inline'>
+<p>module_function: defines #define_server_option (visibility: private)</p>
+</div>
+  </div>
+
+<p class="note returns_void">This method returns an undefined value.</p>
+<p>Define server option</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>opts</span>
+      
+      
+        <span class='type'>(<tt>OptionParser</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the option parser to configure</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash&lt;Symbol, Object&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>mutable parsed options hash</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+189
+190
+191
+192
+193</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 189</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_define_server_option'>define_server_option</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>--server</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Use background server for faster repeated runs</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:server</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='kw'>true</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -2002,11 +3010,13 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines # (instance visibility: private)</p>
+<p>module_function: defines #define_sig_dir_option (visibility: private)</p>
 </div>
   </div>
 
 <p class="note returns_void">This method returns an undefined value.</p>
+<p>Define sig dir option</p>
+
 
   </div>
 </div>
@@ -2023,6 +3033,11 @@
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>the option parser to configure</p>
+</div>
+      
     </li>
   
     <li>
@@ -2030,9 +3045,14 @@
         <span class='name'>options</span>
       
       
-        <span class='type'>(<tt>Hash</tt>)</span>
+        <span class='type'>(<tt>Hash&lt;Symbol, Object&gt;</tt>)</span>
       
       
+      
+        &mdash;
+        <div class='inline'>
+<p>mutable parsed options hash</p>
+</div>
       
     </li>
   
@@ -2045,15 +3065,15 @@
       <pre class="lines">
 
 
-185
-186
-187
-188
-189
-190</pre>
+228
+229
+230
+231
+232
+233</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 185</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 228</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_define_sig_dir_option'>define_sig_dir_option</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>--sig-dir DIR</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Add an RBS signature directory (repeatable). Implies --rbs.</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_v'>v</span><span class='op'>|</span>
@@ -2081,11 +3101,13 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines # (instance visibility: private)</p>
+<p>module_function: defines #define_sorbet_option (visibility: private)</p>
 </div>
   </div>
 
 <p class="note returns_void">This method returns an undefined value.</p>
+<p>Define sorbet option</p>
+
 
   </div>
 </div>
@@ -2102,6 +3124,11 @@
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>the option parser to configure</p>
+</div>
+      
     </li>
   
     <li>
@@ -2109,9 +3136,14 @@
         <span class='name'>options</span>
       
       
-        <span class='type'>(<tt>Hash</tt>)</span>
+        <span class='type'>(<tt>Hash&lt;Symbol, Object&gt;</tt>)</span>
       
       
+      
+        &mdash;
+        <div class='inline'>
+<p>mutable parsed options hash</p>
+</div>
       
     </li>
   
@@ -2124,14 +3156,14 @@
       <pre class="lines">
 
 
-197
-198
-199
-200
-201</pre>
+241
+242
+243
+244
+245</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 197</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 241</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_define_sorbet_option'>define_sorbet_option</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>--sorbet</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Use Sorbet signatures from inline sigs / RBI files when available</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
@@ -2158,11 +3190,13 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines # (instance visibility: private)</p>
+<p>module_function: defines #define_stdin_option (visibility: private)</p>
 </div>
   </div>
 
 <p class="note returns_void">This method returns an undefined value.</p>
+<p>Define stdin option</p>
+
 
   </div>
 </div>
@@ -2179,6 +3213,11 @@
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>the option parser to configure</p>
+</div>
+      
     </li>
   
     <li>
@@ -2186,7 +3225,7 @@
         <span class='name'>options</span>
       
       
-        <span class='type'>(<tt>Hash</tt>)</span>
+        <span class='type'>(<tt>Hash&lt;Symbol, Object&gt;</tt>)</span>
       
       
       
@@ -2206,14 +3245,14 @@
       <pre class="lines">
 
 
-139
-140
-141
-142
-143</pre>
+165
+166
+167
+168
+169</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 139</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 165</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_define_stdin_option'>define_stdin_option</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>--stdin</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Read code from STDIN and print rewritten output</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
@@ -2240,11 +3279,13 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines # (instance visibility: private)</p>
+<p>module_function: defines #define_type_options (visibility: private)</p>
 </div>
   </div>
 
 <p class="note returns_void">This method returns an undefined value.</p>
+<p>Define type options</p>
+
 
   </div>
 </div>
@@ -2261,6 +3302,11 @@
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>the option parser to configure</p>
+</div>
+      
     </li>
   
     <li>
@@ -2268,7 +3314,7 @@
         <span class='name'>options</span>
       
       
-        <span class='type'>(<tt>Hash</tt>)</span>
+        <span class='type'>(<tt>Hash&lt;Symbol, Object&gt;</tt>)</span>
       
       
       
@@ -2288,16 +3334,17 @@
       <pre class="lines">
 
 
-161
-162
-163
-164
-165
-166
-167</pre>
+201
+202
+203
+204
+205
+206
+207
+208</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 161</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 201</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_define_type_options'>define_type_options</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_define_rbs_option'>define_rbs_option</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
@@ -2305,6 +3352,96 @@
   <span class='id identifier rubyid_define_sorbet_option'>define_sorbet_option</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_define_rbi_dir_option'>define_rbi_dir_option</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_define_rbs_collection_option'>define_rbs_collection_option</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_define_validate_types_option'>define_validate_types_option</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="define_validate_types_option-class_method">
+  
+    .<strong>define_validate_types_option</strong>(opts, options)  &#x21d2; <tt>void</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+  <div class="note notetag">
+    <strong>Note:</strong>
+    <div class='inline'>
+<p>module_function: defines #define_validate_types_option (visibility: private)</p>
+</div>
+  </div>
+
+<p class="note returns_void">This method returns an undefined value.</p>
+<p>Define validate types option</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>opts</span>
+      
+      
+        <span class='type'>(<tt>OptionParser</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the option parser to configure</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash&lt;Symbol, Object&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>mutable parsed options hash</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+279
+280
+281
+282
+283</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 279</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_define_validate_types_option'>define_validate_types_option</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>--[no-]validate-types</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Validate YARD types against inferred/RBS types and report mismatches</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_value'>value</span><span class='op'>|</span>
+    <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:validate_types</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_value'>value</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2326,11 +3463,13 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines # (instance visibility: private)</p>
+<p>module_function: defines #define_verbose_option (visibility: private)</p>
 </div>
   </div>
 
 <p class="note returns_void">This method returns an undefined value.</p>
+<p>Define verbose option</p>
+
 
   </div>
 </div>
@@ -2347,6 +3486,11 @@
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>the option parser to configure</p>
+</div>
+      
     </li>
   
     <li>
@@ -2354,7 +3498,7 @@
         <span class='name'>options</span>
       
       
-        <span class='type'>(<tt>Hash</tt>)</span>
+        <span class='type'>(<tt>Hash&lt;Symbol, Object&gt;</tt>)</span>
       
       
       
@@ -2374,18 +3518,20 @@
       <pre class="lines">
 
 
-299
-300
-301
-302
-303</pre>
+370
+371
+372
+373
+374
+375</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 299</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 370</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_define_verbose_option'>define_verbose_option</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>--verbose</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Print per-file actions</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
     <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:verbose</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='kw'>true</span>
+    <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:progress</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='kw'>true</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -2408,7 +3554,7 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines #looks_like_file_pattern? (instance visibility: private)</p>
+<p>module_function: defines #looks_like_file_pattern? (visibility: private)</p>
 </div>
   </div>
 
@@ -2462,15 +3608,15 @@
       <pre class="lines">
 
 
-379
-380
-381
-382
-383
-384</pre>
+527
+528
+529
+530
+531
+532</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 379</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 527</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_looks_like_file_pattern?'>looks_like_file_pattern?</span><span class='lparen'>(</span><span class='id identifier rubyid_pat'>pat</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>if</span> <span class='id identifier rubyid_pat'>pat</span><span class='period'>.</span><span class='id identifier rubyid_start_with?'>start_with?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_pat'>pat</span><span class='period'>.</span><span class='id identifier rubyid_end_with?'>end_with?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_pat'>pat</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span> <span class='op'>&gt;=</span> <span class='int'>2</span>
@@ -2486,7 +3632,7 @@
       <div class="method_details ">
   <h3 class="signature " id="parse!-class_method">
   
-    .<strong>parse!</strong>(argv)  &#x21d2; <tt>Hash</tt> 
+    .<strong>parse!</strong>(argv)  &#x21d2; <tt>Docscribe::CLI::Formatters::opts</tt> 
   
 
   
@@ -2498,7 +3644,7 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines #parse! (instance visibility: private)</p>
+<p>module_function: defines #parse! (visibility: private)</p>
 </div>
   </div>
 
@@ -2549,7 +3695,7 @@
     <li>
       
       
-        <span class='type'>(<tt>Hash</tt>)</span>
+        <span class='type'>(<tt>Docscribe::CLI::Formatters::opts</tt>)</span>
       
       
       
@@ -2568,17 +3714,17 @@
       <pre class="lines">
 
 
-82
-83
-84
-85
-86
-87
-88
-89</pre>
+104
+105
+106
+107
+108
+109
+110
+111</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 82</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 104</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_parse!'>parse!</span><span class='lparen'>(</span><span class='id identifier rubyid_argv'>argv</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='const'>Marshal</span><span class='period'>.</span><span class='id identifier rubyid_load'>load</span><span class='lparen'>(</span><span class='const'>Marshal</span><span class='period'>.</span><span class='id identifier rubyid_dump'>dump</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#DEFAULT-constant" title="Docscribe::CLI::Options::DEFAULT (constant)">DEFAULT</a></span></span><span class='rparen'>)</span><span class='rparen'>)</span>
@@ -2608,7 +3754,7 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines # (instance visibility: private)</p>
+<p>module_function: defines #resolve_mode_and_strategy! (visibility: private)</p>
 </div>
   </div>
 
@@ -2627,7 +3773,7 @@
         <span class='name'>options</span>
       
       
-        <span class='type'>(<tt>Hash</tt>)</span>
+        <span class='type'>(<tt>Hash&lt;Symbol, Object&gt;</tt>)</span>
       
       
       
@@ -2663,21 +3809,21 @@
       <pre class="lines">
 
 
-340
-341
-342
-343
-344
-345
-346
-347
-348
-349
-350
-351</pre>
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 340</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 488</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_resolve_mode_and_strategy!'>resolve_mode_and_strategy!</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='comma'>,</span> <span class='id identifier rubyid_autocorrect_mode'>autocorrect_mode</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:stdin</span><span class='rbracket'>]</span>
@@ -2711,7 +3857,7 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines #route_include_exclude (instance visibility: private)</p>
+<p>module_function: defines #route_include_exclude (visibility: private)</p>
 </div>
   </div>
 
@@ -2732,7 +3878,7 @@
         <span class='name'>options</span>
       
       
-        <span class='type'>(<tt>Hash</tt>)</span>
+        <span class='type'>(<tt>Hash&lt;Symbol, Object&gt;</tt>)</span>
       
       
       
@@ -2784,16 +3930,16 @@
       <pre class="lines">
 
 
-363
-364
-365
-366
-367
-368
-369</pre>
+511
+512
+513
+514
+515
+516
+517</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 363</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/options.rb', line 511</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_route_include_exclude'>route_include_exclude</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='comma'>,</span> <span class='id identifier rubyid_kind'>kind</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_looks_like_file_pattern?'>looks_like_file_pattern?</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
@@ -2812,7 +3958,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Jun 13 01:27:04 2026 by
+  Generated on Sun Oct  4 00:19:53 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.38 (ruby-3.4.5).
 </div>

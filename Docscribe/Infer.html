@@ -79,7 +79,7 @@
   <dl>
     <dt>Defined in:</dt>
     <dd>lib/docscribe/infer.rb<span class="defines">,<br />
-  lib/docscribe/infer/names.rb,<br /> lib/docscribe/infer/params.rb,<br /> lib/docscribe/infer/raises.rb,<br /> lib/docscribe/infer/returns.rb,<br /> lib/docscribe/infer/ast_walk.rb,<br /> lib/docscribe/infer/literals.rb,<br /> lib/docscribe/infer/constants.rb</span>
+  lib/docscribe/infer/names.rb,<br /> lib/docscribe/infer/params.rb,<br /> lib/docscribe/infer/raises.rb,<br /> lib/docscribe/infer/returns.rb,<br /> lib/docscribe/infer/ast_walk.rb,<br /> lib/docscribe/infer/behavior.rb,<br /> lib/docscribe/infer/literals.rb,<br /> lib/docscribe/infer/constants.rb</span>
 </dd>
   </dl>
   
@@ -111,7 +111,7 @@
 <p class="children">
   
     
-      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Infer/ASTWalk.html" title="Docscribe::Infer::ASTWalk (module)">ASTWalk</a></span>, <span class='object_link'><a href="Infer/Literals.html" title="Docscribe::Infer::Literals (module)">Literals</a></span>, <span class='object_link'><a href="Infer/Names.html" title="Docscribe::Infer::Names (module)">Names</a></span>, <span class='object_link'><a href="Infer/Params.html" title="Docscribe::Infer::Params (module)">Params</a></span>, <span class='object_link'><a href="Infer/Raises.html" title="Docscribe::Infer::Raises (module)">Raises</a></span>, <span class='object_link'><a href="Infer/Returns.html" title="Docscribe::Infer::Returns (module)">Returns</a></span>
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Infer/ASTWalk.html" title="Docscribe::Infer::ASTWalk (module)">ASTWalk</a></span>, <span class='object_link'><a href="Infer/Behavior.html" title="Docscribe::Infer::Behavior (module)">Behavior</a></span>, <span class='object_link'><a href="Infer/Literals.html" title="Docscribe::Infer::Literals (module)">Literals</a></span>, <span class='object_link'><a href="Infer/Names.html" title="Docscribe::Infer::Names (module)">Names</a></span>, <span class='object_link'><a href="Infer/Params.html" title="Docscribe::Infer::Params (module)">Params</a></span>, <span class='object_link'><a href="Infer/Raises.html" title="Docscribe::Infer::Raises (module)">Raises</a></span>, <span class='object_link'><a href="Infer/Returns.html" title="Docscribe::Infer::Returns (module)">Returns</a></span>
     
   
     
@@ -206,6 +206,30 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#analyze_behavior-class_method" title="analyze_behavior (class method)">.<strong>analyze_behavior</strong>(node, method_name)  &#x21d2; Hash&lt;Symbol, Boolean&gt; </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Analyze method behavior from AST node and method name.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#const_full_name-class_method" title="const_full_name (class method)">.<strong>const_full_name</strong>(node)  &#x21d2; String<sup>?</sup> </a>
     
 
@@ -222,6 +246,54 @@
   
     <span class="summary_desc"><div class='inline'>
 <p>Convert a constant AST node into its fully qualified name.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#extract_body-class_method" title="extract_body (class method)">.<strong>extract_body</strong>(node)  &#x21d2; Parser::AST::Node? </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Extract method body from def/defs node.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#infer_behavior_description-class_method" title="infer_behavior_description (class method)">.<strong>infer_behavior_description</strong>(node, method_name)  &#x21d2; String? </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Get behavioral description for a method.</p>
 </div></span>
   
 </li>
@@ -374,7 +446,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#returns_spec_from_node-class_method" title="returns_spec_from_node (class method)">.<strong>returns_spec_from_node</strong>(node, fallback_type: FALLBACK_TYPE, nil_as_optional: true, core_rbs_provider: nil, param_types: nil)  &#x21d2; Hash </a>
+      <a href="#returns_spec_from_node-class_method" title="returns_spec_from_node (class method)">.<strong>returns_spec_from_node</strong>(node, fallback_type: FALLBACK_TYPE, nil_as_optional: true, core_rbs_provider: nil, param_types: nil, container: nil, signature_provider: nil)  &#x21d2; Hash&lt;Symbol, String, Array&lt;(Array&lt;String&gt;, String)&gt;&gt; </a>
     
 
     
@@ -453,7 +525,94 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="const_full_name-class_method">
+  <h3 class="signature first" id="analyze_behavior-class_method">
+  
+    .<strong>analyze_behavior</strong>(node, method_name)  &#x21d2; <tt>Hash&lt;Symbol, Boolean&gt;</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Analyze method behavior from AST node and method name.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>node</span>
+      
+      
+        <span class='type'>(<tt>Parser::AST::Node?</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>def or defs node</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>method_name</span>
+      
+      
+        <span class='type'>(<tt>Symbol?</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Hash&lt;Symbol, Boolean&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+46
+47
+48
+49</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/infer.rb', line 46</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_analyze_behavior'>analyze_behavior</span><span class='lparen'>(</span><span class='id identifier rubyid_node'>node</span><span class='comma'>,</span> <span class='id identifier rubyid_method_name'>method_name</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_body'>body</span> <span class='op'>=</span> <span class='id identifier rubyid_extract_body'>extract_body</span><span class='lparen'>(</span><span class='id identifier rubyid_node'>node</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="Infer/Behavior.html" title="Docscribe::Infer::Behavior (module)">Behavior</a></span></span><span class='period'>.</span><span class='id identifier rubyid_analyze'><span class='object_link'><a href="Infer/Behavior.html#analyze-class_method" title="Docscribe::Infer::Behavior.analyze (method)">analyze</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_body'>body</span><span class='comma'>,</span> <span class='id identifier rubyid_method_name'>method_name</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="const_full_name-class_method">
   
     .<strong>const_full_name</strong>(node)  &#x21d2; <tt>String</tt><sup>?</sup> 
   
@@ -472,17 +631,6 @@
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
-    <li>
-      
-        <span class='name'>n</span>
-      
-      
-        <span class='type'>(<tt>Parser::AST::Node</tt>, <tt>nil</tt>)</span>
-      
-      
-      
-    </li>
   
     <li>
       
@@ -522,15 +670,188 @@
       <pre class="lines">
 
 
-129
-130
-131</pre>
+167
+168
+169</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/infer.rb', line 129</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/infer.rb', line 167</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_const_full_name'>const_full_name</span><span class='lparen'>(</span><span class='id identifier rubyid_node'>node</span><span class='rparen'>)</span>
   <span class='const'><span class='object_link'><a href="Infer/Names.html" title="Docscribe::Infer::Names (module)">Names</a></span></span><span class='period'>.</span><span class='id identifier rubyid_const_full_name'><span class='object_link'><a href="Infer/Names.html#const_full_name-class_method" title="Docscribe::Infer::Names.const_full_name (method)">const_full_name</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_node'>node</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="extract_body-class_method">
+  
+    .<strong>extract_body</strong>(node)  &#x21d2; <tt>Parser::AST::Node?</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Extract method body from def/defs node.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>node</span>
+      
+      
+        <span class='type'>(<tt>Parser::AST::Node</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>def or defs node</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Parser::AST::Node?</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+68
+69
+70
+71
+72
+73</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/infer.rb', line 68</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_extract_body'>extract_body</span><span class='lparen'>(</span><span class='id identifier rubyid_node'>node</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>unless</span> <span class='id identifier rubyid_node'>node</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Parser</span><span class='op'>::</span><span class='const'>AST</span><span class='op'>::</span><span class='const'>Node</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_body_idx'>body_idx</span> <span class='op'>=</span> <span class='id identifier rubyid_node'>node</span><span class='period'>.</span><span class='id identifier rubyid_type'>type</span> <span class='op'>==</span> <span class='symbol'>:def</span> <span class='op'>?</span> <span class='int'>2</span> <span class='op'>:</span> <span class='int'>3</span>
+  <span class='id identifier rubyid_node'>node</span><span class='period'>.</span><span class='id identifier rubyid_children'>children</span><span class='lbracket'>[</span><span class='id identifier rubyid_body_idx'>body_idx</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="infer_behavior_description-class_method">
+  
+    .<strong>infer_behavior_description</strong>(node, method_name)  &#x21d2; <tt>String?</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Get behavioral description for a method.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>node</span>
+      
+      
+        <span class='type'>(<tt>Hash&lt;Symbol, Boolean&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>def or defs node</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>method_name</span>
+      
+      
+        <span class='type'>(<tt>Symbol?</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String?</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+56
+57
+58
+59
+60
+61
+62</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/infer.rb', line 56</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_infer_behavior_description'>infer_behavior_description</span><span class='lparen'>(</span><span class='id identifier rubyid_node'>node</span><span class='comma'>,</span> <span class='id identifier rubyid_method_name'>method_name</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_body'>body</span> <span class='op'>=</span> <span class='id identifier rubyid_extract_body'>extract_body</span><span class='lparen'>(</span><span class='id identifier rubyid_node'>node</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>unless</span> <span class='id identifier rubyid_body'>body</span>
+
+  <span class='id identifier rubyid_analysis'>analysis</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Infer/Behavior.html" title="Docscribe::Infer::Behavior (module)">Behavior</a></span></span><span class='period'>.</span><span class='id identifier rubyid_analyze'><span class='object_link'><a href="Infer/Behavior.html#analyze-class_method" title="Docscribe::Infer::Behavior.analyze (method)">analyze</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_body'>body</span><span class='comma'>,</span> <span class='id identifier rubyid_method_name'>method_name</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="Infer/Behavior.html" title="Docscribe::Infer::Behavior (module)">Behavior</a></span></span><span class='period'>.</span><span class='id identifier rubyid_infer_description'><span class='object_link'><a href="Infer/Behavior.html#infer_description-class_method" title="Docscribe::Infer::Behavior.infer_description (method)">infer_description</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_analysis'>analysis</span><span class='comma'>,</span> <span class='id identifier rubyid_method_name'>method_name</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -590,7 +911,7 @@
         <span class='name'>default_str</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+        <span class='type'>(<tt>String?</tt>)</span>
       
       
       
@@ -612,6 +933,11 @@
         <em class="default">(defaults to: <tt>FALLBACK_TYPE</tt>)</em>
       
       
+        &mdash;
+        <div class='inline'>
+<p>default type when uncertain</p>
+</div>
+      
     </li>
   
     <li>
@@ -624,6 +950,11 @@
       
         <em class="default">(defaults to: <tt>true</tt>)</em>
       
+      
+        &mdash;
+        <div class='inline'>
+<p>treat options: as Hash</p>
+</div>
       
     </li>
   
@@ -649,17 +980,17 @@
       <pre class="lines">
 
 
-54
-55
-56
-57
-58
-59
-60
-61</pre>
+89
+90
+91
+92
+93
+94
+95
+96</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/infer.rb', line 54</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/infer.rb', line 89</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_infer_param_type'>infer_param_type</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_default_str'>default_str</span><span class='comma'>,</span> <span class='label'>fallback_type:</span> <span class='const'><span class='object_link'><a href="#FALLBACK_TYPE-constant" title="Docscribe::Infer::FALLBACK_TYPE (constant)">FALLBACK_TYPE</a></span></span><span class='comma'>,</span> <span class='label'>treat_options_keyword_as_hash:</span> <span class='kw'>true</span><span class='rparen'>)</span>
   <span class='const'><span class='object_link'><a href="Infer/Params.html" title="Docscribe::Infer::Params (module)">Params</a></span></span><span class='period'>.</span><span class='id identifier rubyid_infer_param_type'><span class='object_link'><a href="Infer/Params.html#infer_param_type-class_method" title="Docscribe::Infer::Params.infer_param_type (method)">infer_param_type</a></span></span><span class='lparen'>(</span>
@@ -704,6 +1035,11 @@
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>constant AST node to resolve</p>
+</div>
+      
     </li>
   
 </ul>
@@ -728,12 +1064,12 @@
       <pre class="lines">
 
 
-36
 37
-38</pre>
+38
+39</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/infer.rb', line 36</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/infer.rb', line 37</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_infer_raises_from_node'>infer_raises_from_node</span><span class='lparen'>(</span><span class='id identifier rubyid_node'>node</span><span class='rparen'>)</span>
   <span class='const'><span class='object_link'><a href="Infer/Raises.html" title="Docscribe::Infer::Raises (module)">Raises</a></span></span><span class='period'>.</span><span class='id identifier rubyid_infer_raises_from_node'><span class='object_link'><a href="Infer/Raises.html#infer_raises_from_node-class_method" title="Docscribe::Infer::Raises.infer_raises_from_node (method)">infer_raises_from_node</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_node'>node</span><span class='rparen'>)</span>
@@ -769,9 +1105,14 @@
         <span class='name'>method_source</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+        <span class='type'>(<tt>String?</tt>)</span>
       
       
+      
+        &mdash;
+        <div class='inline'>
+<p>method definition source</p>
+</div>
       
     </li>
   
@@ -797,12 +1138,12 @@
       <pre class="lines">
 
 
-75
-76
-77</pre>
+110
+111
+112</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/infer.rb', line 75</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/infer.rb', line 110</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_infer_return_type'>infer_return_type</span><span class='lparen'>(</span><span class='id identifier rubyid_method_source'>method_source</span><span class='rparen'>)</span>
   <span class='const'><span class='object_link'><a href="Infer/Returns.html" title="Docscribe::Infer::Returns (module)">Returns</a></span></span><span class='period'>.</span><span class='id identifier rubyid_infer_return_type'><span class='object_link'><a href="Infer/Returns.html#infer_return_type-class_method" title="Docscribe::Infer::Returns.infer_return_type (method)">infer_return_type</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_method_source'>method_source</span><span class='rparen'>)</span>
@@ -842,6 +1183,11 @@
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>constant AST node to resolve</p>
+</div>
+      
     </li>
   
 </ul>
@@ -866,12 +1212,12 @@
       <pre class="lines">
 
 
-83
-84
-85</pre>
+118
+119
+120</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/infer.rb', line 83</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/infer.rb', line 118</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_infer_return_type_from_node'>infer_return_type_from_node</span><span class='lparen'>(</span><span class='id identifier rubyid_node'>node</span><span class='rparen'>)</span>
   <span class='const'><span class='object_link'><a href="Infer/Returns.html" title="Docscribe::Infer::Returns (module)">Returns</a></span></span><span class='period'>.</span><span class='id identifier rubyid_infer_return_type_from_node'><span class='object_link'><a href="Infer/Returns.html#infer_return_type_from_node-class_method" title="Docscribe::Infer::Returns.infer_return_type_from_node (method)">infer_return_type_from_node</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_node'>node</span><span class='rparen'>)</span>
@@ -911,6 +1257,11 @@
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>constant AST node to resolve</p>
+</div>
+      
     </li>
   
     <li>
@@ -924,6 +1275,11 @@
         <em class="default">(defaults to: <tt>FALLBACK_TYPE</tt>)</em>
       
       
+        &mdash;
+        <div class='inline'>
+<p>default type when uncertain</p>
+</div>
+      
     </li>
   
     <li>
@@ -936,6 +1292,11 @@
       
         <em class="default">(defaults to: <tt>true</tt>)</em>
       
+      
+        &mdash;
+        <div class='inline'>
+<p>render nil as optional</p>
+</div>
       
     </li>
   
@@ -961,16 +1322,16 @@
       <pre class="lines">
 
 
-116
-117
-118
-119
-120
-121
-122</pre>
+155
+156
+157
+158
+159
+160
+161</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/infer.rb', line 116</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/infer.rb', line 155</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_last_expr_type'>last_expr_type</span><span class='lparen'>(</span><span class='id identifier rubyid_node'>node</span><span class='comma'>,</span> <span class='label'>fallback_type:</span> <span class='const'><span class='object_link'><a href="#FALLBACK_TYPE-constant" title="Docscribe::Infer::FALLBACK_TYPE (constant)">FALLBACK_TYPE</a></span></span><span class='comma'>,</span> <span class='label'>nil_as_optional:</span> <span class='kw'>true</span><span class='rparen'>)</span>
   <span class='const'><span class='object_link'><a href="Infer/Returns.html" title="Docscribe::Infer::Returns (module)">Returns</a></span></span><span class='period'>.</span><span class='id identifier rubyid_last_expr_type'><span class='object_link'><a href="Infer/Returns.html#last_expr_type-class_method" title="Docscribe::Infer::Returns.last_expr_type (method)">last_expr_type</a></span></span><span class='lparen'>(</span>
@@ -1010,9 +1371,14 @@
         <span class='name'>src</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+        <span class='type'>(<tt>String?</tt>)</span>
       
       
+      
+        &mdash;
+        <div class='inline'>
+<p>expression source to parse</p>
+</div>
       
     </li>
   
@@ -1038,12 +1404,12 @@
       <pre class="lines">
 
 
-67
-68
-69</pre>
+102
+103
+104</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/infer.rb', line 67</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/infer.rb', line 102</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_parse_expr'>parse_expr</span><span class='lparen'>(</span><span class='id identifier rubyid_src'>src</span><span class='rparen'>)</span>
   <span class='const'><span class='object_link'><a href="Infer/Params.html" title="Docscribe::Infer::Params (module)">Params</a></span></span><span class='period'>.</span><span class='id identifier rubyid_parse_expr'><span class='object_link'><a href="Infer/Params.html#parse_expr-class_method" title="Docscribe::Infer::Params.parse_expr (method)">parse_expr</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_src'>src</span><span class='rparen'>)</span>
@@ -1056,7 +1422,7 @@
       <div class="method_details ">
   <h3 class="signature " id="returns_spec_from_node-class_method">
   
-    .<strong>returns_spec_from_node</strong>(node, fallback_type: FALLBACK_TYPE, nil_as_optional: true, core_rbs_provider: nil, param_types: nil)  &#x21d2; <tt>Hash</tt> 
+    .<strong>returns_spec_from_node</strong>(node, fallback_type: FALLBACK_TYPE, nil_as_optional: true, core_rbs_provider: nil, param_types: nil, container: nil, signature_provider: nil)  &#x21d2; <tt>Hash&lt;Symbol, String, Array&lt;(Array&lt;String&gt;, String)&gt;&gt;</tt> 
   
 
   
@@ -1090,6 +1456,11 @@
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>constant AST node to resolve</p>
+</div>
+      
     </li>
   
     <li>
@@ -1102,6 +1473,11 @@
       
         <em class="default">(defaults to: <tt>FALLBACK_TYPE</tt>)</em>
       
+      
+        &mdash;
+        <div class='inline'>
+<p>default type when uncertain</p>
+</div>
       
     </li>
   
@@ -1116,6 +1492,11 @@
         <em class="default">(defaults to: <tt>true</tt>)</em>
       
       
+        &mdash;
+        <div class='inline'>
+<p>render nil as optional</p>
+</div>
+      
     </li>
   
     <li>
@@ -1123,7 +1504,7 @@
         <span class='name'>core_rbs_provider</span>
       
       
-        <span class='type'>(<tt>nil</tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="Types/RBS/Provider.html" title="Docscribe::Types::RBS::Provider (class)">Docscribe::Types::RBS::Provider</a></span>?</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>nil</tt>)</em>
@@ -1141,7 +1522,7 @@
         <span class='name'>param_types</span>
       
       
-        <span class='type'>(<tt>nil</tt>)</span>
+        <span class='type'>(<tt>Hash&lt;String, String&gt;?</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>nil</tt>)</em>
@@ -1154,6 +1535,32 @@
       
     </li>
   
+    <li>
+      
+        <span class='name'>container</span>
+      
+      
+        <span class='type'>(<tt>String?</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>signature_provider</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Types/ProviderChain.html" title="Docscribe::Types::ProviderChain (class)">Docscribe::Types::ProviderChain</a></span>?</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+    </li>
+  
 </ul>
 
 <p class="tag_title">Returns:</p>
@@ -1162,7 +1569,7 @@
     <li>
       
       
-        <span class='type'>(<tt>Hash</tt>)</span>
+        <span class='type'>(<tt>Hash&lt;Symbol, String, Array&lt;(Array&lt;String&gt;, String)&gt;&gt;</tt>)</span>
       
       
       
@@ -1176,28 +1583,32 @@
       <pre class="lines">
 
 
-99
-100
-101
-102
-103
-104
-105
-106
-107
-108</pre>
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/infer.rb', line 99</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/infer.rb', line 136</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_returns_spec_from_node'>returns_spec_from_node</span><span class='lparen'>(</span><span class='id identifier rubyid_node'>node</span><span class='comma'>,</span> <span class='label'>fallback_type:</span> <span class='const'><span class='object_link'><a href="#FALLBACK_TYPE-constant" title="Docscribe::Infer::FALLBACK_TYPE (constant)">FALLBACK_TYPE</a></span></span><span class='comma'>,</span> <span class='label'>nil_as_optional:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>core_rbs_provider:</span> <span class='kw'>nil</span><span class='comma'>,</span>
-                           <span class='label'>param_types:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_returns_spec_from_node'>returns_spec_from_node</span><span class='lparen'>(</span><span class='id identifier rubyid_node'>node</span><span class='comma'>,</span> <span class='label'>fallback_type:</span> <span class='const'><span class='object_link'><a href="#FALLBACK_TYPE-constant" title="Docscribe::Infer::FALLBACK_TYPE (constant)">FALLBACK_TYPE</a></span></span><span class='comma'>,</span> <span class='label'>nil_as_optional:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>core_rbs_provider:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='comment'># rubocop:disable Metrics/ParameterLists
+</span>                           <span class='label'>param_types:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>container:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>signature_provider:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='const'><span class='object_link'><a href="Infer/Returns.html" title="Docscribe::Infer::Returns (module)">Returns</a></span></span><span class='period'>.</span><span class='id identifier rubyid_returns_spec_from_node'><span class='object_link'><a href="Infer/Returns.html#returns_spec_from_node-class_method" title="Docscribe::Infer::Returns.returns_spec_from_node (method)">returns_spec_from_node</a></span></span><span class='lparen'>(</span>
     <span class='id identifier rubyid_node'>node</span><span class='comma'>,</span>
     <span class='label'>fallback_type:</span> <span class='id identifier rubyid_fallback_type'>fallback_type</span><span class='comma'>,</span>
     <span class='label'>nil_as_optional:</span> <span class='id identifier rubyid_nil_as_optional'>nil_as_optional</span><span class='comma'>,</span>
     <span class='label'>core_rbs_provider:</span> <span class='id identifier rubyid_core_rbs_provider'>core_rbs_provider</span><span class='comma'>,</span>
-    <span class='label'>param_types:</span> <span class='id identifier rubyid_param_types'>param_types</span>
+    <span class='label'>param_types:</span> <span class='id identifier rubyid_param_types'>param_types</span><span class='comma'>,</span>
+    <span class='label'>container:</span> <span class='id identifier rubyid_container'>container</span><span class='comma'>,</span>
+    <span class='label'>signature_provider:</span> <span class='id identifier rubyid_signature_provider'>signature_provider</span>
   <span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1235,6 +1646,11 @@
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>constant AST node to resolve</p>
+</div>
+      
     </li>
   
     <li>
@@ -1247,6 +1663,11 @@
       
         <em class="default">(defaults to: <tt>FALLBACK_TYPE</tt>)</em>
       
+      
+        &mdash;
+        <div class='inline'>
+<p>default type when uncertain</p>
+</div>
       
     </li>
   
@@ -1272,12 +1693,12 @@
       <pre class="lines">
 
 
-138
-139
-140</pre>
+176
+177
+178</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/infer.rb', line 138</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/infer.rb', line 176</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_type_from_literal'>type_from_literal</span><span class='lparen'>(</span><span class='id identifier rubyid_node'>node</span><span class='comma'>,</span> <span class='label'>fallback_type:</span> <span class='const'><span class='object_link'><a href="#FALLBACK_TYPE-constant" title="Docscribe::Infer::FALLBACK_TYPE (constant)">FALLBACK_TYPE</a></span></span><span class='rparen'>)</span>
   <span class='const'><span class='object_link'><a href="Infer/Literals.html" title="Docscribe::Infer::Literals (module)">Literals</a></span></span><span class='period'>.</span><span class='id identifier rubyid_type_from_literal'><span class='object_link'><a href="Infer/Literals.html#type_from_literal-class_method" title="Docscribe::Infer::Literals.type_from_literal (method)">type_from_literal</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_node'>node</span><span class='comma'>,</span> <span class='label'>fallback_type:</span> <span class='id identifier rubyid_fallback_type'>fallback_type</span><span class='rparen'>)</span>
@@ -1317,6 +1738,11 @@
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>first type to unify</p>
+</div>
+      
     </li>
   
     <li>
@@ -1327,6 +1753,11 @@
         <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
       
       
+      
+        &mdash;
+        <div class='inline'>
+<p>second type to unify</p>
+</div>
       
     </li>
   
@@ -1341,6 +1772,11 @@
         <em class="default">(defaults to: <tt>FALLBACK_TYPE</tt>)</em>
       
       
+        &mdash;
+        <div class='inline'>
+<p>default type when uncertain</p>
+</div>
+      
     </li>
   
     <li>
@@ -1353,6 +1789,11 @@
       
         <em class="default">(defaults to: <tt>true</tt>)</em>
       
+      
+        &mdash;
+        <div class='inline'>
+<p>render nil as optional</p>
+</div>
       
     </li>
   
@@ -1378,17 +1819,17 @@
       <pre class="lines">
 
 
-149
-150
-151
-152
-153
-154
-155
-156</pre>
+187
+188
+189
+190
+191
+192
+193
+194</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/infer.rb', line 149</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/infer.rb', line 187</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_unify_types'>unify_types</span><span class='lparen'>(</span><span class='id identifier rubyid_type_a'>type_a</span><span class='comma'>,</span> <span class='id identifier rubyid_type_b'>type_b</span><span class='comma'>,</span> <span class='label'>fallback_type:</span> <span class='const'><span class='object_link'><a href="#FALLBACK_TYPE-constant" title="Docscribe::Infer::FALLBACK_TYPE (constant)">FALLBACK_TYPE</a></span></span><span class='comma'>,</span> <span class='label'>nil_as_optional:</span> <span class='kw'>true</span><span class='rparen'>)</span>
   <span class='const'><span class='object_link'><a href="Infer/Returns.html" title="Docscribe::Infer::Returns (module)">Returns</a></span></span><span class='period'>.</span><span class='id identifier rubyid_unify_types'><span class='object_link'><a href="Infer/Returns.html#unify_types-class_method" title="Docscribe::Infer::Returns.unify_types (method)">unify_types</a></span></span><span class='lparen'>(</span>
@@ -1408,7 +1849,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Jun 13 01:27:03 2026 by
+  Generated on Sun Oct  4 00:19:53 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.38 (ruby-3.4.5).
 </div>

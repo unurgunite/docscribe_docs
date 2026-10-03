@@ -101,18 +101,7 @@
   
 </div>
 
-<h2>Overview</h2><div class="docstring">
-  <div class="discussion">
-    
-<p>One method that Docscribe intends to document.</p>
 
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div>
 
 
 
@@ -139,9 +128,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>First leading Sorbet ‘sig` if present, else the method node.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -166,9 +153,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Container name, e.g.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -193,9 +178,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Included instance visibility under module_function.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -203,7 +186,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#module_function-instance_method" title="#module_function (instance method)">#<strong>module_function</strong>  &#x21d2; Boolean<sup>?</sup> </a>
+      <a href="#module_function-instance_method" title="#module_function (instance method)">#<strong>module_function</strong>  &#x21d2; Boolean, ... </a>
     
 
     
@@ -220,9 +203,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>True if documented under module_function semantics.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -247,9 +228,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>The ‘:def` or `:defs` node.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -274,9 +253,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>:instance or :class.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -301,9 +278,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>:public, :protected, or :private.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -332,13 +307,26 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Returns first leading Sorbet ‘sig` if present, else the method node.</p>
-
 
   </div>
 </div>
 <div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
   
+    <li>
+      
+        <span class='name'>value</span>
+      
+      
+        <span class='type'>(<tt>Parser::AST::Node</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
 <p class="tag_title">Returns:</p>
 <ul class="return">
   
@@ -348,11 +336,6 @@
         <span class='type'>(<tt>Parser::AST::Node</tt>)</span>
       
       
-      
-        &mdash;
-        <div class='inline'>
-<p>first leading Sorbet ‘sig` if present, else the method node</p>
-</div>
       
     </li>
   
@@ -364,11 +347,11 @@
       <pre class="lines">
 
 
-45
-46</pre>
+49
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/collector.rb', line 45</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/collector.rb', line 49</span>
 
 <span class='const'><span class='object_link'><a href="" title="Docscribe::InlineRewriter::Collector::Insertion (class)">Insertion</a></span></span> <span class='op'>=</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:node</span><span class='comma'>,</span> <span class='symbol'>:scope</span><span class='comma'>,</span> <span class='symbol'>:visibility</span><span class='comma'>,</span> <span class='symbol'>:container</span><span class='comma'>,</span> <span class='symbol'>:module_function</span><span class='comma'>,</span> <span class='symbol'>:included_instance_visibility</span><span class='comma'>,</span>
 <span class='symbol'>:anchor_node</span><span class='rparen'>)</span></pre>
@@ -391,13 +374,26 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Returns container name, e.g. “MyModule::MyClass”.</p>
-
 
   </div>
 </div>
 <div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
   
+    <li>
+      
+        <span class='name'>value</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
 <p class="tag_title">Returns:</p>
 <ul class="return">
   
@@ -407,11 +403,6 @@
         <span class='type'>(<tt>String</tt>)</span>
       
       
-      
-        &mdash;
-        <div class='inline'>
-<p>container name, e.g. “MyModule::MyClass”</p>
-</div>
       
     </li>
   
@@ -423,11 +414,11 @@
       <pre class="lines">
 
 
-45
-46</pre>
+49
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/collector.rb', line 45</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/collector.rb', line 49</span>
 
 <span class='const'><span class='object_link'><a href="" title="Docscribe::InlineRewriter::Collector::Insertion (class)">Insertion</a></span></span> <span class='op'>=</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:node</span><span class='comma'>,</span> <span class='symbol'>:scope</span><span class='comma'>,</span> <span class='symbol'>:visibility</span><span class='comma'>,</span> <span class='symbol'>:container</span><span class='comma'>,</span> <span class='symbol'>:module_function</span><span class='comma'>,</span> <span class='symbol'>:included_instance_visibility</span><span class='comma'>,</span>
 <span class='symbol'>:anchor_node</span><span class='rparen'>)</span></pre>
@@ -450,13 +441,26 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Returns included instance visibility under module_function.</p>
-
 
   </div>
 </div>
 <div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
   
+    <li>
+      
+        <span class='name'>value</span>
+      
+      
+        <span class='type'>(<tt>Symbol</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
 <p class="tag_title">Returns:</p>
 <ul class="return">
   
@@ -466,11 +470,6 @@
         <span class='type'>(<tt>Symbol</tt>, <tt>nil</tt>)</span>
       
       
-      
-        &mdash;
-        <div class='inline'>
-<p>included instance visibility under module_function</p>
-</div>
       
     </li>
   
@@ -482,11 +481,11 @@
       <pre class="lines">
 
 
-45
-46</pre>
+49
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/collector.rb', line 45</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/collector.rb', line 49</span>
 
 <span class='const'><span class='object_link'><a href="" title="Docscribe::InlineRewriter::Collector::Insertion (class)">Insertion</a></span></span> <span class='op'>=</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:node</span><span class='comma'>,</span> <span class='symbol'>:scope</span><span class='comma'>,</span> <span class='symbol'>:visibility</span><span class='comma'>,</span> <span class='symbol'>:container</span><span class='comma'>,</span> <span class='symbol'>:module_function</span><span class='comma'>,</span> <span class='symbol'>:included_instance_visibility</span><span class='comma'>,</span>
 <span class='symbol'>:anchor_node</span><span class='rparen'>)</span></pre>
@@ -500,7 +499,7 @@
       <div class="method_details ">
   <h3 class="signature " id="module_function-instance_method">
   
-    #<strong>module_function</strong>  &#x21d2; <tt>Boolean</tt><sup>?</sup> 
+    #<strong>module_function</strong>  &#x21d2; <tt>Boolean</tt>, ... 
   
 
   
@@ -509,27 +508,35 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Returns true if documented under module_function semantics.</p>
-
 
   </div>
 </div>
 <div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
   
+    <li>
+      
+        <span class='name'>value</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>, <tt>Symbol</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
 <p class="tag_title">Returns:</p>
 <ul class="return">
   
     <li>
       
       
-        <span class='type'>(<tt>Boolean</tt>, <tt>nil</tt>)</span>
+        <span class='type'>(<tt>Boolean</tt>, <tt>Symbol</tt>, <tt>nil</tt>)</span>
       
       
-      
-        &mdash;
-        <div class='inline'>
-<p>true if documented under module_function semantics</p>
-</div>
       
     </li>
   
@@ -541,11 +548,11 @@
       <pre class="lines">
 
 
-45
-46</pre>
+49
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/collector.rb', line 45</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/collector.rb', line 49</span>
 
 <span class='const'><span class='object_link'><a href="" title="Docscribe::InlineRewriter::Collector::Insertion (class)">Insertion</a></span></span> <span class='op'>=</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:node</span><span class='comma'>,</span> <span class='symbol'>:scope</span><span class='comma'>,</span> <span class='symbol'>:visibility</span><span class='comma'>,</span> <span class='symbol'>:container</span><span class='comma'>,</span> <span class='symbol'>:module_function</span><span class='comma'>,</span> <span class='symbol'>:included_instance_visibility</span><span class='comma'>,</span>
 <span class='symbol'>:anchor_node</span><span class='rparen'>)</span></pre>
@@ -568,13 +575,26 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Returns the ‘:def` or `:defs` node.</p>
-
 
   </div>
 </div>
 <div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
   
+    <li>
+      
+        <span class='name'>value</span>
+      
+      
+        <span class='type'>(<tt>Parser::AST::Node</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
 <p class="tag_title">Returns:</p>
 <ul class="return">
   
@@ -584,11 +604,6 @@
         <span class='type'>(<tt>Parser::AST::Node</tt>)</span>
       
       
-      
-        &mdash;
-        <div class='inline'>
-<p>the ‘:def` or `:defs` node</p>
-</div>
       
     </li>
   
@@ -600,11 +615,11 @@
       <pre class="lines">
 
 
-45
-46</pre>
+49
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/collector.rb', line 45</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/collector.rb', line 49</span>
 
 <span class='const'><span class='object_link'><a href="" title="Docscribe::InlineRewriter::Collector::Insertion (class)">Insertion</a></span></span> <span class='op'>=</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:node</span><span class='comma'>,</span> <span class='symbol'>:scope</span><span class='comma'>,</span> <span class='symbol'>:visibility</span><span class='comma'>,</span> <span class='symbol'>:container</span><span class='comma'>,</span> <span class='symbol'>:module_function</span><span class='comma'>,</span> <span class='symbol'>:included_instance_visibility</span><span class='comma'>,</span>
 <span class='symbol'>:anchor_node</span><span class='rparen'>)</span></pre>
@@ -627,13 +642,26 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Returns :instance or :class.</p>
-
 
   </div>
 </div>
 <div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
   
+    <li>
+      
+        <span class='name'>value</span>
+      
+      
+        <span class='type'>(<tt>Symbol</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
 <p class="tag_title">Returns:</p>
 <ul class="return">
   
@@ -643,11 +671,6 @@
         <span class='type'>(<tt>Symbol</tt>)</span>
       
       
-      
-        &mdash;
-        <div class='inline'>
-<p>:instance or :class</p>
-</div>
       
     </li>
   
@@ -659,11 +682,11 @@
       <pre class="lines">
 
 
-45
-46</pre>
+49
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/collector.rb', line 45</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/collector.rb', line 49</span>
 
 <span class='const'><span class='object_link'><a href="" title="Docscribe::InlineRewriter::Collector::Insertion (class)">Insertion</a></span></span> <span class='op'>=</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:node</span><span class='comma'>,</span> <span class='symbol'>:scope</span><span class='comma'>,</span> <span class='symbol'>:visibility</span><span class='comma'>,</span> <span class='symbol'>:container</span><span class='comma'>,</span> <span class='symbol'>:module_function</span><span class='comma'>,</span> <span class='symbol'>:included_instance_visibility</span><span class='comma'>,</span>
 <span class='symbol'>:anchor_node</span><span class='rparen'>)</span></pre>
@@ -686,13 +709,26 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Returns :public, :protected, or :private.</p>
-
 
   </div>
 </div>
 <div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
   
+    <li>
+      
+        <span class='name'>value</span>
+      
+      
+        <span class='type'>(<tt>Symbol</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
 <p class="tag_title">Returns:</p>
 <ul class="return">
   
@@ -702,11 +738,6 @@
         <span class='type'>(<tt>Symbol</tt>)</span>
       
       
-      
-        &mdash;
-        <div class='inline'>
-<p>:public, :protected, or :private</p>
-</div>
       
     </li>
   
@@ -718,11 +749,11 @@
       <pre class="lines">
 
 
-45
-46</pre>
+49
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/collector.rb', line 45</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/collector.rb', line 49</span>
 
 <span class='const'><span class='object_link'><a href="" title="Docscribe::InlineRewriter::Collector::Insertion (class)">Insertion</a></span></span> <span class='op'>=</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:node</span><span class='comma'>,</span> <span class='symbol'>:scope</span><span class='comma'>,</span> <span class='symbol'>:visibility</span><span class='comma'>,</span> <span class='symbol'>:container</span><span class='comma'>,</span> <span class='symbol'>:module_function</span><span class='comma'>,</span> <span class='symbol'>:included_instance_visibility</span><span class='comma'>,</span>
 <span class='symbol'>:anchor_node</span><span class='rparen'>)</span></pre>
@@ -737,7 +768,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Jun 13 01:27:04 2026 by
+  Generated on Sun Oct  4 00:19:55 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.38 (ruby-3.4.5).
 </div>

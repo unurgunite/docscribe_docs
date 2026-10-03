@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Class: Docscribe::CLI::Coverage::CoverageStats
+  
+    &mdash; Documentation by YARD 0.9.38
+  
+</title>
+
+  <link rel="stylesheet" href="../../../css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="../../../css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "Docscribe::CLI::Coverage::CoverageStats";
+  relpath = '../../../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../../../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../../../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../../../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../../../_index.html">Index (C)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../../../Docscribe.html" title="Docscribe (module)">Docscribe</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../../CLI.html" title="Docscribe::CLI (module)">CLI</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Coverage.html" title="Docscribe::CLI::Coverage (module)">Coverage</a></span></span>
+     &raquo; 
+    <span class="title">CoverageStats</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../../../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Class: Docscribe::CLI::Coverage::CoverageStats
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
+      <span class="inheritName">Struct</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">Struct</li>
+          
+            <li class="next">Docscribe::CLI::Coverage::CoverageStats</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+    </dd>
+  </dl>
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/docscribe/cli/coverage.rb<span class="defines">,<br />
+  lib/docscribe/cli/coverage.rb</span>
+</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>Struct tracking documentation coverage metrics per file.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+
+
+
+  <h2>Instance Attribute Summary <small><a href="#" class="summary_toggle">collapse</a></small></h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#documented_methods-instance_method" title="#documented_methods (instance method)">#<strong>documented_methods</strong>  &#x21d2; Integer </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#documented_params-instance_method" title="#documented_params (instance method)">#<strong>documented_params</strong>  &#x21d2; Integer </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#documented_returns-instance_method" title="#documented_returns (instance method)">#<strong>documented_returns</strong>  &#x21d2; Integer </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#total_methods-instance_method" title="#total_methods (instance method)">#<strong>total_methods</strong>  &#x21d2; Integer </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#total_params-instance_method" title="#total_params (instance method)">#<strong>total_params</strong>  &#x21d2; Integer </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#total_returns-instance_method" title="#total_returns (instance method)">#<strong>total_returns</strong>  &#x21d2; Integer </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+    
+  </ul>
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#method_coverage-instance_method" title="#method_coverage (instance method)">#<strong>method_coverage</strong>  &#x21d2; Integer, Float </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#param_coverage-instance_method" title="#param_coverage (instance method)">#<strong>param_coverage</strong>  &#x21d2; Integer, Float </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#return_coverage-instance_method" title="#return_coverage (instance method)">#<strong>return_coverage</strong>  &#x21d2; Integer, Float </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+  <div id="instance_attr_details" class="attr_details">
+    <h2>Instance Attribute Details</h2>
+    
+      
+      <span id="documented_methods=-instance_method"></span>
+      <div class="method_details first">
+  <h3 class="signature first" id="documented_methods-instance_method">
+  
+    #<strong>documented_methods</strong>  &#x21d2; <tt>Integer</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>value</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+43
+44
+45
+46
+47
+48</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/coverage.rb', line 43</span>
+
+<span class='const'><span class='object_link'><a href="" title="Docscribe::CLI::Coverage::CoverageStats (class)">CoverageStats</a></span></span> <span class='op'>=</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span>
+  <span class='symbol'>:total_methods</span><span class='comma'>,</span> <span class='symbol'>:documented_methods</span><span class='comma'>,</span>
+  <span class='symbol'>:total_params</span><span class='comma'>,</span> <span class='symbol'>:documented_params</span><span class='comma'>,</span>
+  <span class='symbol'>:total_returns</span><span class='comma'>,</span> <span class='symbol'>:documented_returns</span><span class='comma'>,</span>
+  <span class='label'>keyword_init:</span> <span class='kw'>true</span>
+<span class='rparen'>)</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="documented_params=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="documented_params-instance_method">
+  
+    #<strong>documented_params</strong>  &#x21d2; <tt>Integer</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>value</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+43
+44
+45
+46
+47
+48</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/coverage.rb', line 43</span>
+
+<span class='const'><span class='object_link'><a href="" title="Docscribe::CLI::Coverage::CoverageStats (class)">CoverageStats</a></span></span> <span class='op'>=</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span>
+  <span class='symbol'>:total_methods</span><span class='comma'>,</span> <span class='symbol'>:documented_methods</span><span class='comma'>,</span>
+  <span class='symbol'>:total_params</span><span class='comma'>,</span> <span class='symbol'>:documented_params</span><span class='comma'>,</span>
+  <span class='symbol'>:total_returns</span><span class='comma'>,</span> <span class='symbol'>:documented_returns</span><span class='comma'>,</span>
+  <span class='label'>keyword_init:</span> <span class='kw'>true</span>
+<span class='rparen'>)</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="documented_returns=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="documented_returns-instance_method">
+  
+    #<strong>documented_returns</strong>  &#x21d2; <tt>Integer</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>value</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+43
+44
+45
+46
+47
+48</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/coverage.rb', line 43</span>
+
+<span class='const'><span class='object_link'><a href="" title="Docscribe::CLI::Coverage::CoverageStats (class)">CoverageStats</a></span></span> <span class='op'>=</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span>
+  <span class='symbol'>:total_methods</span><span class='comma'>,</span> <span class='symbol'>:documented_methods</span><span class='comma'>,</span>
+  <span class='symbol'>:total_params</span><span class='comma'>,</span> <span class='symbol'>:documented_params</span><span class='comma'>,</span>
+  <span class='symbol'>:total_returns</span><span class='comma'>,</span> <span class='symbol'>:documented_returns</span><span class='comma'>,</span>
+  <span class='label'>keyword_init:</span> <span class='kw'>true</span>
+<span class='rparen'>)</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="total_methods=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="total_methods-instance_method">
+  
+    #<strong>total_methods</strong>  &#x21d2; <tt>Integer</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>value</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+43
+44
+45
+46
+47
+48</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/coverage.rb', line 43</span>
+
+<span class='const'><span class='object_link'><a href="" title="Docscribe::CLI::Coverage::CoverageStats (class)">CoverageStats</a></span></span> <span class='op'>=</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span>
+  <span class='symbol'>:total_methods</span><span class='comma'>,</span> <span class='symbol'>:documented_methods</span><span class='comma'>,</span>
+  <span class='symbol'>:total_params</span><span class='comma'>,</span> <span class='symbol'>:documented_params</span><span class='comma'>,</span>
+  <span class='symbol'>:total_returns</span><span class='comma'>,</span> <span class='symbol'>:documented_returns</span><span class='comma'>,</span>
+  <span class='label'>keyword_init:</span> <span class='kw'>true</span>
+<span class='rparen'>)</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="total_params=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="total_params-instance_method">
+  
+    #<strong>total_params</strong>  &#x21d2; <tt>Integer</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>value</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+43
+44
+45
+46
+47
+48</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/coverage.rb', line 43</span>
+
+<span class='const'><span class='object_link'><a href="" title="Docscribe::CLI::Coverage::CoverageStats (class)">CoverageStats</a></span></span> <span class='op'>=</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span>
+  <span class='symbol'>:total_methods</span><span class='comma'>,</span> <span class='symbol'>:documented_methods</span><span class='comma'>,</span>
+  <span class='symbol'>:total_params</span><span class='comma'>,</span> <span class='symbol'>:documented_params</span><span class='comma'>,</span>
+  <span class='symbol'>:total_returns</span><span class='comma'>,</span> <span class='symbol'>:documented_returns</span><span class='comma'>,</span>
+  <span class='label'>keyword_init:</span> <span class='kw'>true</span>
+<span class='rparen'>)</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="total_returns=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="total_returns-instance_method">
+  
+    #<strong>total_returns</strong>  &#x21d2; <tt>Integer</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>value</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+43
+44
+45
+46
+47
+48</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/coverage.rb', line 43</span>
+
+<span class='const'><span class='object_link'><a href="" title="Docscribe::CLI::Coverage::CoverageStats (class)">CoverageStats</a></span></span> <span class='op'>=</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span>
+  <span class='symbol'>:total_methods</span><span class='comma'>,</span> <span class='symbol'>:documented_methods</span><span class='comma'>,</span>
+  <span class='symbol'>:total_params</span><span class='comma'>,</span> <span class='symbol'>:documented_params</span><span class='comma'>,</span>
+  <span class='symbol'>:total_returns</span><span class='comma'>,</span> <span class='symbol'>:documented_returns</span><span class='comma'>,</span>
+  <span class='label'>keyword_init:</span> <span class='kw'>true</span>
+<span class='rparen'>)</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="method_coverage-instance_method">
+  
+    #<strong>method_coverage</strong>  &#x21d2; <tt>Integer</tt>, <tt>Float</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>, <tt>Float</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+53
+54
+55</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/coverage.rb', line 53</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_method_coverage'>method_coverage</span>
+  <span class='id identifier rubyid_total_methods'>total_methods</span><span class='period'>.</span><span class='id identifier rubyid_zero?'>zero?</span> <span class='op'>?</span> <span class='float'>100.0</span> <span class='op'>:</span> <span class='lparen'>(</span><span class='id identifier rubyid_documented_methods'>documented_methods</span><span class='period'>.</span><span class='id identifier rubyid_to_f'>to_f</span> <span class='op'>/</span> <span class='id identifier rubyid_total_methods'>total_methods</span> <span class='op'>*</span> <span class='int'>100</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_round'>round</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="param_coverage-instance_method">
+  
+    #<strong>param_coverage</strong>  &#x21d2; <tt>Integer</tt>, <tt>Float</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>, <tt>Float</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+58
+59
+60</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/coverage.rb', line 58</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_param_coverage'>param_coverage</span>
+  <span class='id identifier rubyid_total_params'>total_params</span><span class='period'>.</span><span class='id identifier rubyid_zero?'>zero?</span> <span class='op'>?</span> <span class='float'>100.0</span> <span class='op'>:</span> <span class='lparen'>(</span><span class='id identifier rubyid_documented_params'>documented_params</span><span class='period'>.</span><span class='id identifier rubyid_to_f'>to_f</span> <span class='op'>/</span> <span class='id identifier rubyid_total_params'>total_params</span> <span class='op'>*</span> <span class='int'>100</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_round'>round</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="return_coverage-instance_method">
+  
+    #<strong>return_coverage</strong>  &#x21d2; <tt>Integer</tt>, <tt>Float</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>, <tt>Float</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+63
+64
+65</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/coverage.rb', line 63</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_return_coverage'>return_coverage</span>
+  <span class='id identifier rubyid_total_returns'>total_returns</span><span class='period'>.</span><span class='id identifier rubyid_zero?'>zero?</span> <span class='op'>?</span> <span class='float'>100.0</span> <span class='op'>:</span> <span class='lparen'>(</span><span class='id identifier rubyid_documented_returns'>documented_returns</span><span class='period'>.</span><span class='id identifier rubyid_to_f'>to_f</span> <span class='op'>/</span> <span class='id identifier rubyid_total_returns'>total_returns</span> <span class='op'>*</span> <span class='int'>100</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_round'>round</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Sun Oct  4 00:19:55 2026 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.38 (ruby-3.4.5).
+</div>
+
+    </div>
+  </body>
+</html>

@@ -57,11 +57,17 @@
         <div class="clear"></div>
       </div>
 
-      <div id="content"><div id='filecontents'>
-<h1 id="label-Docscribe">Docscribe</h1>
-
-<p><a href="https://rubygems.org/gems/docscribe"><img src="https://img.shields.io/gem/v/docscribe.svg" alt="Gem Version"></a> <a href="https://rubygems.org/gems/docscribe"><img src="https://img.shields.io/gem/dt/docscribe.svg" alt="RubyGems Downloads"></a> <a href="https://github.com/unurgunite/docscribe/actions/workflows/ci.yml"><img src="https://github.com/unurgunite/docscribe/actions/workflows/ci.yml/badge.svg?branch=master" alt="CI"></a> <a href="https://github.com/unurgunite/docscribe/blob/master/LICENSE.txt"><img src="https://img.shields.io/github/license/unurgunite/docscribe.svg" alt="License"></a> <a href="#installation"><img src="https://img.shields.io/badge/ruby-%3E%3D%202.7-blue.svg" alt="Ruby"></a></p>
-
+      <div id="content"><div id='filecontents'><p align="center">
+  <img src="assets/icons/icon_128x128.png" alt="Docscribe logo" width="128">
+</p><h1 align="center">DocScribe</h1><p align="center">
+<a href="https://rubygems.org/gems/docscribe"><img src="https://img.shields.io/gem/v/docscribe.svg" alt="Gem Version"></a>
+<a href="https://rubygems.org/gems/docscribe"><img src="https://img.shields.io/gem/dt/docscribe.svg" alt="RubyGems Downloads"></a>
+<a href="https://github.com/unurgunite/docscribe/actions/workflows/ci.yml"><img src="https://github.com/unurgunite/docscribe/actions/workflows/ci.yml/badge.svg?branch=master" alt="CI"></a>
+<a href="https://github.com/unurgunite/docscribe/blob/master/LICENSE.txt"><img src="https://img.shields.io/github/license/unurgunite/docscribe.svg" alt="License"></a>
+<a href="#installation"><img src="https://img.shields.io/badge/ruby-%3E%3D%202.7-blue.svg" alt="Ruby"></a>
+<a href="https://marketplace.visualstudio.com/items?itemName=unurgunite.docscribe-vscode"><img src="https://img.shields.io/badge/VS%20Code-plugin-blue?logo=visualstudiocode" alt="VS Code"></a>
+<a href="https://plugins.jetbrains.com/plugin/32349-docscribe"><img src="https://img.shields.io/badge/RubyMine-plugin-green?logo=jetbrains" alt="RubyMine"></a>
+</p>
 <p><img src="docs/image.png" alt="Docscribe"> before/after demo</p>
 
 <p>Generate inline, YARD-style documentation comments for Ruby methods by analyzing your code’s AST.</p>
@@ -98,6 +104,10 @@
 </li></ul>
 </li></ul>
 
+<blockquote>
+<p>[!NOTE] Docscribe is under <strong>active development</strong>. If you run into any edge cases or have ideas for improvement, feel free to <a href="https://github.com/unurgunite/docscribe/issues/new">open an issue</a> or submit a pull request.</p>
+</blockquote>
+
 <p>Common workflows:</p>
 <ul><li>
 <p>Inspect what safe doc updates would be applied: <code>docscribe lib</code></p>
@@ -113,26 +123,62 @@
 <p>Use Sorbet signatures when available: <code>docscribe -a --sorbet --rbi-dir sorbet/rbi lib</code></p>
 </li></ul>
 
+<h2 id="label-Quick+start">Quick start</h2>
+
+<pre class="code ruby"><code class="ruby"># Check what safe doc updates would be applied
+docscribe lib
+
+# Apply safe updates (insert missing docs, merge existing)
+docscribe -a lib
+
+# Rebuild all doc blocks aggressively
+docscribe -A lib
+</code></pre>
+
+<blockquote>
+<p>[!TIP] See <a href="#cli">CLI</a> for all options and <a href="#update-strategies">Update strategies</a> for the difference between safe and aggressive modes.</p>
+
+<p>Want IDE integration? Check out the <a href="https://marketplace.visualstudio.com/items?itemName=unurgunite.docscribe-vscode">VS Code</a> and <a href="https://plugins.jetbrains.com/plugin/32349-docscribe">RubyMine</a> plugins.</p>
+</blockquote>
+
 <h2 id="label-Contents">Contents</h2>
 <ul><li>
-<p><a href="#docscribe">Docscribe</a></p>
-<ul><li>
+<p><a href="#quick-start">Quick start</a></p>
+</li><li>
 <p><a href="#contents">Contents</a></p>
 </li><li>
 <p><a href="#installation">Installation</a></p>
 </li><li>
-<p><a href="#quick-start">Quick start</a></p>
-</li><li>
 <p><a href="#architecture">Architecture</a></p>
 <ul><li>
 <p><a href="#data-flow">Data flow</a></p>
+</li><li>
+<p><a href="#ide-plugin-and-gem-interaction">IDE plugin and gem interaction</a></p>
 </li></ul>
 </li><li>
 <p><a href="#cli">CLI</a></p>
 <ul><li>
+<p><a href="#exit-codes">Exit codes</a></p>
+</li><li>
 <p><a href="#options">Options</a></p>
 </li><li>
 <p><a href="#examples">Examples</a></p>
+</li><li>
+<p>sigs</code> — check RBS signature coverage[#docscribe-sigs–check-rbs-signature-coverage]</p>
+</li><li>
+<p>rbs</code> — generate RBS from YARD[#docscribe-rbs–generate-rbs-from-yard]</p>
+</li><li>
+<p>update_types</code> — two-pass type-aware documentation update[#docscribe-update_types–two-pass-type-aware-documentation-update]</p>
+</li><li>
+<p>check_for_comments</code> — find placeholder documentation[#docscribe-check_for_comments–find-placeholder-documentation]</p>
+</li><li>
+<p>init</code> — project scaffolding[#docscribe-init–project-scaffolding]</p>
+</li><li>
+<p>config</code> — view resolved configuration[#docscribe-config–view-resolved-configuration]</p>
+</li><li>
+<p>coverage</code> — documentation coverage report[#docscribe-coverage–documentation-coverage-report]</p>
+</li><li>
+<p>server</code> — persistent daemon mode[#docscribe-server–persistent-daemon-mode]</p>
 </li></ul>
 </li><li>
 <p><a href="#update-strategies">Update strategies</a></p>
@@ -143,6 +189,8 @@
 </li><li>
 <p><a href="#output-markers">Output markers</a></p>
 </li></ul>
+</li><li>
+<p><a href="#tips--tricks">Tips &amp; tricks</a></p>
 </li><li>
 <p><a href="#parser-backend-parser-gem-vs-prism">Parser backend (Parser gem vs Prism)</a></p>
 </li><li>
@@ -196,6 +244,8 @@
 </li><li>
 <p><a href="#configuration">Configuration</a></p>
 <ul><li>
+<p><a href="#anonymous-block-parameters">Anonymous block parameters</a></p>
+</li><li>
 <p><a href="#filtering">Filtering</a></p>
 </li><li>
 <p>example[#attr_-example]</p>
@@ -214,27 +264,32 @@
 <p><a href="#create-a-starter-config">Create a starter config</a></p>
 </li><li>
 <p><a href="#generate-a-plugin-skeleton">Generate a plugin skeleton</a></p>
+</li><li>
+<p><a href="#full-configuration-reference">Full configuration reference</a></p>
 </li></ul>
 </li><li>
 <p><a href="#ci-integration">CI integration</a></p>
 </li><li>
 <p><a href="#comparison-to-yards-parser">Comparison to YARD’s parser</a></p>
 </li><li>
-<p><a href="#mermaid-architecture-reference">Mermaid Architecture Reference</a></p>
-<ul><li>
-<p><a href="#data-flow">Data flow</a></p>
-</li></ul>
-</li><li>
 <p><a href="#limitations">Limitations</a></p>
 </li><li>
 <p><a href="#roadmap">Roadmap</a></p>
+</li><li>
+<p><a href="#editor-integration">Editor Integration</a></p>
+<ul><li>
+<p><a href="#vs-code">VS Code</a></p>
+</li><li>
+<p><a href="#rubymine">RubyMine</a></p>
+</li></ul>
 </li><li>
 <p><a href="#contributing">Contributing</a></p>
 </li><li>
 <p><a href="#discussion--community">Discussion &amp; Community</a></p>
 </li><li>
+<p><a href="#logo-attribution">Logo Attribution</a></p>
+</li><li>
 <p><a href="#license">License</a></p>
-</li></ul>
 </li></ul>
 
 <h2 id="label-Installation">Installation</h2>
@@ -256,239 +311,70 @@
 
 <p>Requires Ruby 2.7+.</p>
 
-<h2 id="label-Quick+start">Quick start</h2>
-
-<p>Given code:</p>
-
-<pre class="code ruby"><code class="ruby"><span class='kw'>class</span> <span class='const'>Demo</span>
-  <span class='kw'>def</span> <span class='id identifier rubyid_foo'>foo</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>options:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-    <span class='int'>42</span>
-  <span class='kw'>end</span>
-
-  <span class='kw'>def</span> <span class='id identifier rubyid_bar'>bar</span><span class='lparen'>(</span><span class='label'>verbose:</span> <span class='kw'>true</span><span class='rparen'>)</span>
-    <span class='int'>123</span>
-  <span class='kw'>end</span>
-
-  <span class='id identifier rubyid_private'>private</span>
-
-  <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_bump'>bump</span>
-    <span class='symbol'>:ok</span>
-  <span class='kw'>end</span>
-
-  <span class='kw'>class</span> <span class='op'>&lt;&lt;</span> <span class='kw'>self</span>
-    <span class='id identifier rubyid_private'>private</span>
-
-    <span class='kw'>def</span> <span class='id identifier rubyid_internal'>internal</span><span class='semicolon'>;</span> <span class='kw'>end</span>
-  <span class='kw'>end</span>
-<span class='kw'>end</span>
-</code></pre>
-
-<p>Run:</p>
-
-<pre class="code ruby"><code class="ruby">echo &quot;...code above...&quot; | docscribe --stdin
-</code></pre>
-
-<p>Output:</p>
-
-<pre class="code ruby"><code class="ruby"><span class='kw'>class</span> <span class='const'>Demo</span>
-  <span class='comment'># +Demo#foo+ -&gt; Integer
-</span>  <span class='comment'>#
-</span>  <span class='comment'># Method documentation.
-</span>  <span class='comment'>#
-</span>  <span class='comment'># @param [Object] a Param documentation.
-</span>  <span class='comment'># @param [Hash] options Param documentation.
-</span>  <span class='comment'># @return [Integer]
-</span>  <span class='kw'>def</span> <span class='id identifier rubyid_foo'>foo</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>options:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-    <span class='int'>42</span>
-  <span class='kw'>end</span>
-
-  <span class='comment'># +Demo#bar+ -&gt; Integer
-</span>  <span class='comment'>#
-</span>  <span class='comment'># Method documentation.
-</span>  <span class='comment'>#
-</span>  <span class='comment'># @param [Boolean] verbose Param documentation.
-</span>  <span class='comment'># @return [Integer]
-</span>  <span class='kw'>def</span> <span class='id identifier rubyid_bar'>bar</span><span class='lparen'>(</span><span class='label'>verbose:</span> <span class='kw'>true</span><span class='rparen'>)</span>
-    <span class='int'>123</span>
-  <span class='kw'>end</span>
-
-  <span class='id identifier rubyid_private'>private</span>
-
-  <span class='comment'># +Demo.bump+ -&gt; Symbol
-</span>  <span class='comment'>#
-</span>  <span class='comment'># Method documentation.
-</span>  <span class='comment'>#
-</span>  <span class='comment'># @return [Symbol]
-</span>  <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_bump'>bump</span>
-    <span class='symbol'>:ok</span>
-  <span class='kw'>end</span>
-
-  <span class='kw'>class</span> <span class='op'>&lt;&lt;</span> <span class='kw'>self</span>
-    <span class='id identifier rubyid_private'>private</span>
-
-    <span class='comment'># +Demo.internal+ -&gt; Object
-</span>    <span class='comment'>#
-</span>    <span class='comment'># Method documentation.
-</span>    <span class='comment'>#
-</span>    <span class='comment'># @private
-</span>    <span class='comment'># @return [Object]
-</span>    <span class='kw'>def</span> <span class='id identifier rubyid_internal'>internal</span><span class='semicolon'>;</span> <span class='kw'>end</span>
-  <span class='kw'>end</span>
-<span class='kw'>end</span>
-</code></pre>
-
-<blockquote>
-<p>[!NOTE] - The tool inserts doc headers before method headers and preserves everything else. - For methods with a leading Sorbet <code>sig</code>, docs are inserted above the first <code>sig</code>. - Class methods show with a dot (<code>Demo.bump</code>, <code>Demo.internal</code>). - Methods inside <code>class &lt;&lt; self</code> under <code>private</code> are marked <code>@private</code>.</p>
-</blockquote>
-
 <h2 id="label-Architecture">Architecture</h2>
 
-<p>Docscribe is organized into seven subsystems. The CLI layer receives user input and orchestrates configuration loading, then delegates to the core engine which parses source code, collects methods (using an AST walker), builds YARD doc lines — combining heuristic type inference, external RBS/Sorbet signatures, and plugin output — and finally rewrites the source via a strategy (safe merge or aggressive replace).</p>
+<p>Docscribe is organized into several subsystems. The CLI layer receives user input and orchestrates configuration loading, then delegates to the core engine which parses source code, collects methods (using an AST walker), builds YARD doc lines — combining heuristic type inference, external RBS/Sorbet signatures, and plugin output — and finally rewrites the source via a strategy (safe merge or aggressive replace).</p>
 
-<pre class="code ruby"><code class="ruby">flowchart TB
-    subgraph CLI[&quot;CLI Layer&quot;]
-        Exe[&quot;exe/docscribe\nEntry point&quot;]
-        Run[&quot;CLI::Run\nMain execution\n· expand paths\n· iterate files\n· report results&quot;]
-        Options[&quot;CLI::Options\nARGV parsing\n(mode, strategy,\nfilters, flags)&quot;]
-        InitCmd[&quot;CLI::Init\ndocscribe init\nGenerate config&quot;]
-        GenCmd[&quot;CLI::Generate\ndocscribe generate\nScaffold plugins&quot;]
-        ConfigBuilder[&quot;CLI::ConfigBuilder\nApply CLI overrides\nto config&quot;]
-    end
+<p>In server mode, a persistent daemon (<code>docscribe server</code>) keeps the runtime loaded and caches parsed results across invocations via an LRU cache, enabling near-instant repeated checks for IDE plugins. A thin client (<code>docscribe-client</code>) provides minimal-overhead socket communication without loading the full gem.</p>
 
-    subgraph Config[&quot;Configuration&quot;]
-        ConfigClass[&quot;Config\nCentral config object\n· raw hash\n· query methods&quot;]
-        Defaults[&quot;config/defaults.rb\nDEFAULT hash&quot;]
-        Loader[&quot;config/loader.rb\nYAML loading\n+ deep merge&quot;]
-        Emit[&quot;config/emit.rb\nEmission toggles\n(header, tags, etc.)&quot;]
-        Filtering[&quot;config/filtering.rb\nFile/method\ninclude/exclude&quot;]
-        RBSConfig[&quot;config/rbs.rb\nRBS provider\nfactory&quot;]
-        SorbetConfig[&quot;config/sorbet.rb\nSorbet provider\nchain factory&quot;]
-        PluginConfig[&quot;config/plugin.rb\nPlugin loading\nfrom YAML&quot;]
-    end
+<p>&lt;img src=“assets/diagrams/architecture.svg” alt=“Docscribe architecture”&gt;</p>
 
-    subgraph Parsing[&quot;Parsing&quot;]
-        ParsingModule[&quot;Parsing\nBackend selection\n(:parser / :prism)&quot;]
-        ParserGem[&quot;Parser gem\n(whitequark/parser)&quot;]
-        Prism[&quot;Prism translator\n(Ruby 3.4+)&quot;]
-    end
-
-    subgraph Core[&quot;Core Engine&quot;]
-        InlineRewriter[&quot;InlineRewriter\n· parse → collect\n· deduplicate → dispatch\n· rewrite&quot;]
-        Collector[&quot;Collector\n&lt; Parser::AST::Processor\nAST walker\n· find methods/attrs\n· track visibility\n· track containers&quot;]
-        DocBuilder[&quot;DocBuilder\nGenerate YARD doc lines\n· combine inference\n· external signatures\n· plugin tags&quot;]
-        DocBlock[&quot;DocBlock\nSafe strategy:\nparse → merge → sort\nexisting doc blocks&quot;]
-        SourceHelpers[&quot;SourceHelpers\nPosition/range\nutilities&quot;]
-    end
-
-    subgraph Infer[&quot;Inference Engine&quot;]
-        InferModule[&quot;Infer\nEntry point&quot;]
-        Params[&quot;Infer::Params\nParameter type\nfrom name + default&quot;]
-        Returns[&quot;Infer::Returns\nReturn type\nfrom method body&quot;]
-        Raises[&quot;Infer::Raises\n@raise tags\nfrom raise/rescue&quot;]
-        Literals[&quot;Infer::Literals\nAST literal →\ntype string&quot;]
-        Names[&quot;Infer::Names\n:const node →\nFQN string&quot;]
-        ASTWalk[&quot;Infer::ASTWalk\nRecursive DFS\nAST traversal&quot;]
-    end
-
-    subgraph Plugins[&quot;Plugin System&quot;]
-        PluginModule[&quot;Plugin\nTag/Collector\ndispatch&quot;]
-        Registry[&quot;Plugin::Registry\nGlobal registry\n· register → route\n· tag_entries\n· collector_entries&quot;]
-        TagPlugin[&quot;Base::TagPlugin\nOverride #call(context)\n→ Array&lt;Tag&gt;&quot;]
-        CollectorPlugin[&quot;Base::CollectorPlugin\nOverride #collect(ast, buffer)\n→ Array&lt;Hash&gt;&quot;]
-        TagValue[&quot;Plugin::Tag\nStruct (name, text, types)&quot;]
-        Context[&quot;Plugin::Context\nMethod snapshot struct&quot;]
-    end
-
-    subgraph Types[&quot;External Type System&quot;]
-        ProviderChain[&quot;ProviderChain\nComposite:\nquery in order\nfirst match wins&quot;]
-        RBSProvider[&quot;RBS::Provider\n.rbs files\n→ RBS lib&quot;]
-        RBSFormatter[&quot;RBS::TypeFormatter\nRBS type →\nYARD type string&quot;]
-        RBSCollection[&quot;RBS::CollectionLoader\nrbs_collection\n.lock.yaml&quot;]
-        SorbetBase[&quot;Sorbet::BaseProvider\nRBS::Prototype::RBI\nbridge&quot;]
-        SorbetSource[&quot;Sorbet::SourceProvider\nInline sig{}\ndeclarations&quot;]
-        SorbetRBI[&quot;Sorbet::RBIProvider\n.rbi files\ndirectories&quot;]
-    end
-
-    Exe --&gt; Run
-    Run --&gt; Options
-    Run --&gt; InitCmd
-    Run --&gt; GenCmd
-    Run --&gt; ConfigBuilder
-    ConfigBuilder --&gt; ConfigClass
-    ConfigClass --&gt; Defaults
-    ConfigClass --&gt; Loader
-    ConfigClass --&gt; Emit
-    ConfigClass --&gt; Filtering
-    ConfigClass --&gt; RBSConfig
-    ConfigClass --&gt; SorbetConfig
-    ConfigClass --&gt; PluginConfig
-    Run --&gt; InlineRewriter
-    InlineRewriter --&gt; ParsingModule
-    ParsingModule --&gt; ParserGem
-    ParsingModule --&gt; Prism
-    InlineRewriter --&gt; Collector
-    Collector --&gt; PluginModule
-    PluginModule --&gt; Registry
-    Registry --&gt; CollectorPlugin
-    InlineRewriter --&gt; DocBuilder
-    DocBuilder --&gt; InferModule
-    InferModule --&gt; Params
-    InferModule --&gt; Returns
-    InferModule --&gt; Raises
-    Params --&gt; Literals
-    Returns --&gt; Literals
-    Raises --&gt; ASTWalk
-    Raises --&gt; Names
-    DocBuilder --&gt; ProviderChain
-    ProviderChain --&gt; SorbetSource
-    ProviderChain --&gt; SorbetRBI
-    ProviderChain --&gt; RBSProvider
-    SorbetSource --&gt; SorbetBase
-    SorbetRBI --&gt; SorbetBase
-    RBSProvider --&gt; RBSFormatter
-    RBSProvider --&gt; RBSCollection
-    DocBuilder --&gt; PluginModule
-    PluginModule --&gt; Registry
-    Registry --&gt; TagPlugin
-    TagPlugin --&gt; TagValue
-    TagPlugin --&gt; Context
-    InlineRewriter --&gt; DocBlock
-    InlineRewriter --&gt; SourceHelpers
-</code></pre>
+<p>Source: <a href="assets/diagrams/architecture.mmd">assets/diagrams/architecture.mmd</a> — regenerate with <code>bash assets/diagrams/render.sh</code>.</p>
 
 <h3 id="label-Data+flow">Data flow</h3>
 
-<pre class="code ruby"><code class="ruby">flowchart LR
-    Input[&quot;Source files\n(.rb)&quot;] --&gt; Parse[&quot;Parsing.parse_buffer\nParser gem / Prism&quot;]
-    Parse --&gt; AST[&quot;AST + Comments&quot;]
-    AST --&gt; Collect[&quot;Collector.process\n· Find methods\n· Track visibility\n· Find attr_*&quot;]
-    AST --&gt; CollectPlugins[&quot;CollectorPlugin#collect\n· Custom AST walks\n· Non-standard constructs&quot;]
-    Collect --&gt; Insertions[&quot;Insertion list\n(sorted by position)&quot;]
-    CollectPlugins --&gt; Insertions
-    Insertions --&gt; Dedup[&quot;Deduplicate\n(override by position)&quot;]
-    Dedup --&gt; Build[&quot;DocBuilder.build_doc_lines\nper insertion&quot;]
-    Build --&gt; Infer[&quot;Infer params / returns / raises\n(heuristic fallback)&quot;]
-    Build --&gt; SigQuery[&quot;ProviderChain\nquery external types&quot;]
-    Build --&gt; TagPlugins[&quot;TagPlugin#call\n(add extra @tags)&quot;]
-    Infer --&gt; ResultDoc[&quot;Generated YARD doc block&quot;]
-    SigQuery --&gt; ResultDoc
-    TagPlugins --&gt; ResultDoc
-    ResultDoc --&gt; Strategy{&quot;Strategy?&quot;}
-    Strategy --&gt;|Safe| Merge[&quot;DocBlock.merge\npreserve + append + sort&quot;]
-    Strategy --&gt;|Aggressive| Replace[&quot;Replace entirely&quot;]
-    Merge --&gt; Rewritten[&quot;Rewriter#process\n→ rewritten source&quot;]
-    Replace --&gt; Rewritten
-    Rewritten --&gt; Output[&quot;Modified .rb file\n/ STDOUT&quot;]
-</code></pre>
+<p>&lt;img src=“assets/diagrams/dataflow.svg” alt=“Docscribe data flow”&gt;</p>
+
+<p>Source: <a href="assets/diagrams/dataflow.mmd">assets/diagrams/dataflow.mmd</a> — regenerate with <code>bash assets/diagrams/render.sh</code>.</p>
+
+<h3 id="label-IDE+plugin+and+gem+interaction">IDE plugin and gem interaction</h3>
+
+<p>&lt;img src=“assets/diagrams/plugin-gem.svg” alt=“RubyMine plugin and gem interaction”&gt;</p>
+
+<p>Source: <a href="assets/diagrams/plugin-gem.mmd">assets/diagrams/plugin-gem.mmd</a> — regenerate with <code>bash assets/diagrams/render.sh</code>.</p>
+
+<p>How it works, briefly: the IDE annotator collects file info on open/type/save, asks the gem daemon (<code>check</code> over Unix-socket JSON-RPC, CLI fallback), maps offenses to YARD tag lines with per-cop quick-fixes, and caches by file stamp + config hash. Daemon errors surface as file-level errors instead of silence; quick-fixes run <code>fix</code> or file-scoped <code>update_types</code>; workspace check aggregates <code>check_batch</code> into a balloon.</p>
+
+<p>Version gates (plugin behavior by gem version):</p>
+
+<table role="table">
+<thead>
+<tr>
+<th>Gem version</th>
+<th>Plugin behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>‘&lt; 1.5.1`</td>
+<td>always CLI, no daemon mode</td>
+</tr>
+<tr>
+<td>‘&lt; 1.5.2`</td>
+<td>no batch mode (workspace check scans the directory via CLI)</td>
+</tr>
+<tr>
+<td>‘&lt; 1.6.2`</td>
+<td>‘update_types` falls back to CLI on unknown method</td>
+</tr>
+</tbody>
+</table>
 
 <h2 id="label-CLI">CLI</h2>
 
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_docscribe'>docscribe</span> <span class='lbracket'>[</span><span class='id identifier rubyid_options'>options</span><span class='rbracket'>]</span> <span class='lbracket'>[</span><span class='id identifier rubyid_files'>files</span><span class='op'>...</span><span class='rbracket'>]</span>
+<span class='id identifier rubyid_docscribe'>docscribe</span> <span class='id identifier rubyid_init'>init</span> <span class='lbracket'>[</span><span class='id identifier rubyid_options'>options</span><span class='rbracket'>]</span>
+<span class='id identifier rubyid_docscribe'>docscribe</span> <span class='id identifier rubyid_generate'>generate</span> <span class='lbracket'>[</span><span class='id identifier rubyid_type'>type</span><span class='rbracket'>]</span> <span class='lbracket'>[</span><span class='id identifier rubyid_name'>name</span><span class='rbracket'>]</span> <span class='lbracket'>[</span><span class='id identifier rubyid_options'>options</span><span class='rbracket'>]</span>
+<span class='id identifier rubyid_docscribe'>docscribe</span> <span class='id identifier rubyid_sigs'>sigs</span> <span class='lbracket'>[</span><span class='id identifier rubyid_options'>options</span><span class='rbracket'>]</span> <span class='lbracket'>[</span><span class='id identifier rubyid_files'>files</span><span class='op'>...</span><span class='rbracket'>]</span>
+<span class='id identifier rubyid_docscribe'>docscribe</span> <span class='id identifier rubyid_rbs'>rbs</span> <span class='lbracket'>[</span><span class='id identifier rubyid_options'>options</span><span class='rbracket'>]</span> <span class='lbracket'>[</span><span class='id identifier rubyid_files'>files</span><span class='op'>...</span><span class='rbracket'>]</span>
+<span class='id identifier rubyid_docscribe'>docscribe</span> <span class='id identifier rubyid_update_types'>update_types</span> <span class='lbracket'>[</span><span class='id identifier rubyid_directory'>directory</span><span class='op'>|</span><span class='id identifier rubyid_file'>file</span><span class='rbracket'>]</span> <span class='lbracket'>[</span><span class='id identifier rubyid_options'>options</span><span class='rbracket'>]</span>
+<span class='id identifier rubyid_docscribe'>docscribe</span> <span class='id identifier rubyid_check_for_comments'>check_for_comments</span> <span class='lbracket'>[</span><span class='id identifier rubyid_paths'>paths</span><span class='op'>...</span><span class='rbracket'>]</span>
+<span class='id identifier rubyid_docscribe'>docscribe</span> <span class='id identifier rubyid_server'>server</span> <span class='lbracket'>[</span><span class='id identifier rubyid_start'>start</span><span class='op'>|</span><span class='id identifier rubyid_status'>status</span><span class='op'>|</span><span class='id identifier rubyid_stop'>stop</span><span class='rbracket'>]</span> <span class='lbracket'>[</span><span class='id identifier rubyid_options'>options</span><span class='rbracket'>]</span>
 </code></pre>
 
 <p>Docscribe has three main ways to run:</p>
 <ul><li>
-<p><strong>Inspect mode</strong> (default): checks what safe doc updates would be applied and exits non-zero if files need changes.</p>
+<p><strong>Inspect mode</strong> (default): checks what safe doc updates would be applied and exits 1 if files need changes.</p>
 </li><li>
 <p><strong>Safe autocorrect</strong> (<code>-a</code>, <code>--autocorrect</code>): writes safe, non-destructive updates in place.</p>
 </li><li>
@@ -498,6 +384,15 @@
 </li></ul>
 
 <p>If you pass no files and don’t use <code>--stdin</code>, Docscribe processes the current directory recursively.</p>
+
+<h3 id="label-Exit+codes">Exit codes</h3>
+<ul><li>
+<p><strong>0</strong> — all files are up to date (no changes needed)</p>
+</li><li>
+<p><strong>1</strong> — some files need documentation updates</p>
+</li><li>
+<p><strong>2</strong> — execution error (parse error, missing files, etc.)</p>
+</li></ul>
 
 <h3 id="label-Options">Options</h3>
 <ul><li>
@@ -509,13 +404,33 @@
 </li><li>
 <p><code>--stdin</code><br> Read source from STDIN and print rewritten output.</p>
 </li><li>
-<p><code>--verbose</code><br> Print per-file actions.</p>
+<p><code>--verbose</code><br> Print per-file actions. Also enables <code>--progress</code>.</p>
 </li><li>
-<p><code>--explain</code><br> Show detailed reasons for each file that would change.</p>
+<p><code>--progress</code><br> Show progress (<code>[N/total] path/to/file.rb</code>) on stderr as each file is processed.</p>
+</li><li>
+<p><code>DOCSCRIBE_THREADS</code> (env var)<br> Number of parallel worker threads (default: 4). Set to <code>1</code> for sequential processing.</p>
+</li><li>
+<p><code>--quiet</code> (<code>-q</code>)<br> Only show status, no details (suppresses change reasons). Overrides the default detailed output.</p>
+</li><li>
+<p><code>--explain</code><br> Show detailed reasons for each file (default; no-op for compatibility).</p>
+</li><li>
+<p><code>--server</code><br> Run via a persistent daemon (Unix socket). Speeds up repeated invocations by keeping the Ruby runtime loaded and caching results.</p>
+</li><li>
+<p><code>-k</code>, <code>--keep-descriptions</code><br> Preserve existing documentation text when rebuilding doc blocks in aggressive mode.</p>
+</li><li>
+<p><code>-B</code>, <code>--no-boilerplate</code><br> Suppress boilerplate text (<code>Method documentation.</code>, <code>Param documentation.</code>) in output.<br> Equivalent to <code>emit.include_default_message: false</code> and <code>emit.include_param_documentation: false</code> in config.</p>
+</li><li>
+<p><code>--format FORMAT</code><br> Output format: <code>text</code> (default, human-readable), <code>json</code> (machine-readable, RuboCop-compatible), or <code>sarif</code> (SARIF 2.1 JSON, compatible with GitHub Code Scanning). Every JSON offense carries <code>cop_name</code>, <code>message</code>, <code>location</code>, plus machine-readable <code>type</code> (<code>updated_return</code>, <code>missing_param</code>, …) and, for type mismatches, <code>source</code> (<code>&quot;rbs&quot;</code>, <code>&quot;infer&quot;</code> or <code>&quot;syntax&quot;</code>). Files are grouped by normalized path, so the same file passed under different spellings (absolute, relative, symlinked) appears once.</p>
 </li><li>
 <p><code>--rbs</code><br> Use RBS signatures for <code>@param</code>/<code>@return</code> when available (falls back to inference).</p>
 </li><li>
 <p><code>--sig-dir DIR</code><br> Add an RBS signature directory (repeatable). Implies <code>--rbs</code>.</p>
+</li><li>
+<p><code>--sorbet</code><br> Use Sorbet signatures for <code>@param</code>/<code>@return</code> when available (falls back to inference).</p>
+</li><li>
+<p><code>--rbi-dir DIR</code><br> Add an Sorbet RBI directory (repeatable). Implies <code>--sorbet</code>.</p>
+</li><li>
+<p><code>--[no-]validate-types</code><br> Validate YARD types against inferred/RBS types and report mismatches. <code>--no-validate-types</code> overrides <code>validate_types: true</code> from the config file.</p>
 </li><li>
 <p><code>--include PATTERN</code><br> Include PATTERN (method id or file path; glob or <code>/regex/</code>).</p>
 </li><li>
@@ -548,8 +463,404 @@
 </li><li>
 <p>Combine collection auto-discovery with a custom sig directory: <code>shell  docscribe -a --rbs-collection --sig-dir sig lib </code></p>
 </li><li>
-<p>Show detailed reasons for files that would change: <code>shell  docscribe --verbose --explain lib </code></p>
+<p>Show detailed reasons for files that would change: <code>shell  docscribe --verbose lib </code></p>
 </li></ul>
+
+<h3 id="label-docscribe+sigs+-E2-80-94+check+RBS+signature+coverage"><code>docscribe sigs</code> — check RBS signature coverage</h3>
+
+<blockquote>
+<p>[!WARNING] <code>docscribe sigs</code> requires <strong>Ruby 3.0+</strong> and the <code>rbs</code> gem. On Ruby 2.7 it will print an error and exit with code 2.</p>
+</blockquote>
+
+<p><code>docscribe sigs</code> parses Ruby files, extracts method definitions, and checks each method against the configured RBS signature directories. Reports methods that lack RBS type signatures.</p>
+
+<pre class="code ruby"><code class="ruby"># Check lib/ against sig/ signatures
+docscribe sigs lib
+
+# Use RBS collection
+docscribe sigs --rbs-collection lib
+
+# Multiple signature directories
+docscribe sigs -s sig -s vendor/sigs lib
+
+# Verbose output (also prints methods that have signatures)
+docscribe sigs --verbose lib
+</code></pre>
+
+<p><strong>Flags:</strong></p>
+<ul><li>
+<p><code>-s</code>, <code>--sig-dir DIR</code> — add an RBS signature directory (repeatable). Default: <code>sig</code>.</p>
+</li><li>
+<p><code>--rbs-collection</code> — use RBS collection (reads <code>rbs_collection.lock.yaml</code>).</p>
+</li><li>
+<p><code>--verbose</code> — also print methods that have signatures.</p>
+</li><li>
+<p><code>-h</code>, <code>--help</code> — show help.</p>
+</li></ul>
+
+<p><strong>Exit codes:</strong></p>
+<ul><li>
+<p><code>0</code> — all methods have RBS signatures.</p>
+</li><li>
+<p><code>1</code> — some methods lack RBS signatures.</p>
+</li><li>
+<p><code>2</code> — error occurred.</p>
+</li></ul>
+
+<h3 id="label-docscribe+rbs+-E2-80-94+generate+RBS+from+YARD"><code>docscribe rbs</code> — generate RBS from YARD</h3>
+
+<blockquote>
+<p>[!WARNING] <code>docscribe rbs</code> requires <strong>Ruby 3.0+</strong> and the <code>rbs</code> gem. On Ruby 2.7 it will print an error and exit with code 2.</p>
+</blockquote>
+
+<p><code>docscribe rbs</code> parses YARD comments (<code>@param</code>, <code>@return</code>, <code>@option</code>) from Ruby files and generates corresponding <code>.rbs</code> signature files.</p>
+
+<pre class="code ruby"><code class="ruby"># Generate RBS files in sig/
+docscribe rbs lib
+
+# Print to stdout (no files written)
+docscribe rbs -n lib
+
+# Specify output directory
+docscribe rbs -o sig/gen lib
+
+# Overwrite existing files
+docscribe rbs -f lib
+</code></pre>
+
+<p><strong>Flags:</strong></p>
+<ul><li>
+<p><code>-o</code>, <code>--output DIR</code> — output directory (default: <code>sig</code>).</p>
+</li><li>
+<p><code>-n</code>, <code>--dry-run</code> — print generated RBS to stdout, do not write files.</p>
+</li><li>
+<p><code>-f</code>, <code>--force</code> — overwrite existing files.</p>
+</li><li>
+<p><code>-h</code>, <code>--help</code> — show help.</p>
+</li></ul>
+
+<p><strong>Exit codes:</strong></p>
+<ul><li>
+<p><code>0</code> — success.</p>
+</li><li>
+<p><code>1</code> — errors occurred during processing.</p>
+</li><li>
+<p><code>2</code> — execution error (no files found).</p>
+</li></ul>
+
+<pre class="code ruby"><code class="ruby"><span class='comment'># Example: lib/user.rb
+</span><span class='kw'>class</span> <span class='const'>User</span>
+  <span class='comment'># @param [String] name
+</span>  <span class='comment'># @param [Integer] age
+</span>  <span class='comment'># @return [User]
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_age'>age</span><span class='rparen'>)</span>
+    <span class='ivar'>@name</span> <span class='op'>=</span> <span class='id identifier rubyid_name'>name</span>
+    <span class='ivar'>@age</span> <span class='op'>=</span> <span class='id identifier rubyid_age'>age</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_docscribe'>docscribe</span> <span class='id identifier rubyid_rbs'>rbs</span> <span class='id identifier rubyid_lib'>lib</span>
+<span class='comment'># Generated sig/user.rbs
+</span></code></pre>
+
+<pre class="code ruby"><code class="ruby"># sig/user.rbs
+class User
+    def initialize: (String name, Integer age) -&gt; User
+end
+</code></pre>
+
+<h3 id="label-docscribe+update_types+-E2-80-94+two-pass+type-aware+documentation+update"><code>docscribe update_types</code> — two-pass type-aware documentation update</h3>
+
+<blockquote>
+<p>[!NOTE] <code>docscribe update_types</code> is a convenience alias for the two-pass workflow above. RBS features require Ruby 3.0+ and the <code>rbs</code> gem; pass <code>--no-rbs</code> to skip them. If <code>rbs.collection: true</code> is set in <code>docscribe.yml</code>, the collection is discovered automatically (otherwise run <code>bundle exec rbs collection install</code> first). Type accuracy depends on your RBS signatures — if signatures are incomplete or missing, types will fall back to AST inference.</p>
+</blockquote>
+
+<p><code>docscribe update_types</code> runs two passes to bring both docs and RBS signatures up to date. The target can be a directory <strong>or a single file</strong> (handy for IDE quick-fixes — only that file is touched):</p>
+<ol><li>
+<p><strong>Pass 1</strong> — <code>docscribe -AkB --rbs-collection &lt;dir&gt;</code>: aggressively rebuilds doc blocks, preserves existing descriptions, suppresses boilerplate, uses RBS collection types.</p>
+</li><li>
+<p><strong>Pass 2</strong> — <code>docscribe -aB --rbs-collection &lt;dir&gt;</code>: safe merge cleanup with no boilerplate.</p>
+</li></ol>
+
+<p>Extra flags (<code>--rbs</code>, <code>--sig-dir DIR</code> (repeatable), <code>--rbs-collection</code>, <code>--[no-]validate-types</code>, <code>--no-rbs</code>) are passed through to both passes.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='comment'># Update docs in lib/ using RBS collection
+</span><span class='id identifier rubyid_docscribe'>docscribe</span> <span class='id identifier rubyid_update_types'>update_types</span> <span class='id identifier rubyid_lib'>lib</span>
+
+<span class='comment'># Update a single file only
+</span><span class='id identifier rubyid_docscribe'>docscribe</span> <span class='id identifier rubyid_update_types'>update_types</span> <span class='id identifier rubyid_lib'>lib</span><span class='op'>/</span><span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_rb'>rb</span>
+
+<span class='comment'># Defaults to current directory
+</span><span class='id identifier rubyid_docscribe'>docscribe</span> <span class='id identifier rubyid_update_types'>update_types</span>
+</code></pre>
+
+<h3 id="label-docscribe+check_for_comments+-E2-80-94+find+placeholder+documentation"><code>docscribe check_for_comments</code> — find placeholder documentation</h3>
+
+<p><code>docscribe check_for_comments</code> scans Ruby source files for YARD comments that still contain default placeholder text. Reads the configured placeholder messages from <code>docscribe.yml</code> (or built-in defaults). Useful in CI to catch files where auto-generated text was never replaced with real documentation.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='comment'># Scan entire project
+</span><span class='id identifier rubyid_docscribe'>docscribe</span> <span class='id identifier rubyid_check_for_comments'>check_for_comments</span>
+
+<span class='comment'># Scan specific directories
+</span><span class='id identifier rubyid_docscribe'>docscribe</span> <span class='id identifier rubyid_check_for_comments'>check_for_comments</span> <span class='id identifier rubyid_lib'>lib</span> <span class='id identifier rubyid_app'>app</span>
+</code></pre>
+
+<p>Exit code <code>0</code> if no placeholders found, <code>1</code> if any are detected.</p>
+
+<p><strong>Flags:</strong></p>
+<ul><li>
+<p><code>-h</code>, <code>--help</code> — show help.</p>
+</li></ul>
+
+<h3 id="label-docscribe+init+-E2-80-94+project+scaffolding"><code>docscribe init</code> — project scaffolding</h3>
+
+<p><code>docscribe init</code> creates a default <code>docscribe.yml</code> config file in the current directory. It asks interactive questions about your project and writes a tailored configuration.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='comment'># Create docscribe.yml interactively
+</span><span class='id identifier rubyid_docscribe'>docscribe</span> <span class='id identifier rubyid_init'>init</span>
+
+<span class='comment'># Create with default settings (non-interactive)
+</span><span class='id identifier rubyid_docscribe'>docscribe</span> <span class='id identifier rubyid_init'>init</span> <span class='op'>-</span><span class='op'>-</span><span class='id identifier rubyid_default'>default</span>
+</code></pre>
+
+<p><strong>Flags:</strong></p>
+<ul><li>
+<p><code>--pre-commit</code> — generate and install a Git pre-commit hook that checks documentation on staged <code>.rb</code> files using <code>docscribe --verbose</code>. The hook exits with a warning if staged files lack documentation.</p>
+</li><li>
+<p><code>--pre-commit --uninstall</code> — remove the pre-commit hook.</p>
+</li><li>
+<p><code>--pre-commit --dry-run</code> — preview the hook script without installing.</p>
+</li><li>
+<p><code>--default</code> — skip interactive prompts, write default config.</p>
+</li><li>
+<p><code>-h</code>, <code>--help</code> — show help.</p>
+</li></ul>
+
+<h3 id="label-docscribe+config+-E2-80-94+view+resolved+configuration"><code>docscribe config</code> — view resolved configuration</h3>
+
+<p><code>docscribe config</code> prints the fully resolved configuration (defaults + file + CLI overrides) as YAML.</p>
+
+<pre class="code ruby"><code class="ruby"># Print resolved config
+docscribe config
+
+# Use a specific config file
+docscribe config --config path/to/docscribe.yml
+</code></pre>
+
+<p><strong>Flags:</strong></p>
+<ul><li>
+<p><code>--config PATH</code> — path to config file.</p>
+</li><li>
+<p><code>-h</code>, <code>--help</code> — show help.</p>
+</li></ul>
+
+<h3 id="label-docscribe+coverage+-E2-80-94+documentation+coverage+report"><code>docscribe coverage</code> — documentation coverage report</h3>
+
+<p><code>docscribe coverage</code> scans Ruby files and reports the percentage of documented methods, parameters, and return types.</p>
+
+<pre class="code ruby"><code class="ruby"># Generate coverage report (text table)
+docscribe coverage lib
+
+# JSON output for tooling
+docscribe coverage --format json lib
+</code></pre>
+
+<p><strong>Flags:</strong></p>
+<ul><li>
+<p><code>--format FORMAT</code> — output format: <code>text</code> (default, human-readable table) or <code>json</code> (machine-readable).</p>
+</li><li>
+<p><code>--config PATH</code> — path to config file.</p>
+</li><li>
+<p><code>-h</code>, <code>--help</code> — show help.</p>
+</li></ul>
+
+<h3 id="label-docscribe+server+-E2-80-94+persistent+daemon+mode"><code>docscribe server</code> — persistent daemon mode</h3>
+
+<blockquote>
+<p>[!NOTE] Server mode requires <strong>Ruby 3.1+</strong> and a platform with <code>Process.fork</code> and Unix domain sockets. Not available on <strong>Windows</strong> (no Unix sockets) or <strong>JRuby</strong> (no <code>Process.fork</code>).</p>
+</blockquote>
+
+<p><code>docscribe server</code> starts a background daemon that keeps the Ruby runtime loaded and caches parsed ASTs across invocations. Subsequent <code>docscribe</code> calls with <code>--server</code> communicate with the daemon over a Unix socket instead of reloading the entire toolchain.</p>
+
+<pre class="code ruby"><code class="ruby"># Start the daemon (auto-detached in background)
+docscribe server start
+
+# Check if the daemon is running
+docscribe server status
+
+# Stop the daemon
+docscribe server stop
+
+# Use the daemon for file checks (much faster on repeated calls)
+docscribe --server lib
+docscribe -a --server lib
+</code></pre>
+
+<p><strong>How it works:</strong></p>
+<ol><li>
+<p><code>docscribe server start</code> forks a background process that listens on a Unix socket in the system temp directory.</p>
+</li><li>
+<p>The socket path is derived from the project root, <code>Gemfile.lock</code> mtime, and <code>rbs_collection.lock.yaml</code> mtime — so any environment change spawns a fresh daemon automatically.</p>
+</li><li>
+<p>Client requests (<code>docscribe --server</code>) send JSON-RPC 2.0 messages over the socket: <code>check</code> (inspect), <code>fix</code> (apply changes), <code>shutdown</code>, and <code>ping</code> (health/version info).</p>
+</li><li>
+<p>The daemon holds a reusable <code>Docscribe::Config</code> instance and an LRU file cache (bounded at 1000 entries), so repeated checks on the same files are nearly instant.</p>
+</li><li>
+<p>After 5 minutes of inactivity the daemon shuts down automatically.</p>
+</li></ol>
+
+<p><strong>Thin client (<code>docscribe-client</code>):</strong></p>
+
+<p>For IDE plugins and CI systems that need minimal startup overhead, a standalone thin client is available as <code>exe/docscribe-client</code>. It connects to the daemon via the same Unix socket protocol without loading the full docscribe gem:</p>
+
+<pre class="code ruby"><code class="ruby"># Check a file via the daemon
+docscribe-client --check lib/user.rb
+
+# Apply fixes via the daemon
+docscribe-client --fix lib/user.rb
+
+# Check if the daemon is running
+docscribe-client --status
+
+# Get version, pid, uptime from the daemon
+docscribe-client --ping
+
+# Stop the daemon
+docscribe-client --shutdown
+</code></pre>
+
+<p>Additional thin client commands:</p>
+
+<pre class="code ruby"><code class="ruby"># Print the Unix socket path (for IDE plugin integration)
+docscribe-client --socket-path
+
+# Show server info: version, pid, uptime, config path
+docscribe-client --info
+
+# Auto-start the daemon before running a check or fix
+docscribe-client --ensure --check lib/user.rb
+
+# Start the daemon standalone (exits when ready)
+docscribe-client --ensure
+
+# Batch check multiple files in one RPC call
+docscribe-client --check-batch lib/a.rb,lib/b.rb,lib/c.rb
+</code></pre>
+
+<p>The thin client is used automatically by the <a href="https://marketplace.visualstudio.com/items?itemName=unurgunite.docscribe-vscode">VS Code</a> and <a href="https://plugins.jetbrains.com/plugin/32349-docscribe">RubyMine</a> plugins when the daemon is running.</p>
+
+<p><strong>Environment invalidation:</strong></p>
+
+<p>The daemon’s socket path includes a hash of:</p>
+<ul><li>
+<p><code>Gemfile.lock</code> mtime — gem changes that may affect RBS signatures.</p>
+</li><li>
+<p><code>rbs_collection.lock.yaml</code> mtime — RBS collection signature updates.</p>
+</li></ul>
+
+<p>If any of these files change, the next <code>docscribe --server</code> call will start a new daemon automatically. The old daemon is left to idle-timeout on its own.</p>
+
+<p><strong>JSON-RPC protocol (semi-stable API):</strong></p>
+
+<p>The daemon speaks JSON-RPC 2.0 over Unix socket. Each request is a JSON line, each response is a JSON line.</p>
+
+<p>Methods:</p>
+
+<table role="table">
+<thead>
+<tr>
+<th>Method</th>
+<th>Parameters</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>‘check`</td>
+<td>‘file` (string), `strategy` (“safe”/“aggressive”), `cli_overrides` (hash, optional)</td>
+<td>‘status`, `changed`, `changes`</td>
+</tr>
+<tr>
+<td>‘fix`</td>
+<td>same as ‘check`</td>
+<td>‘status`, `changed`, `changes`</td>
+</tr>
+<tr>
+<td>‘check_batch`</td>
+<td>‘files` (array of strings), `strategy`, `cli_overrides`, `timeout` (int, optional)</td>
+<td>array of per-file results</td>
+</tr>
+<tr>
+<td>‘update_types`</td>
+<td>‘file` (string, optional), `dir` (string, optional; `file` wins)</td>
+<td>‘status`, `changed`, `changes`</td>
+</tr>
+<tr>
+<td>‘ping`</td>
+<td>—</td>
+<td>‘version`, `pid`, `socket_path`, `started_at`, `uptime`</td>
+</tr>
+<tr>
+<td>‘shutdown`</td>
+<td>—</td>
+<td>‘status`</td>
+</tr>
+</tbody>
+</table>
+
+<p>Each entry in <code>changes</code> carries <code>type</code>, <code>line</code>, <code>message</code> and, for type mismatches, <code>source</code> (<code>&quot;rbs&quot;</code>, <code>&quot;infer&quot;</code> or <code>&quot;syntax&quot;</code>) plus <code>param</code> where applicable — IDE plugins use <code>source</code> to pick the right fix (RBS update vs YARD fix).</p>
+
+<p>Error codes (standardized for IDE plugin integration):</p>
+
+<table role="table">
+<thead>
+<tr>
+<th>Code</th>
+<th>Meaning</th>
+<th>‘error.data` fields</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>‘-32000`</td>
+<td>Gem/dependency not found</td>
+<td>‘gem`</td>
+</tr>
+<tr>
+<td>‘-32001`</td>
+<td>Syntax error in analyzed file</td>
+<td>‘file`, `line`, `detail`</td>
+</tr>
+<tr>
+<td>‘-32002`</td>
+<td>Config load failure</td>
+<td>—</td>
+</tr>
+<tr>
+<td>‘-32010`</td>
+<td>Timeout</td>
+<td>‘timeout`, `file`</td>
+</tr>
+<tr>
+<td>‘-32099`</td>
+<td>Internal unhandled error</td>
+<td>‘backtrace` (first 5 lines)</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Socket path derivation:</strong></p>
+
+<p>The socket path is a deterministic hash of: - Working directory (<code>Dir.pwd</code>) - <code>Gemfile.lock</code> mtime and <code>rbs_collection.lock.yaml</code> mtime (environment invalidation) - Config file path and mtime (when <code>--config</code> is used)</p>
+
+<p>Result: <code>/tmp/docscribe-&lt;MD5 hash&gt;.sock</code></p>
+
+<p>IDE plugins should use <code>docscribe-client --socket-path</code> instead of reimplementing this algorithm.</p>
+
+<p><strong>CLI override handling:</strong></p>
+
+<p>When CLI overrides (<code>-C</code>, <code>--include</code>, <code>--exclude</code>, etc.) change between requests, the daemon resets its effective configuration, clears the file cache, and applies the new overrides before processing. If no overrides are passed, the cached state from the initial load is used, preserving performance.</p>
 
 <h2 id="label-Update+strategies">Update strategies</h2>
 
@@ -577,6 +888,19 @@
 
 <p>This is the recommended day-to-day mode.</p>
 
+<p><strong><code>@!attribute</code> merge policy in safe mode:</strong></p>
+
+<p>When a method already has a YARD <code>@!attribute</code> doc block (e.g. <code># @!attribute [rw] name</code>), safe mode does not overwrite it. Instead it merges only the missing parts:</p>
+<ul><li>
+<p>If the attribute has <code>[r]</code> or <code>[rw]</code> access and no <code>@return</code> tag exists — adds <code>@return [Type]</code>.</p>
+</li><li>
+<p>If the attribute has <code>[w]</code> or <code>[rw]</code> access and no <code>@param</code> tag exists — adds <code>@param value [Type]</code>.</p>
+</li><li>
+<p>If some attrs from the <code>attr_*</code> call are present in the doc block but others are missing — adds only the missing ones.</p>
+</li></ul>
+
+<p>This preserves hand-written annotations while ensuring complete documentation.</p>
+
 <h3 id="label-Aggressive+strategy">Aggressive strategy</h3>
 
 <p>Used by:</p>
@@ -595,6 +919,10 @@
 
 <p>Use it when you want to rebaseline or regenerate docs wholesale.</p>
 
+<blockquote>
+<p>[!CAUTION] Aggressive mode rewrites existing doc blocks entirely. Review changes with <code>git diff</code> before committing.</p>
+</blockquote>
+
 <h3 id="label-Output+markers">Output markers</h3>
 
 <p>In inspect mode, Docscribe prints one character per file:</p>
@@ -604,6 +932,8 @@
 <p><code>F</code> = file would change</p>
 </li><li>
 <p><code>E</code> = file had an error</p>
+</li><li>
+<p><code>M</code> = type mismatch detected (external RBS/Sorbet signature differs from inferred type)</p>
 </li></ul>
 
 <p>In write modes:</p>
@@ -613,9 +943,15 @@
 <p><code>C</code> = file was updated</p>
 </li><li>
 <p><code>E</code> = file had an error</p>
+</li><li>
+<p><code>M</code> = file updated but type mismatch remains</p>
 </li></ul>
 
-<p>With <code>--verbose</code>, Docscribe prints per-file statuses instead.</p>
+<blockquote>
+<p>[!IMPORTANT] The <code>M</code> marker only appears when <code>--rbs</code> or <code>--sorbet</code> is enabled, since type mismatches are detected by comparing external signatures against inferred types.</p>
+</blockquote>
+
+<p>With <code>--verbose</code>, Docscribe prints per-file statuses instead; type mismatches show as <code>MT</code> with the specific difference.</p>
 
 <p>With <code>--explain</code>, Docscribe also prints detailed reasons, such as:</p>
 <ul><li>
@@ -628,6 +964,27 @@
 <p>unsorted tags</p>
 </li></ul>
 
+<p>Use <code>--quiet</code> to suppress these details and show only file names and the summary line.</p>
+
+<h2 id="label-Tips+-26+tricks">Tips &amp; tricks</h2>
+
+<p>Useful flag combinations for common workflows:</p>
+<ul><li>
+<p><code>docscribe -aB lib</code> — safe autocorrect without boilerplate. Uses safe mode but suppresses default text, leaving only type tags (<code>@param</code>, <code>@return</code>). Clean minimal docs.</p>
+</li><li>
+<p><code>docscribe -AkB lib</code> — aggressive autocorrect with preserved descriptions and no boilerplate. Rebuilds doc blocks, keeps your hand-written descriptions, suppresses default text. Best for rebaselining.</p>
+</li><li>
+<p><code>docscribe -a --rbs-collection lib</code> — safe autocorrect using RBS gem collection signatures. Recommended for Rails projects.</p>
+</li><li>
+<p><code>docscribe -a --sorbet --rbi-dir sorbet/rbi lib</code> — safe autocorrect using Sorbet RBI signatures.</p>
+</li><li>
+<p><code>docscribe update_types lib</code> — two-pass type-aware update: aggressively rebuilds docs with kept descriptions and RBS collection, then safe-merges to clean up. Accepts a single file too: <code>docscribe update_types lib/user.rb</code>. See <a href="#docscribe-update_types--two-pass-type-aware-documentation-update">docscribe update_types</a>.</p>
+</li></ul>
+
+<blockquote>
+<p>[!NOTE] <code>docscribe update_types</code> is a convenient shortcut, but be aware it uses <code>--rbs-collection</code> under the hood (or <code>rbs.collection: true</code> from the config — then no flag is needed). If your RBS signatures are incomplete, types may fall back to AST inference.</p>
+</blockquote>
+
 <h2 id="label-Parser+backend+-28Parser+gem+vs+Prism-29">Parser backend (Parser gem vs Prism)</h2>
 
 <p>Docscribe internally works with <code>parser</code>-gem-compatible AST nodes and <code>Parser::Source::*</code> objects (so it can use <code>Parser::Source::TreeRewriter</code> without changing formatting).</p>
@@ -636,6 +993,10 @@
 </li><li>
 <p>On Ruby <strong>&gt;= 3.4</strong>, Docscribe parses using <strong>Prism</strong> and translates the tree into the <code>parser</code> gem’s AST.</p>
 </li></ul>
+
+<blockquote>
+<p>[!NOTE] Prism support is automatic on Ruby 3.4+. On earlier Rubies, the <code>parser</code> gem is always used. You can override with <code>DOCSCRIBE_PARSER_BACKEND=prism</code> on Ruby 3.1+ if you have the <code>prism</code> gem installed, but this is not recommended for production use.</p>
+</blockquote>
 
 <p>You can force a backend with an environment variable:</p>
 
@@ -648,12 +1009,57 @@
 <p>Docscribe can improve generated <code>@param</code> and <code>@return</code> types by reading external signatures instead of relying only on AST inference.</p>
 
 <blockquote>
-<p>[!IMPORTANT] When external type information is available, Docscribe resolves signatures in this order: - inline Sorbet <code>sig</code> declarations in the current Ruby source; - Sorbet RBI files; - RBS files; - AST inference fallback.</p>
+<p>[!IMPORTANT] Docscribe resolves types in a two-level chain. For <strong>documentation tags</strong> (<code>@param</code>, <code>@return</code>), the priority is:</p>
 
-<p>If an external signature cannot be loaded or parsed, Docscribe falls back to normal inference instead of failing.</p>
+<table role="table">
+<thead>
+<tr>
+<th>Priority</th>
+<th>Source</th>
+<th>When active</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1</strong></td>
+<td>Inline Sorbet ‘sig { … }` in current file</td>
+<td>‘–sorbet` or `sorbet.enabled: true`</td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td>Sorbet RBI files (‘.rbi`)</td>
+<td>‘–sorbet –rbi-dir` or `sorbet.rbi_dirs`</td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td>RBS files (sig_dirs + collection, loaded into one env)</td>
+<td>‘–rbs –sig-dir` / `–rbs-collection` or `rbs.*` config</td>
+</tr>
+<tr>
+<td><strong>3a</strong></td>
+<td>└─ Fallback: sig_dirs only (collection dropped on conflict)</td>
+<td>Automatic if priority 3 env load fails</td>
+</tr>
+<tr>
+<td><strong>4</strong></td>
+<td>AST inference (fallback)</td>
+<td>Always active</td>
+</tr>
+</tbody>
+</table>
+
+<p>For <strong>intra-method body inference</strong> (e.g. resolving <code>Integer#positive?</code> -&gt; <code>Boolean</code>), a separate core RBS provider loads only stdlib/built-in signatures and is active automatically when the <code>rbs</code> gem is available — even without <code>--rbs</code>.</p>
+
+<p>If an external signature cannot be loaded or parsed, Docscribe falls back to the next source in the chain instead of failing.</p>
 </blockquote>
 
 <h3 id="label-RBS">RBS</h3>
+
+<blockquote>
+<p>[!IMPORTANT] All RBS features require the <code>rbs</code> gem. Add <code>gem &quot;rbs&quot;</code> to your Gemfile and run <code>bundle install</code>, or install it globally with <code>gem install rbs</code>.</p>
+
+<p>On Ruby 2.7 the <code>rbs</code> gem cannot load at all — <code>--rbs</code>, <code>--sig-dir</code>, <code>--rbs-collection</code>, <code>docscribe sigs</code>, and <code>docscribe rbs</code> will print a warning and fall back to AST-only inference. On Ruby 3.0+, if the gem is missing, Docscribe silently falls back to inference when you pass RBS flags.</p>
+</blockquote>
 
 <p>Docscribe can read method signatures from <code>.rbs</code> files and use them to generate more accurate parameter and return types.</p>
 
@@ -670,11 +1076,23 @@
 <p>Config:</p>
 
 <pre class="code ruby"><code class="ruby">rbs:
-  enabled: true
+  enabled: false
   sig_dirs:
     - sig
+  collection: false
   collapse_generics: false
+  collapse_object_generics: false
+  warn_missing_collection: true
 </code></pre>
+<ul><li>
+<p><code>collection</code> — enable auto-discovery of RBS collection from <code>rbs_collection.lock.yaml</code>. Pass <code>--rbs-collection</code> on the CLI.</p>
+</li><li>
+<p><code>collapse_generics</code> — strip all generic type arguments (e.g. <code>Array&lt;String&gt;</code> -&gt; <code>Array</code>).</p>
+</li><li>
+<p><code>collapse_object_generics</code> — only strip generic arguments when all are <code>Object</code> (e.g. <code>Hash&lt;Object, Object&gt;</code> -&gt; <code>Hash</code>, but <code>Hash&lt;Symbol, Object&gt;</code> stays).</p>
+</li><li>
+<p><code>warn_missing_collection</code> — warn on stderr when <code>rbs_collection.lock.yaml</code> is found but collection is not enabled. Set to <code>false</code> to suppress.</p>
+</li></ul>
 
 <p>Example:</p>
 
@@ -733,6 +1151,11 @@ end
 <p>You can combine <code>--rbs-collection</code> with <code>--sig-dir</code> to mix gem signatures with your own:</p>
 
 <pre class="code ruby"><code class="ruby">docscribe -a --rbs-collection --sig-dir sig lib
+</code></pre>
+
+<p>If <code>rbs.collection: true</code> is set in <code>docscribe.yml</code>, the collection is discovered automatically and the flag can be omitted everywhere (including plain <code>check</code> and the daemon):</p>
+
+<pre class="code ruby"><code class="ruby">docscribe -a lib
 </code></pre>
 
 <blockquote>
@@ -878,25 +1301,28 @@ end
 
 <h3 id="label-Generic+type+formatting">Generic type formatting</h3>
 
-<p>Both RBS and Sorbet integrations support <code>collapse_generics</code>.</p>
+<p>Both RBS and Sorbet integrations support generic type collapsing.</p>
 
-<p>When disabled:</p>
+<p><strong><code>collapse_generics</code></strong> — strips all generic type arguments. <strong><code>collapse_object_generics</code></strong> — only strips arguments when all are <code>Object</code> (e.g. <code>Hash&lt;Object, Object&gt;</code> -&gt; <code>Hash</code>, but <code>Hash&lt;Symbol, Object&gt;</code> stays).</p>
+
+<p>When both disabled:</p>
 
 <pre class="code ruby"><code class="ruby">rbs:
   collapse_generics: false
+  collapse_object_generics: false
 
 sorbet:
   collapse_generics: false
 </code></pre>
 
-<p>Docscribe preserves generic container details where possible, for example:</p>
+<p>Docscribe preserves generic container details, for example:</p>
 <ul><li>
 <p><code>Array&lt;String&gt;</code></p>
 </li><li>
 <p><code>Hash&lt;Symbol, Integer&gt;</code></p>
 </li></ul>
 
-<p>When enabled:</p>
+<p>When <code>collapse_generics</code> is enabled:</p>
 
 <pre class="code ruby"><code class="ruby">rbs:
   collapse_generics: true
@@ -905,7 +1331,7 @@ sorbet:
   collapse_generics: true
 </code></pre>
 
-<p>Docscribe simplifies container types to their outer names, for example:</p>
+<p>Docscribe simplifies all container types to their outer names, for example:</p>
 <ul><li>
 <p><code>Array</code></p>
 </li><li>
@@ -931,7 +1357,7 @@ sorbet:
 <ul><li>
 <p><code>*args</code> -&gt; <code>Array</code></p>
 </li><li>
-<p><code>**kwargs</code> -&gt; <code>Hash</code></p>
+<p><code>**kwargs</code> -&gt; <code>Hash[Symbol, untyped]</code> with RBS, <code>Hash&lt;Symbol, Object&gt;</code> in YARD, bare <code>Hash</code> from pure inference</p>
 </li><li>
 <p><code>&amp;block</code> -&gt; <code>Proc</code></p>
 </li><li>
@@ -960,6 +1386,19 @@ sorbet:
 </li><li>
 <p>For control flow (<code>if</code>/<code>case</code>), it unifies branches conservatively.</p>
 </li><li>
+<p>Blocks resolve to generics where possible: <code>map</code>/<code>then</code> over known elements give <code>Array&lt;String&gt;</code> instead of bare <code>Array</code>; <code>arr &lt;&lt; x</code> and <code>x += 1</code> resolve through RBS (<code>self</code>-returns stay <code>self</code>); <code>&amp;.</code>/<code>||</code>/<code>()</code> receivers are unwrapped before lookup; <code>each_with_index</code> chains infer <code>Enumerator</code>/<code>Hash</code> element types (<code>arr.each_with_index.to_h { |x, i| [k, v] }</code> infers <code>Hash&lt;K, V&gt;</code> from the pair literal; the second block parameter is always the <code>Integer</code> index).</p>
+</li><li>
+<p>Generic compatibility is structural, not textual: <code>Hash</code> matches <code>Hash&lt;Symbol, Config&gt;</code>, <code>Array</code> matches <code>Array&lt;String&gt;</code>, <code>String?</code> equals <code>String, nil</code> and <code>String|nil</code>, and <code>String</code> is accepted where <code>Object</code> is expected. YARD <code>[]</code> and RBS <code>&lt;&gt;</code> (plus <code>untyped</code>/<code>Object</code>) are normalized before comparison.</p>
+</li><li>
+<p><code>void</code> understands Ruby idioms: initializers and <code>setup</code> may return <code>Hash</code>/<code>self</code>/<code>Boolean</code>, predicates (<code>valid?</code>) may return <code>Boolean</code>.</p>
+</li><li>
+<p>One crashing method never blanks the whole file: the error goes to stderr (<code>Docscribe: skipping method foo ...</code>) and the remaining methods are still processed.</p>
+</li></ul>
+
+<blockquote>
+<p>[!TIP] Docscribe resolves return types for core Ruby methods (<code>Integer#positive?</code>, <code>String#upcase</code>, etc.) <strong>even without <code>--rbs</code></strong> — the core RBS provider is always active when the <code>rbs</code> gem is available.</p>
+</blockquote>
+<ul><li>
 <p><strong>RBS core type inference</strong>: when <code>--rbs</code> is enabled, Docscribe resolves return types for method calls on core types from their RBS definitions:</p>
 <ul><li>
 <p><code>arg.positive?</code> (<code>arg = 1</code>) -&gt; <code>Boolean</code> (from <code>Integer#positive?</code>)</p>
@@ -996,6 +1435,8 @@ sorbet:
 <p>Conditional return types for rescue branches:</p>
 <ul><li>
 <p>Docscribe adds <code>@return [Type] if ExceptionA, ExceptionB</code> for each rescue clause</p>
+</li><li>
+<p>Conditional tags never overwrite the main <code>@return</code> type, so <code>check</code> and <code>update_types</code> agree with each other (no ping-pong between runs). Rescue bodies referencing constants resolve to the constant's value type when the constant is visible from the method's scope.</p>
 </li></ul>
 </li></ul>
 
@@ -1387,6 +1828,17 @@ sorbet:
 
 <p>Docscribe can be configured via a YAML file (<code>docscribe.yml</code> by default, or pass <code>--config PATH</code>).</p>
 
+<h3 id="label-Anonymous+block+parameters">Anonymous block parameters</h3>
+
+<p>Ruby 3.2+ allows anonymous block arguments (<code>def foo(&amp;)</code>). By default, Docscribe generates <code>@param [Proc] block</code> for these — but since the parameter has no name, the tag is misleading.</p>
+
+<p>To suppress the <code>@param</code> tag for anonymous block arguments:</p>
+
+<pre class="code ruby"><code class="ruby">skip_anonymous_block_params: true
+</code></pre>
+
+<p>When <code>false</code> (default), anonymous block params generate <code>@param [Proc] block</code>.</p>
+
 <h3 id="label-Filtering">Filtering</h3>
 
 <p>Docscribe can filter both <em>files</em> and <em>methods</em>.</p>
@@ -1593,11 +2045,297 @@ docscribe --exclude-file &#39;/^spec\//&#39; lib
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_docscribe'>docscribe</span> <span class='id identifier rubyid_generate'>generate</span> <span class='id identifier rubyid_tag'>tag</span> <span class='const'>SincePlugin</span> <span class='op'>-</span><span class='op'>-</span><span class='id identifier rubyid_stdout'>stdout</span>
 </code></pre>
 
-<p>The generated file contains: - the correct base class (<code>Base::TagPlugin</code> or <code>Base::CollectorPlugin</code>) - inline comments describing every available <code>Context</code> attribute (TagPlugin) or the expected return shape (CollectorPlugin) - TODO markers showing exactly where to add your logic - registration and next-steps instructions printed to the terminal</p>
+<p>The generated file contains:</p>
+<ul><li>
+<p>the correct base class (<code>Base::TagPlugin</code> or <code>Base::CollectorPlugin</code>)</p>
+</li><li>
+<p>inline comments describing every available <code>Context</code> attribute (TagPlugin) or the expected return shape (CollectorPlugin)</p>
+</li><li>
+<p>TODO markers showing exactly where to add your logic</p>
+</li><li>
+<p>registration and next-steps instructions printed to the terminal</p>
+</li></ul>
 
 <blockquote>
 <p>[!NOTE] The class name must be a valid Ruby constant (<code>MyPlugin</code>, <code>My::Plugin</code>). The output filename is the snake_case equivalent (<code>my_plugin.rb</code>, <code>my/plugin.rb</code>).</p>
 </blockquote>
+
+<h3 id="label-Full+configuration+reference">Full configuration reference</h3>
+
+<p>&lt;details&gt; &lt;summary&gt;Click to expand — 43 config keys&lt;/summary&gt;</p>
+
+<table role="table">
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>‘keep_descriptions`</td>
+<td>‘bool`</td>
+<td>‘false`</td>
+<td>Preserve existing doc text in aggressive mode</td>
+</tr>
+<tr>
+<td>‘skip_anonymous_block_params`</td>
+<td>‘bool`</td>
+<td>‘false`</td>
+<td>Skip ‘@param [Proc] block` for anonymous `&amp;` params</td>
+</tr>
+<tr>
+<td>‘validate_types`</td>
+<td>‘bool`</td>
+<td>‘false`</td>
+<td>Validate YARD types against inferred/RBS types and report mismatches</td>
+</tr>
+<tr>
+<td>‘emit.header`</td>
+<td>‘bool`</td>
+<td>‘false`</td>
+<td>Generate method header line (‘<code>#foo</code> -&gt; …`)</td>
+</tr>
+<tr>
+<td>‘emit.include_default_message`</td>
+<td>‘bool`</td>
+<td>‘true`</td>
+<td>Insert default message (‘Method documentation.`)</td>
+</tr>
+<tr>
+<td>‘emit.include_param_documentation`</td>
+<td>‘bool`</td>
+<td>‘true`</td>
+<td>Insert param description text (‘Param documentation.`)</td>
+</tr>
+<tr>
+<td>‘emit.param_tags`</td>
+<td>‘bool`</td>
+<td>‘true`</td>
+<td>Generate ‘@param` tags</td>
+</tr>
+<tr>
+<td>‘emit.return_tag`</td>
+<td>‘bool`</td>
+<td>‘true`</td>
+<td>Generate ‘@return` tag</td>
+</tr>
+<tr>
+<td>‘emit.visibility_tags`</td>
+<td>‘bool`</td>
+<td>‘true`</td>
+<td>Generate ‘@private`/`@protected` tags</td>
+</tr>
+<tr>
+<td>‘emit.raise_tags`</td>
+<td>‘bool`</td>
+<td>‘true`</td>
+<td>Generate ‘@raise` tags (for `raise` in method body)</td>
+</tr>
+<tr>
+<td>‘emit.rescue_conditional_returns`</td>
+<td>‘bool`</td>
+<td>‘true`</td>
+<td>Consider ‘rescue` branches in return type inference</td>
+</tr>
+<tr>
+<td>‘emit.attributes`</td>
+<td>‘bool`</td>
+<td>‘false`</td>
+<td>Generate ‘@!attribute` for `attr_*` and `Struct.new`</td>
+</tr>
+<tr>
+<td>‘doc.default_message`</td>
+<td>‘string`</td>
+<td>‘“Method documentation.”`</td>
+<td>Default text for method description</td>
+</tr>
+<tr>
+<td>‘doc.param_documentation`</td>
+<td>‘string`</td>
+<td>‘“Param documentation.”`</td>
+<td>Default text for param description</td>
+</tr>
+<tr>
+<td>‘doc.sort_tags`</td>
+<td>‘bool`</td>
+<td>‘true`</td>
+<td>Sort tags according to ‘tag_order`</td>
+</tr>
+<tr>
+<td>‘doc.tag_order`</td>
+<td>‘string[]`</td>
+<td>‘[“todo”,“note”,“api”,“private”,“protected”,“param”,“option”,“yieldparam”,“raise”,“return”]`</td>
+<td>Tag sort order</td>
+</tr>
+<tr>
+<td>‘doc.param_tag_style`</td>
+<td>‘string`</td>
+<td>‘“type_name”`</td>
+<td>‘@param` style: `type_name` (`[Type] name`) or `name_type` (`name [Type]`)</td>
+</tr>
+<tr>
+<td>‘inference.fallback_type`</td>
+<td>‘string`</td>
+<td>‘“Object”`</td>
+<td>Fallback type when inference yields no result</td>
+</tr>
+<tr>
+<td>‘inference.nil_as_optional`</td>
+<td>‘bool`</td>
+<td>‘true`</td>
+<td>Treat ‘nil` as an optional type</td>
+</tr>
+<tr>
+<td>‘inference.treat_options_keyword_as_hash`</td>
+<td>‘bool`</td>
+<td>‘true`</td>
+<td>Treat ‘**options` as `Hash` in `@option` tags</td>
+</tr>
+<tr>
+<td>‘filter.include`</td>
+<td>‘string[]`</td>
+<td>‘[]`</td>
+<td>Only include methods matching pattern</td>
+</tr>
+<tr>
+<td>‘filter.exclude`</td>
+<td>‘string[]`</td>
+<td>‘[]`</td>
+<td>Exclude methods matching pattern</td>
+</tr>
+<tr>
+<td>‘filter.visibilities`</td>
+<td>‘string[]`</td>
+<td>‘[“public”,“protected”,“private”]`</td>
+<td>Visibilities to process</td>
+</tr>
+<tr>
+<td>‘filter.scopes`</td>
+<td>‘string[]`</td>
+<td>‘[“instance”,“class”]`</td>
+<td>Scopes to process</td>
+</tr>
+<tr>
+<td>‘filter.files.include`</td>
+<td>‘string[]`</td>
+<td>‘[]`</td>
+<td>Only process files matching pattern</td>
+</tr>
+<tr>
+<td>‘filter.files.exclude`</td>
+<td>‘string[]`</td>
+<td>‘[“spec”]`</td>
+<td>Skip files matching pattern</td>
+</tr>
+<tr>
+<td>‘methods.instance.public`</td>
+<td>‘object`</td>
+<td>‘{}`</td>
+<td>Overrides for instance public methods</td>
+</tr>
+<tr>
+<td>‘methods.instance.protected`</td>
+<td>‘object`</td>
+<td>‘{}`</td>
+<td>Overrides for instance protected methods</td>
+</tr>
+<tr>
+<td>‘methods.instance.private`</td>
+<td>‘object`</td>
+<td>‘{}`</td>
+<td>Overrides for instance private methods</td>
+</tr>
+<tr>
+<td>‘methods.class.public`</td>
+<td>‘object`</td>
+<td>‘{}`</td>
+<td>Overrides for class public methods</td>
+</tr>
+<tr>
+<td>‘methods.class.protected`</td>
+<td>‘object`</td>
+<td>‘{}`</td>
+<td>Overrides for class protected methods</td>
+</tr>
+<tr>
+<td>‘methods.class.private`</td>
+<td>‘object`</td>
+<td>‘{}`</td>
+<td>Overrides for class private methods</td>
+</tr>
+<tr>
+<td>‘rbs.enabled`</td>
+<td>‘bool`</td>
+<td>‘false`</td>
+<td>Enable RBS integration</td>
+</tr>
+<tr>
+<td>‘rbs.collection`</td>
+<td>‘bool`</td>
+<td>‘false`</td>
+<td>Auto-discover RBS collection from ‘rbs_collection.lock.yaml`</td>
+</tr>
+<tr>
+<td>‘rbs.sig_dirs`</td>
+<td>‘string[]`</td>
+<td>‘[“sig”]`</td>
+<td>RBS signature directories</td>
+</tr>
+<tr>
+<td>‘rbs.collection_dirs`</td>
+<td>‘string[]`</td>
+<td>‘[]`</td>
+<td>RBS collection directories (set automatically)</td>
+</tr>
+<tr>
+<td>‘rbs.collapse_generics`</td>
+<td>‘bool`</td>
+<td>‘false`</td>
+<td>Strip generic arguments (‘Array&lt;String&gt;` -&gt; `Array`)</td>
+</tr>
+<tr>
+<td>‘rbs.collapse_object_generics`</td>
+<td>‘bool`</td>
+<td>‘false`</td>
+<td>Strip generics only when all are ‘Object`</td>
+</tr>
+<tr>
+<td>‘rbs.warn_missing_collection`</td>
+<td>‘bool`</td>
+<td>‘true`</td>
+<td>Warn when ‘rbs_collection.lock.yaml` found but collection not enabled</td>
+</tr>
+<tr>
+<td>‘sorbet.enabled`</td>
+<td>‘bool`</td>
+<td>‘false`</td>
+<td>Enable Sorbet integration</td>
+</tr>
+<tr>
+<td>‘sorbet.rbi_dirs`</td>
+<td>‘string[]`</td>
+<td>‘[“sorbet/rbi”,“rbi”]`</td>
+<td>RBI file directories</td>
+</tr>
+<tr>
+<td>‘sorbet.collapse_generics`</td>
+<td>‘bool`</td>
+<td>‘false`</td>
+<td>Strip generic arguments from Sorbet signatures</td>
+</tr>
+<tr>
+<td>‘plugins.require`</td>
+<td>‘string[]`</td>
+<td>‘[]`</td>
+<td>Plugin paths for ‘require`</td>
+</tr>
+</tbody>
+</table>
+
+<p>&lt;/details&gt;</p>
 
 <h2 id="label-CI+integration">CI integration</h2>
 
@@ -1613,10 +2351,29 @@ docscribe --exclude-file &#39;/^spec\//&#39; lib
   run: docscribe -a lib
 </code></pre>
 
-<p>Aggressively rebuild docs:</p>
+<p>Rebuild docs aggressively, preserve descriptions, suppress boilerplate, with verbose output:</p>
 
 <pre class="code ruby"><code class="ruby">- name: Rebuild inline docs
-  run: docscribe -A lib
+  run: docscribe -AkB --verbose
+</code></pre>
+
+<p>Run static type checking with Steep (requires Ruby ≥ 3.2):</p>
+
+<pre class="code ruby"><code class="ruby">- name: Steep (type check)
+  if: ${{ matrix.ruby &gt;= 3.2 }}
+  run: bundle exec steep check
+</code></pre>
+
+<p>Fail the build if any generated docs still contain default placeholder text:</p>
+
+<pre class="code ruby"><code class="ruby">- name: Check for placeholder docs
+  run: docscribe check_for_comments lib/
+</code></pre>
+
+<p>For stricter validation, check for empty doc blocks:</p>
+
+<pre class="code ruby"><code class="ruby">- name: Check for empty doc blocks
+  run: &quot;! grep -rn &#39;^  # $&#39; lib/&quot;
 </code></pre>
 
 <h2 id="label-Comparison+to+YARD-27s+parser">Comparison to YARD’s parser</h2>
@@ -1644,27 +2401,53 @@ docscribe --exclude-file &#39;/^spec\//&#39; lib
 </li><li>
 <p>Type inference is heuristic. Complex flows and meta-programming will fall back to <code>Object</code> or best-effort types.</p>
 </li><li>
+<p>A method that crashes documentation generation is skipped with a stderr warning instead of failing the whole file.</p>
+</li><li>
 <p>Aggressive mode (<code>-A</code>) replaces existing doc blocks and should be reviewed carefully.</p>
 </li></ul>
 
 <h2 id="label-Roadmap">Roadmap</h2>
 <ul><li>
-<p>Method behavior inference from AST;</p>
-</li><li>
-<p>YAML-based plugin configuration;</p>
-</li><li>
-<p>Effective config dump;</p>
-</li><li>
-<p>JSON output;</p>
-</li><li>
 <p>Overload-aware signature selection;</p>
 </li><li>
-<p>Manual <code>@!attribute</code> merge policy;</p>
+<p>Deeper YARD integration — parse <code>.c</code> source comments and generate docs for C-extensions;</p>
 </li><li>
-<p>Richer inference for common APIs;</p>
+<p>Custom parser plugins — support non-Ruby languages (Crystal, etc.) via the plugin system;</p>
 </li><li>
-<p>Editor integration.</p>
+<p>Richer inference for common APIs.</p>
 </li></ul>
+
+<h2 id="label-Editor+Integration">Editor Integration</h2>
+
+<p>Docscribe provides IDE plugins for a better development experience:</p>
+
+<h3 id="label-VS+Code">VS Code</h3>
+
+<p><a href="https://marketplace.visualstudio.com/items?itemName=unurgunite.docscribe-vscode"><img src="https://img.shields.io/badge/VS%20Code-plugin-blue?logo=visualstudiocode" alt="VS Code"></a></p>
+<ul><li>
+<p><strong>Repository:</strong> <a href="https://github.com/FlorexLabs/docscribe-vscode">github.com/FlorexLabs/docscribe-vscode</a></p>
+</li><li>
+<p><strong>Marketplace:</strong> <a href="https://marketplace.visualstudio.com/items?itemName=unurgunite.docscribe-vscode">VS Code Marketplace</a></p>
+</li><li>
+<p><strong>Features:</strong> inline diagnostics, quick-fix, auto-check on save, status bar</p>
+</li></ul>
+
+<h3 id="label-RubyMine">RubyMine</h3>
+
+<p><a href="https://plugins.jetbrains.com/plugin/32349-docscribe"><img src="https://img.shields.io/badge/RubyMine-plugin-green?logo=jetbrains" alt="RubyMine"></a></p>
+<ul><li>
+<p><strong>Repository:</strong> <a href="https://github.com/FlorexLabs/docscribe-rubymine">github.com/FlorexLabs/docscribe-rubymine</a></p>
+</li><li>
+<p><strong>Marketplace:</strong> <a href="https://plugins.jetbrains.com/plugin/32349-docscribe">JetBrains Marketplace</a></p>
+</li><li>
+<p><strong>Features:</strong> ExternalAnnotator, AnAction, IntentionAction, Settings UI</p>
+</li></ul>
+
+<blockquote>
+<p>[!NOTE] Both plugins require <strong>docscribe &gt;= 1.5.0</strong>.</p>
+
+<p>For optimal performance, both plugins use the <code>docscribe-client</code> thin client to communicate with the docscribe daemon (see <a href="#docscribe-server--persistent-daemon-mode">server mode</a>). Start the daemon with <code>docscribe server start</code> for near-instant diagnostics.</p>
+</blockquote>
 
 <h2 id="label-Contributing">Contributing</h2>
 
@@ -1681,13 +2464,19 @@ docscribe --exclude-file &#39;/^spec\//&#39; lib
 <p><a href="https://github.com/unurgunite/docscribe/discussions">GitHub Discussions</a></p>
 </li></ul>
 
+<h2 id="label-Logo+Attribution">Logo Attribution</h2>
+
+<p>The Docscribe logo uses the Ruby gem icon by <a href="https://github.com/FlorexLabs">FlorexLabs</a>.</p>
+<p>
+  <img src="assets/icons/icon_128x128.png" alt="Docscribe logo">
+</p>
 <h2 id="label-License">License</h2>
 
 <p>MIT</p>
 </div></div>
 
       <div id="footer">
-  Generated on Sat Jun 13 01:27:03 2026 by
+  Generated on Sun Oct  4 00:19:53 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.38 (ruby-3.4.5).
 </div>

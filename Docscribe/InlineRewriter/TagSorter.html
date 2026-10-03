@@ -118,7 +118,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#index-class_method" title="index (class method)">.<strong>index</strong>  &#x21d2; Object </a>
+      <a href="#index-class_method" title="index (class method)">.<strong>index</strong>  &#x21d2; Integer </a>
     
 
     
@@ -143,7 +143,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#lines-class_method" title="lines (class method)">.<strong>lines</strong>  &#x21d2; Object </a>
+      <a href="#lines-class_method" title="lines (class method)">.<strong>lines</strong>  &#x21d2; Array&lt;String&gt; </a>
     
 
     
@@ -168,7 +168,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#option_owner-class_method" title="option_owner (class method)">.<strong>option_owner</strong>  &#x21d2; Object </a>
+      <a href="#option_owner-class_method" title="option_owner (class method)">.<strong>option_owner</strong>  &#x21d2; String? </a>
     
 
     
@@ -193,7 +193,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#param_name-class_method" title="param_name (class method)">.<strong>param_name</strong>  &#x21d2; Object </a>
+      <a href="#param_name-class_method" title="param_name (class method)">.<strong>param_name</strong>  &#x21d2; String? </a>
     
 
     
@@ -218,7 +218,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#tag-class_method" title="tag (class method)">.<strong>tag</strong>  &#x21d2; Object </a>
+      <a href="#tag-class_method" title="tag (class method)">.<strong>tag</strong>  &#x21d2; String </a>
     
 
     
@@ -271,7 +271,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Parse the next line as either a tag run or non-tag content, appending to segments.</p>
+<p>Advance parse.</p>
 </div></span>
   
 </li>
@@ -295,7 +295,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Whether a line is a blank comment separator.</p>
+<p>Blank comment line.</p>
 </div></span>
   
 </li>
@@ -304,7 +304,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#build_entry-class_method" title="build_entry (class method)">.<strong>build_entry</strong>(tag, entry_lines, first, start_idx)  &#x21d2; Entry </a>
+      <a href="#build_entry-class_method" title="build_entry (class method)">.<strong>build_entry</strong>(tag, entry_lines, first, start_idx)  &#x21d2; Docscribe::InlineRewriter::TagSorter::Entry </a>
     
 
     
@@ -319,7 +319,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Build an Entry struct from parsed tag name, lines, and source line metadata.</p>
+<p>Build entry.</p>
 </div></span>
   
 </li>
@@ -328,7 +328,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#build_priority-class_method" title="build_priority (class method)">.<strong>build_priority</strong>(tag_order)  &#x21d2; Hash{String=&gt;Integer} </a>
+      <a href="#build_priority-class_method" title="build_priority (class method)">.<strong>build_priority</strong>(tag_order)  &#x21d2; Hash&lt;String, Integer&gt; </a>
     
 
     
@@ -343,7 +343,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Build a tag priority map from configured tag order.</p>
+<p>Build priority.</p>
 </div></span>
   
 </li>
@@ -367,7 +367,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Collect continuation lines following a top-level tag entry.</p>
+<p>Collect continuation lines.</p>
 </div></span>
   
 </li>
@@ -376,7 +376,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#collect_option_entries-class_method" title="collect_option_entries (class method)">.<strong>collect_option_entries</strong>(entries, start_idx, param_name)  &#x21d2; Array&lt;Entry&gt; </a>
+      <a href="#collect_option_entries-class_method" title="collect_option_entries (class method)">.<strong>collect_option_entries</strong>(entries, start_idx, param_name)  &#x21d2; Array&lt;Docscribe::InlineRewriter::TagSorter::Entry&gt; </a>
     
 
     
@@ -391,7 +391,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Collect ‘@option` entries belonging to the given param name.</p>
+<p>Collect option entries.</p>
 </div></span>
   
 </li>
@@ -415,7 +415,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Whether a line is any comment line.</p>
+<p>Comment line.</p>
 </div></span>
   
 </li>
@@ -424,7 +424,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#consume_entry-class_method" title="consume_entry (class method)">.<strong>consume_entry</strong>(lines, start_idx)  &#x21d2; Array&lt;(Entry, Integer)&gt; </a>
+      <a href="#consume_entry-class_method" title="consume_entry (class method)">.<strong>consume_entry</strong>(lines, start_idx)  &#x21d2; (Docscribe::InlineRewriter::TagSorter::Entry, Integer) </a>
     
 
     
@@ -439,7 +439,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Consume one top-level tag entry and its continuation lines.</p>
+<p>Consume entry.</p>
 </div></span>
   
 </li>
@@ -463,7 +463,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Consume a contiguous tag run and append to segments.</p>
+<p>Consume tag run.</p>
 </div></span>
   
 </li>
@@ -487,7 +487,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Extract owning options-hash param name from an ‘@option` line.</p>
+<p>Extract option owner.</p>
 </div></span>
   
 </li>
@@ -511,7 +511,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Extract parameter name from a ‘@param` line.</p>
+<p>Extract param name.</p>
 </div></span>
   
 </li>
@@ -535,7 +535,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Extract tag name from a top-level tag line without the leading ‘@`.</p>
+<p>Extract tag name.</p>
 </div></span>
   
 </li>
@@ -544,7 +544,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#group_entries-class_method" title="group_entries (class method)">.<strong>group_entries</strong>(entries)  &#x21d2; Array&lt;Array&lt;Entry&gt;&gt; </a>
+      <a href="#group_entries-class_method" title="group_entries (class method)">.<strong>group_entries</strong>(entries)  &#x21d2; Array&lt;Array&lt;Docscribe::InlineRewriter::TagSorter::Entry&gt;&gt; </a>
     
 
     
@@ -559,7 +559,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Group entries so ‘@option` tags remain attached to their owning `@param`.</p>
+<p>Group entries.</p>
 </div></span>
   
 </li>
@@ -568,7 +568,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#group_entry-class_method" title="group_entry (class method)">.<strong>group_entry</strong>(entries, idx)  &#x21d2; Array&lt;Entry&gt; </a>
+      <a href="#group_entry-class_method" title="group_entry (class method)">.<strong>group_entry</strong>(entries, idx)  &#x21d2; Array&lt;Docscribe::InlineRewriter::TagSorter::Entry&gt; </a>
     
 
     
@@ -583,7 +583,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Group a single entry, attaching any subsequent @option entries if it is a @param.</p>
+<p>Group entry.</p>
 </div></span>
   
 </li>
@@ -607,7 +607,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Compute sort priority for a grouped tag entry.</p>
+<p>Group priority.</p>
 </div></span>
   
 </li>
@@ -616,7 +616,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#parse_segments-class_method" title="parse_segments (class method)">.<strong>parse_segments</strong>(lines)  &#x21d2; Array&lt;Hash&gt; </a>
+      <a href="#parse_segments-class_method" title="parse_segments (class method)">.<strong>parse_segments</strong>(lines)  &#x21d2; Array&lt;Hash&lt;Symbol, Object&gt;&gt; </a>
     
 
     
@@ -631,7 +631,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Parse lines into sortable tag-run segments and non-sortable segments.</p>
+<p>Parse segments.</p>
 </div></span>
   
 </li>
@@ -655,7 +655,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Sort contiguous top-level tag runs according to configured tag order.</p>
+<p>Sort.</p>
 </div></span>
   
 </li>
@@ -679,7 +679,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Sort one parsed segment if it is a tag run.</p>
+<p>Sort segment.</p>
 </div></span>
   
 </li>
@@ -703,7 +703,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Whether a line begins a top-level tag entry.</p>
+<p>Top level tag line.</p>
 </div></span>
   
 </li>
@@ -721,7 +721,7 @@
       <div class="method_details first">
   <h3 class="signature first" id="index-class_method">
   
-    .<strong>index</strong>  &#x21d2; <tt>Object</tt> 
+    .<strong>index</strong>  &#x21d2; <tt>Integer</tt> 
   
 
   
@@ -742,7 +742,7 @@
         <span class='name'>value</span>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>Integer</tt>)</span>
       
       
       
@@ -756,7 +756,7 @@
     <li>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>Integer</tt>)</span>
       
       
       
@@ -770,10 +770,10 @@
       <pre class="lines">
 
 
-34</pre>
+33</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/tag_sorter.rb', line 34</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/tag_sorter.rb', line 33</span>
 
 <span class='const'><span class='object_link'><a href="TagSorter/Entry.html" title="Docscribe::InlineRewriter::TagSorter::Entry (class)">Entry</a></span></span> <span class='op'>=</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:tag</span><span class='comma'>,</span> <span class='symbol'>:lines</span><span class='comma'>,</span> <span class='symbol'>:param_name</span><span class='comma'>,</span> <span class='symbol'>:option_owner</span><span class='comma'>,</span> <span class='symbol'>:index</span><span class='comma'>,</span> <span class='label'>keyword_init:</span> <span class='kw'>true</span><span class='rparen'>)</span></pre>
     </td>
@@ -786,7 +786,7 @@
       <div class="method_details ">
   <h3 class="signature " id="lines-class_method">
   
-    .<strong>lines</strong>  &#x21d2; <tt>Object</tt> 
+    .<strong>lines</strong>  &#x21d2; <tt>Array&lt;String&gt;</tt> 
   
 
   
@@ -807,7 +807,7 @@
         <span class='name'>value</span>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>Array&lt;String&gt;</tt>)</span>
       
       
       
@@ -821,7 +821,7 @@
     <li>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>Array&lt;String&gt;</tt>)</span>
       
       
       
@@ -835,10 +835,10 @@
       <pre class="lines">
 
 
-34</pre>
+33</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/tag_sorter.rb', line 34</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/tag_sorter.rb', line 33</span>
 
 <span class='const'><span class='object_link'><a href="TagSorter/Entry.html" title="Docscribe::InlineRewriter::TagSorter::Entry (class)">Entry</a></span></span> <span class='op'>=</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:tag</span><span class='comma'>,</span> <span class='symbol'>:lines</span><span class='comma'>,</span> <span class='symbol'>:param_name</span><span class='comma'>,</span> <span class='symbol'>:option_owner</span><span class='comma'>,</span> <span class='symbol'>:index</span><span class='comma'>,</span> <span class='label'>keyword_init:</span> <span class='kw'>true</span><span class='rparen'>)</span></pre>
     </td>
@@ -851,7 +851,7 @@
       <div class="method_details ">
   <h3 class="signature " id="option_owner-class_method">
   
-    .<strong>option_owner</strong>  &#x21d2; <tt>Object</tt> 
+    .<strong>option_owner</strong>  &#x21d2; <tt>String?</tt> 
   
 
   
@@ -872,7 +872,7 @@
         <span class='name'>value</span>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>String?</tt>)</span>
       
       
       
@@ -886,7 +886,7 @@
     <li>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>String?</tt>)</span>
       
       
       
@@ -900,10 +900,10 @@
       <pre class="lines">
 
 
-34</pre>
+33</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/tag_sorter.rb', line 34</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/tag_sorter.rb', line 33</span>
 
 <span class='const'><span class='object_link'><a href="TagSorter/Entry.html" title="Docscribe::InlineRewriter::TagSorter::Entry (class)">Entry</a></span></span> <span class='op'>=</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:tag</span><span class='comma'>,</span> <span class='symbol'>:lines</span><span class='comma'>,</span> <span class='symbol'>:param_name</span><span class='comma'>,</span> <span class='symbol'>:option_owner</span><span class='comma'>,</span> <span class='symbol'>:index</span><span class='comma'>,</span> <span class='label'>keyword_init:</span> <span class='kw'>true</span><span class='rparen'>)</span></pre>
     </td>
@@ -916,7 +916,7 @@
       <div class="method_details ">
   <h3 class="signature " id="param_name-class_method">
   
-    .<strong>param_name</strong>  &#x21d2; <tt>Object</tt> 
+    .<strong>param_name</strong>  &#x21d2; <tt>String?</tt> 
   
 
   
@@ -937,7 +937,7 @@
         <span class='name'>value</span>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>String?</tt>)</span>
       
       
       
@@ -951,7 +951,7 @@
     <li>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>String?</tt>)</span>
       
       
       
@@ -965,10 +965,10 @@
       <pre class="lines">
 
 
-34</pre>
+33</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/tag_sorter.rb', line 34</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/tag_sorter.rb', line 33</span>
 
 <span class='const'><span class='object_link'><a href="TagSorter/Entry.html" title="Docscribe::InlineRewriter::TagSorter::Entry (class)">Entry</a></span></span> <span class='op'>=</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:tag</span><span class='comma'>,</span> <span class='symbol'>:lines</span><span class='comma'>,</span> <span class='symbol'>:param_name</span><span class='comma'>,</span> <span class='symbol'>:option_owner</span><span class='comma'>,</span> <span class='symbol'>:index</span><span class='comma'>,</span> <span class='label'>keyword_init:</span> <span class='kw'>true</span><span class='rparen'>)</span></pre>
     </td>
@@ -981,7 +981,7 @@
       <div class="method_details ">
   <h3 class="signature " id="tag-class_method">
   
-    .<strong>tag</strong>  &#x21d2; <tt>Object</tt> 
+    .<strong>tag</strong>  &#x21d2; <tt>String</tt> 
   
 
   
@@ -1002,7 +1002,7 @@
         <span class='name'>value</span>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>String</tt>)</span>
       
       
       
@@ -1016,7 +1016,7 @@
     <li>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>String</tt>)</span>
       
       
       
@@ -1030,10 +1030,10 @@
       <pre class="lines">
 
 
-34</pre>
+33</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/tag_sorter.rb', line 34</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/tag_sorter.rb', line 33</span>
 
 <span class='const'><span class='object_link'><a href="TagSorter/Entry.html" title="Docscribe::InlineRewriter::TagSorter::Entry (class)">Entry</a></span></span> <span class='op'>=</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:tag</span><span class='comma'>,</span> <span class='symbol'>:lines</span><span class='comma'>,</span> <span class='symbol'>:param_name</span><span class='comma'>,</span> <span class='symbol'>:option_owner</span><span class='comma'>,</span> <span class='symbol'>:index</span><span class='comma'>,</span> <span class='label'>keyword_init:</span> <span class='kw'>true</span><span class='rparen'>)</span></pre>
     </td>
@@ -1063,12 +1063,12 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines #advance_parse (instance visibility: private)</p>
+<p>module_function: defines #advance_parse (visibility: private)</p>
 </div>
   </div>
 
 
-<p>Parse the next line as either a tag run or non-tag content, appending to segments.</p>
+<p>Advance parse</p>
 
 
   </div>
@@ -1114,7 +1114,7 @@
         <span class='name'>segments</span>
       
       
-        <span class='type'>(<tt>Array&lt;Hash&gt;</tt>)</span>
+        <span class='type'>(<tt>Array&lt;Hash&lt;Symbol, Object&gt;&gt;</tt>)</span>
       
       
       
@@ -1152,17 +1152,17 @@
       <pre class="lines">
 
 
+79
+80
+81
 82
 83
 84
 85
-86
-87
-88
-89</pre>
+86</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/tag_sorter.rb', line 82</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/tag_sorter.rb', line 79</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_advance_parse'>advance_parse</span><span class='lparen'>(</span><span class='id identifier rubyid_lines'>lines</span><span class='comma'>,</span> <span class='id identifier rubyid_idx'>idx</span><span class='comma'>,</span> <span class='id identifier rubyid_segments'>segments</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_top_level_tag_line?'>top_level_tag_line?</span><span class='lparen'>(</span><span class='id identifier rubyid_lines'>lines</span><span class='lbracket'>[</span><span class='id identifier rubyid_idx'>idx</span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -1192,12 +1192,12 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines #blank_comment_line? (instance visibility: private)</p>
+<p>module_function: defines #blank_comment_line? (visibility: private)</p>
 </div>
   </div>
 
 
-<p>Whether a line is a blank comment separator.</p>
+<p>Blank comment line</p>
 
 
   </div>
@@ -1214,6 +1214,11 @@
         <span class='type'>(<tt>String</tt>)</span>
       
       
+      
+        &mdash;
+        <div class='inline'>
+<p>comment line to check</p>
+</div>
       
     </li>
   
@@ -1239,12 +1244,12 @@
       <pre class="lines">
 
 
-270
-271
-272</pre>
+267
+268
+269</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/tag_sorter.rb', line 270</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/tag_sorter.rb', line 267</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_blank_comment_line?'>blank_comment_line?</span><span class='lparen'>(</span><span class='id identifier rubyid_line'>line</span><span class='rparen'>)</span>
   <span class='op'>!</span><span class='op'>!</span><span class='lparen'>(</span><span class='id identifier rubyid_line'>line</span> <span class='op'>=~</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^\s*#\s*$</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span>
@@ -1257,7 +1262,7 @@
       <div class="method_details ">
   <h3 class="signature " id="build_entry-class_method">
   
-    .<strong>build_entry</strong>(tag, entry_lines, first, start_idx)  &#x21d2; <tt><span class='object_link'><a href="TagSorter/Entry.html" title="Docscribe::InlineRewriter::TagSorter::Entry (class)">Entry</a></span></tt> 
+    .<strong>build_entry</strong>(tag, entry_lines, first, start_idx)  &#x21d2; <tt><span class='object_link'><a href="TagSorter/Entry.html" title="Docscribe::InlineRewriter::TagSorter::Entry (class)">Docscribe::InlineRewriter::TagSorter::Entry</a></span></tt> 
   
 
   
@@ -1269,12 +1274,12 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines #build_entry (instance visibility: private)</p>
+<p>module_function: defines #build_entry (visibility: private)</p>
 </div>
   </div>
 
 
-<p>Build an Entry struct from parsed tag name, lines, and source line metadata.</p>
+<p>Build entry</p>
 
 
   </div>
@@ -1288,7 +1293,7 @@
         <span class='name'>tag</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+        <span class='type'>(<tt>String</tt>)</span>
       
       
       
@@ -1355,7 +1360,7 @@
     <li>
       
       
-        <span class='type'>(<tt><span class='object_link'><a href="TagSorter/Entry.html" title="Docscribe::InlineRewriter::TagSorter::Entry (class)">Entry</a></span></tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="TagSorter/Entry.html" title="Docscribe::InlineRewriter::TagSorter::Entry (class)">Docscribe::InlineRewriter::TagSorter::Entry</a></span></tt>)</span>
       
       
       
@@ -1369,18 +1374,18 @@
       <pre class="lines">
 
 
+159
+160
+161
 162
 163
 164
 165
 166
-167
-168
-169
-170</pre>
+167</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/tag_sorter.rb', line 162</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/tag_sorter.rb', line 159</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_build_entry'>build_entry</span><span class='lparen'>(</span><span class='id identifier rubyid_tag'>tag</span><span class='comma'>,</span> <span class='id identifier rubyid_entry_lines'>entry_lines</span><span class='comma'>,</span> <span class='id identifier rubyid_first'>first</span><span class='comma'>,</span> <span class='id identifier rubyid_start_idx'>start_idx</span><span class='rparen'>)</span>
   <span class='const'><span class='object_link'><a href="TagSorter/Entry.html" title="Docscribe::InlineRewriter::TagSorter::Entry (class)">Entry</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span>
@@ -1399,7 +1404,7 @@
       <div class="method_details ">
   <h3 class="signature " id="build_priority-class_method">
   
-    .<strong>build_priority</strong>(tag_order)  &#x21d2; <tt>Hash{String=&gt;Integer}</tt> 
+    .<strong>build_priority</strong>(tag_order)  &#x21d2; <tt>Hash&lt;String, Integer&gt;</tt> 
   
 
   
@@ -1411,12 +1416,12 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines #build_priority (instance visibility: private)</p>
+<p>module_function: defines #build_priority (visibility: private)</p>
 </div>
   </div>
 
 
-<p>Build a tag priority map from configured tag order.</p>
+<p>Build priority</p>
 
 
   </div>
@@ -1434,6 +1439,11 @@
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>configured tag order</p>
+</div>
+      
     </li>
   
 </ul>
@@ -1444,7 +1454,7 @@
     <li>
       
       
-        <span class='type'>(<tt>Hash{String=&gt;Integer}</tt>)</span>
+        <span class='type'>(<tt>Hash&lt;String, Integer&gt;</tt>)</span>
       
       
       
@@ -1458,14 +1468,14 @@
       <pre class="lines">
 
 
+52
+53
+54
 55
-56
-57
-58
-59</pre>
+56</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/tag_sorter.rb', line 55</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/tag_sorter.rb', line 52</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_build_priority'>build_priority</span><span class='lparen'>(</span><span class='id identifier rubyid_tag_order'>tag_order</span><span class='rparen'>)</span>
   <span class='const'>Array</span><span class='lparen'>(</span><span class='id identifier rubyid_tag_order'>tag_order</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_t'>t</span><span class='op'>|</span> <span class='id identifier rubyid_t'>t</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_sub'>sub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\A@</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='rbrace'>}</span>
@@ -1492,12 +1502,12 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines #collect_continuation_lines (instance visibility: private)</p>
+<p>module_function: defines #collect_continuation_lines (visibility: private)</p>
 </div>
   </div>
 
 
-<p>Collect continuation lines following a top-level tag entry.</p>
+<p>Collect continuation lines</p>
 
 
   </div>
@@ -1515,6 +1525,11 @@
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>comment block lines</p>
+</div>
+      
     </li>
   
     <li>
@@ -1525,6 +1540,11 @@
         <span class='type'>(<tt>Integer</tt>)</span>
       
       
+      
+        &mdash;
+        <div class='inline'>
+<p>original index of the first line</p>
+</div>
       
     </li>
   
@@ -1550,6 +1570,9 @@
       <pre class="lines">
 
 
+175
+176
+177
 178
 179
 180
@@ -1560,13 +1583,10 @@
 185
 186
 187
-188
-189
-190
-191</pre>
+188</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/tag_sorter.rb', line 178</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/tag_sorter.rb', line 175</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_collect_continuation_lines'>collect_continuation_lines</span><span class='lparen'>(</span><span class='id identifier rubyid_lines'>lines</span><span class='comma'>,</span> <span class='id identifier rubyid_start_idx'>start_idx</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='comment'>#: Array[String]
@@ -1590,7 +1610,7 @@
       <div class="method_details ">
   <h3 class="signature " id="collect_option_entries-class_method">
   
-    .<strong>collect_option_entries</strong>(entries, start_idx, param_name)  &#x21d2; <tt>Array&lt;<span class='object_link'><a href="TagSorter/Entry.html" title="Docscribe::InlineRewriter::TagSorter::Entry (class)">Entry</a></span>&gt;</tt> 
+    .<strong>collect_option_entries</strong>(entries, start_idx, param_name)  &#x21d2; <tt>Array&lt;<span class='object_link'><a href="TagSorter/Entry.html" title="Docscribe::InlineRewriter::TagSorter::Entry (class)">Docscribe::InlineRewriter::TagSorter::Entry</a></span>&gt;</tt> 
   
 
   
@@ -1602,12 +1622,12 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines #collect_option_entries (instance visibility: private)</p>
+<p>module_function: defines #collect_option_entries (visibility: private)</p>
 </div>
   </div>
 
 
-<p>Collect ‘@option` entries belonging to the given param name.</p>
+<p>Collect option entries</p>
 
 
   </div>
@@ -1621,9 +1641,14 @@
         <span class='name'>entries</span>
       
       
-        <span class='type'>(<tt>Array&lt;<span class='object_link'><a href="TagSorter/Entry.html" title="Docscribe::InlineRewriter::TagSorter::Entry (class)">Entry</a></span>&gt;</tt>)</span>
+        <span class='type'>(<tt>Array&lt;<span class='object_link'><a href="TagSorter/Entry.html" title="Docscribe::InlineRewriter::TagSorter::Entry (class)">Docscribe::InlineRewriter::TagSorter::Entry</a></span>&gt;</tt>)</span>
       
       
+      
+        &mdash;
+        <div class='inline'>
+<p>parsed tag entries</p>
+</div>
       
     </li>
   
@@ -1636,6 +1661,11 @@
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>original index of the first line</p>
+</div>
+      
     </li>
   
     <li>
@@ -1647,6 +1677,11 @@
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>parent param name</p>
+</div>
+      
     </li>
   
 </ul>
@@ -1657,7 +1692,7 @@
     <li>
       
       
-        <span class='type'>(<tt>Array&lt;<span class='object_link'><a href="TagSorter/Entry.html" title="Docscribe::InlineRewriter::TagSorter::Entry (class)">Entry</a></span>&gt;</tt>)</span>
+        <span class='type'>(<tt>Array&lt;<span class='object_link'><a href="TagSorter/Entry.html" title="Docscribe::InlineRewriter::TagSorter::Entry (class)">Docscribe::InlineRewriter::TagSorter::Entry</a></span>&gt;</tt>)</span>
       
       
       
@@ -1671,6 +1706,9 @@
       <pre class="lines">
 
 
+229
+230
+231
 232
 233
 234
@@ -1681,13 +1719,10 @@
 239
 240
 241
-242
-243
-244
-245</pre>
+242</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/tag_sorter.rb', line 232</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/tag_sorter.rb', line 229</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_collect_option_entries'>collect_option_entries</span><span class='lparen'>(</span><span class='id identifier rubyid_entries'>entries</span><span class='comma'>,</span> <span class='id identifier rubyid_start_idx'>start_idx</span><span class='comma'>,</span> <span class='id identifier rubyid_param_name'>param_name</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='comment'>#: Array[untyped]
@@ -1723,12 +1758,12 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines #comment_line? (instance visibility: private)</p>
+<p>module_function: defines #comment_line? (visibility: private)</p>
 </div>
   </div>
 
 
-<p>Whether a line is any comment line.</p>
+<p>Comment line</p>
 
 
   </div>
@@ -1745,6 +1780,11 @@
         <span class='type'>(<tt>String</tt>)</span>
       
       
+      
+        &mdash;
+        <div class='inline'>
+<p>comment line to check</p>
+</div>
       
     </li>
   
@@ -1770,12 +1810,12 @@
       <pre class="lines">
 
 
-261
-262
-263</pre>
+258
+259
+260</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/tag_sorter.rb', line 261</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/tag_sorter.rb', line 258</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_comment_line?'>comment_line?</span><span class='lparen'>(</span><span class='id identifier rubyid_line'>line</span><span class='rparen'>)</span>
   <span class='op'>!</span><span class='op'>!</span><span class='lparen'>(</span><span class='id identifier rubyid_line'>line</span> <span class='op'>=~</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^\s*#</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span>
@@ -1788,7 +1828,7 @@
       <div class="method_details ">
   <h3 class="signature " id="consume_entry-class_method">
   
-    .<strong>consume_entry</strong>(lines, start_idx)  &#x21d2; <tt>Array&lt;(<span class='object_link'><a href="TagSorter/Entry.html" title="Docscribe::InlineRewriter::TagSorter::Entry (class)">Entry</a></span>, Integer)&gt;</tt> 
+    .<strong>consume_entry</strong>(lines, start_idx)  &#x21d2; <tt>(<span class='object_link'><a href="TagSorter/Entry.html" title="Docscribe::InlineRewriter::TagSorter::Entry (class)">Docscribe::InlineRewriter::TagSorter::Entry</a></span>, Integer)</tt> 
   
 
   
@@ -1800,12 +1840,12 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines #consume_entry (instance visibility: private)</p>
+<p>module_function: defines #consume_entry (visibility: private)</p>
 </div>
   </div>
 
 
-<p>Consume one top-level tag entry and its continuation lines.</p>
+<p>Consume entry</p>
 
 
   </div>
@@ -1823,6 +1863,11 @@
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>comment block lines</p>
+</div>
+      
     </li>
   
     <li>
@@ -1834,6 +1879,11 @@
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>original index of the first line</p>
+</div>
+      
     </li>
   
 </ul>
@@ -1844,7 +1894,7 @@
     <li>
       
       
-        <span class='type'>(<tt>Array&lt;(<span class='object_link'><a href="TagSorter/Entry.html" title="Docscribe::InlineRewriter::TagSorter::Entry (class)">Entry</a></span>, Integer)&gt;</tt>)</span>
+        <span class='type'>(<tt>(<span class='object_link'><a href="TagSorter/Entry.html" title="Docscribe::InlineRewriter::TagSorter::Entry (class)">Docscribe::InlineRewriter::TagSorter::Entry</a></span>, Integer)</tt>)</span>
       
       
       
@@ -1858,23 +1908,23 @@
       <pre class="lines">
 
 
+140
+141
+142
 143
 144
 145
 146
 147
 148
-149
-150
-151
-152</pre>
+149</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/tag_sorter.rb', line 143</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/tag_sorter.rb', line 140</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_consume_entry'>consume_entry</span><span class='lparen'>(</span><span class='id identifier rubyid_lines'>lines</span><span class='comma'>,</span> <span class='id identifier rubyid_start_idx'>start_idx</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_first'>first</span> <span class='op'>=</span> <span class='id identifier rubyid_lines'>lines</span><span class='lbracket'>[</span><span class='id identifier rubyid_start_idx'>start_idx</span><span class='rbracket'>]</span>
-  <span class='id identifier rubyid_tag'>tag</span> <span class='op'>=</span> <span class='id identifier rubyid_extract_tag_name'>extract_tag_name</span><span class='lparen'>(</span><span class='id identifier rubyid_first'>first</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_tag'>tag</span> <span class='op'>=</span> <span class='id identifier rubyid_extract_tag_name'>extract_tag_name</span><span class='lparen'>(</span><span class='id identifier rubyid_first'>first</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span>
   <span class='id identifier rubyid_entry_lines'>entry_lines</span> <span class='op'>=</span> <span class='id identifier rubyid_collect_continuation_lines'>collect_continuation_lines</span><span class='lparen'>(</span><span class='id identifier rubyid_lines'>lines</span><span class='comma'>,</span> <span class='id identifier rubyid_start_idx'>start_idx</span> <span class='op'>+</span> <span class='int'>1</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_i'>i</span> <span class='op'>=</span> <span class='id identifier rubyid_entry_lines'>entry_lines</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span> <span class='op'>+</span> <span class='id identifier rubyid_start_idx'>start_idx</span>
 
@@ -1902,12 +1952,12 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines #consume_tag_run (instance visibility: private)</p>
+<p>module_function: defines #consume_tag_run (visibility: private)</p>
 </div>
   </div>
 
 
-<p>Consume a contiguous tag run and append to segments.</p>
+<p>Consume tag run</p>
 
 
   </div>
@@ -1924,6 +1974,11 @@
         <span class='type'>(<tt>Array&lt;String&gt;</tt>)</span>
       
       
+      
+        &mdash;
+        <div class='inline'>
+<p>comment block lines</p>
+</div>
       
     </li>
   
@@ -1948,7 +2003,7 @@
         <span class='name'>segments</span>
       
       
-        <span class='type'>(<tt>Array&lt;Hash&gt;</tt>)</span>
+        <span class='type'>(<tt>Array&lt;Hash&lt;Symbol, Object&gt;&gt;</tt>)</span>
       
       
       
@@ -1986,18 +2041,18 @@
       <pre class="lines">
 
 
+95
+96
+97
 98
 99
 100
 101
 102
-103
-104
-105
-106</pre>
+103</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/tag_sorter.rb', line 98</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/tag_sorter.rb', line 95</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_consume_tag_run'>consume_tag_run</span><span class='lparen'>(</span><span class='id identifier rubyid_lines'>lines</span><span class='comma'>,</span> <span class='id identifier rubyid_idx'>idx</span><span class='comma'>,</span> <span class='id identifier rubyid_segments'>segments</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_entries'>entries</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='comment'>#: Array[untyped]
@@ -2028,12 +2083,12 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines #extract_option_owner (instance visibility: private)</p>
+<p>module_function: defines #extract_option_owner (visibility: private)</p>
 </div>
   </div>
 
 
-<p>Extract owning options-hash param name from an ‘@option` line.</p>
+<p>Extract option owner</p>
 
 
   </div>
@@ -2050,6 +2105,11 @@
         <span class='type'>(<tt>String</tt>)</span>
       
       
+      
+        &mdash;
+        <div class='inline'>
+<p>option tag line to parse</p>
+</div>
       
     </li>
   
@@ -2075,12 +2135,12 @@
       <pre class="lines">
 
 
-300
-301
-302</pre>
+297
+298
+299</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/tag_sorter.rb', line 300</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/tag_sorter.rb', line 297</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_extract_option_owner'>extract_option_owner</span><span class='lparen'>(</span><span class='id identifier rubyid_line'>line</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_line'>line</span><span class='lbracket'>[</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^\s*#\s*@option\b\s+(\S+)</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='int'>1</span><span class='rbracket'>]</span>
@@ -2105,12 +2165,12 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines #extract_param_name (instance visibility: private)</p>
+<p>module_function: defines #extract_param_name (visibility: private)</p>
 </div>
   </div>
 
 
-<p>Extract parameter name from a ‘@param` line.</p>
+<p>Extract param name</p>
 
 
   </div>
@@ -2127,6 +2187,11 @@
         <span class='type'>(<tt>String</tt>)</span>
       
       
+      
+        &mdash;
+        <div class='inline'>
+<p>param tag line to parse</p>
+</div>
       
     </li>
   
@@ -2152,15 +2217,15 @@
       <pre class="lines">
 
 
+285
+286
+287
 288
 289
-290
-291
-292
-293</pre>
+290</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/tag_sorter.rb', line 288</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/tag_sorter.rb', line 285</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_extract_param_name'>extract_param_name</span><span class='lparen'>(</span><span class='id identifier rubyid_line'>line</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='const'>Regexp</span><span class='period'>.</span><span class='id identifier rubyid_last_match'>last_match</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_line'>line</span> <span class='op'>=~</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^\s*#\s*@param\b\s+\[[^\]]+\]\s+(\S+)</span><span class='regexp_end'>/</span></span>
@@ -2188,12 +2253,12 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines #extract_tag_name (instance visibility: private)</p>
+<p>module_function: defines #extract_tag_name (visibility: private)</p>
 </div>
   </div>
 
 
-<p>Extract tag name from a top-level tag line without the leading ‘@`.</p>
+<p>Extract tag name</p>
 
 
   </div>
@@ -2210,6 +2275,11 @@
         <span class='type'>(<tt>String</tt>)</span>
       
       
+      
+        &mdash;
+        <div class='inline'>
+<p>comment line to parse</p>
+</div>
       
     </li>
   
@@ -2235,12 +2305,12 @@
       <pre class="lines">
 
 
-279
-280
-281</pre>
+276
+277
+278</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/tag_sorter.rb', line 279</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/tag_sorter.rb', line 276</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_extract_tag_name'>extract_tag_name</span><span class='lparen'>(</span><span class='id identifier rubyid_line'>line</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_line'>line</span><span class='lbracket'>[</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^\s*#\s*@(\w+)</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='int'>1</span><span class='rbracket'>]</span>
@@ -2253,7 +2323,7 @@
       <div class="method_details ">
   <h3 class="signature " id="group_entries-class_method">
   
-    .<strong>group_entries</strong>(entries)  &#x21d2; <tt>Array&lt;Array&lt;<span class='object_link'><a href="TagSorter/Entry.html" title="Docscribe::InlineRewriter::TagSorter::Entry (class)">Entry</a></span>&gt;&gt;</tt> 
+    .<strong>group_entries</strong>(entries)  &#x21d2; <tt>Array&lt;Array&lt;<span class='object_link'><a href="TagSorter/Entry.html" title="Docscribe::InlineRewriter::TagSorter::Entry (class)">Docscribe::InlineRewriter::TagSorter::Entry</a></span>&gt;&gt;</tt> 
   
 
   
@@ -2265,12 +2335,12 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines #group_entries (instance visibility: private)</p>
+<p>module_function: defines #group_entries (visibility: private)</p>
 </div>
   </div>
 
 
-<p>Group entries so ‘@option` tags remain attached to their owning `@param`.</p>
+<p>Group entries</p>
 
 
   </div>
@@ -2284,9 +2354,14 @@
         <span class='name'>entries</span>
       
       
-        <span class='type'>(<tt>Array&lt;<span class='object_link'><a href="TagSorter/Entry.html" title="Docscribe::InlineRewriter::TagSorter::Entry (class)">Entry</a></span>&gt;</tt>)</span>
+        <span class='type'>(<tt>Array&lt;<span class='object_link'><a href="TagSorter/Entry.html" title="Docscribe::InlineRewriter::TagSorter::Entry (class)">Docscribe::InlineRewriter::TagSorter::Entry</a></span>&gt;</tt>)</span>
       
       
+      
+        &mdash;
+        <div class='inline'>
+<p>parsed tag entries</p>
+</div>
       
     </li>
   
@@ -2298,7 +2373,7 @@
     <li>
       
       
-        <span class='type'>(<tt>Array&lt;Array&lt;<span class='object_link'><a href="TagSorter/Entry.html" title="Docscribe::InlineRewriter::TagSorter::Entry (class)">Entry</a></span>&gt;&gt;</tt>)</span>
+        <span class='type'>(<tt>Array&lt;Array&lt;<span class='object_link'><a href="TagSorter/Entry.html" title="Docscribe::InlineRewriter::TagSorter::Entry (class)">Docscribe::InlineRewriter::TagSorter::Entry</a></span>&gt;&gt;</tt>)</span>
       
       
       
@@ -2312,6 +2387,9 @@
       <pre class="lines">
 
 
+195
+196
+197
 198
 199
 200
@@ -2319,13 +2397,10 @@
 202
 203
 204
-205
-206
-207
-208</pre>
+205</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/tag_sorter.rb', line 198</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/tag_sorter.rb', line 195</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_group_entries'>group_entries</span><span class='lparen'>(</span><span class='id identifier rubyid_entries'>entries</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_groups'>groups</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='comment'>#: Array[untyped]
@@ -2346,7 +2421,7 @@
       <div class="method_details ">
   <h3 class="signature " id="group_entry-class_method">
   
-    .<strong>group_entry</strong>(entries, idx)  &#x21d2; <tt>Array&lt;<span class='object_link'><a href="TagSorter/Entry.html" title="Docscribe::InlineRewriter::TagSorter::Entry (class)">Entry</a></span>&gt;</tt> 
+    .<strong>group_entry</strong>(entries, idx)  &#x21d2; <tt>Array&lt;<span class='object_link'><a href="TagSorter/Entry.html" title="Docscribe::InlineRewriter::TagSorter::Entry (class)">Docscribe::InlineRewriter::TagSorter::Entry</a></span>&gt;</tt> 
   
 
   
@@ -2358,12 +2433,12 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines #group_entry (instance visibility: private)</p>
+<p>module_function: defines #group_entry (visibility: private)</p>
 </div>
   </div>
 
 
-<p>Group a single entry, attaching any subsequent @option entries if it is a @param.</p>
+<p>Group entry</p>
 
 
   </div>
@@ -2377,7 +2452,7 @@
         <span class='name'>entries</span>
       
       
-        <span class='type'>(<tt>Array&lt;<span class='object_link'><a href="TagSorter/Entry.html" title="Docscribe::InlineRewriter::TagSorter::Entry (class)">Entry</a></span>&gt;</tt>)</span>
+        <span class='type'>(<tt>Array&lt;<span class='object_link'><a href="TagSorter/Entry.html" title="Docscribe::InlineRewriter::TagSorter::Entry (class)">Docscribe::InlineRewriter::TagSorter::Entry</a></span>&gt;</tt>)</span>
       
       
       
@@ -2412,7 +2487,7 @@
     <li>
       
       
-        <span class='type'>(<tt>Array&lt;<span class='object_link'><a href="TagSorter/Entry.html" title="Docscribe::InlineRewriter::TagSorter::Entry (class)">Entry</a></span>&gt;</tt>)</span>
+        <span class='type'>(<tt>Array&lt;<span class='object_link'><a href="TagSorter/Entry.html" title="Docscribe::InlineRewriter::TagSorter::Entry (class)">Docscribe::InlineRewriter::TagSorter::Entry</a></span>&gt;</tt>)</span>
       
       
       
@@ -2431,22 +2506,22 @@
       <pre class="lines">
 
 
+213
+214
+215
 216
 217
 218
 219
-220
-221
-222
-223</pre>
+220</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/tag_sorter.rb', line 216</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/tag_sorter.rb', line 213</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_group_entry'>group_entry</span><span class='lparen'>(</span><span class='id identifier rubyid_entries'>entries</span><span class='comma'>,</span> <span class='id identifier rubyid_idx'>idx</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_entry'>entry</span> <span class='op'>=</span> <span class='id identifier rubyid_entries'>entries</span><span class='lbracket'>[</span><span class='id identifier rubyid_idx'>idx</span><span class='rbracket'>]</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_entry'>entry</span><span class='period'>.</span><span class='id identifier rubyid_tag'>tag</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>param</span><span class='tstring_end'>&#39;</span></span>
-    <span class='lbracket'>[</span><span class='id identifier rubyid_entry'>entry</span><span class='rbracket'>]</span> <span class='op'>+</span> <span class='id identifier rubyid_collect_option_entries'>collect_option_entries</span><span class='lparen'>(</span><span class='id identifier rubyid_entries'>entries</span><span class='comma'>,</span> <span class='id identifier rubyid_idx'>idx</span> <span class='op'>+</span> <span class='int'>1</span><span class='comma'>,</span> <span class='id identifier rubyid_entry'>entry</span><span class='period'>.</span><span class='id identifier rubyid_param_name'>param_name</span><span class='rparen'>)</span>
+    <span class='lbracket'>[</span><span class='id identifier rubyid_entry'>entry</span><span class='rbracket'>]</span> <span class='op'>+</span> <span class='id identifier rubyid_collect_option_entries'>collect_option_entries</span><span class='lparen'>(</span><span class='id identifier rubyid_entries'>entries</span><span class='comma'>,</span> <span class='id identifier rubyid_idx'>idx</span> <span class='op'>+</span> <span class='int'>1</span><span class='comma'>,</span> <span class='id identifier rubyid_entry'>entry</span><span class='period'>.</span><span class='id identifier rubyid_param_name'>param_name</span> <span class='op'>||</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
   <span class='kw'>else</span>
     <span class='lbracket'>[</span><span class='id identifier rubyid_entry'>entry</span><span class='rbracket'>]</span>
   <span class='kw'>end</span>
@@ -2471,12 +2546,12 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines #group_priority (instance visibility: private)</p>
+<p>module_function: defines #group_priority (visibility: private)</p>
 </div>
   </div>
 
 
-<p>Compute sort priority for a grouped tag entry.</p>
+<p>Group priority</p>
 
 
   </div>
@@ -2490,9 +2565,14 @@
         <span class='name'>group</span>
       
       
-        <span class='type'>(<tt>Array&lt;<span class='object_link'><a href="TagSorter/Entry.html" title="Docscribe::InlineRewriter::TagSorter::Entry (class)">Entry</a></span>&gt;</tt>)</span>
+        <span class='type'>(<tt>Array&lt;<span class='object_link'><a href="TagSorter/Entry.html" title="Docscribe::InlineRewriter::TagSorter::Entry (class)">Docscribe::InlineRewriter::TagSorter::Entry</a></span>&gt;</tt>)</span>
       
       
+      
+        &mdash;
+        <div class='inline'>
+<p>entry group array</p>
+</div>
       
     </li>
   
@@ -2501,9 +2581,14 @@
         <span class='name'>priority</span>
       
       
-        <span class='type'>(<tt>Hash{String=&gt;Integer}</tt>)</span>
+        <span class='type'>(<tt>Hash&lt;String, Integer&gt;</tt>)</span>
       
       
+      
+        &mdash;
+        <div class='inline'>
+<p>tag priority map</p>
+</div>
       
     </li>
   
@@ -2529,13 +2614,13 @@
       <pre class="lines">
 
 
-132
-133
-134
-135</pre>
+129
+130
+131
+132</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/tag_sorter.rb', line 132</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/tag_sorter.rb', line 129</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_group_priority'>group_priority</span><span class='lparen'>(</span><span class='id identifier rubyid_group'>group</span><span class='comma'>,</span> <span class='id identifier rubyid_priority'>priority</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_first'>first</span> <span class='op'>=</span> <span class='id identifier rubyid_group'>group</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span>
@@ -2549,7 +2634,7 @@
       <div class="method_details ">
   <h3 class="signature " id="parse_segments-class_method">
   
-    .<strong>parse_segments</strong>(lines)  &#x21d2; <tt>Array&lt;Hash&gt;</tt> 
+    .<strong>parse_segments</strong>(lines)  &#x21d2; <tt>Array&lt;Hash&lt;Symbol, Object&gt;&gt;</tt> 
   
 
   
@@ -2561,12 +2646,12 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines #parse_segments (instance visibility: private)</p>
+<p>module_function: defines #parse_segments (visibility: private)</p>
 </div>
   </div>
 
 
-<p>Parse lines into sortable tag-run segments and non-sortable segments.</p>
+<p>Parse segments</p>
 
 
   </div>
@@ -2584,6 +2669,11 @@
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>comment block lines</p>
+</div>
+      
     </li>
   
 </ul>
@@ -2594,7 +2684,7 @@
     <li>
       
       
-        <span class='type'>(<tt>Array&lt;Hash&gt;</tt>)</span>
+        <span class='type'>(<tt>Array&lt;Hash&lt;Symbol, Object&gt;&gt;</tt>)</span>
       
       
       
@@ -2608,17 +2698,17 @@
       <pre class="lines">
 
 
+63
+64
+65
 66
 67
 68
 69
-70
-71
-72
-73</pre>
+70</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/tag_sorter.rb', line 66</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/tag_sorter.rb', line 63</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_parse_segments'>parse_segments</span><span class='lparen'>(</span><span class='id identifier rubyid_lines'>lines</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_segments'>segments</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='comment'>#: Array[untyped]
@@ -2648,14 +2738,12 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines #sort (instance visibility: private)</p>
+<p>module_function: defines #sort (visibility: private)</p>
 </div>
   </div>
 
 
-<p>Sort contiguous top-level tag runs according to configured tag order.</p>
-
-<p>Non-tag content is preserved as-is and acts as a sort boundary.</p>
+<p>Sort</p>
 
 
   </div>
@@ -2718,14 +2806,14 @@
       <pre class="lines">
 
 
+41
+42
+43
 44
-45
-46
-47
-48</pre>
+45</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/tag_sorter.rb', line 44</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/tag_sorter.rb', line 41</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_sort'>sort</span><span class='lparen'>(</span><span class='id identifier rubyid_lines'>lines</span><span class='comma'>,</span> <span class='label'>tag_order:</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_priority'>priority</span> <span class='op'>=</span> <span class='id identifier rubyid_build_priority'>build_priority</span><span class='lparen'>(</span><span class='id identifier rubyid_tag_order'>tag_order</span><span class='rparen'>)</span>
@@ -2752,12 +2840,12 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines #sort_segment (instance visibility: private)</p>
+<p>module_function: defines #sort_segment (visibility: private)</p>
 </div>
   </div>
 
 
-<p>Sort one parsed segment if it is a tag run.</p>
+<p>Sort segment</p>
 
 
   </div>
@@ -2771,9 +2859,14 @@
         <span class='name'>segment</span>
       
       
-        <span class='type'>(<tt>Hash</tt>)</span>
+        <span class='type'>(<tt>Hash&lt;Symbol, Object&gt;</tt>)</span>
       
       
+      
+        &mdash;
+        <div class='inline'>
+<p>parsed comment segment</p>
+</div>
       
     </li>
   
@@ -2782,9 +2875,14 @@
         <span class='name'>priority</span>
       
       
-        <span class='type'>(<tt>Hash{String=&gt;Integer}</tt>)</span>
+        <span class='type'>(<tt>Hash&lt;String, Integer&gt;</tt>)</span>
       
       
+      
+        &mdash;
+        <div class='inline'>
+<p>tag priority map</p>
+</div>
       
     </li>
   
@@ -2810,6 +2908,9 @@
       <pre class="lines">
 
 
+111
+112
+113
 114
 115
 116
@@ -2817,13 +2918,10 @@
 118
 119
 120
-121
-122
-123
-124</pre>
+121</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/tag_sorter.rb', line 114</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/tag_sorter.rb', line 111</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_sort_segment'>sort_segment</span><span class='lparen'>(</span><span class='id identifier rubyid_segment'>segment</span><span class='comma'>,</span> <span class='label'>priority:</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_segment'>segment</span><span class='lbracket'>[</span><span class='symbol'>:lines</span><span class='rbracket'>]</span> <span class='kw'>unless</span> <span class='id identifier rubyid_segment'>segment</span><span class='lbracket'>[</span><span class='symbol'>:type</span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='symbol'>:tag_run</span>
@@ -2856,12 +2954,12 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines #top_level_tag_line? (instance visibility: private)</p>
+<p>module_function: defines #top_level_tag_line? (visibility: private)</p>
 </div>
   </div>
 
 
-<p>Whether a line begins a top-level tag entry.</p>
+<p>Top level tag line</p>
 
 
   </div>
@@ -2878,6 +2976,11 @@
         <span class='type'>(<tt>String</tt>)</span>
       
       
+      
+        &mdash;
+        <div class='inline'>
+<p>comment line to check</p>
+</div>
       
     </li>
   
@@ -2903,12 +3006,12 @@
       <pre class="lines">
 
 
-252
-253
-254</pre>
+249
+250
+251</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/tag_sorter.rb', line 252</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/tag_sorter.rb', line 249</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_top_level_tag_line?'>top_level_tag_line?</span><span class='lparen'>(</span><span class='id identifier rubyid_line'>line</span><span class='rparen'>)</span>
   <span class='op'>!</span><span class='op'>!</span><span class='lparen'>(</span><span class='id identifier rubyid_line'>line</span> <span class='op'>=~</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^\s*#\s*@\w+</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span>
@@ -2923,7 +3026,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Jun 13 01:27:04 2026 by
+  Generated on Sun Oct  4 00:19:54 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.38 (ruby-3.4.5).
 </div>

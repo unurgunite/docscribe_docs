@@ -111,6 +111,19 @@ docscribe generate tag MyPlugin --stdout
 
     <dl class="constants">
       
+        <dt id="BANNER-constant" class="">BANNER =
+          
+        </dt>
+        <dd><pre class="code"><span class='heredoc_beg'>&lt;&lt;~TEXT</span>
+<span class='tstring_content'>  Usage: docscribe generate &lt;type&gt; &lt;PluginName&gt; [options]
+</span><span class='tstring_content'>
+</span><span class='tstring_content'>  Types:
+</span><span class='tstring_content'>    tag         Generate a TagPlugin skeleton
+</span><span class='tstring_content'>    collector   Generate a CollectorPlugin skeleton
+</span><span class='tstring_content'>
+</span><span class='tstring_content'>  Options:
+</span><span class='heredoc_end'>TEXT</span></pre></dd>
+      
         <dt id="PLUGIN_TYPES-constant" class="">PLUGIN_TYPES =
           
         </dt>
@@ -216,6 +229,11 @@ docscribe generate tag MyPlugin --stdout
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>command line arguments</p>
+</div>
+      
     </li>
   
 </ul>
@@ -238,19 +256,6 @@ docscribe generate tag MyPlugin --stdout
     </li>
   
 </ul>
-<p class="tag_title">Raises:</p>
-<ul class="raise">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>OptionParser::InvalidOption</tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
 
 </div><table class="source_code">
   <tr>
@@ -258,20 +263,20 @@ docscribe generate tag MyPlugin --stdout
       <pre class="lines">
 
 
-40
-41
-42
-43
-44
-45
-46
-47
-48
 49
-50</pre>
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/generate.rb', line 40</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/generate.rb', line 49</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_run'>run</span><span class='lparen'>(</span><span class='id identifier rubyid_argv'>argv</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_parser'>parser</span> <span class='op'>=</span> <span class='id identifier rubyid_parse_generate_options'>parse_generate_options</span><span class='lparen'>(</span><span class='id identifier rubyid_argv'>argv</span><span class='rparen'>)</span>
@@ -294,7 +299,7 @@ docscribe generate tag MyPlugin --stdout
 </div>
 
       <div id="footer">
-  Generated on Sat Jun 13 01:27:04 2026 by
+  Generated on Sun Oct  4 00:19:54 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.38 (ruby-3.4.5).
 </div>

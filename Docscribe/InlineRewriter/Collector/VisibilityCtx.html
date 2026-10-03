@@ -133,7 +133,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#container_is_module-instance_method" title="#container_is_module (instance method)">#<strong>container_is_module</strong>  &#x21d2; Object </a>
+      <a href="#container_is_module-instance_method" title="#container_is_module (instance method)">#<strong>container_is_module</strong>  &#x21d2; Boolean </a>
     
 
     
@@ -158,7 +158,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#container_override-instance_method" title="#container_override (instance method)">#<strong>container_override</strong>  &#x21d2; Object </a>
+      <a href="#container_override-instance_method" title="#container_override (instance method)">#<strong>container_override</strong>  &#x21d2; String? </a>
     
 
     
@@ -183,7 +183,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#default_class_vis-instance_method" title="#default_class_vis (instance method)">#<strong>default_class_vis</strong>  &#x21d2; Object </a>
+      <a href="#default_class_vis-instance_method" title="#default_class_vis (instance method)">#<strong>default_class_vis</strong>  &#x21d2; Symbol </a>
     
 
     
@@ -208,7 +208,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#default_instance_vis-instance_method" title="#default_instance_vis (instance method)">#<strong>default_instance_vis</strong>  &#x21d2; Object </a>
+      <a href="#default_instance_vis-instance_method" title="#default_instance_vis (instance method)">#<strong>default_instance_vis</strong>  &#x21d2; Symbol </a>
     
 
     
@@ -291,7 +291,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#extend_self-instance_method" title="#extend_self (instance method)">#<strong>extend_self</strong>  &#x21d2; Object </a>
+      <a href="#extend_self-instance_method" title="#extend_self (instance method)">#<strong>extend_self</strong>  &#x21d2; Boolean </a>
     
 
     
@@ -316,7 +316,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#inside_sclass-instance_method" title="#inside_sclass (instance method)">#<strong>inside_sclass</strong>  &#x21d2; Object </a>
+      <a href="#inside_sclass-instance_method" title="#inside_sclass (instance method)">#<strong>inside_sclass</strong>  &#x21d2; Boolean </a>
     
 
     
@@ -341,7 +341,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#module_function_default-instance_method" title="#module_function_default (instance method)">#<strong>module_function_default</strong>  &#x21d2; Object </a>
+      <a href="#module_function_default-instance_method" title="#module_function_default (instance method)">#<strong>module_function_default</strong>  &#x21d2; Boolean </a>
     
 
     
@@ -408,7 +408,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#dup-instance_method" title="#dup (instance method)">#<strong>dup</strong>  &#x21d2; VisibilityCtx </a>
+      <a href="#dup-instance_method" title="#dup (instance method)">#<strong>dup</strong>  &#x21d2; Docscribe::InlineRewriter::Collector::VisibilityCtx </a>
     
 
     
@@ -487,21 +487,21 @@
       <pre class="lines">
 
 
-125
-126
-127
-128
-129
-130
-131
-132
-133
-134
-135
-136</pre>
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/collector.rb', line 125</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/collector.rb', line 136</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span>
   <span class='ivar'>@default_instance_vis</span> <span class='op'>=</span> <span class='symbol'>:public</span>
@@ -530,7 +530,7 @@
       <div class="method_details first">
   <h3 class="signature first" id="container_is_module-instance_method">
   
-    #<strong>container_is_module</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>container_is_module</strong>  &#x21d2; <tt>Boolean</tt> 
   
 
   
@@ -551,7 +551,7 @@
         <span class='name'>value</span>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>Boolean</tt>)</span>
       
       
       
@@ -565,7 +565,7 @@
     <li>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>Boolean</tt>)</span>
       
       
       
@@ -579,12 +579,12 @@
       <pre class="lines">
 
 
-115
-116
-117</pre>
+126
+127
+128</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/collector.rb', line 115</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/collector.rb', line 126</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_container_is_module'>container_is_module</span>
   <span class='ivar'>@container_is_module</span>
@@ -599,7 +599,7 @@
       <div class="method_details ">
   <h3 class="signature " id="container_override-instance_method">
   
-    #<strong>container_override</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>container_override</strong>  &#x21d2; <tt>String?</tt> 
   
 
   
@@ -620,7 +620,7 @@
         <span class='name'>value</span>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>String?</tt>)</span>
       
       
       
@@ -634,7 +634,7 @@
     <li>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>String?</tt>)</span>
       
       
       
@@ -648,12 +648,12 @@
       <pre class="lines">
 
 
-98
-99
-100</pre>
+109
+110
+111</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/collector.rb', line 98</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/collector.rb', line 109</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_container_override'>container_override</span>
   <span class='ivar'>@container_override</span>
@@ -668,7 +668,7 @@
       <div class="method_details ">
   <h3 class="signature " id="default_class_vis-instance_method">
   
-    #<strong>default_class_vis</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>default_class_vis</strong>  &#x21d2; <tt>Symbol</tt> 
   
 
   
@@ -689,7 +689,7 @@
         <span class='name'>value</span>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>Symbol</tt>)</span>
       
       
       
@@ -703,7 +703,7 @@
     <li>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>Symbol</tt>)</span>
       
       
       
@@ -717,12 +717,12 @@
       <pre class="lines">
 
 
-83
-84
-85</pre>
+94
+95
+96</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/collector.rb', line 83</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/collector.rb', line 94</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_default_class_vis'>default_class_vis</span>
   <span class='ivar'>@default_class_vis</span>
@@ -737,7 +737,7 @@
       <div class="method_details ">
   <h3 class="signature " id="default_instance_vis-instance_method">
   
-    #<strong>default_instance_vis</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>default_instance_vis</strong>  &#x21d2; <tt>Symbol</tt> 
   
 
   
@@ -758,7 +758,7 @@
         <span class='name'>value</span>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>Symbol</tt>)</span>
       
       
       
@@ -772,7 +772,7 @@
     <li>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>Symbol</tt>)</span>
       
       
       
@@ -786,12 +786,12 @@
       <pre class="lines">
 
 
-78
-79
-80</pre>
+89
+90
+91</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/collector.rb', line 78</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/collector.rb', line 89</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_default_instance_vis'>default_instance_vis</span>
   <span class='ivar'>@default_instance_vis</span>
@@ -829,12 +829,12 @@
       <pre class="lines">
 
 
-106
-107
-108</pre>
+117
+118
+119</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/collector.rb', line 106</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/collector.rb', line 117</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_explicit_class'>explicit_class</span>
   <span class='ivar'>@explicit_class</span>
@@ -872,12 +872,12 @@
       <pre class="lines">
 
 
-102
-103
-104</pre>
+113
+114
+115</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/collector.rb', line 102</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/collector.rb', line 113</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_explicit_instance'>explicit_instance</span>
   <span class='ivar'>@explicit_instance</span>
@@ -892,7 +892,7 @@
       <div class="method_details ">
   <h3 class="signature " id="extend_self-instance_method">
   
-    #<strong>extend_self</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>extend_self</strong>  &#x21d2; <tt>Boolean</tt> 
   
 
   
@@ -913,7 +913,7 @@
         <span class='name'>value</span>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>Boolean</tt>)</span>
       
       
       
@@ -927,7 +927,7 @@
     <li>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>Boolean</tt>)</span>
       
       
       
@@ -941,12 +941,12 @@
       <pre class="lines">
 
 
-120
-121
-122</pre>
+131
+132
+133</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/collector.rb', line 120</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/collector.rb', line 131</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_extend_self'>extend_self</span>
   <span class='ivar'>@extend_self</span>
@@ -961,7 +961,7 @@
       <div class="method_details ">
   <h3 class="signature " id="inside_sclass-instance_method">
   
-    #<strong>inside_sclass</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>inside_sclass</strong>  &#x21d2; <tt>Boolean</tt> 
   
 
   
@@ -982,7 +982,7 @@
         <span class='name'>value</span>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>Boolean</tt>)</span>
       
       
       
@@ -996,7 +996,7 @@
     <li>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>Boolean</tt>)</span>
       
       
       
@@ -1010,12 +1010,12 @@
       <pre class="lines">
 
 
-88
-89
-90</pre>
+99
+100
+101</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/collector.rb', line 88</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/collector.rb', line 99</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_inside_sclass'>inside_sclass</span>
   <span class='ivar'>@inside_sclass</span>
@@ -1030,7 +1030,7 @@
       <div class="method_details ">
   <h3 class="signature " id="module_function_default-instance_method">
   
-    #<strong>module_function_default</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>module_function_default</strong>  &#x21d2; <tt>Boolean</tt> 
   
 
   
@@ -1051,7 +1051,7 @@
         <span class='name'>value</span>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>Boolean</tt>)</span>
       
       
       
@@ -1065,7 +1065,7 @@
     <li>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>Boolean</tt>)</span>
       
       
       
@@ -1079,12 +1079,12 @@
       <pre class="lines">
 
 
-93
-94
-95</pre>
+104
+105
+106</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/collector.rb', line 93</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/collector.rb', line 104</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_module_function_default'>module_function_default</span>
   <span class='ivar'>@module_function_default</span>
@@ -1122,12 +1122,12 @@
       <pre class="lines">
 
 
-110
-111
-112</pre>
+121
+122
+123</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/collector.rb', line 110</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/collector.rb', line 121</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_module_function_explicit'>module_function_explicit</span>
   <span class='ivar'>@module_function_explicit</span>
@@ -1147,7 +1147,7 @@
       <div class="method_details first">
   <h3 class="signature first" id="dup-instance_method">
   
-    #<strong>dup</strong>  &#x21d2; <tt><span class='object_link'><a href="" title="Docscribe::InlineRewriter::Collector::VisibilityCtx (class)">VisibilityCtx</a></span></tt> 
+    #<strong>dup</strong>  &#x21d2; <tt><span class='object_link'><a href="" title="Docscribe::InlineRewriter::Collector::VisibilityCtx (class)">Docscribe::InlineRewriter::Collector::VisibilityCtx</a></span></tt> 
   
 
   
@@ -1169,7 +1169,7 @@
     <li>
       
       
-        <span class='type'>(<tt><span class='object_link'><a href="" title="Docscribe::InlineRewriter::Collector::VisibilityCtx (class)">VisibilityCtx</a></span></tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="" title="Docscribe::InlineRewriter::Collector::VisibilityCtx (class)">Docscribe::InlineRewriter::Collector::VisibilityCtx</a></span></tt>)</span>
       
       
       
@@ -1183,16 +1183,16 @@
       <pre class="lines">
 
 
-141
-142
-143
-144
-145
-146
-147</pre>
+152
+153
+154
+155
+156
+157
+158</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/collector.rb', line 141</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/collector.rb', line 152</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_dup'>dup</span>
   <span class='const'><span class='object_link'><a href="" title="Docscribe::InlineRewriter::Collector::VisibilityCtx (class)">VisibilityCtx</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="Docscribe::InlineRewriter::Collector::VisibilityCtx#initialize (method)">new</a></span></span><span class='period'>.</span><span class='id identifier rubyid_tap'>tap</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_ctx'>ctx</span><span class='op'>|</span>
@@ -1211,7 +1211,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Jun 13 01:27:04 2026 by
+  Generated on Sun Oct  4 00:19:55 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.38 (ruby-3.4.5).
 </div>

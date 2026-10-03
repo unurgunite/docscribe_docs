@@ -101,25 +101,7 @@
   
 </div>
 
-<h2>Overview</h2><div class="docstring">
-  <div class="discussion">
-    
-<p>One parsed entry inside a doc block.</p>
 
-<p>‘kind` is:</p>
-<ul><li>
-<p>‘:tag` for a sortable top-level tag entry</p>
-</li><li>
-<p>‘:other` for prose/separators/non-sortable content</p>
-</li></ul>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div>
 
 
 
@@ -129,7 +111,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#generated-class_method" title="generated (class method)">.<strong>generated</strong>  &#x21d2; Object </a>
+      <a href="#generated-class_method" title="generated (class method)">.<strong>generated</strong>  &#x21d2; Boolean </a>
     
 
     
@@ -154,7 +136,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#index-class_method" title="index (class method)">.<strong>index</strong>  &#x21d2; Object </a>
+      <a href="#index-class_method" title="index (class method)">.<strong>index</strong>  &#x21d2; Integer </a>
     
 
     
@@ -179,7 +161,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#kind-class_method" title="kind (class method)">.<strong>kind</strong>  &#x21d2; Object </a>
+      <a href="#kind-class_method" title="kind (class method)">.<strong>kind</strong>  &#x21d2; Symbol </a>
     
 
     
@@ -204,7 +186,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#lines-class_method" title="lines (class method)">.<strong>lines</strong>  &#x21d2; Object </a>
+      <a href="#lines-class_method" title="lines (class method)">.<strong>lines</strong>  &#x21d2; Array&lt;String&gt; </a>
     
 
     
@@ -229,7 +211,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#option_owner-class_method" title="option_owner (class method)">.<strong>option_owner</strong>  &#x21d2; Object </a>
+      <a href="#option_owner-class_method" title="option_owner (class method)">.<strong>option_owner</strong>  &#x21d2; String? </a>
     
 
     
@@ -254,7 +236,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#subject-class_method" title="subject (class method)">.<strong>subject</strong>  &#x21d2; Object </a>
+      <a href="#subject-class_method" title="subject (class method)">.<strong>subject</strong>  &#x21d2; String? </a>
     
 
     
@@ -279,7 +261,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#tag-class_method" title="tag (class method)">.<strong>tag</strong>  &#x21d2; Object </a>
+      <a href="#tag-class_method" title="tag (class method)">.<strong>tag</strong>  &#x21d2; String </a>
     
 
     
@@ -524,7 +506,7 @@
       <div class="method_details first">
   <h3 class="signature first" id="generated-class_method">
   
-    .<strong>generated</strong>  &#x21d2; <tt>Object</tt> 
+    .<strong>generated</strong>  &#x21d2; <tt>Boolean</tt> 
   
 
   
@@ -545,7 +527,7 @@
         <span class='name'>value</span>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>Boolean</tt>)</span>
       
       
       
@@ -559,7 +541,7 @@
     <li>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>Boolean</tt>)</span>
       
       
       
@@ -573,19 +555,19 @@
       <pre class="lines">
 
 
+42
+43
+44
+45
+46
 47
 48
 49
 50
-51
-52
-53
-54
-55
-56</pre>
+51</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/doc_block.rb', line 47</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/doc_block.rb', line 42</span>
 
 <span class='const'><span class='object_link'><a href="" title="Docscribe::InlineRewriter::DocBlock::Entry (class)">Entry</a></span></span> <span class='op'>=</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span>
   <span class='symbol'>:kind</span><span class='comma'>,</span>
@@ -607,7 +589,7 @@
       <div class="method_details ">
   <h3 class="signature " id="index-class_method">
   
-    .<strong>index</strong>  &#x21d2; <tt>Object</tt> 
+    .<strong>index</strong>  &#x21d2; <tt>Integer</tt> 
   
 
   
@@ -628,7 +610,7 @@
         <span class='name'>value</span>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>Integer</tt>)</span>
       
       
       
@@ -642,7 +624,7 @@
     <li>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>Integer</tt>)</span>
       
       
       
@@ -656,19 +638,19 @@
       <pre class="lines">
 
 
+42
+43
+44
+45
+46
 47
 48
 49
 50
-51
-52
-53
-54
-55
-56</pre>
+51</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/doc_block.rb', line 47</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/doc_block.rb', line 42</span>
 
 <span class='const'><span class='object_link'><a href="" title="Docscribe::InlineRewriter::DocBlock::Entry (class)">Entry</a></span></span> <span class='op'>=</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span>
   <span class='symbol'>:kind</span><span class='comma'>,</span>
@@ -690,7 +672,7 @@
       <div class="method_details ">
   <h3 class="signature " id="kind-class_method">
   
-    .<strong>kind</strong>  &#x21d2; <tt>Object</tt> 
+    .<strong>kind</strong>  &#x21d2; <tt>Symbol</tt> 
   
 
   
@@ -711,7 +693,7 @@
         <span class='name'>value</span>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>Symbol</tt>)</span>
       
       
       
@@ -725,7 +707,7 @@
     <li>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>Symbol</tt>)</span>
       
       
       
@@ -739,19 +721,19 @@
       <pre class="lines">
 
 
+42
+43
+44
+45
+46
 47
 48
 49
 50
-51
-52
-53
-54
-55
-56</pre>
+51</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/doc_block.rb', line 47</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/doc_block.rb', line 42</span>
 
 <span class='const'><span class='object_link'><a href="" title="Docscribe::InlineRewriter::DocBlock::Entry (class)">Entry</a></span></span> <span class='op'>=</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span>
   <span class='symbol'>:kind</span><span class='comma'>,</span>
@@ -773,7 +755,7 @@
       <div class="method_details ">
   <h3 class="signature " id="lines-class_method">
   
-    .<strong>lines</strong>  &#x21d2; <tt>Object</tt> 
+    .<strong>lines</strong>  &#x21d2; <tt>Array&lt;String&gt;</tt> 
   
 
   
@@ -794,7 +776,7 @@
         <span class='name'>value</span>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>Array&lt;String&gt;</tt>)</span>
       
       
       
@@ -808,7 +790,7 @@
     <li>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>Array&lt;String&gt;</tt>)</span>
       
       
       
@@ -822,19 +804,19 @@
       <pre class="lines">
 
 
+42
+43
+44
+45
+46
 47
 48
 49
 50
-51
-52
-53
-54
-55
-56</pre>
+51</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/doc_block.rb', line 47</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/doc_block.rb', line 42</span>
 
 <span class='const'><span class='object_link'><a href="" title="Docscribe::InlineRewriter::DocBlock::Entry (class)">Entry</a></span></span> <span class='op'>=</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span>
   <span class='symbol'>:kind</span><span class='comma'>,</span>
@@ -856,7 +838,7 @@
       <div class="method_details ">
   <h3 class="signature " id="option_owner-class_method">
   
-    .<strong>option_owner</strong>  &#x21d2; <tt>Object</tt> 
+    .<strong>option_owner</strong>  &#x21d2; <tt>String?</tt> 
   
 
   
@@ -877,7 +859,7 @@
         <span class='name'>value</span>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>String?</tt>)</span>
       
       
       
@@ -891,7 +873,7 @@
     <li>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>String?</tt>)</span>
       
       
       
@@ -905,19 +887,19 @@
       <pre class="lines">
 
 
+42
+43
+44
+45
+46
 47
 48
 49
 50
-51
-52
-53
-54
-55
-56</pre>
+51</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/doc_block.rb', line 47</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/doc_block.rb', line 42</span>
 
 <span class='const'><span class='object_link'><a href="" title="Docscribe::InlineRewriter::DocBlock::Entry (class)">Entry</a></span></span> <span class='op'>=</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span>
   <span class='symbol'>:kind</span><span class='comma'>,</span>
@@ -939,7 +921,7 @@
       <div class="method_details ">
   <h3 class="signature " id="subject-class_method">
   
-    .<strong>subject</strong>  &#x21d2; <tt>Object</tt> 
+    .<strong>subject</strong>  &#x21d2; <tt>String?</tt> 
   
 
   
@@ -960,7 +942,7 @@
         <span class='name'>value</span>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>String?</tt>)</span>
       
       
       
@@ -974,7 +956,7 @@
     <li>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>String?</tt>)</span>
       
       
       
@@ -988,19 +970,19 @@
       <pre class="lines">
 
 
+42
+43
+44
+45
+46
 47
 48
 49
 50
-51
-52
-53
-54
-55
-56</pre>
+51</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/doc_block.rb', line 47</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/doc_block.rb', line 42</span>
 
 <span class='const'><span class='object_link'><a href="" title="Docscribe::InlineRewriter::DocBlock::Entry (class)">Entry</a></span></span> <span class='op'>=</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span>
   <span class='symbol'>:kind</span><span class='comma'>,</span>
@@ -1022,7 +1004,7 @@
       <div class="method_details ">
   <h3 class="signature " id="tag-class_method">
   
-    .<strong>tag</strong>  &#x21d2; <tt>Object</tt> 
+    .<strong>tag</strong>  &#x21d2; <tt>String</tt> 
   
 
   
@@ -1043,7 +1025,7 @@
         <span class='name'>value</span>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>String</tt>)</span>
       
       
       
@@ -1057,7 +1039,7 @@
     <li>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>String</tt>)</span>
       
       
       
@@ -1071,19 +1053,19 @@
       <pre class="lines">
 
 
+42
+43
+44
+45
+46
 47
 48
 49
 50
-51
-52
-53
-54
-55
-56</pre>
+51</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/doc_block.rb', line 47</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/doc_block.rb', line 42</span>
 
 <span class='const'><span class='object_link'><a href="" title="Docscribe::InlineRewriter::DocBlock::Entry (class)">Entry</a></span></span> <span class='op'>=</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span>
   <span class='symbol'>:kind</span><span class='comma'>,</span>
@@ -1171,12 +1153,12 @@
       <pre class="lines">
 
 
-47
-48
-49</pre>
+42
+43
+44</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/doc_block.rb', line 47</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/doc_block.rb', line 42</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_generated='>generated=</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='ivar'>@generated</span> <span class='op'>=</span> <span class='id identifier rubyid_value'>value</span>
@@ -1252,12 +1234,12 @@
       <pre class="lines">
 
 
-47
-48
-49</pre>
+42
+43
+44</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/doc_block.rb', line 47</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/doc_block.rb', line 42</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_index='>index=</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='ivar'>@index</span> <span class='op'>=</span> <span class='id identifier rubyid_value'>value</span>
@@ -1333,12 +1315,12 @@
       <pre class="lines">
 
 
-47
-48
-49</pre>
+42
+43
+44</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/doc_block.rb', line 47</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/doc_block.rb', line 42</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_kind='>kind=</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='ivar'>@kind</span> <span class='op'>=</span> <span class='id identifier rubyid_value'>value</span>
@@ -1414,12 +1396,12 @@
       <pre class="lines">
 
 
-47
-48
-49</pre>
+42
+43
+44</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/doc_block.rb', line 47</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/doc_block.rb', line 42</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_lines='>lines=</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='ivar'>@lines</span> <span class='op'>=</span> <span class='id identifier rubyid_value'>value</span>
@@ -1495,12 +1477,12 @@
       <pre class="lines">
 
 
-47
-48
-49</pre>
+42
+43
+44</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/doc_block.rb', line 47</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/doc_block.rb', line 42</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_option_owner='>option_owner=</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='ivar'>@option_owner</span> <span class='op'>=</span> <span class='id identifier rubyid_value'>value</span>
@@ -1576,12 +1558,12 @@
       <pre class="lines">
 
 
-47
-48
-49</pre>
+42
+43
+44</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/doc_block.rb', line 47</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/doc_block.rb', line 42</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_subject='>subject=</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='ivar'>@subject</span> <span class='op'>=</span> <span class='id identifier rubyid_value'>value</span>
@@ -1657,12 +1639,12 @@
       <pre class="lines">
 
 
-47
-48
-49</pre>
+42
+43
+44</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/doc_block.rb', line 47</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/inline_rewriter/doc_block.rb', line 42</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_tag='>tag=</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='ivar'>@tag</span> <span class='op'>=</span> <span class='id identifier rubyid_value'>value</span>
@@ -1678,7 +1660,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Jun 13 01:27:04 2026 by
+  Generated on Sun Oct  4 00:19:55 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.38 (ruby-3.4.5).
 </div>

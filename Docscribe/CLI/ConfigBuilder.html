@@ -184,6 +184,30 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#apply_output_overrides-class_method" title="apply_output_overrides (class method)">.<strong>apply_output_overrides</strong>(raw, options)  &#x21d2; void </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Apply output-related CLI overrides to the raw config.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#apply_rbs_collection-class_method" title="apply_rbs_collection (class method)">.<strong>apply_rbs_collection</strong>(raw)  &#x21d2; void </a>
     
 
@@ -248,6 +272,30 @@
   
     <span class="summary_desc"><div class='inline'>
 <p>Apply Sorbet-related CLI overrides to the raw config.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#apply_validation_overrides-class_method" title="apply_validation_overrides (class method)">.<strong>apply_validation_overrides</strong>(raw, options)  &#x21d2; void </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Apply validation-related CLI overrides to the raw config.</p>
 </div></span>
   
 </li>
@@ -328,6 +376,30 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#output_overrides%3F-class_method" title="output_overrides? (class method)">.<strong>output_overrides?</strong>(options)  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Whether any output-related CLI options were provided.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#rbs_overrides%3F-class_method" title="rbs_overrides? (class method)">.<strong>rbs_overrides?</strong>(options)  &#x21d2; Boolean </a>
     
 
@@ -373,6 +445,78 @@
 </li>
 
       
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#validation_overrides%3F-class_method" title="validation_overrides? (class method)">.<strong>validation_overrides?</strong>(options)  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Whether any validation-related CLI options were provided.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#warn_and_return_base-class_method" title="warn_and_return_base (class method)">.<strong>warn_and_return_base</strong>(base, options)  &#x21d2; Docscribe::Config </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Warn about a missing collection opt-in and return the base config unchanged.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#warn_missing_rbs_collection-class_method" title="warn_missing_rbs_collection (class method)">.<strong>warn_missing_rbs_collection</strong>(conf, options)  &#x21d2; void </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Warn when rbs_collection.lock.yaml exists but –rbs-collection was not passed.</p>
+</div></span>
+  
+</li>
+
+      
     </ul>
   
 
@@ -397,7 +541,7 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines #apply_file_filters (instance visibility: private)</p>
+<p>module_function: defines #apply_file_filters (visibility: private)</p>
 </div>
   </div>
 
@@ -416,7 +560,7 @@
         <span class='name'>raw</span>
       
       
-        <span class='type'>(<tt>Hash</tt>)</span>
+        <span class='type'>(<tt>Hash&lt;String, Object&gt;</tt>)</span>
       
       
       
@@ -432,7 +576,7 @@
         <span class='name'>options</span>
       
       
-        <span class='type'>(<tt>Hash</tt>)</span>
+        <span class='type'>(<tt>Hash&lt;Symbol, Object&gt;</tt>)</span>
       
       
       
@@ -452,19 +596,31 @@
       <pre class="lines">
 
 
-109
-110
-111
-112
-113</pre>
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/config_builder.rb', line 109</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/config_builder.rb', line 116</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_apply_file_filters'>apply_file_filters</span><span class='lparen'>(</span><span class='id identifier rubyid_raw'>raw</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_files'>files</span> <span class='op'>=</span> <span class='id identifier rubyid_raw'>raw</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>filter</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>files</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span> <span class='comment'>#: Hash[String, untyped]
-</span>  <span class='id identifier rubyid_files'>files</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>include</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>Array</span><span class='lparen'>(</span><span class='id identifier rubyid_files'>files</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>include</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='op'>+</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:include_file</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_files'>files</span> <span class='op'>=</span> <span class='id identifier rubyid_raw'>raw</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>filter</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>files</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_files'>files</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+    <span class='id identifier rubyid_files'>files</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span> <span class='comment'>#: Hash[String, untyped]
+</span>    <span class='id identifier rubyid_raw'>raw</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>filter</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>files</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_files'>files</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_files'>files</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>include</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>Array</span><span class='lparen'>(</span><span class='id identifier rubyid_files'>files</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>include</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='op'>+</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:include_file</span><span class='rbracket'>]</span>
   <span class='id identifier rubyid_files'>files</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>exclude</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>Array</span><span class='lparen'>(</span><span class='id identifier rubyid_files'>files</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>exclude</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='op'>+</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:exclude_file</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_files'>files</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -486,7 +642,7 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines # (instance visibility: private)</p>
+<p>module_function: defines #apply_filter_overrides (visibility: private)</p>
 </div>
   </div>
 
@@ -505,7 +661,7 @@
         <span class='name'>raw</span>
       
       
-        <span class='type'>(<tt>Hash</tt>)</span>
+        <span class='type'>(<tt>Hash&lt;String, Object&gt;</tt>)</span>
       
       
       
@@ -521,7 +677,7 @@
         <span class='name'>options</span>
       
       
-        <span class='type'>(<tt>Hash</tt>)</span>
+        <span class='type'>(<tt>Hash&lt;Symbol, Object&gt;</tt>)</span>
       
       
       
@@ -541,13 +697,13 @@
       <pre class="lines">
 
 
-86
-87
-88
-89</pre>
+82
+83
+84
+85</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/config_builder.rb', line 86</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/config_builder.rb', line 82</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_apply_filter_overrides'>apply_filter_overrides</span><span class='lparen'>(</span><span class='id identifier rubyid_raw'>raw</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_apply_method_filters'>apply_method_filters</span><span class='lparen'>(</span><span class='id identifier rubyid_raw'>raw</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
@@ -573,7 +729,7 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines #apply_method_filters (instance visibility: private)</p>
+<p>module_function: defines #apply_method_filters (visibility: private)</p>
 </div>
   </div>
 
@@ -592,7 +748,7 @@
         <span class='name'>raw</span>
       
       
-        <span class='type'>(<tt>Hash</tt>)</span>
+        <span class='type'>(<tt>Hash&lt;String, Object&gt;</tt>)</span>
       
       
       
@@ -608,7 +764,7 @@
         <span class='name'>options</span>
       
       
-        <span class='type'>(<tt>Hash</tt>)</span>
+        <span class='type'>(<tt>Hash&lt;Symbol, Object&gt;</tt>)</span>
       
       
       
@@ -628,19 +784,121 @@
       <pre class="lines">
 
 
-97
-98
-99
-100
-101</pre>
+104
+105
+106
+107
+108</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/config_builder.rb', line 97</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/config_builder.rb', line 104</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_apply_method_filters'>apply_method_filters</span><span class='lparen'>(</span><span class='id identifier rubyid_raw'>raw</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_raw'>raw</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>filter</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_raw'>raw</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>filter</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>include</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>Array</span><span class='lparen'>(</span><span class='id identifier rubyid_raw'>raw</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>filter</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>include</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='op'>+</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:include</span><span class='rbracket'>]</span>
   <span class='id identifier rubyid_raw'>raw</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>filter</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>exclude</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>Array</span><span class='lparen'>(</span><span class='id identifier rubyid_raw'>raw</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>filter</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>exclude</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='op'>+</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:exclude</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="apply_output_overrides-class_method">
+  
+    .<strong>apply_output_overrides</strong>(raw, options)  &#x21d2; <tt>void</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+  <div class="note notetag">
+    <strong>Note:</strong>
+    <div class='inline'>
+<p>module_function: defines #apply_output_overrides (visibility: private)</p>
+</div>
+  </div>
+
+<p class="note returns_void">This method returns an undefined value.</p>
+<p>Apply output-related CLI overrides to the raw config.</p>
+
+<p>Currently handles:</p>
+<ul><li>
+<p>‘keep_descriptions` -&gt; <a href="&#39;keep_descriptions&#39;">raw</a></p>
+</li><li>
+<p>‘no_boilerplate` -&gt; <a href="&#39;emit&#39;">raw</a>[’include_default_message’] and <a href="&#39;emit&#39;">raw</a>[‘include_param_documentation’] = false</p>
+</li></ul>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>raw</span>
+      
+      
+        <span class='type'>(<tt>Hash&lt;String, Object&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>raw config hash</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash&lt;Symbol, Object&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>parsed CLI options</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+204
+205
+206
+207
+208
+209
+210
+211</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/config_builder.rb', line 204</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_apply_output_overrides'>apply_output_overrides</span><span class='lparen'>(</span><span class='id identifier rubyid_raw'>raw</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:keep_descriptions</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:no_boilerplate</span><span class='rbracket'>]</span>
+
+  <span class='id identifier rubyid_raw'>raw</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>keep_descriptions</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='kw'>true</span> <span class='kw'>if</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:keep_descriptions</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_raw'>raw</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>emit</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+  <span class='id identifier rubyid_raw'>raw</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>emit</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>include_default_message</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='kw'>false</span> <span class='kw'>if</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:no_boilerplate</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_raw'>raw</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>emit</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>include_param_documentation</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='kw'>false</span> <span class='kw'>if</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:no_boilerplate</span><span class='rbracket'>]</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -662,7 +920,7 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines #apply_rbs_collection (instance visibility: private)</p>
+<p>module_function: defines #apply_rbs_collection (visibility: private)</p>
 </div>
   </div>
 
@@ -681,7 +939,7 @@
         <span class='name'>raw</span>
       
       
-        <span class='type'>(<tt>Hash</tt>)</span>
+        <span class='type'>(<tt>Hash&lt;String, Object&gt;</tt>)</span>
       
       
       
@@ -701,19 +959,19 @@
       <pre class="lines">
 
 
-137
-138
-139
-140
-141
-142
-143
-144
-145
-146</pre>
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/config_builder.rb', line 137</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/config_builder.rb', line 159</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_apply_rbs_collection'>apply_rbs_collection</span><span class='lparen'>(</span><span class='id identifier rubyid_raw'>raw</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>docscribe/types/rbs/collection_loader</span><span class='tstring_end'>&#39;</span></span>
@@ -721,7 +979,7 @@
   <span class='kw'>if</span> <span class='id identifier rubyid_collection_path'>collection_path</span>
     <span class='id identifier rubyid_raw'>raw</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>rbs</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>collection_dirs</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>Array</span><span class='lparen'>(</span><span class='id identifier rubyid_raw'>raw</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>rbs</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>collection_dirs</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='op'>+</span> <span class='lbracket'>[</span><span class='id identifier rubyid_collection_path'>collection_path</span><span class='rbracket'>]</span>
   <span class='kw'>else</span>
-    <span class='id identifier rubyid_warn'>warn</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Docscribe: rbs_collection.lock.yaml not found or collection not installed. </span><span class='tstring_end'>&#39;</span></span> \
+    <span class='id identifier rubyid_warn'>warn</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Docscribe: rbs_collection.lock.yaml not found. </span><span class='tstring_end'>&#39;</span></span> \
          <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Run `bundle exec rbs collection install` first.</span><span class='tstring_end'>&#39;</span></span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
@@ -745,7 +1003,7 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines # (instance visibility: private)</p>
+<p>module_function: defines #apply_rbs_overrides (visibility: private)</p>
 </div>
   </div>
 
@@ -764,7 +1022,7 @@
         <span class='name'>raw</span>
       
       
-        <span class='type'>(<tt>Hash</tt>)</span>
+        <span class='type'>(<tt>Hash&lt;String, Object&gt;</tt>)</span>
       
       
       
@@ -780,7 +1038,7 @@
         <span class='name'>options</span>
       
       
-        <span class='type'>(<tt>Hash</tt>)</span>
+        <span class='type'>(<tt>Hash&lt;Symbol, Object&gt;</tt>)</span>
       
       
       
@@ -800,18 +1058,18 @@
       <pre class="lines">
 
 
-122
-123
-124
-125
-126
-127
-128
-129
-130</pre>
+134
+135
+136
+137
+138
+139
+140
+141
+142</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/config_builder.rb', line 122</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/config_builder.rb', line 134</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_apply_rbs_overrides'>apply_rbs_overrides</span><span class='lparen'>(</span><span class='id identifier rubyid_raw'>raw</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_raw'>raw</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>rbs</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
@@ -842,7 +1100,7 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines # (instance visibility: private)</p>
+<p>module_function: defines #apply_sorbet_overrides (visibility: private)</p>
 </div>
   </div>
 
@@ -861,7 +1119,7 @@
         <span class='name'>raw</span>
       
       
-        <span class='type'>(<tt>Hash</tt>)</span>
+        <span class='type'>(<tt>Hash&lt;String, Object&gt;</tt>)</span>
       
       
       
@@ -877,7 +1135,7 @@
         <span class='name'>options</span>
       
       
-        <span class='type'>(<tt>Hash</tt>)</span>
+        <span class='type'>(<tt>Hash&lt;Symbol, Object&gt;</tt>)</span>
       
       
       
@@ -897,16 +1155,16 @@
       <pre class="lines">
 
 
-155
-156
-157
-158
-159
-160
-161</pre>
+176
+177
+178
+179
+180
+181
+182</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/config_builder.rb', line 155</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/config_builder.rb', line 176</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_apply_sorbet_overrides'>apply_sorbet_overrides</span><span class='lparen'>(</span><span class='id identifier rubyid_raw'>raw</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_raw'>raw</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>sorbet</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
@@ -914,6 +1172,91 @@
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:rbi_dirs</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_any?'>any?</span>
 
   <span class='id identifier rubyid_raw'>raw</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>sorbet</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>rbi_dirs</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>Array</span><span class='lparen'>(</span><span class='id identifier rubyid_raw'>raw</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>sorbet</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>rbi_dirs</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='op'>+</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:rbi_dirs</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="apply_validation_overrides-class_method">
+  
+    .<strong>apply_validation_overrides</strong>(raw, options)  &#x21d2; <tt>void</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+  <div class="note notetag">
+    <strong>Note:</strong>
+    <div class='inline'>
+<p>module_function: defines #apply_validation_overrides (visibility: private)</p>
+</div>
+  </div>
+
+<p class="note returns_void">This method returns an undefined value.</p>
+<p>Apply validation-related CLI overrides to the raw config.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>raw</span>
+      
+      
+        <span class='type'>(<tt>Hash&lt;String, Object&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>raw config hash</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash&lt;Symbol, Object&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>parsed CLI options</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+228
+229
+230</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/config_builder.rb', line 228</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_apply_validation_overrides'>apply_validation_overrides</span><span class='lparen'>(</span><span class='id identifier rubyid_raw'>raw</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_raw'>raw</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>validate_types</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:validate_types</span><span class='rbracket'>]</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -935,7 +1278,7 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines #build (instance visibility: private)</p>
+<p>module_function: defines #build (visibility: private)</p>
 </div>
   </div>
 
@@ -981,7 +1324,7 @@
         <span class='name'>options</span>
       
       
-        <span class='type'>(<tt>Hash</tt>)</span>
+        <span class='type'>(<tt>Hash&lt;Symbol, Object&gt;</tt>)</span>
       
       
       
@@ -1027,19 +1370,27 @@
 29
 30
 31
-32</pre>
+32
+33
+34
+35
+36</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/docscribe/cli/config_builder.rb', line 24</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_build'>build</span><span class='lparen'>(</span><span class='id identifier rubyid_base'>base</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
-  <span class='kw'>return</span> <span class='id identifier rubyid_base'>base</span> <span class='kw'>unless</span> <span class='id identifier rubyid_needs_override?'>needs_override?</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_warn_and_return_base'>warn_and_return_base</span><span class='lparen'>(</span><span class='id identifier rubyid_base'>base</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_needs_override?'>needs_override?</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
 
   <span class='id identifier rubyid_raw'>raw</span> <span class='op'>=</span> <span class='const'>Marshal</span><span class='period'>.</span><span class='id identifier rubyid_load'>load</span><span class='lparen'>(</span><span class='const'>Marshal</span><span class='period'>.</span><span class='id identifier rubyid_dump'>dump</span><span class='lparen'>(</span><span class='id identifier rubyid_base'>base</span><span class='period'>.</span><span class='id identifier rubyid_raw'>raw</span><span class='rparen'>)</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_apply_filter_overrides'>apply_filter_overrides</span><span class='lparen'>(</span><span class='id identifier rubyid_raw'>raw</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_apply_rbs_overrides'>apply_rbs_overrides</span><span class='lparen'>(</span><span class='id identifier rubyid_raw'>raw</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:rbs</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:rbs_collection</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:sig_dirs</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_any?'>any?</span>
-  <span class='id identifier rubyid_apply_sorbet_overrides'>apply_sorbet_overrides</span><span class='lparen'>(</span><span class='id identifier rubyid_raw'>raw</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:sorbet</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:rbi_dirs</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_any?'>any?</span>
-  <span class='const'><span class='object_link'><a href="../../Docscribe.html" title="Docscribe (module)">Docscribe</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Config.html" title="Docscribe::Config (class)">Config</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../Config.html#initialize-instance_method" title="Docscribe::Config#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_raw'>raw</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_apply_rbs_overrides'>apply_rbs_overrides</span><span class='lparen'>(</span><span class='id identifier rubyid_raw'>raw</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_rbs_overrides?'>rbs_overrides?</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_apply_sorbet_overrides'>apply_sorbet_overrides</span><span class='lparen'>(</span><span class='id identifier rubyid_raw'>raw</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_sorbet_overrides?'>sorbet_overrides?</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_apply_output_overrides'>apply_output_overrides</span><span class='lparen'>(</span><span class='id identifier rubyid_raw'>raw</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_apply_validation_overrides'>apply_validation_overrides</span><span class='lparen'>(</span><span class='id identifier rubyid_raw'>raw</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_validation_overrides?'>validation_overrides?</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_conf'>conf</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Docscribe.html" title="Docscribe (module)">Docscribe</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Config.html" title="Docscribe::Config (class)">Config</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../Config.html#initialize-instance_method" title="Docscribe::Config#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>config_path:</span> <span class='id identifier rubyid_base'>base</span><span class='period'>.</span><span class='id identifier rubyid_config_path'>config_path</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_raw'>raw</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_warn_missing_rbs_collection'>warn_missing_rbs_collection</span><span class='lparen'>(</span><span class='id identifier rubyid_conf'>conf</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_conf'>conf</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1061,7 +1412,7 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines #filter_overrides? (instance visibility: private)</p>
+<p>module_function: defines #filter_overrides? (visibility: private)</p>
 </div>
   </div>
 
@@ -1080,7 +1431,7 @@
         <span class='name'>options</span>
       
       
-        <span class='type'>(<tt>Hash</tt>)</span>
+        <span class='type'>(<tt>Hash&lt;Symbol, Object&gt;</tt>)</span>
       
       
       
@@ -1113,15 +1464,15 @@
       <pre class="lines">
 
 
-51
-52
-53
-54
-55
-56</pre>
+69
+70
+71
+72
+73
+74</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/config_builder.rb', line 51</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/config_builder.rb', line 69</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_filter_overrides?'>filter_overrides?</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:include</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_any?'>any?</span> <span class='op'>||</span>
@@ -1149,7 +1500,7 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines # (instance visibility: private)</p>
+<p>module_function: defines #needs_override? (visibility: private)</p>
 </div>
   </div>
 
@@ -1168,7 +1519,7 @@
         <span class='name'>options</span>
       
       
-        <span class='type'>(<tt>Hash</tt>)</span>
+        <span class='type'>(<tt>Hash&lt;Symbol, Object&gt;</tt>)</span>
       
       
       
@@ -1201,19 +1552,105 @@
       <pre class="lines">
 
 
-40
-41
-42
 43
-44</pre>
+44
+45
+46
+47
+48
+49</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/config_builder.rb', line 40</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/config_builder.rb', line 43</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_needs_override?'>needs_override?</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_filter_overrides?'>filter_overrides?</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span> <span class='op'>||</span>
     <span class='id identifier rubyid_rbs_overrides?'>rbs_overrides?</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span> <span class='op'>||</span>
-    <span class='id identifier rubyid_sorbet_overrides?'>sorbet_overrides?</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_sorbet_overrides?'>sorbet_overrides?</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span> <span class='op'>||</span>
+    <span class='id identifier rubyid_output_overrides?'>output_overrides?</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span> <span class='op'>||</span>
+    <span class='id identifier rubyid_validation_overrides?'>validation_overrides?</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="output_overrides?-class_method">
+  
+    .<strong>output_overrides?</strong>(options)  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+  <div class="note notetag">
+    <strong>Note:</strong>
+    <div class='inline'>
+<p>module_function: defines #output_overrides? (visibility: private)</p>
+</div>
+  </div>
+
+
+<p>Whether any output-related CLI options were provided.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash&lt;Symbol, Object&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>parsed CLI options</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+189
+190
+191</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/config_builder.rb', line 189</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_output_overrides?'>output_overrides?</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='op'>!</span><span class='op'>!</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:keep_descriptions</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='op'>!</span><span class='op'>!</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:no_boilerplate</span><span class='rbracket'>]</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1235,7 +1672,7 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines #rbs_overrides? (instance visibility: private)</p>
+<p>module_function: defines #rbs_overrides? (visibility: private)</p>
 </div>
   </div>
 
@@ -1254,7 +1691,7 @@
         <span class='name'>options</span>
       
       
-        <span class='type'>(<tt>Hash</tt>)</span>
+        <span class='type'>(<tt>Hash&lt;Symbol, Object&gt;</tt>)</span>
       
       
       
@@ -1287,14 +1724,14 @@
       <pre class="lines">
 
 
-63
-64
-65
-66
-67</pre>
+92
+93
+94
+95
+96</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/config_builder.rb', line 63</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/config_builder.rb', line 92</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_rbs_overrides?'>rbs_overrides?</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:rbs</span><span class='rbracket'>]</span> <span class='op'>||</span>
@@ -1321,7 +1758,7 @@
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
-<p>module_function: when included, also defines #sorbet_overrides? (instance visibility: private)</p>
+<p>module_function: defines #sorbet_overrides? (visibility: private)</p>
 </div>
   </div>
 
@@ -1340,7 +1777,7 @@
         <span class='name'>options</span>
       
       
-        <span class='type'>(<tt>Hash</tt>)</span>
+        <span class='type'>(<tt>Hash&lt;Symbol, Object&gt;</tt>)</span>
       
       
       
@@ -1373,17 +1810,307 @@
       <pre class="lines">
 
 
-74
-75
-76
-77</pre>
+149
+150
+151
+152</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/config_builder.rb', line 74</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/config_builder.rb', line 149</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_sorbet_overrides?'>sorbet_overrides?</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:sorbet</span><span class='rbracket'>]</span> <span class='op'>||</span>
     <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:rbi_dirs</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_any?'>any?</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="validation_overrides?-class_method">
+  
+    .<strong>validation_overrides?</strong>(options)  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+  <div class="note notetag">
+    <strong>Note:</strong>
+    <div class='inline'>
+<p>module_function: defines #validation_overrides? (visibility: private)</p>
+</div>
+  </div>
+
+
+<p>Whether any validation-related CLI options were provided.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash&lt;Symbol, Object&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>parsed CLI options</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+218
+219
+220</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/config_builder.rb', line 218</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_validation_overrides?'>validation_overrides?</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='op'>!</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:validate_types</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="warn_and_return_base-class_method">
+  
+    .<strong>warn_and_return_base</strong>(base, options)  &#x21d2; <tt><span class='object_link'><a href="../Config.html" title="Docscribe::Config (class)">Docscribe::Config</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+  <div class="note notetag">
+    <strong>Note:</strong>
+    <div class='inline'>
+<p>module_function: defines #warn_and_return_base (visibility: private)</p>
+</div>
+  </div>
+
+
+<p>Warn about a missing collection opt-in and return the base config unchanged.</p>
+
+<p>Used when no CLI override is present so the nudge still fires on plain runs.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>base</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Config.html" title="Docscribe::Config (class)">Docscribe::Config</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>base config loaded from YAML/defaults</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash&lt;Symbol, Object&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>parsed CLI options</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Config.html" title="Docscribe::Config (class)">Docscribe::Config</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>base config unchanged</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+59
+60
+61
+62</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/config_builder.rb', line 59</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_warn_and_return_base'>warn_and_return_base</span><span class='lparen'>(</span><span class='id identifier rubyid_base'>base</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_warn_missing_rbs_collection'>warn_missing_rbs_collection</span><span class='lparen'>(</span><span class='id identifier rubyid_base'>base</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_base'>base</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="warn_missing_rbs_collection-class_method">
+  
+    .<strong>warn_missing_rbs_collection</strong>(conf, options)  &#x21d2; <tt>void</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+  <div class="note notetag">
+    <strong>Note:</strong>
+    <div class='inline'>
+<p>module_function: defines #warn_missing_rbs_collection (visibility: private)</p>
+</div>
+  </div>
+
+<p class="note returns_void">This method returns an undefined value.</p>
+<p>Warn when rbs_collection.lock.yaml exists but –rbs-collection was not passed.</p>
+
+<p>The warning can be suppressed by setting ‘rbs.warn_missing_collection: false` in the project’s ‘docscribe.yml`.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>conf</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Config.html" title="Docscribe::Config (class)">Docscribe::Config</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>effective config</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash&lt;Symbol, Object&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>parsed CLI options</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/cli/config_builder.rb', line 241</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_warn_missing_rbs_collection'>warn_missing_rbs_collection</span><span class='lparen'>(</span><span class='id identifier rubyid_conf'>conf</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:rbs_collection</span><span class='rbracket'>]</span>
+  <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_conf'>conf</span><span class='period'>.</span><span class='id identifier rubyid_raw'>raw</span><span class='period'>.</span><span class='id identifier rubyid_dig'>dig</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>rbs</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>collection</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_conf'>conf</span><span class='period'>.</span><span class='id identifier rubyid_rbs_warn_missing_collection?'>rbs_warn_missing_collection?</span>
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_exist?'>exist?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>rbs_collection.lock.yaml</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_warn'>warn</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Docscribe: rbs_collection.lock.yaml found but --rbs-collection not set. </span><span class='tstring_end'>&#39;</span></span> \
+       <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Pass --rbs-collection or set `rbs.collection: true` in docscribe.yml to enable RBS collection. </span><span class='tstring_end'>&#39;</span></span> \
+       <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Set `rbs.warn_missing_collection: false` to suppress this warning.</span><span class='tstring_end'>&#39;</span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1395,7 +2122,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Jun 13 01:27:04 2026 by
+  Generated on Sun Oct  4 00:19:54 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.38 (ruby-3.4.5).
 </div>

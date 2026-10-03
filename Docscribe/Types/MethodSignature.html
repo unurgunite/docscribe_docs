@@ -101,18 +101,7 @@
   
 </div>
 
-<h2>Overview</h2><div class="docstring">
-  <div class="discussion">
-    
-<p>Simplified view of an RBS method signature for Docscribe.</p>
 
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div>
 
 
 
@@ -122,7 +111,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#param_types-instance_method" title="#param_types (instance method)">#<strong>param_types</strong>  &#x21d2; Object </a>
+      <a href="#overloads-instance_method" title="#overloads (instance method)">#<strong>overloads</strong>  &#x21d2; Array&lt;Docscribe::Types::MethodSignature&gt;<sup>?</sup> </a>
     
 
     
@@ -147,7 +136,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#rest_keywords-instance_method" title="#rest_keywords (instance method)">#<strong>rest_keywords</strong>  &#x21d2; Object </a>
+      <a href="#param_types-instance_method" title="#param_types (instance method)">#<strong>param_types</strong>  &#x21d2; Hash&lt;String, String&gt; </a>
     
 
     
@@ -172,7 +161,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#rest_positional-instance_method" title="#rest_positional (instance method)">#<strong>rest_positional</strong>  &#x21d2; Object </a>
+      <a href="#positional_types-instance_method" title="#positional_types (instance method)">#<strong>positional_types</strong>  &#x21d2; Array&lt;String&gt; </a>
     
 
     
@@ -197,7 +186,57 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#return_type-instance_method" title="#return_type (instance method)">#<strong>return_type</strong>  &#x21d2; Object </a>
+      <a href="#rest_keywords-instance_method" title="#rest_keywords (instance method)">#<strong>rest_keywords</strong>  &#x21d2; Docscribe::Types::RestKeywords<sup>?</sup> </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#rest_positional-instance_method" title="#rest_positional (instance method)">#<strong>rest_positional</strong>  &#x21d2; Docscribe::Types::RestPositional<sup>?</sup> </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#return_type-instance_method" title="#return_type (instance method)">#<strong>return_type</strong>  &#x21d2; String </a>
     
 
     
@@ -230,11 +269,11 @@
     <h2>Instance Attribute Details</h2>
     
       
-      <span id="param_types=-instance_method"></span>
+      <span id="overloads=-instance_method"></span>
       <div class="method_details first">
-  <h3 class="signature first" id="param_types-instance_method">
+  <h3 class="signature first" id="overloads-instance_method">
   
-    #<strong>param_types</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>overloads</strong>  &#x21d2; <tt>Array&lt;<span class='object_link'><a href="" title="Docscribe::Types::MethodSignature (class)">Docscribe::Types::MethodSignature</a></span>&gt;</tt><sup>?</sup> 
   
 
   
@@ -255,7 +294,7 @@
         <span class='name'>value</span>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>Array&lt;<span class='object_link'><a href="" title="Docscribe::Types::MethodSignature (class)">Docscribe::Types::MethodSignature</a></span>&gt;</tt>, <tt>nil</tt>)</span>
       
       
       
@@ -269,7 +308,7 @@
     <li>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>Array&lt;<span class='object_link'><a href="" title="Docscribe::Types::MethodSignature (class)">Docscribe::Types::MethodSignature</a></span>&gt;</tt>, <tt>nil</tt>)</span>
       
       
       
@@ -283,12 +322,154 @@
       <pre class="lines">
 
 
-31</pre>
+28
+29
+30</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/types/signature.rb', line 31</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/types/signature.rb', line 28</span>
 
-<span class='const'><span class='object_link'><a href="" title="Docscribe::Types::MethodSignature (class)">MethodSignature</a></span></span> <span class='op'>=</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:return_type</span><span class='comma'>,</span> <span class='symbol'>:param_types</span><span class='comma'>,</span> <span class='symbol'>:rest_positional</span><span class='comma'>,</span> <span class='symbol'>:rest_keywords</span><span class='comma'>,</span> <span class='label'>keyword_init:</span> <span class='kw'>true</span><span class='rparen'>)</span></pre>
+<span class='const'><span class='object_link'><a href="" title="Docscribe::Types::MethodSignature (class)">MethodSignature</a></span></span> <span class='op'>=</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:return_type</span><span class='comma'>,</span> <span class='symbol'>:param_types</span><span class='comma'>,</span> <span class='symbol'>:positional_types</span><span class='comma'>,</span> <span class='symbol'>:rest_positional</span><span class='comma'>,</span> <span class='symbol'>:rest_keywords</span><span class='comma'>,</span>
+<span class='symbol'>:overloads</span><span class='comma'>,</span>
+<span class='label'>keyword_init:</span> <span class='kw'>true</span><span class='rparen'>)</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="param_types=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="param_types-instance_method">
+  
+    #<strong>param_types</strong>  &#x21d2; <tt>Hash&lt;String, String&gt;</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>value</span>
+      
+      
+        <span class='type'>(<tt>Hash&lt;String, String&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Hash&lt;String, String&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+28
+29
+30</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/types/signature.rb', line 28</span>
+
+<span class='const'><span class='object_link'><a href="" title="Docscribe::Types::MethodSignature (class)">MethodSignature</a></span></span> <span class='op'>=</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:return_type</span><span class='comma'>,</span> <span class='symbol'>:param_types</span><span class='comma'>,</span> <span class='symbol'>:positional_types</span><span class='comma'>,</span> <span class='symbol'>:rest_positional</span><span class='comma'>,</span> <span class='symbol'>:rest_keywords</span><span class='comma'>,</span>
+<span class='symbol'>:overloads</span><span class='comma'>,</span>
+<span class='label'>keyword_init:</span> <span class='kw'>true</span><span class='rparen'>)</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="positional_types=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="positional_types-instance_method">
+  
+    #<strong>positional_types</strong>  &#x21d2; <tt>Array&lt;String&gt;</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>value</span>
+      
+      
+        <span class='type'>(<tt>Array&lt;String&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array&lt;String&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+28
+29
+30</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/types/signature.rb', line 28</span>
+
+<span class='const'><span class='object_link'><a href="" title="Docscribe::Types::MethodSignature (class)">MethodSignature</a></span></span> <span class='op'>=</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:return_type</span><span class='comma'>,</span> <span class='symbol'>:param_types</span><span class='comma'>,</span> <span class='symbol'>:positional_types</span><span class='comma'>,</span> <span class='symbol'>:rest_positional</span><span class='comma'>,</span> <span class='symbol'>:rest_keywords</span><span class='comma'>,</span>
+<span class='symbol'>:overloads</span><span class='comma'>,</span>
+<span class='label'>keyword_init:</span> <span class='kw'>true</span><span class='rparen'>)</span></pre>
     </td>
   </tr>
 </table>
@@ -299,7 +480,7 @@
       <div class="method_details ">
   <h3 class="signature " id="rest_keywords-instance_method">
   
-    #<strong>rest_keywords</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>rest_keywords</strong>  &#x21d2; <tt><span class='object_link'><a href="RestKeywords.html" title="Docscribe::Types::RestKeywords (class)">Docscribe::Types::RestKeywords</a></span></tt><sup>?</sup> 
   
 
   
@@ -320,7 +501,7 @@
         <span class='name'>value</span>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="RestKeywords.html" title="Docscribe::Types::RestKeywords (class)">Docscribe::Types::RestKeywords</a></span></tt>, <tt>nil</tt>)</span>
       
       
       
@@ -334,7 +515,7 @@
     <li>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="RestKeywords.html" title="Docscribe::Types::RestKeywords (class)">Docscribe::Types::RestKeywords</a></span></tt>, <tt>nil</tt>)</span>
       
       
       
@@ -348,12 +529,16 @@
       <pre class="lines">
 
 
-31</pre>
+28
+29
+30</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/types/signature.rb', line 31</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/types/signature.rb', line 28</span>
 
-<span class='const'><span class='object_link'><a href="" title="Docscribe::Types::MethodSignature (class)">MethodSignature</a></span></span> <span class='op'>=</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:return_type</span><span class='comma'>,</span> <span class='symbol'>:param_types</span><span class='comma'>,</span> <span class='symbol'>:rest_positional</span><span class='comma'>,</span> <span class='symbol'>:rest_keywords</span><span class='comma'>,</span> <span class='label'>keyword_init:</span> <span class='kw'>true</span><span class='rparen'>)</span></pre>
+<span class='const'><span class='object_link'><a href="" title="Docscribe::Types::MethodSignature (class)">MethodSignature</a></span></span> <span class='op'>=</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:return_type</span><span class='comma'>,</span> <span class='symbol'>:param_types</span><span class='comma'>,</span> <span class='symbol'>:positional_types</span><span class='comma'>,</span> <span class='symbol'>:rest_positional</span><span class='comma'>,</span> <span class='symbol'>:rest_keywords</span><span class='comma'>,</span>
+<span class='symbol'>:overloads</span><span class='comma'>,</span>
+<span class='label'>keyword_init:</span> <span class='kw'>true</span><span class='rparen'>)</span></pre>
     </td>
   </tr>
 </table>
@@ -364,7 +549,7 @@
       <div class="method_details ">
   <h3 class="signature " id="rest_positional-instance_method">
   
-    #<strong>rest_positional</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>rest_positional</strong>  &#x21d2; <tt><span class='object_link'><a href="RestPositional.html" title="Docscribe::Types::RestPositional (class)">Docscribe::Types::RestPositional</a></span></tt><sup>?</sup> 
   
 
   
@@ -385,7 +570,7 @@
         <span class='name'>value</span>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="RestPositional.html" title="Docscribe::Types::RestPositional (class)">Docscribe::Types::RestPositional</a></span></tt>, <tt>nil</tt>)</span>
       
       
       
@@ -399,7 +584,7 @@
     <li>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="RestPositional.html" title="Docscribe::Types::RestPositional (class)">Docscribe::Types::RestPositional</a></span></tt>, <tt>nil</tt>)</span>
       
       
       
@@ -413,12 +598,16 @@
       <pre class="lines">
 
 
-31</pre>
+28
+29
+30</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/types/signature.rb', line 31</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/types/signature.rb', line 28</span>
 
-<span class='const'><span class='object_link'><a href="" title="Docscribe::Types::MethodSignature (class)">MethodSignature</a></span></span> <span class='op'>=</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:return_type</span><span class='comma'>,</span> <span class='symbol'>:param_types</span><span class='comma'>,</span> <span class='symbol'>:rest_positional</span><span class='comma'>,</span> <span class='symbol'>:rest_keywords</span><span class='comma'>,</span> <span class='label'>keyword_init:</span> <span class='kw'>true</span><span class='rparen'>)</span></pre>
+<span class='const'><span class='object_link'><a href="" title="Docscribe::Types::MethodSignature (class)">MethodSignature</a></span></span> <span class='op'>=</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:return_type</span><span class='comma'>,</span> <span class='symbol'>:param_types</span><span class='comma'>,</span> <span class='symbol'>:positional_types</span><span class='comma'>,</span> <span class='symbol'>:rest_positional</span><span class='comma'>,</span> <span class='symbol'>:rest_keywords</span><span class='comma'>,</span>
+<span class='symbol'>:overloads</span><span class='comma'>,</span>
+<span class='label'>keyword_init:</span> <span class='kw'>true</span><span class='rparen'>)</span></pre>
     </td>
   </tr>
 </table>
@@ -429,7 +618,7 @@
       <div class="method_details ">
   <h3 class="signature " id="return_type-instance_method">
   
-    #<strong>return_type</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>return_type</strong>  &#x21d2; <tt>String</tt> 
   
 
   
@@ -450,7 +639,7 @@
         <span class='name'>value</span>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>String</tt>)</span>
       
       
       
@@ -464,7 +653,7 @@
     <li>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>String</tt>)</span>
       
       
       
@@ -478,12 +667,16 @@
       <pre class="lines">
 
 
-31</pre>
+28
+29
+30</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/types/signature.rb', line 31</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/types/signature.rb', line 28</span>
 
-<span class='const'><span class='object_link'><a href="" title="Docscribe::Types::MethodSignature (class)">MethodSignature</a></span></span> <span class='op'>=</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:return_type</span><span class='comma'>,</span> <span class='symbol'>:param_types</span><span class='comma'>,</span> <span class='symbol'>:rest_positional</span><span class='comma'>,</span> <span class='symbol'>:rest_keywords</span><span class='comma'>,</span> <span class='label'>keyword_init:</span> <span class='kw'>true</span><span class='rparen'>)</span></pre>
+<span class='const'><span class='object_link'><a href="" title="Docscribe::Types::MethodSignature (class)">MethodSignature</a></span></span> <span class='op'>=</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:return_type</span><span class='comma'>,</span> <span class='symbol'>:param_types</span><span class='comma'>,</span> <span class='symbol'>:positional_types</span><span class='comma'>,</span> <span class='symbol'>:rest_positional</span><span class='comma'>,</span> <span class='symbol'>:rest_keywords</span><span class='comma'>,</span>
+<span class='symbol'>:overloads</span><span class='comma'>,</span>
+<span class='label'>keyword_init:</span> <span class='kw'>true</span><span class='rparen'>)</span></pre>
     </td>
   </tr>
 </table>
@@ -495,7 +688,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Jun 13 01:27:04 2026 by
+  Generated on Sun Oct  4 00:19:55 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.38 (ruby-3.4.5).
 </div>

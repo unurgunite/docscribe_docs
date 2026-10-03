@@ -101,20 +101,7 @@
   
 </div>
 
-<h2>Overview</h2><div class="docstring">
-  <div class="discussion">
-    
-<p>Snapshot of everything known about a method at doc-generation time.</p>
 
-<p>Passed to every registered TagPlugin. Read-only — plugins must not mutate the context.</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div>
 
 
 
@@ -141,9 +128,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>E.g.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -151,7 +136,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#inferred_params-instance_method" title="#inferred_params (instance method)">#<strong>inferred_params</strong>  &#x21d2; Hash{String =&gt; String} </a>
+      <a href="#inferred_params-instance_method" title="#inferred_params (instance method)">#<strong>inferred_params</strong>  &#x21d2; Hash&lt;String, String&gt; </a>
     
 
     
@@ -168,9 +153,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Name =&gt; inferred type.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -195,9 +178,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Inferred return type.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -247,9 +228,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>The :def or :defs AST node.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -274,9 +253,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>:instance or :class.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -301,9 +278,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Raw method source text.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -328,9 +303,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>:public, :protected, or :private.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -359,13 +332,26 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Returns e.g. “MyModule::MyClass” or “Object” for top-level.</p>
-
 
   </div>
 </div>
 <div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
   
+    <li>
+      
+        <span class='name'>value</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
 <p class="tag_title">Returns:</p>
 <ul class="return">
   
@@ -375,11 +361,6 @@
         <span class='type'>(<tt>String</tt>)</span>
       
       
-      
-        &mdash;
-        <div class='inline'>
-<p>e.g. “MyModule::MyClass” or “Object” for top-level</p>
-</div>
       
     </li>
   
@@ -391,20 +372,20 @@
       <pre class="lines">
 
 
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36</pre>
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/plugin/context.rb', line 26</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/plugin/context.rb', line 36</span>
 
 <span class='const'><span class='object_link'><a href="" title="Docscribe::Plugin::Context (class)">Context</a></span></span> <span class='op'>=</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span>
   <span class='symbol'>:node</span><span class='comma'>,</span>
@@ -427,7 +408,7 @@
       <div class="method_details ">
   <h3 class="signature " id="inferred_params-instance_method">
   
-    #<strong>inferred_params</strong>  &#x21d2; <tt>Hash{String =&gt; String}</tt> 
+    #<strong>inferred_params</strong>  &#x21d2; <tt>Hash&lt;String, String&gt;</tt> 
   
 
   
@@ -436,27 +417,35 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Returns name =&gt; inferred type.</p>
-
 
   </div>
 </div>
 <div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
   
+    <li>
+      
+        <span class='name'>value</span>
+      
+      
+        <span class='type'>(<tt>Hash&lt;String, String&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
 <p class="tag_title">Returns:</p>
 <ul class="return">
   
     <li>
       
       
-        <span class='type'>(<tt>Hash{String =&gt; String}</tt>)</span>
+        <span class='type'>(<tt>Hash&lt;String, String&gt;</tt>)</span>
       
       
-      
-        &mdash;
-        <div class='inline'>
-<p>name =&gt; inferred type</p>
-</div>
       
     </li>
   
@@ -468,20 +457,20 @@
       <pre class="lines">
 
 
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36</pre>
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/plugin/context.rb', line 26</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/plugin/context.rb', line 36</span>
 
 <span class='const'><span class='object_link'><a href="" title="Docscribe::Plugin::Context (class)">Context</a></span></span> <span class='op'>=</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span>
   <span class='symbol'>:node</span><span class='comma'>,</span>
@@ -513,13 +502,26 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Returns inferred return type.</p>
-
 
   </div>
 </div>
 <div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
   
+    <li>
+      
+        <span class='name'>value</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
 <p class="tag_title">Returns:</p>
 <ul class="return">
   
@@ -529,11 +531,6 @@
         <span class='type'>(<tt>String</tt>)</span>
       
       
-      
-        &mdash;
-        <div class='inline'>
-<p>inferred return type</p>
-</div>
       
     </li>
   
@@ -545,20 +542,20 @@
       <pre class="lines">
 
 
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36</pre>
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/plugin/context.rb', line 26</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/plugin/context.rb', line 36</span>
 
 <span class='const'><span class='object_link'><a href="" title="Docscribe::Plugin::Context (class)">Context</a></span></span> <span class='op'>=</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span>
   <span class='symbol'>:node</span><span class='comma'>,</span>
@@ -594,7 +591,22 @@
   </div>
 </div>
 <div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
   
+    <li>
+      
+        <span class='name'>value</span>
+      
+      
+        <span class='type'>(<tt>Symbol</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
 <p class="tag_title">Returns:</p>
 <ul class="return">
   
@@ -615,20 +627,20 @@
       <pre class="lines">
 
 
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36</pre>
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/plugin/context.rb', line 26</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/plugin/context.rb', line 36</span>
 
 <span class='const'><span class='object_link'><a href="" title="Docscribe::Plugin::Context (class)">Context</a></span></span> <span class='op'>=</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span>
   <span class='symbol'>:node</span><span class='comma'>,</span>
@@ -660,13 +672,26 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Returns the :def or :defs AST node.</p>
-
 
   </div>
 </div>
 <div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
   
+    <li>
+      
+        <span class='name'>value</span>
+      
+      
+        <span class='type'>(<tt>Parser::AST::Node</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
 <p class="tag_title">Returns:</p>
 <ul class="return">
   
@@ -676,11 +701,6 @@
         <span class='type'>(<tt>Parser::AST::Node</tt>)</span>
       
       
-      
-        &mdash;
-        <div class='inline'>
-<p>the :def or :defs AST node</p>
-</div>
       
     </li>
   
@@ -692,20 +712,20 @@
       <pre class="lines">
 
 
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36</pre>
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/plugin/context.rb', line 26</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/plugin/context.rb', line 36</span>
 
 <span class='const'><span class='object_link'><a href="" title="Docscribe::Plugin::Context (class)">Context</a></span></span> <span class='op'>=</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span>
   <span class='symbol'>:node</span><span class='comma'>,</span>
@@ -737,13 +757,26 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Returns :instance or :class.</p>
-
 
   </div>
 </div>
 <div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
   
+    <li>
+      
+        <span class='name'>value</span>
+      
+      
+        <span class='type'>(<tt>Symbol</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
 <p class="tag_title">Returns:</p>
 <ul class="return">
   
@@ -753,11 +786,6 @@
         <span class='type'>(<tt>Symbol</tt>)</span>
       
       
-      
-        &mdash;
-        <div class='inline'>
-<p>:instance or :class</p>
-</div>
       
     </li>
   
@@ -769,20 +797,20 @@
       <pre class="lines">
 
 
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36</pre>
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/plugin/context.rb', line 26</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/plugin/context.rb', line 36</span>
 
 <span class='const'><span class='object_link'><a href="" title="Docscribe::Plugin::Context (class)">Context</a></span></span> <span class='op'>=</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span>
   <span class='symbol'>:node</span><span class='comma'>,</span>
@@ -814,13 +842,26 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Returns raw method source text.</p>
-
 
   </div>
 </div>
 <div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
   
+    <li>
+      
+        <span class='name'>value</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
 <p class="tag_title">Returns:</p>
 <ul class="return">
   
@@ -830,11 +871,6 @@
         <span class='type'>(<tt>String</tt>)</span>
       
       
-      
-        &mdash;
-        <div class='inline'>
-<p>raw method source text</p>
-</div>
       
     </li>
   
@@ -846,20 +882,20 @@
       <pre class="lines">
 
 
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36</pre>
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/plugin/context.rb', line 26</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/plugin/context.rb', line 36</span>
 
 <span class='const'><span class='object_link'><a href="" title="Docscribe::Plugin::Context (class)">Context</a></span></span> <span class='op'>=</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span>
   <span class='symbol'>:node</span><span class='comma'>,</span>
@@ -891,13 +927,26 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Returns :public, :protected, or :private.</p>
-
 
   </div>
 </div>
 <div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
   
+    <li>
+      
+        <span class='name'>value</span>
+      
+      
+        <span class='type'>(<tt>Symbol</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
 <p class="tag_title">Returns:</p>
 <ul class="return">
   
@@ -907,11 +956,6 @@
         <span class='type'>(<tt>Symbol</tt>)</span>
       
       
-      
-        &mdash;
-        <div class='inline'>
-<p>:public, :protected, or :private</p>
-</div>
       
     </li>
   
@@ -923,20 +967,20 @@
       <pre class="lines">
 
 
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36</pre>
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/docscribe/plugin/context.rb', line 26</span>
+      <pre class="code"><span class="info file"># File 'lib/docscribe/plugin/context.rb', line 36</span>
 
 <span class='const'><span class='object_link'><a href="" title="Docscribe::Plugin::Context (class)">Context</a></span></span> <span class='op'>=</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span>
   <span class='symbol'>:node</span><span class='comma'>,</span>
@@ -960,7 +1004,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Jun 13 01:27:04 2026 by
+  Generated on Sun Oct  4 00:19:55 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.38 (ruby-3.4.5).
 </div>
